@@ -1,0 +1,10 @@
+Local directory
+C:\Users\aleja\Downloads\local
+--
+Shared
+C:\Users\aleja\Downloads\shared\1
+C:\Users\aleja\Downloads\shared\2 3
+
+C:\Users\aleja\Downloads\shared\2
+
+
