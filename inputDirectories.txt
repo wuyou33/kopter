@@ -1,10 +1,6 @@
 Local directory
-C:\Users\aleja\Downloads\local
+C:\Users\valverdea\Documents\BACKUP
 --
 Shared
-C:\Users\aleja\Downloads\shared\1
-C:\Users\aleja\Downloads\shared\2 3
-
-C:\Users\aleja\Downloads\shared\2
-
-
+L:\MSH\02_Development\SKYe S09\05_Flight Systems\50_Engineering\J62\J62-00 General\40_Testing\42_Bench Testing\008 - WT 3-0
+L:\MSH\02_Development\SKYe S09\05_Flight Systems\50_Engineering\J62\J62-20 Rotor Head\20_Design\21_Desing Elab\17_FlapStop
