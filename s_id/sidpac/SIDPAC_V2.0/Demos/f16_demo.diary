@@ -1,0 +1,97 @@
+f16_demo
+
+
+ F-16 Simulation Demo 
+
+ First, trim the F-16 and find a linear longitudinal 
+ model using finite differences.  
+
+ Press any key to continue ... 
+
+ CONVERGENCE CRITERIA SATISFIED 
+
+
+x0 =
+
+  5.0200e+002
+ -5.3566e-019
+  6.5442e-002
+            0
+            0
+            0
+ -8.3050e-025
+  6.5442e-002
+            0
+            0
+            0
+  1.0000e+004
+  1.2769e+001
+
+
+u0 =
+
+  1.9663e-001
+ -3.8303e+000
+  3.1991e-017
+ -2.2583e-016
+
+
+A =
+
+   -0.0171   -3.6619   -1.0969  -32.1740    0.3040
+   -0.0003   -0.7534    0.9279   -0.0000   -0.0000
+    0.0000   -4.3115   -1.2657         0         0
+         0         0    1.0000         0         0
+         0         0         0         0   -1.0000
+
+
+B =
+
+         0    0.0999
+         0   -0.0016
+         0   -0.1397
+         0         0
+   64.9400         0
+
+
+
+        Eigenvalue            Damping    Frequency (rad/sec)
+
+ -1.011e+000    1.982e+000     0.454        2.225e+000 
+ -1.011e+000   -1.982e+000     0.454        2.225e+000 
+ -7.110e-003    8.390e-002     0.084        8.420e-002 
+ -7.110e-003   -8.390e-002     0.084        8.420e-002 
+ -1.000e+000                   1.000       -1.000e+000 
+
+
+
+ The figure shows the perturbation doublet input 
+ applied to the stabilator.  Throttle is held constant. 
+
+ Press any key to continue ... 
+
+ Now integrate the linearized equations of motion, and
+ plot the responses, which are perturbation quantities. 
+
+ Press any key to continue ... 
+
+ Press any key to continue ... 
+
+ Use the same stabilator doublet input 
+ for the nonlinear simulation.  In this case, 
+ the perturbation doublet is added to the trim 
+ stabilator deflection. 
+
+ Press any key to continue ... 
+
+ The figure shows the responses from the linear model 
+ and the nonlinear simulation, plotted on the same axes. 
+
+ The linear model is an excellent representation 
+ of the aircraft longitudinal dynamics for this small 
+ perturbation stabilator input.  
+
+
+ End of demonstration 
+
+diary off
