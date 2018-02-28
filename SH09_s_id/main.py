@@ -1,3 +1,4 @@
+import os
 import numpy as np
 import matplotlib.pyplot as plt
 import control
@@ -5,6 +6,8 @@ import pdb # pdb.set_trace()
 
 from configClassModule import *
 
+#### SCRIPT
+cwd = os.getcwd()
 #Load plotting options
 plotSettings = plottingOptionsFn()
 
@@ -22,7 +25,7 @@ n_inputs = 4
 outputsList = ['q', 'p', 'r','$\phi$','$\psi$', '$\\theta$']
 outputsUnitsDict = ['[rad/s]', '[rad]']
 
-A_from_FlightLab = np.loadtxt('A_mat_from_FL_v1.txt')
+A_from_FlightLab = np.loadtxt(cwd+'\\'+'fromFlightPhysics\\FL_LTI_models\\May2017RevAA_BE_0ft_15degC_2800kg_3.37m_147.tab', skiprows = 34)
 B_from_FlightLab = np.loadtxt('B_mat_from_FL_v1.txt')
 C_from_FlightLab = np.loadtxt('C_mat_from_FL_v1.txt')
 
