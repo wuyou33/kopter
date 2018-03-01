@@ -21,8 +21,8 @@ n_inputs = 4
 # y = C x + D u
 
 # 4 input u = {lon,lat,col,ped}
-# v1 C (6x81) 81 states, 6 output y = {q,p,r,phi,psi,theta} u,v,w are missing
-# v2 C (9x81) 81 states, 9 output y = {q,p,r,phi,psi,theta,u,v,w}
+# 6 output y = {q,p,r,phi,psi,theta} u,v,w are missing
+
 inputsList = ['lon','lat','col','ped']
 outputsList = ['q', 'p', 'r','$\phi$','$\psi$', '$\\theta$']
 outputsUnitsDict = ['[rad/s]', '[rad]']
@@ -45,7 +45,7 @@ for i_input in range(n_inputs):
 	youts += [yout, ]
 
 figure, axs = plt.subplots(6, n_inputs, sharex = 'col')
-figure.set_size_inches(10, 14, forward=True)
+figure.set_size_inches(14, 12, forward=True)
 
 
 i_input = 0
