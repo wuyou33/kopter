@@ -108,7 +108,7 @@
 			"file": "versionsBackup/inputDirectories.txt",
 			"settings":
 			{
-				"buffer_size": 655,
+				"buffer_size": 665,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -423,7 +423,7 @@
 						"translation.y": 1247.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -497,15 +497,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 655,
+						"buffer_size": 665,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								655,
-								655
+								384,
+								384
 							]
 						],
 						"settings":
@@ -516,7 +516,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
@@ -798,7 +798,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 0,
+	"selected_group": 1,
 	"settings":
 	{
 	},
