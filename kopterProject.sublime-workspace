@@ -97,14 +97,6 @@
 			}
 		},
 		{
-			"file": "SH09_s_id/fromFlightPhysics/FL_LTI_models/May2017RevAA_BE_0ft_15degC_2120kg_3.50m_147.tab",
-			"settings":
-			{
-				"buffer_size": 159139,
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "versionsBackup/inputDirectories.txt",
 			"settings":
 			{
@@ -210,6 +202,7 @@
 	],
 	"file_history":
 	[
+		"/P/10_code/kopter/SH09_s_id/fromFlightPhysics/A_mat_from_FL_v1.txt",
 		"//mshzhstg/mshdata/MSH/02_Development/SKYe S09/06_Avionic/J00 Testing and FTI/SKYe test Benches/0c - Various Information/Simulator/Flight Physics/Flightlab_controller_design/yaw_manouver/FL_LTI_models/read_LTI_matrix_from_FL_3.m",
 		"/P/10_code/kopter/SH09_s_id/configClassModule.py",
 		"//mshzhstg/mshdata/MSH/02_Development/SKYe S09/06_Avionic/J00 Testing and FTI/SKYe test Benches/0c - Various Information/Simulator/Flight Physics/Flightlab_controller_design/read_LTI_matrix_from_FL.m",
@@ -429,7 +422,7 @@
 			]
 		},
 		{
-			"selected": 2,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -463,36 +456,6 @@
 				},
 				{
 					"buffer": 3,
-					"file": "SH09_s_id/fromFlightPhysics/FL_LTI_models/May2017RevAA_BE_0ft_15degC_2120kg_3.50m_147.tab",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 159139,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								617,
-								617
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
 					"file": "versionsBackup/inputDirectories.txt",
 					"semi_transient": false,
 					"settings":
@@ -520,7 +483,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 4,
 					"file": "/P/10_code/versionsBackup/cleanDirs.py",
 					"semi_transient": false,
 					"settings":
@@ -555,7 +518,7 @@
 			"sheets":
 			[
 				{
-					"buffer": 6,
+					"buffer": 5,
 					"file": "/P/10_code/abaqus-master/abaqus-master/mainBuildAndExecuteWingBox.py",
 					"semi_transient": false,
 					"settings":
@@ -580,7 +543,7 @@
 						"translation.y": 156.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 6,
 					"type": "text"
 				}
 			]
@@ -590,7 +553,7 @@
 			"sheets":
 			[
 				{
-					"buffer": 7,
+					"buffer": 6,
 					"file": "/P/10_code/abaqus-master/abaqus-master/mainAbaqusParametricStudy.py",
 					"semi_transient": false,
 					"settings":
@@ -615,11 +578,11 @@
 						"translation.y": 429.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
-					"buffer": 8,
+					"buffer": 7,
 					"file": "/P/10_code/abaqus-master/abaqus-master/mainParametricStudy.py",
 					"semi_transient": false,
 					"settings":
@@ -649,7 +612,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 9,
+					"buffer": 8,
 					"file": "/P/10_code/labs - System Identification/lab1/script.m",
 					"semi_transient": false,
 					"settings":
@@ -675,11 +638,11 @@
 						"translation.y": 273.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
-					"buffer": 10,
+					"buffer": 9,
 					"file": "/P/10_code/labs - System Identification/lab1/Lone/msd_script.m",
 					"semi_transient": false,
 					"settings":
@@ -703,7 +666,7 @@
 						"translation.y": 390.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
+					"stack_index": 9,
 					"type": "text"
 				}
 			]
