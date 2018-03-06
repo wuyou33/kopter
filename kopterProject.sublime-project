@@ -6,6 +6,12 @@
 		},
 		{
 			"path": "\\\\mshzhstg\\mshdata\\MSH\\02_Development\\SKYe S09\\06_Avionic\\J00 Testing and FTI\\SKYe test Benches\\0c - Various Information\\Simulator\\Flight Physics\\Flightlab_controller_design"
+		},
+		{
+			"path": "SH09_s_id"
+		},
+		{
+			"path": "/home/alejandro/Documents/Cranfield/Modules"
 		}
 	]
 }

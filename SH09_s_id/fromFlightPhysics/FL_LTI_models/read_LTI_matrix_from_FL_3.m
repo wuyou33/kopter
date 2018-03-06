@@ -3,7 +3,7 @@ close all
 clear all
 
 %% Flightlab model P3 May2017, rigid rotor blade (BE)
-% trim fwd flight at different airspeed (z=0ft, 15°C) and helicopter mass and horiz cg position (condition defined in the .tab file name)
+% trim fwd flight at different airspeed (z=0ft, 15ï¿½C) and helicopter mass and horiz cg position (condition defined in the .tab file name)
 
 % LTI system
 % x_dot = A x + B u
@@ -18,7 +18,7 @@ clear all
 % May2017RevAA_BE_0ft_15degC_2120kg_3.50m_151.tab
 
 %{\n%}\nFL_data_sel = input('Select data from Flightlab : \n [1] 0ft_15degC_2800kg_3.37m_90 \n [2] 0ft_15degC_2800kg_3.37m_147 \n [3] 0ft_15degC_2800kg_3.37m_151 \n [4] 0ft_15degC_2120kg_3.50m_90 \n [5] 0ft_15degC_2120kg_3.50m_147 \n [6] 0ft_15degC_2120kg_3.50m_151 \n: ');
-FL_data_sel = 5
+FL_data_sel = 1;
 
 if FL_data_sel == 1
     fname = 'May2017RevAA_BE_0ft_15degC_2800kg_3.37m_90.tab';
