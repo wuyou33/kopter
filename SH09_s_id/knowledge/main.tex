@@ -1,10 +1,38 @@
-\documentclass[11pt,a4paper,fleqn,twoside]{report}
+\documentclass[11pt,a4paper,fleqn,twoside]{article}
+% Compile doing:
+% rm main.aux & rm sections/*.aux & rm main.nlo & rm main.nls & pdflatex main && makeindex main.nlo -s nomencl.ist -o main.nls && bibtex main && pdflatex main && clear && pdflatex main
+
+% Settings
+\input{settings/doc_settings}
+
+%Define which chapters to include
+\includeonly{
+	sections/Introduction,
+	sections/Model_description
+	} %{file1,file2,...} 
+
+%%%%%%%%%%%%%%%%%
+
+% Document info
+\title{Model description for the implementation of System Identification methodologies on the rotorcraft SH09}
+\author{Alejandro Valverde López}
 
 
 \begin{document}
+\maketitle
+\tableofcontents
 
-Hola, \cite{Klein2006}, \cite{Remple2006}, \cite{Morelli2011}, \cite{Morelli2011a}
+\input{sections/0.Nomenclature} %Import nomenclature, no text is written
+\printnomenclature[0.75in]
 
+%Sections
+\clearpage
+\include{sections/Introduction}
+
+\clearpage
+\include{sections/Model_description}
+
+% Bibliography
 \bibliographystyle{ieeetr}
 \bibliography{MyBib}
 
