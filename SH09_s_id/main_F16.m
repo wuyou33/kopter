@@ -21,5 +21,5 @@ FsClass.setPlottingOptions()
 
 %Generate and linearize model of F-16
 cd([dirWork.main '/SIDPAC_V2.0/F16_NLS_V1.1'])
-gen_f16_model
+gen_f16_model_mod
 cd(dirWork.main)

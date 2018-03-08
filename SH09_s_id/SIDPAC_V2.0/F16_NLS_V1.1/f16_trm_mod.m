@@ -104,6 +104,9 @@ function [trm,xfree,xinit,ufree,uinit] = f16_trm(p,c)
 trm=zeros(8,1);
 g=32.174;
 %
+% Modified Alejandro Valverde
+global flightEnvelopePoint
+%
 %  Trim option settings.
 %
 %  Ones make the corresponding state or control
@@ -112,7 +115,9 @@ g=32.174;
 %  x = [ vt,beta,alpha, p, q, r, phi,  the, psi,xe, ye,     h ]'
 %
 xfree=[   0,   1,    1, 0, 0, 0,   1,    1,   0, 0,  0,     0 ]';
-xinit=[ 502,   0,  0.1, 0, 0, 0,   0,  0.1,   0, 0,  0, 10000 ]';
+% xinit=[ 502,   0,  0.1, 0, 0, 0,   0,  0.1,   0, 0,  0, 10000 ]';
+% Modified Alejandro Valverde
+xinit=[ convvel(flightEnvelopePoint.vel_kts,'kts','ft/s'),   0,  0.1, 0, 0, 0,   0,  0.1,   0, 0,  0, flightEnvelopePoint.altitude_ft ]';
 %
 %  u = [thtl,stab,ail,rdr]'
 %
@@ -168,7 +173,7 @@ x(13)=tgear(u(1));
 %
 %  Compute state derivatives.
 %
-xd=f16_deq(u,x,c);
+xd=f16_deq_mod(u,x,c);
 trm(1:3)=xd(1:3);
 trm(4:6)=xd(4:6);
 %
