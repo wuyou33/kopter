@@ -36,10 +36,10 @@
 %  SIDPAC_V2.0 by default.
 %
 ParentDir=pwd;
-path(path,[ParentDir,'\SIDPAC_V2.0']),
-path(path,[ParentDir,'\SIDPAC_V2.0\GUI_V1.0']),
-path(path,[ParentDir,'\SIDPAC_V2.0\F16_NLS_V1.1']),
-path(path,[ParentDir,'\SIDPAC_V2.0\Text_Examples']),
-path(path,[ParentDir,'\SIDPAC_V2.0\Demos']),
+path(path,[ParentDir,'/SIDPAC_V2.0']),
+path(path,[ParentDir,'/SIDPAC_V2.0/GUI_V1.0']),
+path(path,[ParentDir,'/SIDPAC_V2.0/F16_NLS_V1.1']),
+path(path,[ParentDir,'/SIDPAC_V2.0/Text_Examples']),
+path(path,[ParentDir,'/SIDPAC_V2.0/Demos']),
 clear ParentDir;
 return

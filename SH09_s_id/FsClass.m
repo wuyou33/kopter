@@ -6,6 +6,20 @@ classdef FsClass
 
     methods (Static)
 
+        function [] = setPlottingOptions()
+
+            global plotSet
+
+            plotSet.LineWidth = 1.5; %Line width, specified as a positive value in points.
+            plotSet.axGridAlpha = 0.2; %Grid-line transparency, specified as a value in the range [0,1].
+            plotSet.axFontSize = 14; %Font size for axis labels, specified as a scalar numeric value.
+            plotSet.axLineWidth = 1.5; %Width of axes outline, tick marks, and grid lines, specified as a scalar value in point units.
+            plotSet.MarkerSize = 30; %Marker size for scattered points, specified as a positive value in points.
+            plotSet.TitleFontSizeMultiplier = 1.5; %Scale factor for title font size, specified as a numeric value greater than 0.
+            %The axes applies this scale factor to the value of the FontSize property to determine the font size for the title.
+
+        end
+
         function [outStruct] = loadSH09_lin(dirWork, loadInitial)
 
             % Move to folder with data
@@ -115,5 +129,16 @@ classdef FsClass
         end
 
     end
+
+end
+
+%Functions to be called from FsClass
+function [] = SetAxisProp(axesHandle, plotSet)
+
+    set(axesHandle, 'GridAlpha', plotSet.axGridAlpha);
+    set(axesHandle, 'FontSize', plotSet.axFontSize);
+    set(axesHandle, 'LineWidth', plotSet.axLineWidth);
+    set(axesHandle, 'TitleFontSizeMultiplier', plotSet.TitleFontSizeMultiplier);
+    grid minor
 
 end

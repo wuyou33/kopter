@@ -1,0 +1,470 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"li",
+				"linearDataSH09"
+			],
+			[
+				"di",
+				"dirWork"
+			],
+			[
+				"clas",
+				"classdef\tMatlab method"
+			],
+			[
+				"pa",
+				"path_shared"
+			],
+			[
+				"ge",
+				"getSharedDirectory_tuple"
+			],
+			[
+				"get",
+				"getLocalDirectory"
+			],
+			[
+				"path",
+				"path_local"
+			],
+			[
+				"def",
+				"def\tFunction"
+			],
+			[
+				"det",
+				"delta_y"
+			],
+			[
+				"th",
+				"theta_est"
+			],
+			[
+				"com",
+				"computeToleranceUncertainty"
+			],
+			[
+				"con",
+				"conf"
+			],
+			[
+				"angle",
+				"angleTouch"
+			],
+			[
+				"tol",
+				"tols"
+			],
+			[
+				"ke",
+				"key"
+			],
+			[
+				"dist",
+				"dist_flight"
+			],
+			[
+				"dis",
+				"dist_ground"
+			],
+			[
+				"tra",
+				"track_B_3"
+			],
+			[
+				"_",
+				"__id"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "main.tex",
+			"settings":
+			{
+				"buffer_size": 932,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "sections/Model_description.tex",
+			"settings":
+			{
+				"buffer_size": 1133,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 280.0,
+		"last_filter": "pa",
+		"selected_items":
+		[
+			[
+				"pa",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 461.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/home/alejandro/Documents/kopter/SH09_s_id/knowledge",
+		"/home/alejandro/Documents/kopter/SH09_s_id/knowledge/sections"
+	],
+	"file_history":
+	[
+		"/home/alejandro/Documents/kopter/SH09_s_id/knowledge/sections/Introduction.tex",
+		"/home/alejandro/Documents/kopter/tolerances/dampingUncer.py",
+		"/home/alejandro/Documents/kopter/versionsBackup/inputDirectories.txt",
+		"/P/10_code/labs - System Identification/lab1/Lone/msd_script.m",
+		"/P/10_code/labs - System Identification/lab1/script.m",
+		"/P/10_code/abaqus-master/abaqus-master/mainAbaqusParametricStudy.py",
+		"/P/10_code/versionsBackup/cleanDirs.py",
+		"/P/10_code/abaqus-master/abaqus-master/moduleCommon.py",
+		"/P/10_code/abaqus-master/abaqus-master/mainBuildAndExecuteWingBox.py",
+		"/P/10_code/abaqus-master/abaqus-master/mainParametricStudy.py",
+		"/P/10_code/kopter/SH09_s_id/fromFlightPhysics/A_mat_from_FL_v1.txt",
+		"//mshzhstg/mshdata/MSH/02_Development/SKYe S09/06_Avionic/J00 Testing and FTI/SKYe test Benches/0c - Various Information/Simulator/Flight Physics/Flightlab_controller_design/yaw_manouver/FL_LTI_models/read_LTI_matrix_from_FL_3.m",
+		"/P/10_code/kopter/SH09_s_id/configClassModule.py",
+		"//mshzhstg/mshdata/MSH/02_Development/SKYe S09/06_Avionic/J00 Testing and FTI/SKYe test Benches/0c - Various Information/Simulator/Flight Physics/Flightlab_controller_design/read_LTI_matrix_from_FL.m",
+		"//mshzhstg/mshdata/MSH/02_Development/SKYe S09/06_Avionic/J00 Testing and FTI/SKYe test Benches/0c - Various Information/Simulator/Flight Physics/Flightlab_controller_design/read_LTI_matrix_from_FL_2.m",
+		"/P/10_code/kopter/SH09_s_id/C_mat_from_FL_v1.txt",
+		"/P/10_code/kopter/SH09_s_id/A_mat_from_FL_v1.txt",
+		"//mshzhstg/mshdata/MSH/02_Development/SKYe S09/06_Avionic/J00 Testing and FTI/SKYe test Benches/0c - Various Information/Simulator/Flight Physics/Flightlab_controller_design/FCS_tuning.m",
+		"/L/TEMP/michal/flap_stop/configClassModule.py",
+		"/P/10_code/kopter/SH09_s_id/main_versionsBackup.py",
+		"//mshzhstg/mshdata/MSH/02_Development/SKYe S09/06_Avionic/J00 Testing and FTI/SKYe test Benches/0c - Various Information/Simulator/Flight Physics/Flightlab_controller_design/A_mat_from_FL_v2.txt",
+		"//mshzhstg/mshdata/MSH/02_Development/SKYe S09/06_Avionic/J00 Testing and FTI/SKYe test Benches/0c - Various Information/Simulator/Flight Physics/Flightlab_controller_design/A_mat_from_FL_v1.txt",
+		"/P/10_code/kopter/SH09_s_id/C_mat_from_FL_v2.txt",
+		"/P/10_code/kopter/SH09_s_id/B_mat_from_FL_v1.txt",
+		"/P/10_code/kopter/versionsBackup/main_versionsBackup.py",
+		"/P/10_code/kopter/s_id/sidpac/startup.m",
+		"/L/TEMP/michal/flap_stop/toleranceChain.py",
+		"/L/TEMP/michal/flap_stop/dampingUncer.py",
+		"/P/10_code/kopter/main_versionsBackup.py",
+		"/P/10_code/kopter/inputDirectories.txt",
+		"/L/MSH/02_Development/SKYe S09/05_Flight Systems/50_Engineering/J62/J62-00 General/40_Testing/41_FTI/22_DATA ANALYSIS P2/MFST_postprocessing_CalculationScript_v01.VBS",
+		"/P/10_code/kopter/improvements.py",
+		"/P/10_code/kopter/PythonNotes.sublime-project",
+		"/P/10_code/labs - System Identification/lab2/script.m",
+		"/P/10_code/labs - System Identification/lab4/script.m",
+		"/P/10_code/labs - System Identification/lab3/main_script.m",
+		"/Y/00_Scripts/AA_Eng_Vib_Analysis/FFT_STDEV_4.VBS",
+		"/Y/00_Scripts/AA_Eng_Vib_Analysis/dataplot.VBS",
+		"/Y/00_Scripts/plot_test/fti_2016-03-17_094251/test_HYD1_Oil_Temp.EMF",
+		"/P/10_code/abaqus-master/abaqus-master/setUpParametricStudy.py"
+	],
+	"find":
+	{
+		"height": 21.0
+	},
+	"find_in_files":
+	{
+		"height": 104.0,
+		"where_history":
+		[
+			"P:\\10_code\\tolerances",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"=",
+			"C",
+			"linearDataSH09",
+			"\t",
+			"model_sel",
+			" \n",
+			"figure",
+			"18",
+			"ss",
+			"design",
+			"_",
+			"\\\\",
+			"path_shared",
+			"\\\\",
+			",",
+			"'",
+			"\t\t\t\t",
+			"\\\\",
+			"(rawLine",
+			"raise",
+			"],\n",
+			"y_",
+			"1.0",
+			"0,",
+			".",
+			"print",
+			"],",
+			"force",
+			"nom",
+			"computeToleranceUncertainty",
+			"hor_flight_const",
+			"flight",
+			"computePath",
+			"cos",
+			"funcDict",
+			"angles",
+			"axDict[keyCurrent]",
+			"opt 1",
+			"][0]",
+			"[0.0, 1.0]",
+			"figure.set_size_inches(10, 6, forward=True)",
+			"id",
+			"line",
+			"*line*",
+			"linespace",
+			"_uncomputed",
+			"self.__path_B",
+			"]]",
+			"if",
+			"dist_flight",
+			")",
+			"track",
+			"Track",
+			"track",
+			"Track",
+			"_A",
+			"__track_",
+			"for",
+			"in",
+			"cos",
+			"empty",
+			"ground",
+			"trackB",
+			"trackA",
+			"__track_",
+			"__track_A",
+			"1",
+			"if dist",
+			"self.",
+			"finalTol",
+			"dist_",
+			"trackB",
+			"finalTol",
+			"track_",
+			"self.",
+			"angleTouch",
+			"arg",
+			"_2",
+			"=",
+			"05",
+			"_1",
+			".5",
+			"625",
+			"25",
+			"sin_1",
+			"cos_1",
+			"sin_1",
+			"cos_1",
+			"7",
+			"1deg"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+			"path",
+			"Path"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "main.tex",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 932,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								600,
+								600
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LaTeXing/support/LaTeX.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 1,
+					"file": "sections/Model_description.tex",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1133,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 21.0
+	},
+	"input":
+	{
+		"height": 35.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			],
+			[
+				0,
+				1,
+				1,
+				2
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			0.5,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "main.sublime-project",
+	"replace":
+	{
+		"height": 38.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 248.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
