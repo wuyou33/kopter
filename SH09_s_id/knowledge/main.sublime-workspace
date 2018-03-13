@@ -109,6 +109,15 @@
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
+		},
+		{
+			"file": "sections/0.Nomenclature.tex",
+			"settings":
+			{
+				"buffer_size": 481,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
 		}
 	],
 	"build_system": "",
@@ -147,9 +156,8 @@
 	},
 	"expanded_folders":
 	[
-		"/D/kopter/SH09_s_id/knowledge",
-		"/D/kopter/SH09_s_id/knowledge/sections",
-		"/D/kopter/SH09_s_id/knowledge/settings"
+		"/P/kopter/SH09_s_id/knowledge",
+		"/P/kopter/SH09_s_id/knowledge/sections"
 	],
 	"file_history":
 	[
@@ -349,7 +357,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -377,13 +385,13 @@
 						"translation.y": 141.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 2,
 					"type": "text"
 				}
 			]
 		},
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -412,6 +420,35 @@
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "sections/0.Nomenclature.tex",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 481,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								460,
+								460
+							]
+						],
+						"settings":
+						{
+							"spell_check": true,
+							"syntax": "Packages/LaTeXing/support/LaTeX.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 169.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,

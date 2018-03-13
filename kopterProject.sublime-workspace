@@ -186,9 +186,6 @@
 	"expanded_folders":
 	[
 		"/P/10_code",
-		"/P/10_code/kopter/SH09_s_id",
-		"/P/10_code/kopter/SH09_s_id/knowledge",
-		"/P/10_code/kopter/SH09_s_id/knowledge/sections",
 		"/P/08_reference/Cranfield",
 		"/P/08_reference/Cranfield/7.Air-Vehicle Modelling and Simulation",
 		"/P/08_reference/Cranfield/7.Air-Vehicle Modelling and Simulation/assignment - AVMS",
@@ -530,7 +527,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1833.0,
+						"translation.y": 1950.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
