@@ -1,4 +1,4 @@
-function dclda = dlda(alpha,beta)
+function dclda = dlda_mod(alpha,beta,LUTvalues)
 %
 %  DLDA  Computes non-dimensional aerodynamic rolling moment due to aileron.  
 %

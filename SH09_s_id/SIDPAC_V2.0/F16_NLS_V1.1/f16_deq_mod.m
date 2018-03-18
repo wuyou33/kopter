@@ -1,4 +1,4 @@
-function [xd,accel,thrust,qbar,mach] = f16_deq(u,x,c)
+function [xd,accel,thrust,qbar,mach,forces] = f16_deq_mod(u,x,c,LUTvalues)
 %
 %  F16_DEQ  Computes state derivatives for the nonlinear equations of motion.  
 %
@@ -45,6 +45,7 @@ function [xd,accel,thrust,qbar,mach] = f16_deq(u,x,c)
 %  thrust = thrust (lbf).
 %    qbar = dynamic pressure (psf).
 %    mach = Mach number.
+%  forces = vector of force and moments coefficients, Alejandro
 %
 
 %
@@ -82,6 +83,7 @@ global DLDA DLDR DNDA DNDR
 global IDP MLP MXP
 xd=zeros(length(x),1);
 accel=zeros(6,1);
+forces = zeros(6,1); %Added, Alejandro
 %
 %  Assign constants.
 %
@@ -133,11 +135,13 @@ rdr=max([-30,min([rdr,30])]);
 %
 %  Compute engine thrust.
 %
-thrust=f16_engine(pow,alt,mach);
+thrust=f16_engine_mod(pow,alt,mach,LUTvalues);
 %
 %  Compute aerodynamic force and moment coefficients.
 %
-[CX,CY,CZ,C1,Cm,Cn]=f16_aero(vt,alphad,betad,prad,qrad,rrad,stab,ail,rdr,xcg);
+[CX,CY,CZ,C1,Cm,Cn]=f16_aero_mod(vt,alphad,betad,prad,qrad,rrad,stab,ail,rdr,xcg,LUTvalues);
+%
+forces = [CX,CY,CZ,C1,Cm,Cn];
 %
 %  Compute quantities used often in the state equations. 
 %

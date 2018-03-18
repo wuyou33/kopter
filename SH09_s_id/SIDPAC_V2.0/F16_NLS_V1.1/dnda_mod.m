@@ -1,12 +1,12 @@
-function dclda = dlda(alpha,beta)
+function dcnda = dnda_mod(alpha,beta,LUTvalues)
 %
-%  DLDA  Computes non-dimensional aerodynamic rolling moment due to aileron.  
+%  DNDA  Computes non-dimensional aerodynamic yawing moment due to aileron.  
 %
-%  Usage: dclda = dlda(alpha,beta);
+%  Usage: dcnda = dnda(alpha,beta);
 %
 %  Description:
 %
-%    Computes aerodynamic rolling moment due to 
+%    Computes aerodynamic yawing moment due to 
 %    aileron control derivative for the F-16.  
 %
 %  Input:
@@ -16,7 +16,7 @@ function dclda = dlda(alpha,beta)
 %
 %  Output:
 %
-%    dclda = aerodynamic rolling moment due to aileron control deivative.
+%    dcnda = aerodynamic yawing moment due to aileron control deivative.
 %
 
 %
@@ -38,15 +38,15 @@ function dclda = dlda(alpha,beta)
 %
 %      e.a.morelli@nasa.gov
 %
-% global DLDA
-DLDA = LUTvalues.DLDA;
+% global DNDA
+DNDA = LUTvalues.DNDA;
 s=0.2*alpha;
 k=fix(s);
 k=max(-1,k);
 k=min(k,8);
 da=s-k;
 %
-%  Add 3 to the indices because the indexing of DLDA 
+%  Add 3 to the indices because the indexing of DNDA 
 %  starts at 1, not -2.
 %
 k=k+3;
@@ -58,9 +58,9 @@ m=min(m,2);
 db=s-m;
 m=m+4;
 n=m+sign(db);
-t=DLDA(k,m);
-u=DLDA(k,n);
-v=t+abs(da)*(DLDA(l,m)-t);
-w=u+abs(da)*(DLDA(l,n)-u);
-dclda=v+(w-v)*abs(db);
+t=DNDA(k,m);
+u=DNDA(k,n);
+v=t+abs(da)*(DNDA(l,m)-t);
+w=u+abs(da)*(DNDA(l,n)-u);
+dcnda=v+(w-v)*abs(db);
 return

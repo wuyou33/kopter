@@ -1,4 +1,4 @@
-function thrust = f16_engine(pow,alt,mach)
+function thrust = f16_engine_mod(pow,alt,mach,LUTvalues)
 %
 %  F16_ENGINE  Computes engine thrust.  
 %
@@ -41,7 +41,10 @@ function thrust = f16_engine(pow,alt,mach)
 %
 %      e.a.morelli@nasa.gov
 %
-global IDP MLP MXP
+% global IDP MLP MXP
+IDP = LUTvalues.IDP;
+MLP = LUTvalues.MLP;
+MXP = LUTvalues.MXP;
 %
 %  Altitude interpolation.
 %

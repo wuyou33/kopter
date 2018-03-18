@@ -1,4 +1,4 @@
-function [trm,xfree,xinit,ufree,uinit] = f16_trm(p,c)
+function [trm,xfree,xinit,ufree,uinit] = f16_trm_mod(p,c)
 %
 %  F16_TRM  Computes constraints and state derivatives for the nonlinear equations of motion.  
 %
@@ -105,7 +105,7 @@ trm=zeros(8,1);
 g=32.174;
 %
 % Modified Alejandro Valverde
-global flightEnvelopePoint
+global flightEnvelopePoint LUTvalues
 %
 %  Trim option settings.
 %
@@ -173,7 +173,7 @@ x(13)=tgear(u(1));
 %
 %  Compute state derivatives.
 %
-xd=f16_deq_mod(u,x,c);
+xd=f16_deq_mod(u,x,c,LUTvalues);
 trm(1:3)=xd(1:3);
 trm(4:6)=xd(4:6);
 %

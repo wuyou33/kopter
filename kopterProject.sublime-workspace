@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"forc",
+				"forces"
+			],
+			[
+				"for",
+				"forces"
+			],
+			[
 				"pa",
 				"path_shared"
 			],
@@ -72,28 +80,10 @@
 	"buffers":
 	[
 		{
-			"file": "SH09_s_id/fromFlightPhysics/FL_LTI_models/read_LTI_matrix_from_FL_3.m",
-			"settings":
-			{
-				"buffer_size": 5276,
-				"encoding": "Western (Windows 1252)",
-				"line_ending": "Windows"
-			}
-		},
-		{
 			"file": "SH09_s_id/main_F16.m",
 			"settings":
 			{
-				"buffer_size": 456,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/f16_deq_mod.m",
-			"settings":
-			{
-				"buffer_size": 5697,
+				"buffer_size": 408,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -108,44 +98,39 @@
 			}
 		},
 		{
-			"file": "SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/f16_trm_mod.m",
+			"file": "SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/f16_engine_mod.m",
 			"settings":
 			{
-				"buffer_size": 5297,
+				"buffer_size": 1569,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/f16_deq_mod.m",
+			"settings":
+			{
+				"buffer_size": 5881,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "SH09_s_id/SIDPAC_V2.0/lnze.m",
+			"file": "SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/f16_trm_mod.m",
 			"settings":
 			{
-				"buffer_size": 2623,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/P/10_code/abaqus-master/abaqus-master/mainBuildAndExecuteWingBox.py",
-			"settings":
-			{
-				"buffer_size": 16145,
+				"buffer_size": 5321,
+				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "/P/10_code/abaqus-master/abaqus-master/mainAbaqusParametricStudy.py",
+			"file": "SH09_s_id/FsClass.m",
 			"settings":
 			{
-				"buffer_size": 10803,
+				"buffer_size": 7148,
+				"encoding": "UTF-8",
 				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/P/10_code/labs - System Identification/lab1/script.m",
-			"settings":
-			{
-				"buffer_size": 1857,
-				"line_ending": "Windows"
 			}
 		}
 	],
@@ -185,15 +170,39 @@
 	},
 	"expanded_folders":
 	[
-		"/P/10_code",
-		"/P/08_reference/Cranfield",
-		"/P/08_reference/Cranfield/7.Air-Vehicle Modelling and Simulation",
-		"/P/08_reference/Cranfield/7.Air-Vehicle Modelling and Simulation/assignment - AVMS",
-		"/P/08_reference/Cranfield/7.Air-Vehicle Modelling and Simulation/assignment - AVMS/matlab",
-		"/P/08_reference/Cranfield/7.Air-Vehicle Modelling and Simulation/assignment - AVMS/Todos con George"
+		"/home/alejandro/Documents/kopter/SH09_s_id",
+		"/home/alejandro/Documents/kopter/SH09_s_id/SIDPAC_V2.0",
+		"/home/alejandro/Documents/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1"
 	],
 	"file_history":
 	[
+		"/home/alejandro/Documents/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/f16_engine_setup_mod.m",
+		"/home/alejandro/Documents/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/f16_aero_setup_mod.m",
+		"/home/alejandro/Documents/kopter/SH09_s_id/f16_global.m",
+		"/home/alejandro/Documents/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/f16_aero_mod.m",
+		"/home/alejandro/Documents/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/dampder_mod.m",
+		"/home/alejandro/Documents/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/cxo_mod.m",
+		"/home/alejandro/Documents/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/f16_engine_mod.m",
+		"/home/alejandro/Documents/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/dnda_mod.m",
+		"/home/alejandro/Documents/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/dndr_mod.m",
+		"/home/alejandro/Documents/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/dldr_mod.m",
+		"/home/alejandro/Documents/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/dlda_mod.m",
+		"/home/alejandro/Documents/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/czo_mod.m",
+		"/home/alejandro/Documents/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/cno_mod.m",
+		"/home/alejandro/Documents/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/cmo_mod.m",
+		"/home/alejandro/Documents/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/clo_mod.m",
+		"/home/alejandro/Documents/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/cnvrg.m",
+		"/home/alejandro/Documents/kopter/SH09_s_id/SIDPAC_V2.0/lnze.m",
+		"/home/alejandro/Documents/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/ic_ftrm.m",
+		"/home/alejandro/Documents/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/f16_engine.m",
+		"/home/alejandro/Documents/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/f16_trm_mod.m",
+		"/home/alejandro/Documents/kopter/SH09_s_id/f16_global.mat",
+		"/home/alejandro/Documents/kopter/SH09_s_id/f16_global",
+		"/home/alejandro/Documents/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/f16_aero_setup.m",
+		"/home/alejandro/Documents/kopter/SH09_s_id/fromFlightPhysics/FL_LTI_models/read_LTI_matrix_from_FL_3.m",
+		"/P/10_code/abaqus-master/abaqus-master/mainAbaqusParametricStudy.py",
+		"/P/10_code/labs - System Identification/lab1/script.m",
+		"/P/10_code/abaqus-master/abaqus-master/mainBuildAndExecuteWingBox.py",
 		"/P/10_code/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/f16_trm.m",
 		"/P/10_code/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/f16_aero.m",
 		"/P/10_code/abaqus-master/abaqus-master/mainParametricStudy.py",
@@ -240,19 +249,19 @@
 		"/Y/00_Scripts/AA_Eng_Vib_Analysis/FFT_STDEV_4.VBS",
 		"/Y/00_Scripts/AA_Eng_Vib_Analysis/dataplot.VBS",
 		"/Y/00_Scripts/plot_test/fti_2016-03-17_094251/test_HYD1_Oil_Temp.EMF",
-		"/P/10_code/abaqus-master/abaqus-master/mainAbaqusParametricStudy.py",
-		"/P/10_code/abaqus-master/abaqus-master/setUpParametricStudy.py",
-		"/P/10_code/abaqus-master/abaqus-master/mainBuildAndExecuteWingBox.py"
+		"/P/10_code/abaqus-master/abaqus-master/setUpParametricStudy.py"
 	],
 	"find":
 	{
-		"height": 40.0
+		"height": 43.0
 	},
 	"find_in_files":
 	{
 		"height": 104.0,
 		"where_history":
 		[
+			"/home/alejandro/Documents/kopter/SH09_s_id",
+			"P:\\10_code\\kopter\\SH09_s_id",
 			"P:\\10_code\\kopter\\SH09_s_id\\SIDPAC_V2.0",
 			"P:\\10_code\\tolerances",
 			""
@@ -263,6 +272,69 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"=",
+			"LUTvalues",
+			"LUTValues",
+			"f16",
+			"f16_engine",
+			"c",
+			"initVals",
+			"LUTValues",
+			"_mod",
+			"dlda_mo",
+			"DNDA",
+			"DLDR",
+			"DLDA",
+			"CZO",
+			"CXO",
+			"CNO",
+			"CMO",
+			"CLO",
+			".",
+			"=",
+			"MLP",
+			"IDP",
+			"DLDR",
+			"DNDA",
+			"DLDR",
+			"CXO",
+			"_init",
+			"CLO_init",
+			"=",
+			"Simulink.Signal",
+			"CXO",
+			"_mod",
+			"DNDR",
+			"DNDA",
+			"DLDR",
+			"DLDA",
+			"DDER",
+			"CNO",
+			"CLO",
+			"CMO",
+			"CZO",
+			"CXO",
+			"InitialValue",
+			"MXP",
+			"MLP",
+			"IDP",
+			"DNDR",
+			"DNDA",
+			"DLDR",
+			"DLDA",
+			"DDER",
+			"CLO",
+			"CMO",
+			"CZO",
+			"CXO",
+			"setup",
+			"InitialValue",
+			"u0",
+			"init",
+			"x",
+			"fname",
+			"Cm",
+			"thrust",
 			"cth",
 			"DCM",
 			"u",
@@ -327,34 +399,7 @@
 			"cos",
 			"empty",
 			"ground",
-			"trackB",
-			"trackA",
-			"__track_",
-			"__track_A",
-			"1",
-			"if dist",
-			"self.",
-			"finalTol",
-			"dist_",
-			"trackB",
-			"finalTol",
-			"track_",
-			"self.",
-			"angleTouch",
-			"arg",
-			"_2",
-			"=",
-			"05",
-			"_1",
-			".5",
-			"625",
-			"25",
-			"sin_1",
-			"cos_1",
-			"sin_1",
-			"cos_1",
-			"7",
-			"1deg"
+			"trackB"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -362,6 +407,7 @@
 		"regex": true,
 		"replace_history":
 		[
+			"LUTvalues",
 			"path",
 			"Path"
 		],
@@ -379,49 +425,19 @@
 			[
 				{
 					"buffer": 0,
-					"file": "SH09_s_id/fromFlightPhysics/FL_LTI_models/read_LTI_matrix_from_FL_3.m",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 5276,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2938,
-								2938
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Matlab/Matlab.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1247.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
 					"file": "SH09_s_id/main_F16.m",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 456,
+						"buffer_size": 408,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								439,
-								439
+								402,
+								402
 							]
 						],
 						"settings":
@@ -432,41 +448,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/f16_deq_mod.m",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 5697,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2065,
-								2066
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Matlab/Matlab.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1370.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
+					"buffer": 1,
 					"file": "SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/gen_f16_model_mod.m",
 					"semi_transient": false,
 					"settings":
@@ -478,8 +464,8 @@
 						"selection":
 						[
 							[
-								2265,
-								2266
+								1760,
+								1760
 							]
 						],
 						"settings":
@@ -489,111 +475,38 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 819.0,
+						"translation.y": 741.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
-					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 0,
-			"sheets":
-			[
-				{
-					"buffer": 4,
-					"file": "SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/f16_trm_mod.m",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 5297,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4908,
-								4908
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Matlab/Matlab.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1950.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
-					"file": "SH09_s_id/SIDPAC_V2.0/lnze.m",
+					"buffer": 2,
+					"file": "SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/f16_engine_mod.m",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2623,
+						"buffer_size": 1569,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1258,
-								1258
+								1569,
+								1569
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Matlab/Matlab.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/Matlab/Matlab.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 156.0,
+						"translation.y": 663.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
-					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 0,
-			"sheets":
-			[
-				{
-					"buffer": 6,
-					"file": "/P/10_code/abaqus-master/abaqus-master/mainBuildAndExecuteWingBox.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 16145,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								989,
-								989
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 78.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
+					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -603,49 +516,81 @@
 			"sheets":
 			[
 				{
-					"buffer": 7,
-					"file": "/P/10_code/abaqus-master/abaqus-master/mainAbaqusParametricStudy.py",
+					"buffer": 3,
+					"file": "SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/f16_deq_mod.m",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 10803,
+						"buffer_size": 5881,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1158,
-								1158
+								212,
+								212
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"translate_tabs_to_spaces": false
+							"spell_check": false,
+							"syntax": "Packages/Matlab/Matlab.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
 						},
-						"translation.x": 0.0,
-						"translation.y": 429.0,
+						"translation.x": 8.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
-					"buffer": 8,
-					"file": "/P/10_code/labs - System Identification/lab1/script.m",
+					"buffer": 4,
+					"file": "SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/f16_trm_mod.m",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1857,
+						"buffer_size": 5321,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1501,
-								1501
+								1322,
+								1322
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Matlab/Matlab.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 351.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "SH09_s_id/FsClass.m",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7148,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5578,
+								5578
 							]
 						],
 						"settings":
@@ -655,7 +600,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 273.0,
+						"translation.y": 658.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,
@@ -666,7 +611,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 22.0
+		"height": 21.0
 	},
 	"input":
 	{
@@ -683,34 +628,21 @@
 				1
 			],
 			[
-				1,
-				0,
-				2,
-				1
-			],
-			[
 				0,
 				1,
 				1,
-				2
-			],
-			[
-				1,
-				1,
-				2,
 				2
 			]
 		],
 		"cols":
 		[
 			0.0,
-			0.530341340076,
 			1.0
 		],
 		"rows":
 		[
 			0.0,
-			0.627853881279,
+			0.540166204986,
 			1.0
 		]
 	},
@@ -723,7 +655,7 @@
 	"project": "kopterProject.sublime-project",
 	"replace":
 	{
-		"height": 50.0
+		"height": 38.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -753,7 +685,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 0,
+	"selected_group": 1,
 	"settings":
 	{
 	},
@@ -761,7 +693,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 338.0,
+	"side_bar_width": 200.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

@@ -16,3 +16,5 @@
 *.nls
 *.out
 *.toc
+# Simulink compilation files
+*/slprj/*

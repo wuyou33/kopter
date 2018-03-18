@@ -1,13 +1,13 @@
-function dclda = dlda(alpha,beta)
+function cnt = cno_mod(alpha,beta,LUTvalues)
 %
-%  DLDA  Computes non-dimensional aerodynamic rolling moment due to aileron.  
+%  CNO  Computes basic aerodynamic yawing moment coefficient.
 %
-%  Usage: dclda = dlda(alpha,beta);
+%  Usage: cnt = cno(alpha,beta);
 %
 %  Description:
 %
-%    Computes aerodynamic rolling moment due to 
-%    aileron control derivative for the F-16.  
+%    Computes the basic aerodynamic yawing moment 
+%    coefficient for the F-16.  
 %
 %  Input:
 %    
@@ -16,7 +16,7 @@ function dclda = dlda(alpha,beta)
 %
 %  Output:
 %
-%    dclda = aerodynamic rolling moment due to aileron control deivative.
+%       cnt = basic aerodynamic yawing moment coefficient.
 %
 
 %
@@ -38,29 +38,30 @@ function dclda = dlda(alpha,beta)
 %
 %      e.a.morelli@nasa.gov
 %
-% global DLDA
-DLDA = LUTvalues.DLDA;
+% global CNO
+CNO = LUTvalues.CNO;
 s=0.2*alpha;
 k=fix(s);
 k=max(-1,k);
 k=min(k,8);
 da=s-k;
 %
-%  Add 3 to the indices because the indexing of DLDA 
+%  Add 3 to the indices because the indexing of CNO 
 %  starts at 1, not -2.
 %
 k=k+3;
 l=k+sign(da);
-s=0.1*beta;
+s=0.2*abs(beta);
 m=fix(s);
-m=max(-2,m);
-m=min(m,2);
+m=max(1,m);
+m=min(m,5);
 db=s-m;
-m=m+4;
+m=m+1;
 n=m+sign(db);
-t=DLDA(k,m);
-u=DLDA(k,n);
-v=t+abs(da)*(DLDA(l,m)-t);
-w=u+abs(da)*(DLDA(l,n)-u);
-dclda=v+(w-v)*abs(db);
+t=CNO(k,m);
+u=CNO(k,n);
+v=t+abs(da)*(CNO(l,m)-t);
+w=u+abs(da)*(CNO(l,n)-u);
+cnt=v+(w-v)*abs(db);
+cnt=cnt*sign(beta);
 return

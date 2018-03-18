@@ -1,13 +1,13 @@
-function dclda = dlda(alpha,beta)
+function dcldr = dldr_mod(alpha,beta,LUTvalues)
 %
-%  DLDA  Computes non-dimensional aerodynamic rolling moment due to aileron.  
+%  DLDR  Computes non-dimensional aerodynamic rolling moment due to rudder.  
 %
-%  Usage: dclda = dlda(alpha,beta);
+%  Usage: dcldr = dldr(alpha,beta);
 %
 %  Description:
 %
 %    Computes aerodynamic rolling moment due to 
-%    aileron control derivative for the F-16.  
+%    rudder control derivative for the F-16.  
 %
 %  Input:
 %    
@@ -16,7 +16,7 @@ function dclda = dlda(alpha,beta)
 %
 %  Output:
 %
-%    dclda = aerodynamic rolling moment due to aileron control deivative.
+%    dcldr = aerodynamic rolling moment due to rudder control deivative.
 %
 
 %
@@ -38,15 +38,15 @@ function dclda = dlda(alpha,beta)
 %
 %      e.a.morelli@nasa.gov
 %
-% global DLDA
-DLDA = LUTvalues.DLDA;
+% global DLDR
+DLDR = LUTvalues.DLDR;
 s=0.2*alpha;
 k=fix(s);
 k=max(-1,k);
 k=min(k,8);
 da=s-k;
 %
-%  Add 3 to the indices because the indexing of DLDA 
+%  Add 3 to the indices because the indexing of DLDR 
 %  starts at 1, not -2.
 %
 k=k+3;
@@ -58,9 +58,9 @@ m=min(m,2);
 db=s-m;
 m=m+4;
 n=m+sign(db);
-t=DLDA(k,m);
-u=DLDA(k,n);
-v=t+abs(da)*(DLDA(l,m)-t);
-w=u+abs(da)*(DLDA(l,n)-u);
-dclda=v+(w-v)*abs(db);
+t=DLDR(k,m);
+u=DLDR(k,n);
+v=t+abs(da)*(DLDR(l,m)-t);
+w=u+abs(da)*(DLDR(l,n)-u);
+dcldr=v+(w-v)*abs(db);
 return
