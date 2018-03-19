@@ -20,6 +20,7 @@ classdef FsClass
 
         end
 
+
         function [outStruct] = loadSH09_lin(dirWork, loadInitial)
 
             % Move to folder with data
