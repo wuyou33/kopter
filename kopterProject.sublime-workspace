@@ -83,7 +83,7 @@
 			"file": "SH09_s_id/main_F16.m",
 			"settings":
 			{
-				"buffer_size": 876,
+				"buffer_size": 1333,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -141,6 +141,22 @@
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
+		},
+		{
+			"file": "/D/Cranfield/Modules/9.Experimental Aerodynamics/assignment - Experimental Aerodynamics/matlab Lab 5 - Exp. Aerodynamics/script.m",
+			"settings":
+			{
+				"buffer_size": 5343,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/D/Cranfield/Modules/9.Experimental Aerodynamics/assignment - Experimental Aerodynamics/matlab Lab 5 - Exp. Aerodynamics/FsClass.m",
+			"settings":
+			{
+				"buffer_size": 25656,
+				"line_ending": "Windows"
+			}
 		}
 	],
 	"build_system": "",
@@ -179,12 +195,17 @@
 	},
 	"expanded_folders":
 	[
-		"/home/alejandro/Documents/kopter/SH09_s_id",
-		"/home/alejandro/Documents/kopter/SH09_s_id/SIDPAC_V2.0",
-		"/home/alejandro/Documents/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1"
+		"/D/kopter/SH09_s_id",
+		"/D/Cranfield/Modules",
+		"/D/Cranfield/Modules/9.Experimental Aerodynamics",
+		"/D/Cranfield/Modules/9.Experimental Aerodynamics/assignment - Experimental Aerodynamics",
+		"/D/Cranfield/Modules/9.Experimental Aerodynamics/assignment - Experimental Aerodynamics/matlab Lab 5 - Exp. Aerodynamics"
 	],
 	"file_history":
 	[
+		"/D/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/f16_aero_mod.m",
+		"/D/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/pdot.m",
+		"/D/Cranfield/Modules/9.Experimental Aerodynamics/assignment - Experimental Aerodynamics/matlab Lab 2 - Exp. Aerodynamics/script.m",
 		"/home/alejandro/Documents/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/f16_engine_setup_mod.m",
 		"/home/alejandro/Documents/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/f16_aero_setup_mod.m",
 		"/home/alejandro/Documents/kopter/SH09_s_id/f16_global.m",
@@ -281,6 +302,7 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			",",
 			"=",
 			"LUTvalues",
 			"LUTValues",
@@ -407,8 +429,7 @@
 			"in",
 			"cos",
 			"empty",
-			"ground",
-			"trackB"
+			"ground"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -429,7 +450,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -438,26 +459,28 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 876,
+						"buffer_size": 1333,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								876,
-								876
+								994,
+								994
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Matlab/Matlab.sublime-syntax"
+							"syntax": "Packages/Matlab/Matlab.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 39.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
@@ -482,10 +505,10 @@
 							"syntax": "Packages/Matlab/Matlab.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 195.0,
+						"translation.y": 234.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
@@ -515,7 +538,7 @@
 						"translation.y": 273.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
@@ -531,8 +554,8 @@
 						"selection":
 						[
 							[
-								1569,
-								1569
+								1188,
+								1188
 							]
 						],
 						"settings":
@@ -540,16 +563,16 @@
 							"syntax": "Packages/Matlab/Matlab.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 663.0,
+						"translation.y": 771.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 1,
 					"type": "text"
 				}
 			]
 		},
 		{
-			"selected": 1,
+			"selected": 3,
 			"sheets":
 			[
 				{
@@ -565,8 +588,8 @@
 						"selection":
 						[
 							[
-								3769,
-								3769
+								3991,
+								3991
 							]
 						],
 						"settings":
@@ -577,10 +600,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2652.0,
+						"translation.y": 2575.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
@@ -596,8 +619,8 @@
 						"selection":
 						[
 							[
-								1346,
-								1143
+								844,
+								844
 							]
 						],
 						"settings":
@@ -607,10 +630,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 273.0,
+						"translation.y": 1833.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
@@ -637,10 +660,70 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 351.0,
+						"translation.y": 1560.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "/D/Cranfield/Modules/9.Experimental Aerodynamics/assignment - Experimental Aerodynamics/matlab Lab 5 - Exp. Aerodynamics/script.m",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5343,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2997,
+								2967
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Matlab/Matlab.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 702.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "/D/Cranfield/Modules/9.Experimental Aerodynamics/assignment - Experimental Aerodynamics/matlab Lab 5 - Exp. Aerodynamics/FsClass.m",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 25656,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								247,
+								247
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Matlab/Matlab.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
 					"type": "text"
 				}
 			]
@@ -679,7 +762,7 @@
 		"rows":
 		[
 			0.0,
-			0.540166204986,
+			0.53865790936,
 			1.0
 		]
 	},
@@ -692,7 +775,7 @@
 	"project": "kopterProject.sublime-project",
 	"replace":
 	{
-		"height": 38.0
+		"height": 42.0
 	},
 	"save_all_on_build": true,
 	"select_file":

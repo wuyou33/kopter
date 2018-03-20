@@ -2,97 +2,98 @@
 
 \subsection{F-16 model}
 
-This section aims to present the reduced equations for the dynamics of the F-16 fixed-wing aircraft which simulated in a non-linear manner using SIDPAC software.
+  This section aims to present the reduced equations for the dynamics of the F-16 fixed-wing aircraft which simulated in a non-linear manner using SIDPAC software.
 
-\subsubsection{Mathematical models of aircrafts}
+  \subsubsection{Mathematical models of aircrafts}
 
-The notation for the aircraft is the one shown in Figure \ref{fig:aircraftNotation}.
+  The notation for the aircraft is the one shown in Figure \ref{fig:aircraftNotation}.
 
-\begin{figure}[!htpb]
-  \centering
-  \includegraphics[width=0.7 \textwidth]{figures/aircraftNotation}
-  \caption[Airplane notation and sign conventions]{Airplane notation and sign conventions: u, v, w 5 body-axis components of aircraft velocity relative to Earth axes; $p$, $q$, $r$ 5 body-axis components of aircraft angular velocity; $X$, $Y$, $Z$ 5 body-axis components of aerodynamic force acting on the aircraft; and $L$, $M$, $N$ 5 body-axis components of aerodynamic moment acting on the aircraft.}
-  \label{fig:aircraftNotation}
-\end{figure}
+  \begin{figure}[!htpb]
+    \centering
+    \includegraphics[width=0.7 \textwidth]{figures/aircraftNotation}
+    \caption[Airplane notation and sign conventions]{Airplane notation and sign conventions: u, v, w 5 body-axis components of aircraft velocity relative to Earth axes; $p$, $q$, $r$ 5 body-axis components of aircraft angular velocity; $X$, $Y$, $Z$ 5 body-axis components of aerodynamic force acting on the aircraft; and $L$, $M$, $N$ 5 body-axis components of aerodynamic moment acting on the aircraft.}
+    \label{fig:aircraftNotation}
+  \end{figure}
 
-The components of the aerodynamic forces and moments, are the following:
+  The components of the aerodynamic forces and moments, are the following:
 
-\noindent
-Forces:
-\begin{eqnarray}
-\mathrm{Body \quad axes} \qquad && \mathrm{Stability \quad axes} \\ [6pt]
-X = \bar{q}SC_X \qquad && D = \bar{q}SC_D \\ [6pt]
-Z = \bar{q}SC_Z \qquad && L = \bar{q}SC_L \\ [6pt]
-Y = \bar{q}SC_Y \qquad && Y = \bar{q}SC_Y
-\end{eqnarray} 
+  \noindent
+  Forces:
+  \begin{eqnarray}
+  \mathrm{Body \quad axes} \qquad && \mathrm{Stability \quad axes} \\ [6pt]
+  X = \bar{q}SC_X \qquad && D = \bar{q}SC_D \\ [6pt]
+  Z = \bar{q}SC_Z \qquad && L = \bar{q}SC_L \\ [6pt]
+  Y = \bar{q}SC_Y \qquad && Y = \bar{q}SC_Y
+  \end{eqnarray} 
 
-\noindent
-Moments:
-\begin{eqnarray}
-L = \bar{q} b S C_l \\ [6pt]
-M = \bar{q} \bar{c} S C_m \\ [6pt]
-N = \bar{q} b S C_n
-\end{eqnarray}
-
-\noindent
-where $\bar{q}=1/2 \rho V^2$ is the dynamic pressure, $\rho$ is the air density, $V$ is the airspeed, $S$ is the wing reference area, $b$ is the wing span and $\bar{c}$ is the mean aerodynamic chord (MAC). 
-
-The forces expressed in the wind axis systems as shown in set Equations \ref{eq:aeroForcesInWingAxis}. 
-
-\begin{eqnarray} \label{eq:aeroForcesInWingAxis}
-\msub{C}{L} = - \msub{C}{Z} \cos \alpha + \msub{C}{X} \sin \alpha \nonumber \\[6pt]
-\msub{C}{D} = - \msub{C}{X} \cos \alpha - \msub{C}{Z} \sin \alpha
-\end{eqnarray}
-
-The Taylor expansion for the longitudinal motion of the aircraft are expressed in set of Equations \ref{eq:LongitudinalFixedWing}. Hola Eva
-
-\begin{eqnarray} \label{eq:LongitudinalFixedWing}
-C_D &=& C_{D_0} + C_{D_V} \frac{\Delta V}{V_0} + C_{D_\alpha} \Delta \alpha + C_{D_q} \frac{q \bar{c}}{2 V_0} + C_{D_{\msub{\delta}{e}} }\Delta \msub{\delta}{e} \nonumber \\ [6pt]
-C_L &=& C_{L_0} + C_{L_V} \frac{\Delta V}{V_0} + C_{L_\alpha} \Delta \alpha + C_{L_{\dot{\alpha}}} \frac{\dot{\alpha} \bar{c} }{2 V_0} + C_{L_q} \frac{q \bar{c}}{2 V_0} + C_{L_{\msub{\delta}{e}}} \msub{\delta}{e} \nonumber \\ [6pt]
-C_m &=& C_{m_0} + C_{m_V} \frac{\Delta V}{V_0} + C_{m_\alpha} \Delta \alpha + C_{m_{\dot{\alpha}}} \frac{\dot{\alpha} \bar{c} }{2 V_0} + C_{m_q} \frac{q \bar{c}}{2 V_0} + C_{m_{\msub{\delta}{e}}} \msub{\delta}{e} 
-\end{eqnarray}
-
-The set of equations that describe the motion of the aircraft, obtained from the Taylor series expansion is the one represented in Equation \ref{eq:LateralFixedWing}.
-
-\begin{eqnarray} \label{eq:LateralFixedWing}
-C_Y &=& C_{Y_0} + C_{Y_\beta}\Delta\beta + C_{Y_p}\frac{pb}{2V_0} + C_{Y_r}\frac{rb}{2V_0} + C_{Y_{\msub{\delta}{a}} }\Delta \msub{\delta}{a} + C_{Y_{\msub{\delta}{r}} }\Delta \msub{\delta}{r} \nonumber \\ [6pt]
-C_l &=& C_{l_0} + C_{l_\beta}\Delta\beta + C_{l_p}\frac{pb}{2V_0} + C_{l_r}\frac{rb}{2V_0} + C_{l_{\msub{\delta}{a}} }\Delta \msub{\delta}{a} \qquad (C_{l_{\msub{\delta}{r}}} \ll 1) \nonumber \\ [6pt]
-C_n &=& C_{n_0} + C_{n_\beta}\Delta\beta + C_{n_p}\frac{pb}{2V_0} + C_{n_r}\frac{rb}{2V_0} + C_{n_{\msub{\delta}{r}} }\Delta \msub{\delta}{r} \qquad (C_{l_{\msub{\delta}{a}}} \ll 1)
-\end{eqnarray}
-
-
-\subsection{Model forces and moments coefficients}
-  $\mat{F}$ matrix
-  Forces: 
-  $$
-  X_u, X_v, X_w, X_p, X_q, X_r \\
-  Y_u, Y_v, Y_w, Y_p, Y_q, Y_r \\
-  Z_u, Z_v, Z_w, Z_p, Z_q, Z_r
-  $$
-
+  \noindent
   Moments:
-  $$
-  L_u, L_v, L_w, L_p, L_q, L_r \\
-  M_u, M_v, M_w, M_p, M_q, M_r \\
-  N_u, N_v, N_w, N_p, N_q, N_r
-  $$
+  \begin{eqnarray}
+  L = \bar{q} b S C_l \\ [6pt]
+  M = \bar{q} \bar{c} S C_m \\ [6pt]
+  N = \bar{q} b S C_n
+  \end{eqnarray}
 
-  Controllability, $\mat{G}$ matrix:
-  Forces
-  $$
-  X_{\delta_{\mathrm{lon}}}, X_{\delta_{\mathrm{lat}}}, X_{\delta_{\mathrm{ped}}}, X_{\delta_{\mathrm{col}}} \\
-  Y_{\delta_{\mathrm{lon}}}, Y_{\delta_{\mathrm{lat}}}, Y_{\delta_{\mathrm{ped}}}, Y_{\delta_{\mathrm{col}}} \\
-  Z_{\delta_{\mathrm{lon}}}, Z_{\delta_{\mathrm{lat}}}, Z_{\delta_{\mathrm{ped}}}, Z_{\delta_{\mathrm{col}}}
-  $$
+  \noindent
+  where $\bar{q}=1/2 \rho V^2$ is the dynamic pressure, $\rho$ is the air density, $V$ is the airspeed, $S$ is the wing reference area, $b$ is the wing span and $\bar{c}$ is the mean aerodynamic chord (MAC). 
 
-  Moments
-  $$
-  M_{\delta_{\mathrm{lon}}}, M_{\delta_{\mathrm{lat}}}, M_{\delta_{\mathrm{ped}}}, M_{\delta_{\mathrm{col}}} \\
-  N_{\delta_{\mathrm{lon}}}, N_{\delta_{\mathrm{lat}}}, N_{\delta_{\mathrm{ped}}}, N_{\delta_{\mathrm{col}}} \\
-  N_{\delta_{\mathrm{lon}}}, N_{\delta_{\mathrm{lat}}}, N_{\delta_{\mathrm{ped}}}, N_{\delta_{\mathrm{col}}}
-  $$
+  The forces expressed in the wind axis systems as shown in set Equations \ref{eq:aeroForcesInWingAxis}. 
 
-  Time delays
-  $$
-  \tau_{\mathrm{lon}}, \tau_{\mathrm{lat}}, \tau_{\mathrm{ped}}, \tau_{\mathrm{col}}
-  $$
+  \begin{eqnarray} \label{eq:aeroForcesInWingAxis}
+  \msub{C}{L} = - \msub{C}{Z} \cos \alpha + \msub{C}{X} \sin \alpha \nonumber \\[6pt]
+  \msub{C}{D} = - \msub{C}{X} \cos \alpha - \msub{C}{Z} \sin \alpha
+  \end{eqnarray}
+
+  The Taylor expansion for the longitudinal motion of the aircraft are expressed in set of Equations \ref{eq:LongitudinalFixedWing}.
+
+  \begin{eqnarray} \label{eq:LongitudinalFixedWing}
+  C_D &=& C_{D_0} + C_{D_V} \frac{\Delta V}{V_0} + C_{D_\alpha} \Delta \alpha + C_{D_q} \frac{q \bar{c}}{2 V_0} + C_{D_{\msub{\delta}{e}} }\Delta \msub{\delta}{e} \nonumber \\ [6pt]
+  C_L &=& C_{L_0} + C_{L_V} \frac{\Delta V}{V_0} + C_{L_\alpha} \Delta \alpha + C_{L_{\dot{\alpha}}} \frac{\dot{\alpha} \bar{c} }{2 V_0} + C_{L_q} \frac{q \bar{c}}{2 V_0} + C_{L_{\msub{\delta}{e}}} \msub{\delta}{e} \nonumber \\ [6pt]
+  C_m &=& C_{m_0} + C_{m_V} \frac{\Delta V}{V_0} + C_{m_\alpha} \Delta \alpha + C_{m_{\dot{\alpha}}} \frac{\dot{\alpha} \bar{c} }{2 V_0} + C_{m_q} \frac{q \bar{c}}{2 V_0} + C_{m_{\msub{\delta}{e}}} \msub{\delta}{e} 
+  \end{eqnarray}
+
+  The set of equations that describe the motion of the aircraft, obtained from the Taylor series expansion is the one represented in Equation \ref{eq:LateralFixedWing}.
+
+  \begin{eqnarray} \label{eq:LateralFixedWing}
+  C_Y &=& C_{Y_0} + C_{Y_\beta}\Delta\beta + C_{Y_p}\frac{pb}{2V_0} + C_{Y_r}\frac{rb}{2V_0} + C_{Y_{\msub{\delta}{a}} }\Delta \msub{\delta}{a} + C_{Y_{\msub{\delta}{r}} }\Delta \msub{\delta}{r} \nonumber \\ [6pt]
+  C_l &=& C_{l_0} + C_{l_\beta}\Delta\beta + C_{l_p}\frac{pb}{2V_0} + C_{l_r}\frac{rb}{2V_0} + C_{l_{\msub{\delta}{a}} }\Delta \msub{\delta}{a} \qquad (C_{l_{\msub{\delta}{r}}} \ll 1) \nonumber \\ [6pt]
+  C_n &=& C_{n_0} + C_{n_\beta}\Delta\beta + C_{n_p}\frac{pb}{2V_0} + C_{n_r}\frac{rb}{2V_0} + C_{n_{\msub{\delta}{r}} }\Delta \msub{\delta}{r} \qquad (C_{l_{\msub{\delta}{a}}} \ll 1)
+  \end{eqnarray}
+
+\subsection{Helicopter model}
+
+  \subsubsection{Model forces and moments coefficients}
+    $\mat{F}$ matrix
+    Forces: 
+    $$
+    X_u, X_v, X_w, X_p, X_q, X_r \\
+    Y_u, Y_v, Y_w, Y_p, Y_q, Y_r \\
+    Z_u, Z_v, Z_w, Z_p, Z_q, Z_r
+    $$
+
+    Moments:
+    $$
+    L_u, L_v, L_w, L_p, L_q, L_r \\
+    M_u, M_v, M_w, M_p, M_q, M_r \\
+    N_u, N_v, N_w, N_p, N_q, N_r
+    $$
+
+    Controllability, $\mat{G}$ matrix:
+    Forces
+    $$
+    X_{\delta_{\mathrm{lon}}}, X_{\delta_{\mathrm{lat}}}, X_{\delta_{\mathrm{ped}}}, X_{\delta_{\mathrm{col}}} \\
+    Y_{\delta_{\mathrm{lon}}}, Y_{\delta_{\mathrm{lat}}}, Y_{\delta_{\mathrm{ped}}}, Y_{\delta_{\mathrm{col}}} \\
+    Z_{\delta_{\mathrm{lon}}}, Z_{\delta_{\mathrm{lat}}}, Z_{\delta_{\mathrm{ped}}}, Z_{\delta_{\mathrm{col}}}
+    $$
+
+    Moments
+    $$
+    M_{\delta_{\mathrm{lon}}}, M_{\delta_{\mathrm{lat}}}, M_{\delta_{\mathrm{ped}}}, M_{\delta_{\mathrm{col}}} \\
+    N_{\delta_{\mathrm{lon}}}, N_{\delta_{\mathrm{lat}}}, N_{\delta_{\mathrm{ped}}}, N_{\delta_{\mathrm{col}}} \\
+    N_{\delta_{\mathrm{lon}}}, N_{\delta_{\mathrm{lat}}}, N_{\delta_{\mathrm{ped}}}, N_{\delta_{\mathrm{col}}}
+    $$
+
+    Time delays
+    $$
+    \tau_{\mathrm{lon}}, \tau_{\mathrm{lat}}, \tau_{\mathrm{ped}}, \tau_{\mathrm{col}}
+    $$
