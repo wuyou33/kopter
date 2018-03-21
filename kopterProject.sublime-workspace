@@ -4,6 +4,26 @@
 		"selected_items":
 		[
 			[
+				"inp",
+				"inputs"
+			],
+			[
+				"func",
+				"function"
+			],
+			[
+				"ac",
+				"accelsCell"
+			],
+			[
+				"for",
+				"force"
+			],
+			[
+				"force",
+				"forcesCell"
+			],
+			[
 				"pa",
 				"path_shared"
 			],
@@ -81,19 +101,10 @@
 			}
 		},
 		{
-			"file": "SH09_s_id/main_F16.m",
+			"file": "SH09_s_id/postSim_callback_F16.m",
 			"settings":
 			{
-				"buffer_size": 1598,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/f16_deq_mod.m",
-			"settings":
-			{
-				"buffer_size": 5881,
+				"buffer_size": 155,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -103,6 +114,15 @@
 			"settings":
 			{
 				"buffer_size": 2286,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/f16_deq_mod.m",
+			"settings":
+			{
+				"buffer_size": 5881,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -125,27 +145,12 @@
 			}
 		},
 		{
-			"file": "/P/10_code/abaqus-master/abaqus-master/mainBuildAndExecuteWingBox.py",
+			"file": "SH09_s_id/FsClass.m",
 			"settings":
 			{
-				"buffer_size": 16145,
+				"buffer_size": 11044,
+				"encoding": "UTF-8",
 				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/P/10_code/abaqus-master/abaqus-master/mainAbaqusParametricStudy.py",
-			"settings":
-			{
-				"buffer_size": 10803,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/P/10_code/labs - System Identification/lab1/script.m",
-			"settings":
-			{
-				"buffer_size": 1857,
-				"line_ending": "Windows"
 			}
 		}
 	],
@@ -185,10 +190,15 @@
 	},
 	"expanded_folders":
 	[
-		"/P/10_code"
+		"/home/alejandro/Documents/kopter/SH09_s_id"
 	],
 	"file_history":
 	[
+		"/home/alejandro/Documents/kopter/SH09_s_id/main_F16.m",
+		"/home/alejandro/Documents/kopter/SH09_s_id/init_F16.m",
+		"/P/10_code/abaqus-master/abaqus-master/mainAbaqusParametricStudy.py",
+		"/P/10_code/abaqus-master/abaqus-master/mainBuildAndExecuteWingBox.py",
+		"/P/10_code/labs - System Identification/lab1/script.m",
 		"/P/10_code/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/f16_trm.m",
 		"/P/10_code/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/f16_aero.m",
 		"/P/10_code/abaqus-master/abaqus-master/mainParametricStudy.py",
@@ -235,9 +245,7 @@
 		"/Y/00_Scripts/AA_Eng_Vib_Analysis/FFT_STDEV_4.VBS",
 		"/Y/00_Scripts/AA_Eng_Vib_Analysis/dataplot.VBS",
 		"/Y/00_Scripts/plot_test/fti_2016-03-17_094251/test_HYD1_Oil_Temp.EMF",
-		"/P/10_code/abaqus-master/abaqus-master/mainAbaqusParametricStudy.py",
-		"/P/10_code/abaqus-master/abaqus-master/setUpParametricStudy.py",
-		"/P/10_code/abaqus-master/abaqus-master/mainBuildAndExecuteWingBox.py"
+		"/P/10_code/abaqus-master/abaqus-master/setUpParametricStudy.py"
 	],
 	"find":
 	{
@@ -258,6 +266,23 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"    ",
+			"states",
+			",",
+			"accels",
+			"inputs",
+			"accel",
+			"accelsNames",
+			"accel",
+			"force",
+			"forces",
+			"force",
+			",",
+			"dot",
+			"a",
+			"mag",
+			"states",
+			"magnitudes",
 			"cth",
 			"DCM",
 			"u",
@@ -399,24 +424,24 @@
 						"translation.y": 1247.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "SH09_s_id/main_F16.m",
+					"file": "SH09_s_id/postSim_callback_F16.m",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1598,
+						"buffer_size": 155,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1248,
-								1248
+								155,
+								155
 							]
 						],
 						"settings":
@@ -424,7 +449,7 @@
 							"syntax": "Packages/Matlab/Matlab.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 156.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -432,36 +457,6 @@
 				},
 				{
 					"buffer": 2,
-					"file": "SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/f16_deq_mod.m",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 5881,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Matlab/Matlab.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1370.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
 					"file": "SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/gen_f16_model_mod.m",
 					"semi_transient": false,
 					"settings":
@@ -487,7 +482,7 @@
 						"translation.y": 819.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 6,
 					"type": "text"
 				}
 			]
@@ -496,6 +491,36 @@
 			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 3,
+					"file": "SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/f16_deq_mod.m",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5881,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Matlab/Matlab.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1370.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
 				{
 					"buffer": 4,
 					"file": "SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/f16_trm_mod.m",
@@ -523,7 +548,7 @@
 						"translation.y": 1950.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
@@ -553,7 +578,7 @@
 						"translation.y": 156.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 5,
 					"type": "text"
 				}
 			]
@@ -564,83 +589,19 @@
 			[
 				{
 					"buffer": 6,
-					"file": "/P/10_code/abaqus-master/abaqus-master/mainBuildAndExecuteWingBox.py",
+					"file": "SH09_s_id/FsClass.m",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 16145,
+						"buffer_size": 11044,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								989,
-								989
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 78.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 1,
-			"sheets":
-			[
-				{
-					"buffer": 7,
-					"file": "/P/10_code/abaqus-master/abaqus-master/mainAbaqusParametricStudy.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 10803,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1158,
-								1158
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 429.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "/P/10_code/labs - System Identification/lab1/script.m",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1857,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1501,
-								1501
+								10468,
+								10468
 							]
 						],
 						"settings":
@@ -650,12 +611,17 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 273.0,
+						"translation.y": 312.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 3,
 					"type": "text"
 				}
+			]
+		},
+		{
+			"sheets":
+			[
 			]
 		}
 	],
@@ -699,13 +665,13 @@
 		"cols":
 		[
 			0.0,
-			0.530341340076,
+			0.548957501692,
 			1.0
 		],
 		"rows":
 		[
 			0.0,
-			0.627853881279,
+			0.561371886819,
 			1.0
 		]
 	},
@@ -756,7 +722,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 338.0,
+	"side_bar_width": 245.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

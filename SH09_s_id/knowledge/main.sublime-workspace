@@ -93,20 +93,11 @@
 			}
 		},
 		{
-			"file": "settings/doc_settings.tex",
-			"settings":
-			{
-				"buffer_size": 1001,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
 			"file": "sections/Model_description.tex",
 			"settings":
 			{
 				"buffer_size": 4918,
-				"line_ending": "Windows"
+				"line_ending": "Unix"
 			}
 		}
 	],
@@ -117,7 +108,7 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 256.0,
+		"height": 280.0,
 		"last_filter": "pa",
 		"selected_items":
 		[
@@ -126,7 +117,7 @@
 				"Package Control: Install Package"
 			]
 		],
-		"width": 444.0
+		"width": 461.0
 	},
 	"console":
 	{
@@ -146,9 +137,8 @@
 	},
 	"expanded_folders":
 	[
-		"/D/kopter/SH09_s_id/knowledge",
-		"/D/kopter/SH09_s_id/knowledge/sections",
-		"/D/kopter/SH09_s_id/knowledge/settings"
+		"/home/alejandro/Documents/kopter/SH09_s_id/knowledge",
+		"/home/alejandro/Documents/kopter/SH09_s_id/knowledge/sections"
 	],
 	"file_history":
 	[
@@ -195,7 +185,7 @@
 	],
 	"find":
 	{
-		"height": 23.0
+		"height": 21.0
 	},
 	"find_in_files":
 	{
@@ -320,7 +310,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -336,8 +326,8 @@
 						"selection":
 						[
 							[
-								600,
-								600
+								759,
+								759
 							]
 						],
 						"settings":
@@ -345,38 +335,10 @@
 							"syntax": "Packages/LaTeXing/support/LaTeX.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 351.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "settings/doc_settings.tex",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1001,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								993,
-								1001
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/LaTeXing/support/LaTeX.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 195.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
+					"stack_index": 0,
 					"type": "text"
 				}
 			]
@@ -386,9 +348,9 @@
 			"sheets":
 			[
 				{
-					"buffer": 2,
+					"buffer": 1,
 					"file": "sections/Model_description.tex",
-					"semi_transient": true,
+					"semi_transient": false,
 					"settings":
 					{
 						"buffer_size": 4918,
@@ -404,15 +366,13 @@
 						],
 						"settings":
 						{
-							"syntax": "Packages/LaTeXing/support/LaTeX.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/LaTeXing/support/LaTeX.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -464,7 +424,7 @@
 	"project": "main.sublime-project",
 	"replace":
 	{
-		"height": 42.0
+		"height": 38.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -482,6 +442,10 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"",
+				"~/Documents/kopter/kopterProject.sublime-project"
+			]
 		],
 		"width": 380.0
 	},
@@ -494,7 +458,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 1,
+	"selected_group": 0,
 	"settings":
 	{
 	},

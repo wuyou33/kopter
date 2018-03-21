@@ -211,6 +211,93 @@ classdef FsClass
 
         end
 
+        function [outFromSimCol] = outFromSimFn(states, forces, inputs, accels)
+            % Variables output from the model
+            %
+            %
+            %
+            % State vector elements are states:
+            %        x(1)  = true airspeed, vt  (fps). 
+            %        x(2)  = sideslip angle, beta  (rad).
+            %        x(3)  = angle of attack, alpha  (rad). 
+            %        x(4)  = roll rate, p (rps).
+            %        x(5)  = pitch rate, q (rps).
+            %        x(6)  = yaw rate, r  (rps).
+            %        x(7)  = roll angle, phi  (rad).
+            %        x(8)  = pitch angle, the  (rad).
+            %        x(9)  = yaw angle, psi  (rad).
+            %        x(10) = xe  (ft)
+            %        x(11) = ye  (ft)
+            %        x(12) = h   (ft)  
+            %        x(13) = pow (percent, 0 <= pow <= 100)
+            %
+            % Forces
+            % CX,CY,CZ,C1,Cm,Cn
+            %
+            % Accels
+            % ax, ay, az, \dot{p}, \dot{q}, \dot{r}
+            %
+            % Inputs
+            %        u(1) = throttle input, thtl  (fraction of full power, 0 <= thtl <= 1.0).
+            %        u(2) = stabilator input, stab  (deg).
+            %        u(3) = aileron input, ail  (deg).
+            %        u(4) = rudder input, rdr  (deg)
+            statesNames = {'vt',  'beta', 'alpha', 'p',     'q',     'r',     'phi', 'theta', 'psi',  'xe',   'ye',   'h',  'pow'};
+            statesUnits = {'fps', 'rad',  'rad',   'rad/s', 'rad/s', 'rad/s', 'rad', 'rad',   'rad',  'fte',  'fte',  'ft', 'percent'};
+
+            forcesNames = {'CX', 'CY', 'CZ', 'C1', 'Cm', 'Cn'};
+
+            accelsNames = {'ax',   'ay',    'az',   'p_dot',  'q_dot',  'r_dot'};
+            accelsUnits = {'fps2', 'fps2',  'fps2', 'rad/s2', 'rad/s2', 'rad/s2'};
+
+            inputsNames = {'thl',      'stab',  'ail',  'rdr'};
+            inputsUnits = {'fraction', 'deg',   'deg',  'deg'};
+
+            statesCell = cell( length(statesNames), 1);
+            forcesCell = cell( length(forcesNames), 1);
+            accelsCell = cell( length(accelsNames), 1);
+            inputsCell = cell( length(inputsNames), 1);
+
+            %States loop
+            for mag=1:length(statesNames)
+
+              ts_temp = timeseries(states.Data(:,mag), states.Time, 'name', statesNames{mag});
+              ts_temp.DataInfo.Units = statesUnits{mag};
+              statesCell{mag} = ts_temp;
+
+            end
+            statesCol = tscollection(statesCell, 'name', 'Collection of states timeseries');
+
+            %Forces loop
+            for force=1:length(forcesNames)
+              ts_temp = timeseries(forces.Data(:,force), forces.Time, 'name', statesNames{force});
+              ts_temp.DataInfo.Units = 'non-dimensional';
+              forcesCell{force} = ts_temp;
+            end
+            forcesCol = tscollection(forcesCell, 'name', 'Collection of forces timeseries');
+
+            %Accelerations loop
+            for accel=1:length(accelsNames)
+              ts_temp = timeseries(accels.Data(:,accel), accels.Time, 'name', accelsNames{accel});
+              ts_temp.DataInfo.Units = accelsUnits{accel};
+              accelsCell{accel} = ts_temp;
+            end
+            accelsCol = tscollection(accelsCell, 'name', 'Collection of accelerations timeseries');
+
+            %Inputs loop
+            for inpt=1:length(inputsNames)
+              ts_temp = timeseries(inputs.Data(:,inpt), inputs.Time, 'name', inputsNames{inpt});
+              ts_temp.DataInfo.Units = inputsUnits{inpt};
+              inputsCell{inpt} = ts_temp;
+            end
+            inputsCol = tscollection(inputsCell, 'name', 'Collection of inputs timeseries');
+
+            outFromSimCol.inputs = inputsCol;
+            outFromSimCol.accels = accelsCol;
+            outFromSimCol.forces = forcesCol;
+            outFromSimCol.states = statesCol;
+        end
+
     end
 
 end
