@@ -16,28 +16,38 @@
 %        x(11) = ye  (ft)
 %        x(12) = h   (ft)  
 %        x(13) = pow (percent, 0 <= pow <= 100)
-
-magnitudesNames = {'vt',  'beta', 'alpha', 'p',     'q',     'r',     'phi', 'theta', 'psi',  'xe',   'ye',   'h',  'pow'};
-magnitudesUnits = {'fps', 'rad',  'rad',   'rad/s', 'rad/s', 'rad/s', 'rad', 'rad',   'rad',  'fte',  'fte',  'ft', 'percent'};
-
-magnitudes = cell(length(magnitudesNames), 1);
-
-for mag=1:length(magnitudesNames)
-
-  ts_temp = timeseries(states(:,1), states.Time, 'name', magnitudesNames{mag});
-  magnitudes{mag} = ts_temp;
-
-end
-
+%
 % Forces
 % CX,CY,CZ,C1,Cm,Cn
-
+%
 % Accels
 % ax, ay, az, \dot{p}, \dot{q}, \dot{r}
-
+%
 % Inputs
 %        u(1) = throttle input, thtl  (fraction of full power, 0 <= thtl <= 1.0).
 %        u(2) = stabilator input, stab  (deg).
 %        u(3) = aileron input, ail  (deg).
 %        u(4) = rudder input, rdr  (deg)
+magnitudesNames = {'vt',  'beta', 'alpha', 'p',     'q',     'r',     'phi', 'theta', 'psi',  'xe',   'ye',   'h',  'pow'};
+magnitudesUnits = {'fps', 'rad',  'rad',   'rad/s', 'rad/s', 'rad/s', 'rad', 'rad',   'rad',  'fte',  'fte',  'ft', 'percent'};
+forcesNames = {'CX', 'CY', 'CZ', 'C1', 'Cm', 'Cn'};
+accelsNames = {'ax', 'ay', 'az', 'p_dot', 'q_dot', 'r_dot'};
+inputsNames = {'thl', 'stab', 'ail', 'rdr'};
+
+magnitudes = cell(length(magnitudesNames), 1);
+
+%States loop
+for mag=1:length(magnitudesNames)
+
+  ts_temp = timeseries(states(:,1), states.Time, 'name', magnitudesNames{mag});
+  ts_temp.DataInfo.Units = magnitudesUnits{mag};
+  magnitudes{mag} = ts_temp;
+
+end
+statesCol = tscollection(magnitudes);
+
+
+
+
+
 
