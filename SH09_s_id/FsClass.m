@@ -15,7 +15,7 @@ classdef FsClass
             plotSet.axFontSize = 14; %Font size for axis labels, specified as a scalar numeric value.
             plotSet.axLineWidth = 1.5; %Width of axes outline, tick marks, and grid lines, specified as a scalar value in point units.
             plotSet.MarkerSize = 30; %Marker size for scattered points, specified as a positive value in points.
-            plotSet.TitleFontSizeMultiplier = 1.5; %Scale factor for title font size, specified as a numeric value greater than 0.
+            plotSet.TitleFontSizeMultiplier = 1.1; %Scale factor for title font size, specified as a numeric value greater than 0.
             %The axes applies this scale factor to the value of the FontSize property to determine the font size for the title.
 
         end
@@ -296,6 +296,49 @@ classdef FsClass
             outFromSimCol.accels = accelsCol;
             outFromSimCol.forces = forcesCol;
             outFromSimCol.states = statesCol;
+        end
+
+        function [] = plotOutput(outFromSimCol, plotSet)
+
+            %% Plot states
+            figure('Units', 'normalized', 'Position', [0.15 0.1 0.7 0.75])
+            set(gcf, 'Name', 'States simulation output')
+            titles = {'Vt, \alpha, \beta', 'Angular rates', 'Euler angles', 'Translational positions'};
+
+            for p=1:4
+              subPlotHandle = subplot(2, 2, p);
+              if p == 1
+                vars = {'vt', 'alpha', 'beta'};
+              elseif p == 2
+                vars = {'p', 'q', 'r'};
+              elseif p == 3
+                vars = {'phi', 'theta', 'psi'};
+              elseif p == 4
+                vars = {'xe', 'ye', 'h'};
+              end
+                
+              y1 = plot(outFromSimCol.states.Time, outFromSimCol.states.(vars{1}).Data, '-k', 'LineWidth', plotSet.LineWidth);
+              if p == 1
+                ylabel([outFromSimCol.states.vt.DataInfo.Units]);
+                yyaxis right; %Go to right axis
+                set(subPlotHandle, 'YColor', 'k');
+              end
+              hold on;
+
+              y2 = plot(outFromSimCol.states.Time, outFromSimCol.states.(vars{2}).Data, '--k', 'LineWidth', plotSet.LineWidth);
+              y3 = plot(outFromSimCol.states.Time, outFromSimCol.states.(vars{3}).Data, ':k', 'LineWidth', plotSet.LineWidth);
+              
+              ylabel([outFromSimCol.states.(vars{3}).DataInfo.Units]);
+
+              legend([y1 y2 y3], outFromSimCol.states.(vars{1}).name, outFromSimCol.states.(vars{2}).name, outFromSimCol.states.(vars{3}).name, 'location','Best')
+                
+              title(titles{p})
+              xlabel('Time [seconds]');
+
+              SetAxisProp(subPlotHandle, plotSet)
+
+            end
+
         end
 
     end
