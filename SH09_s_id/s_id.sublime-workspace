@@ -1,0 +1,381 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"forc",
+				"forces"
+			],
+			[
+				"for",
+				"forces"
+			],
+			[
+				"pa",
+				"path_shared"
+			],
+			[
+				"ge",
+				"getSharedDirectory_tuple"
+			],
+			[
+				"get",
+				"getLocalDirectory"
+			],
+			[
+				"path",
+				"path_local"
+			],
+			[
+				"def",
+				"def\tFunction"
+			],
+			[
+				"det",
+				"delta_y"
+			],
+			[
+				"th",
+				"theta_est"
+			],
+			[
+				"com",
+				"computeToleranceUncertainty"
+			],
+			[
+				"con",
+				"conf"
+			],
+			[
+				"angle",
+				"angleTouch"
+			],
+			[
+				"tol",
+				"tols"
+			],
+			[
+				"ke",
+				"key"
+			],
+			[
+				"dist",
+				"dist_flight"
+			],
+			[
+				"dis",
+				"dist_ground"
+			],
+			[
+				"tra",
+				"track_B_3"
+			],
+			[
+				"_",
+				"__id"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "SIDPAC_startup.m",
+			"settings":
+			{
+				"buffer_size": 1399,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"pa",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 412.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/D/kopter/SH09_s_id"
+	],
+	"file_history":
+	[
+		"/D/kopter/fatigueData/main.py",
+		"/D/kopter/SH09_s_id/configClassModule.py",
+		"/D/kopter/SH09_s_id/SH09_s_id/FsClass.m",
+		"/D/kopter/SH09_s_id/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/f16_trm_mod.m",
+		"/D/kopter/SH09_s_id/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/f16_deq_mod.m",
+		"/D/kopter/SH09_s_id/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/f16_engine_mod.m",
+		"/D/kopter/SH09_s_id/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/gen_f16_model_mod.m",
+		"/D/kopter/SH09_s_id/init_F16.m",
+		"/D/kopter/SH09_s_id/main_F16.m",
+		"/D/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/f16_aero_mod.m",
+		"/D/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/pdot.m",
+		"/D/Cranfield/Modules/9.Experimental Aerodynamics/assignment - Experimental Aerodynamics/matlab Lab 2 - Exp. Aerodynamics/script.m",
+		"/home/alejandro/Documents/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/f16_engine_setup_mod.m",
+		"/home/alejandro/Documents/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/f16_aero_setup_mod.m",
+		"/home/alejandro/Documents/kopter/SH09_s_id/f16_global.m",
+		"/home/alejandro/Documents/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/f16_aero_mod.m",
+		"/home/alejandro/Documents/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/dampder_mod.m",
+		"/home/alejandro/Documents/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/cxo_mod.m",
+		"/home/alejandro/Documents/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/f16_engine_mod.m",
+		"/home/alejandro/Documents/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/dnda_mod.m",
+		"/home/alejandro/Documents/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/dndr_mod.m",
+		"/home/alejandro/Documents/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/dldr_mod.m",
+		"/home/alejandro/Documents/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/dlda_mod.m",
+		"/home/alejandro/Documents/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/czo_mod.m",
+		"/home/alejandro/Documents/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/cno_mod.m",
+		"/home/alejandro/Documents/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/cmo_mod.m",
+		"/home/alejandro/Documents/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/clo_mod.m",
+		"/home/alejandro/Documents/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/cnvrg.m",
+		"/home/alejandro/Documents/kopter/SH09_s_id/SIDPAC_V2.0/lnze.m",
+		"/home/alejandro/Documents/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/ic_ftrm.m",
+		"/home/alejandro/Documents/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/f16_engine.m",
+		"/home/alejandro/Documents/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/f16_trm_mod.m",
+		"/home/alejandro/Documents/kopter/SH09_s_id/f16_global.mat",
+		"/home/alejandro/Documents/kopter/SH09_s_id/f16_global",
+		"/home/alejandro/Documents/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/f16_aero_setup.m",
+		"/home/alejandro/Documents/kopter/SH09_s_id/fromFlightPhysics/FL_LTI_models/read_LTI_matrix_from_FL_3.m",
+		"/P/10_code/abaqus-master/abaqus-master/mainAbaqusParametricStudy.py",
+		"/P/10_code/labs - System Identification/lab1/script.m",
+		"/P/10_code/abaqus-master/abaqus-master/mainBuildAndExecuteWingBox.py",
+		"/P/10_code/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/f16_trm.m",
+		"/P/10_code/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/f16_aero.m",
+		"/P/10_code/abaqus-master/abaqus-master/mainParametricStudy.py",
+		"/P/10_code/latex/Cranfield_project.tex",
+		"/P/10_code/abaqus-master/abaqus-master/moduleCommon.py",
+		"/P/10_code/kopter/tolerances/dampingUncer.py",
+		"/P/10_code/versionsBackup/cleanDirs.py",
+		"/P/10_code/latex/settings/settingsProject_Personal.tex",
+		"/P/10_code/latex/settings/settingsProject_Cranfield.tex",
+		"/P/10_code/kopter/SH09_s_id/knowledge/sections/Introduction.tex",
+		"/P/10_code/kopter/SH09_s_id/knowledge/main.tex",
+		"/P/10_code/kopter/SH09_s_id/knowledge/settings/doc_settings.tex",
+		"/P/10_code/kopter/SH09_s_id/knowledge/sections/0.Nomenclature.tex",
+		"/P/10_code/kopter/SH09_s_id/knowledge/sections/Model_description.tex",
+		"/P/10_code/latex/chapters/0.Nomenclature.tex",
+		"/P/10_code/kopter/s_id/docs/latex/main.pdf",
+		"/P/10_code/kopter/versionsBackup/inputDirectories.txt",
+		"/P/10_code/kopter/SH09_s_id/fromFlightPhysics/A_mat_from_FL_v1.txt",
+		"//mshzhstg/mshdata/MSH/02_Development/SKYe S09/06_Avionic/J00 Testing and FTI/SKYe test Benches/0c - Various Information/Simulator/Flight Physics/Flightlab_controller_design/yaw_manouver/FL_LTI_models/read_LTI_matrix_from_FL_3.m",
+		"/P/10_code/kopter/SH09_s_id/configClassModule.py",
+		"//mshzhstg/mshdata/MSH/02_Development/SKYe S09/06_Avionic/J00 Testing and FTI/SKYe test Benches/0c - Various Information/Simulator/Flight Physics/Flightlab_controller_design/read_LTI_matrix_from_FL.m",
+		"//mshzhstg/mshdata/MSH/02_Development/SKYe S09/06_Avionic/J00 Testing and FTI/SKYe test Benches/0c - Various Information/Simulator/Flight Physics/Flightlab_controller_design/read_LTI_matrix_from_FL_2.m",
+		"/P/10_code/kopter/SH09_s_id/C_mat_from_FL_v1.txt",
+		"/P/10_code/kopter/SH09_s_id/A_mat_from_FL_v1.txt",
+		"//mshzhstg/mshdata/MSH/02_Development/SKYe S09/06_Avionic/J00 Testing and FTI/SKYe test Benches/0c - Various Information/Simulator/Flight Physics/Flightlab_controller_design/FCS_tuning.m",
+		"/L/TEMP/michal/flap_stop/configClassModule.py",
+		"/P/10_code/kopter/SH09_s_id/main_versionsBackup.py",
+		"//mshzhstg/mshdata/MSH/02_Development/SKYe S09/06_Avionic/J00 Testing and FTI/SKYe test Benches/0c - Various Information/Simulator/Flight Physics/Flightlab_controller_design/A_mat_from_FL_v2.txt",
+		"//mshzhstg/mshdata/MSH/02_Development/SKYe S09/06_Avionic/J00 Testing and FTI/SKYe test Benches/0c - Various Information/Simulator/Flight Physics/Flightlab_controller_design/A_mat_from_FL_v1.txt",
+		"/P/10_code/kopter/SH09_s_id/C_mat_from_FL_v2.txt",
+		"/P/10_code/kopter/SH09_s_id/B_mat_from_FL_v1.txt",
+		"/P/10_code/kopter/versionsBackup/main_versionsBackup.py",
+		"/P/10_code/kopter/s_id/sidpac/startup.m",
+		"/L/TEMP/michal/flap_stop/toleranceChain.py",
+		"/L/TEMP/michal/flap_stop/dampingUncer.py",
+		"/P/10_code/kopter/main_versionsBackup.py",
+		"/P/10_code/kopter/inputDirectories.txt",
+		"/L/MSH/02_Development/SKYe S09/05_Flight Systems/50_Engineering/J62/J62-00 General/40_Testing/41_FTI/22_DATA ANALYSIS P2/MFST_postprocessing_CalculationScript_v01.VBS",
+		"/P/10_code/kopter/improvements.py",
+		"/P/10_code/kopter/PythonNotes.sublime-project",
+		"/P/10_code/labs - System Identification/lab2/script.m",
+		"/P/10_code/labs - System Identification/lab4/script.m",
+		"/P/10_code/labs - System Identification/lab3/main_script.m",
+		"/Y/00_Scripts/AA_Eng_Vib_Analysis/FFT_STDEV_4.VBS",
+		"/Y/00_Scripts/AA_Eng_Vib_Analysis/dataplot.VBS",
+		"/Y/00_Scripts/plot_test/fti_2016-03-17_094251/test_HYD1_Oil_Temp.EMF",
+		"/P/10_code/abaqus-master/abaqus-master/setUpParametricStudy.py"
+	],
+	"find":
+	{
+		"height": 23.0
+	},
+	"find_in_files":
+	{
+		"height": 104.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "SIDPAC_startup.m",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 1399,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Matlab/Matlab.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 312.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 21.0
+	},
+	"input":
+	{
+		"height": 35.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			],
+			[
+				0,
+				1,
+				1,
+				2
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			0.248114630468,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "s_id.sublime-project",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 270.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
