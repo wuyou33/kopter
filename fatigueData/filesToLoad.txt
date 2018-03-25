@@ -1,0 +1,4 @@
+Files to load:
+D:\kopter\fatigueData\Probe_3_Zyklische Ergebnisse.csv
+D:\kopter\fatigueData\Probe_3_Zyklische Ergebnisse_2.csv
+D:\kopter\fatigueData\Probe_3_Zyklische Ergebnisse_3.csv

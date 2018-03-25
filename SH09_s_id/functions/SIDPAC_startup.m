@@ -42,6 +42,7 @@ if ispc
     path(path,[ParentDir,'\SIDPAC_V2.0\Text_Examples']),
     path(path,[ParentDir,'\SIDPAC_V2.0\F16_NLS_V1.1']),
     path(path,[ParentDir,'\SIDPAC_V2.0\Demos']),
+    path(path,[ParentDir,'\SIDPAC_V2.0\functions']),
 
 elseif isunix
     path(path,[ParentDir,'/SIDPAC_V2.0']),
@@ -49,6 +50,7 @@ elseif isunix
     path(path,[ParentDir,'/SIDPAC_V2.0/Text_Examples']),
     path(path,[ParentDir,'/SIDPAC_V2.0/F16_NLS_V1.1']),
     path(path,[ParentDir,'/SIDPAC_V2.0/Demos']),
+    path(path,[ParentDir,'/SIDPAC_V2.0/functions']),
 end
 
 clear ParentDir;

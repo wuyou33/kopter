@@ -296,48 +296,157 @@ classdef FsClass
             outFromSimCol.accels = accelsCol;
             outFromSimCol.forces = forcesCol;
             outFromSimCol.states = statesCol;
+
+            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+            % Conversion to deg and deg/S
+            % States conversion
+            statesToConvert = {     'beta', 'alpha', 'p',     'q',      'r',     'phi', 'theta', 'psi'};
+            statesToConvertUnits = {'deg',  'deg',   'deg/s', 'deg/s',  'deg/s', 'deg', 'deg',   'deg'};
+            newStatesCell = cell( length(statesToConvert), 1);
+
+            for mag=1:length(statesToConvert)
+
+              ts_temp = timeseries(outFromSimCol.states.(statesToConvert{mag}).Data(:,mag) .* (180/pi), outFromSimCol.states.Time, 'name', [statesToConvert{mag} '_deg']);
+              ts_temp.DataInfo.Units = statesToConvertUnits{mag};
+              newStatesCell{mag} = ts_temp;
+
+            end
+
+            outFromSimCol.states = addts(outFromSimCol.states, newStatesCell);
         end
 
         function [] = plotOutput(outFromSimCol, plotSet)
 
-            %% Plot states
+          %% Plot states
+          % statesNames = {'vt',  'beta', 'alpha', 'p',     'q',     'r',     'phi', 'theta', 'psi',  'xe',   'ye',   'h',  'pow'};
+          % statesUnits = {'fps', 'rad',  'rad',   'rad/s', 'rad/s', 'rad/s', 'rad', 'rad',   'rad',  'fte',  'fte',  'ft', 'percent'};
+          figure('Units', 'normalized', 'Position', [0.15 0.1 0.7 0.75])
+          set(gcf, 'Name', 'States simulation output')
+          titles = {'Vt, \alpha, \beta', 'Angular rates', 'Euler angles', 'Translational positions'};
+
+          for p=1:4
+            subPlotHandle = subplot(2, 2, p);
+            if p == 1
+              vars = {'vt', 'alpha_deg', 'beta_deg'};
+            elseif p == 2
+              vars = {'p_deg', 'q_deg', 'r_deg'};
+            elseif p == 3
+              vars = {'phi_deg', 'theta_deg', 'psi_deg'};
+            elseif p == 4
+              vars = {'xe', 'ye', 'h'};
+            end
+              
+            y1 = plot(outFromSimCol.states.Time, outFromSimCol.states.(vars{1}).Data, '-k', 'LineWidth', plotSet.LineWidth);
+            if p == 1
+              ylabel([outFromSimCol.states.vt.DataInfo.Units]);
+              yyaxis right; %Go to right axis
+              set(subPlotHandle, 'YColor', 'k');
+            end
+            hold on;
+
+            y2 = plot(outFromSimCol.states.Time, outFromSimCol.states.(vars{2}).Data, '--k', 'LineWidth', plotSet.LineWidth);
+            y3 = plot(outFromSimCol.states.Time, outFromSimCol.states.(vars{3}).Data, ':k', 'LineWidth', plotSet.LineWidth);
+            
+            ylabel([outFromSimCol.states.(vars{3}).DataInfo.Units]);
+
+            legend([y1 y2 y3], outFromSimCol.states.(vars{1}).name, outFromSimCol.states.(vars{2}).name, outFromSimCol.states.(vars{3}).name, 'location','Best')
+              
+            title(titles{p})
+            xlabel('Time [seconds]');
+
+            SetAxisProp(subPlotHandle, plotSet)
+
+          end
+
+          %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+          %% Plot forces, moments and accelerations - 'CX', 'CY', 'CZ', 'C1', 'Cm', 'Cn'
+          % forcesNames = {'CX', 'CY', 'CZ', 'C1', 'Cm', 'Cn'};
+          % accelsNames = {'ax',   'ay',    'az',   'p_dot',  'q_dot',  'r_dot'};
+          % accelsUnits = {'fps2', 'fps2',  'fps2', 'rad/s2', 'rad/s2', 'rad/s2'};
+          figure('Units', 'normalized', 'Position', [0.15 0.1 0.7 0.75])
+          set(gcf, 'Name', 'Forces, moments and accelerations simulation output')
+          titles = {'Forces and moments', 'Accelerations'};
+
+          for p=1:2
+            subPlotHandle = subplot(1, 2, p);
+            if p == 1
+              currentColl = outFromSimCol.forces;
+              vars = {'CX', 'CY', 'CZ', 'C1', 'Cm', 'Cn'};
+              ylabel_left = 'Forces';
+              ylabel_right = 'Moments';
+            elseif p == 2
+              currentColl = outFromSimCol.accel;
+              vars = {'ax',   'ay',    'az',   'p_dot',  'q_dot',  'r_dot'};
+              ylabel_left = currentColl.ax.DataInfo.Units;
+              ylabel_right = currentColl.p_dot.DataInfo.Units;
+            end
+
+            y1 = plot(currentColl.Time, currentColl.(vars{1}).Data, '-k', 'LineWidth', plotSet.LineWidth);
+            hold on;
+            y2 = plot(currentColl.Time, currentColl.(vars{2}).Data, '--k', 'LineWidth', plotSet.LineWidth);
+            y3 = plot(currentColl.Time, currentColl.(vars{3}).Data, ':k', 'LineWidth', plotSet.LineWidth);
+
+            ylabel(ylabel_left);
+            yyaxis right; %Go to right axis
+            set(subPlotHandle, 'YColor', 'k');
+
+            y4 = plot(currentColl.Time, currentColl.(vars{4}).Data, '-b', 'LineWidth', plotSet.LineWidth);
+            y5 = plot(currentColl.Time, currentColl.(vars{5}).Data, '--b', 'LineWidth', plotSet.LineWidth);
+            y6 = plot(currentColl.Time, currentColl.(vars{6}).Data, ':b', 'LineWidth', plotSet.LineWidth);
+
+            ylabel(ylabel_right);
+
+            legend([y1 y2 y3 y4 y5 y6], currentColl.(vars{1}).name, ...
+                                        currentColl.(vars{2}).name, ... 
+                                        currentColl.(vars{3}).name, ... 
+                                        currentColl.(vars{4}).name, ... 
+                                        currentColl.(vars{5}).name, ... 
+                                        currentColl.(vars{6}).name, ... 
+                                        'location','Best')
+              
+            title(titles{p})
+            xlabel('Time [seconds]');
+
+            SetAxisProp(subPlotHandle, plotSet);
+
+            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+            %Plot inputs
+            % inputsNames = {'thl',      'stab',  'ail',  'rdr'};
+            % inputsUnits = {'fraction', 'deg',   'deg',  'deg'};
+
             figure('Units', 'normalized', 'Position', [0.15 0.1 0.7 0.75])
             set(gcf, 'Name', 'States simulation output')
-            titles = {'Vt, \alpha, \beta', 'Angular rates', 'Euler angles', 'Translational positions'};
 
-            for p=1:4
-              subPlotHandle = subplot(2, 2, p);
-              if p == 1
-                vars = {'vt', 'alpha', 'beta'};
-              elseif p == 2
-                vars = {'p', 'q', 'r'};
-              elseif p == 3
-                vars = {'phi', 'theta', 'psi'};
-              elseif p == 4
-                vars = {'xe', 'ye', 'h'};
-              end
-                
-              y1 = plot(outFromSimCol.states.Time, outFromSimCol.states.(vars{1}).Data, '-k', 'LineWidth', plotSet.LineWidth);
-              if p == 1
-                ylabel([outFromSimCol.states.vt.DataInfo.Units]);
-                yyaxis right; %Go to right axis
-                set(subPlotHandle, 'YColor', 'k');
-              end
-              hold on;
+            vars = {'thl', 'stab',  'ail',  'rdr'};
 
-              y2 = plot(outFromSimCol.states.Time, outFromSimCol.states.(vars{2}).Data, '--k', 'LineWidth', plotSet.LineWidth);
-              y3 = plot(outFromSimCol.states.Time, outFromSimCol.states.(vars{3}).Data, ':k', 'LineWidth', plotSet.LineWidth);
+            y1 = plot(outFromSimCol.inputs.Time, outFromSimCol.inputs.(vars{1}).Data, '-k', 'LineWidth', plotSet.LineWidth);
+            hold on;
+            y2 = plot(outFromSimCol.inputs.Time, outFromSimCol.inputs.(vars{2}).Data, '--k', 'LineWidth', plotSet.LineWidth);
+            y3 = plot(outFromSimCol.inputs.Time, outFromSimCol.inputs.(vars{3}).Data, ':k', 'LineWidth', plotSet.LineWidth);
+
+            ylabel([outFromSimCol.states.stab.DataInfo.Units]);
+            
+            yyaxis right; %Go to right axis
+            set(subPlotHandle, 'YColor', 'k');
+            y4 = plot(outFromSimCol.inputs.Time, outFromSimCol.inputs.(vars{4}).Data, '-b', 'LineWidth', plotSet.LineWidth);
+
+            ylabel([outFromSimCol.states.thl.DataInfo.Units]);
+
+            legend([y1 y2 y3 y4], currentColl.(vars{1}).name, ...
+                                        currentColl.(vars{2}).name, ... 
+                                        currentColl.(vars{3}).name, ... 
+                                        currentColl.(vars{4}).name, ... 
+                                        'location','Best');
               
-              ylabel([outFromSimCol.states.(vars{3}).DataInfo.Units]);
+            title('Inputs to the aircraft');
+            xlabel('Time [seconds]');
 
-              legend([y1 y2 y3], outFromSimCol.states.(vars{1}).name, outFromSimCol.states.(vars{2}).name, outFromSimCol.states.(vars{3}).name, 'location','Best')
-                
-              title(titles{p})
-              xlabel('Time [seconds]');
+            SetAxisProp(subPlotHandle, plotSet);
 
-              SetAxisProp(subPlotHandle, plotSet)
+          end
 
-            end
 
         end
 

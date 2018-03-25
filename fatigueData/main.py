@@ -4,32 +4,25 @@ import pdb #pdb.set_trace()
 
 from moduleFunctions import *
 
+#Import data
+inputFilesAddress = loadFileAddresses('filesToLoad.txt')
 plotSettings = importPlottingOptions()
 
-file = open('Probe_3_Zyklische Ergebnisse.csv', 'r')
-lines = file.readlines()
+dataFromRuns, previousNCycles = [], 0
 
-cycleN, maxF, meanF, minF = [], [], [], []
+for file in inputFilesAddress.getTupleFiles():
 
-lineN = 0
-for line in lines:
+	dataFromRun_temp = importData(file)
 
-	currentLineSplit = line.split(';')
+	dataFromRun_temp.setAbsoluteNCycles(previousNCycles)
 
-	if lineN > 1:
-		
-		cycleN += [returnNumber(currentLineSplit[0])]
-		maxF += [returnNumber(currentLineSplit[20])]
-		meanF += [returnNumber(currentLineSplit[21])]
-		minF += [returnNumber(currentLineSplit[22])]
+	previousNCycles = dataFromRun_temp.get_absoluteNCycles()[-1]
 
-	lineN += 1
-		
+	dataFromRuns += [dataFromRun_temp]
 
-file.close()
+#################################
 
-dataFromRun = dataFromRunClass(1)
-
-dataFromRun.add_data(cycleN, maxF, meanF, minF)
-
-plotSingleRun(dataFromRun, plotSettings)
+#Plot data
+plotSingleRun(dataFromRuns[0], plotSettings)
+plotAllRuns(dataFromRuns, plotSettings)
+plt.show(block = True)

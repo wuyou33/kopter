@@ -21,8 +21,6 @@ def loadParameters(fileName):
 
 			return stringIn
 
-	attributes = ()
-
 	file = open(fileName, 'r')
 
 	lines = file.readlines()

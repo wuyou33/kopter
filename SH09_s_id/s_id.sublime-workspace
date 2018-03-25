@@ -4,6 +4,38 @@
 		"selected_items":
 		[
 			[
+				"th",
+				"thl"
+			],
+			[
+				"in",
+				"inputs"
+			],
+			[
+				"p",
+				"p_dot"
+			],
+			[
+				"Dat",
+				"DataInfo"
+			],
+			[
+				"ylab",
+				"ylabel_left"
+			],
+			[
+				"statesT",
+				"statesToConvertUnits"
+			],
+			[
+				"out",
+				"outFromSimCol"
+			],
+			[
+				"the",
+				"theta"
+			],
+			[
 				"forc",
 				"forces"
 			],
@@ -34,10 +66,6 @@
 			[
 				"det",
 				"delta_y"
-			],
-			[
-				"th",
-				"theta_est"
 			],
 			[
 				"com",
@@ -80,10 +108,19 @@
 	"buffers":
 	[
 		{
-			"file": "SIDPAC_startup.m",
+			"file": "functions/FsClass.m",
 			"settings":
 			{
-				"buffer_size": 1399,
+				"buffer_size": 18122,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "functions/postSim_callback_F16.m",
+			"settings":
+			{
+				"buffer_size": 200,
 				"line_ending": "Windows"
 			}
 		}
@@ -124,10 +161,17 @@
 	},
 	"expanded_folders":
 	[
-		"/D/kopter/SH09_s_id"
+		"/D/kopter/SH09_s_id",
+		"/D/kopter/SH09_s_id/functions",
+		"/D/kopter/SH09_s_id/SIDPAC_V2.0",
+		"/D/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1"
 	],
 	"file_history":
 	[
+		"/D/kopter/SH09_s_id/functions/SIDPAC_startup.m",
+		"/D/kopter/SH09_s_id/SIDPAC_startup.m",
+		"/D/kopter/SH09_s_id/init_callback_F16.m",
+		"/D/kopter/SH09_s_id/FsClass.m",
 		"/D/kopter/fatigueData/main.py",
 		"/D/kopter/SH09_s_id/configClassModule.py",
 		"/D/kopter/SH09_s_id/SH09_s_id/FsClass.m",
@@ -217,7 +261,7 @@
 	],
 	"find":
 	{
-		"height": 23.0
+		"height": 40.0
 	},
 	"find_in_files":
 	{
@@ -231,6 +275,20 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"Data",
+			"inputs.",
+			"states",
+			"outFromSimCol.states",
+			"actualColl",
+			"outFromSimCol.states",
+			"outFromSimCol.states.(vars",
+			"outFromSimCol.states",
+			"k",
+			"accelerations",
+			"ylabel",
+			"C1",
+			"tsc",
+			","
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -248,8 +306,39 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "functions/FsClass.m",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 18122,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								11584,
+								11584
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Matlab/Matlab.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 5814.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		},
 		{
@@ -258,32 +347,60 @@
 			[
 				{
 					"buffer": 0,
-					"file": "SIDPAC_startup.m",
-					"semi_transient": true,
+					"file": "functions/FsClass.m",
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1399,
+						"buffer_size": 18122,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								17729,
+								17729
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/Matlab/Matlab.sublime-syntax",
-							"tab_size": 4,
+							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 312.0,
+						"translation.y": 3958.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "functions/postSim_callback_F16.m",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 200,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								198,
+								198
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Matlab/Matlab.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
 					"type": "text"
 				}
 			]
@@ -322,7 +439,7 @@
 		"rows":
 		[
 			0.0,
-			0.248114630468,
+			0.52262443439,
 			1.0
 		]
 	},
@@ -349,12 +466,16 @@
 	},
 	"select_project":
 	{
-		"height": 0.0,
+		"height": 500.0,
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"",
+				"D:\\kopter\\kopterDevelopment.sublime-project"
+			]
 		],
-		"width": 0.0
+		"width": 380.0
 	},
 	"select_symbol":
 	{

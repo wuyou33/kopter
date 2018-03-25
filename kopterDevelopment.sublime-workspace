@@ -4,12 +4,76 @@
 		"selected_items":
 		[
 			[
+				"__",
+				"__cycleN"
+			],
+			[
+				"data",
+				"dataFromRun"
+			],
+			[
+				"get",
+				"get_minF"
+			],
+			[
+				"dat",
+				"dataFromLastRun"
+			],
+			[
+				"ge",
+				"get_previousNCycles"
+			],
+			[
+				"da",
+				"dataFromLastRun"
+			],
+			[
 				"def",
-				"defs\tMethod"
+				"def\tFunction"
+			],
+			[
+				"han2",
+				"handle2"
+			],
+			[
+				"han",
+				"handle1"
+			],
+			[
+				"leg",
+				"legendHandles"
+			],
+			[
+				"plot",
+				"plotSettings"
 			],
 			[
 				"re",
-				"returnNumber"
+				"return"
+			],
+			[
+				"por",
+				"previousNCycles_in"
+			],
+			[
+				"pr",
+				"PreviousNCycles_in"
+			],
+			[
+				"fil",
+				"fileName"
+			],
+			[
+				"in",
+				"inputFilesAddress"
+			],
+			[
+				"Add",
+				"address"
+			],
+			[
+				"fi",
+				"fileAddress"
 			],
 			[
 				"lin",
@@ -26,14 +90,6 @@
 			[
 				"pa",
 				"path_shared"
-			],
-			[
-				"ge",
-				"getSharedDirectory_tuple"
-			],
-			[
-				"get",
-				"getLocalDirectory"
 			],
 			[
 				"path",
@@ -115,15 +171,7 @@
 			"file": "versionsBackup/main_versionsBackup.py",
 			"settings":
 			{
-				"buffer_size": 4853,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "fatigueData/main.py",
-			"settings":
-			{
-				"buffer_size": 674,
+				"buffer_size": 4835,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -132,7 +180,34 @@
 			"file": "fatigueData/moduleFunctions.py",
 			"settings":
 			{
-				"buffer_size": 2930,
+				"buffer_size": 6792,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "versionsBackup/inputDirectories.txt",
+			"settings":
+			{
+				"buffer_size": 672,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "fatigueData/filesToLoad.txt",
+			"settings":
+			{
+				"buffer_size": 184,
+				"encoding": "UTF-8",
+				"line_ending": "Windows",
+				"name": "Files to load:"
+			}
+		},
+		{
+			"file": "fatigueData/main.py",
+			"settings":
+			{
+				"buffer_size": 624,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -145,7 +220,7 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 392.0,
+		"height": 203.0,
 		"last_filter": "",
 		"selected_items":
 		[
@@ -154,7 +229,7 @@
 				"Package Control: Install Package"
 			]
 		],
-		"width": 412.0
+		"width": 428.0
 	},
 	"console":
 	{
@@ -183,6 +258,8 @@
 	],
 	"file_history":
 	[
+		"/D/kopter/fatigueData/main.py",
+		"/D/kopter/versionsBackup/inputDirectories.txt",
 		"/D/kopter/fatigueData/2_Probe_3_Zyklische Ergebnisse.csv",
 		"/D/kopter/SH09_s_id/configClassModule.py",
 		"/D/kopter/SH09_s_id/SH09_s_id/FsClass.m",
@@ -286,6 +363,29 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"2",
+			"18",
+			"get_absoluteNCycles",
+			"Cycles",
+			"cycleN",
+			"[d + dataFromRun.get_previousNCycles() for d in dataFromRun.get_cycleN()]",
+			"__previousNCycles",
+			"previousNCycles",
+			"show",
+			"label",
+			"legend",
+			"threePlotForRun",
+			"get_prev",
+			"dataFromRun.get_cycleN()",
+			"rawLi",
+			"rawLi3",
+			"rawLi",
+			"getLocalDirectory",
+			"loadParameters",
+			"__setOfFilesAddress",
+			"sharedAddress",
+			"attributes",
+			"localAddress",
 			"-.",
 			"c =",
 			"get_m",
@@ -324,7 +424,7 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 4,
 			"sheets":
 			[
 				{
@@ -353,7 +453,7 @@
 						"translation.y": 975.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
@@ -369,8 +469,8 @@
 						"selection":
 						[
 							[
-								15081,
-								15081
+								18704,
+								18704
 							]
 						],
 						"settings":
@@ -379,7 +479,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 6363.0,
+						"translation.y": 7507.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,
@@ -398,8 +498,8 @@
 						"selection":
 						[
 							[
-								179,
-								184
+								699,
+								699
 							]
 						],
 						"settings":
@@ -412,7 +512,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
@@ -421,15 +521,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4853,
+						"buffer_size": 4835,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								739,
-								739
+								397,
+								397
 							]
 						],
 						"settings":
@@ -438,33 +538,120 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 750.0,
+						"translation.y": 245.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "fatigueData/moduleFunctions.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6792,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2866,
+								2866
+							]
+						],
+						"settings":
+						{
+							"spell_check": true,
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1335.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "versionsBackup/inputDirectories.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 672,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
 					"type": "text"
 				}
 			]
 		},
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
-					"buffer": 4,
+					"buffer": 6,
+					"file": "fatigueData/filesToLoad.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 184,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								14,
+								14
+							]
+						],
+						"settings":
+						{
+							"auto_name": "Files to load:",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
 					"file": "fatigueData/main.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 674,
+						"buffer_size": 624,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								674,
-								674
+								470,
+								470
 							]
 						],
 						"settings":
@@ -472,38 +659,10 @@
 							"syntax": "Packages/Python/Python.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 273.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "fatigueData/moduleFunctions.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2930,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								180,
-								180
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 183.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -569,12 +728,16 @@
 	},
 	"select_project":
 	{
-		"height": 0.0,
+		"height": 500.0,
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"",
+				"D:\\kopter\\SH09_s_id\\s_id.sublime-project"
+			]
 		],
-		"width": 0.0
+		"width": 380.0
 	},
 	"select_symbol":
 	{
