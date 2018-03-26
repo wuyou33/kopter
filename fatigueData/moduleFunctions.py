@@ -222,6 +222,7 @@ class dataFromGaugesSingleMagnitudeClass(object):
 	def getTimeList(self, nameField):
 		
 		timeSec = np.linspace(0, int(len(self.__xValues)/self.__freq), len(self.__xValues), endpoint=True)
+		print(str(t)) for t in self.__xValuesNewRun
 		timeSecNewRun = [float(t/self.__freq) for t in self.__xValuesNewRun]
 		a = self.__xValuesNewRun
 		f = self.__freq
@@ -260,6 +261,8 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		self.__lastID = dataID[-1]
 
 		self.__xValuesNewRun += [dataID[-1]]
+
+		print('\t'+'\t'+'-> Last computed data point absolute index: ' + str(dataID[-1]))
 
 		self.__xValues += dataID
 	
