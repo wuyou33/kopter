@@ -270,7 +270,7 @@ classdef FsClass
 
             %Forces loop
             for force=1:length(forcesNames)
-              ts_temp = timeseries(forces.Data(:,force), forces.Time, 'name', statesNames{force});
+              ts_temp = timeseries(forces.Data(:,force), forces.Time, 'name', forcesNames{force});
               ts_temp.DataInfo.Units = 'non-dimensional';
               forcesCell{force} = ts_temp;
             end
@@ -306,7 +306,7 @@ classdef FsClass
 
             for mag=1:length(statesToConvert)
 
-              ts_temp = timeseries(outFromSimCol.states.(statesToConvert{mag}).Data(:,mag) .* (180/pi), outFromSimCol.states.Time, 'name', [statesToConvert{mag} '_deg']);
+              ts_temp = timeseries(outFromSimCol.states.(statesToConvert{mag}).Data .* (180/pi), outFromSimCol.states.Time, 'name', [statesToConvert{mag} 'Deg']);
               ts_temp.DataInfo.Units = statesToConvertUnits{mag};
               newStatesCell{mag} = ts_temp;
 
@@ -327,11 +327,11 @@ classdef FsClass
           for p=1:4
             subPlotHandle = subplot(2, 2, p);
             if p == 1
-              vars = {'vt', 'alpha_deg', 'beta_deg'};
+              vars = {'vt', 'alphaDeg', 'betaDeg'};
             elseif p == 2
-              vars = {'p_deg', 'q_deg', 'r_deg'};
+              vars = {'pDeg', 'qDeg', 'rDeg'};
             elseif p == 3
-              vars = {'phi_deg', 'theta_deg', 'psi_deg'};
+              vars = {'phiDeg', 'thetaDeg', 'psiDeg'};
             elseif p == 4
               vars = {'xe', 'ye', 'h'};
             end
@@ -376,7 +376,7 @@ classdef FsClass
               ylabel_left = 'Forces';
               ylabel_right = 'Moments';
             elseif p == 2
-              currentColl = outFromSimCol.accel;
+              currentColl = outFromSimCol.accels;
               vars = {'ax',   'ay',    'az',   'p_dot',  'q_dot',  'r_dot'};
               ylabel_left = currentColl.ax.DataInfo.Units;
               ylabel_right = currentColl.p_dot.DataInfo.Units;
@@ -410,44 +410,44 @@ classdef FsClass
 
             SetAxisProp(subPlotHandle, plotSet);
 
-            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-            %Plot inputs
-            % inputsNames = {'thl',      'stab',  'ail',  'rdr'};
-            % inputsUnits = {'fraction', 'deg',   'deg',  'deg'};
-
-            figure('Units', 'normalized', 'Position', [0.15 0.1 0.7 0.75])
-            set(gcf, 'Name', 'States simulation output')
-
-            vars = {'thl', 'stab',  'ail',  'rdr'};
-
-            y1 = plot(outFromSimCol.inputs.Time, outFromSimCol.inputs.(vars{1}).Data, '-k', 'LineWidth', plotSet.LineWidth);
-            hold on;
-            y2 = plot(outFromSimCol.inputs.Time, outFromSimCol.inputs.(vars{2}).Data, '--k', 'LineWidth', plotSet.LineWidth);
-            y3 = plot(outFromSimCol.inputs.Time, outFromSimCol.inputs.(vars{3}).Data, ':k', 'LineWidth', plotSet.LineWidth);
-
-            ylabel([outFromSimCol.states.stab.DataInfo.Units]);
-            
-            yyaxis right; %Go to right axis
-            set(subPlotHandle, 'YColor', 'k');
-            y4 = plot(outFromSimCol.inputs.Time, outFromSimCol.inputs.(vars{4}).Data, '-b', 'LineWidth', plotSet.LineWidth);
-
-            ylabel([outFromSimCol.states.thl.DataInfo.Units]);
-
-            legend([y1 y2 y3 y4], currentColl.(vars{1}).name, ...
-                                        currentColl.(vars{2}).name, ... 
-                                        currentColl.(vars{3}).name, ... 
-                                        currentColl.(vars{4}).name, ... 
-                                        'location','Best');
-              
-            title('Inputs to the aircraft');
-            xlabel('Time [seconds]');
-
-            SetAxisProp(subPlotHandle, plotSet);
-
           end
 
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+          %Plot inputs
+          % inputsNames = {'thl',      'stab',  'ail',  'rdr'};
+          % inputsUnits = {'fraction', 'deg',   'deg',  'deg'};
+
+          figure('Units', 'normalized', 'Position', [0.15 0.1 0.7 0.75])
+          set(gcf, 'Name', 'States simulation output')
+
+          vars = {'thl', 'stab',  'ail',  'rdr'};
+
+          y2 = plot(outFromSimCol.inputs.Time, outFromSimCol.inputs.(vars{2}).Data, '-k', 'LineWidth', plotSet.LineWidth);
+          hold on;
+          y3 = plot(outFromSimCol.inputs.Time, outFromSimCol.inputs.(vars{3}).Data, '--k', 'LineWidth', plotSet.LineWidth);
+          y4 = plot(outFromSimCol.inputs.Time, outFromSimCol.inputs.(vars{4}).Data, ':k', 'LineWidth', plotSet.LineWidth);
+
+          ylabel([outFromSimCol.inputs.(vars{2}).DataInfo.Units]);
+          
+          yyaxis right; %Go to right axis
+          y1 = plot(outFromSimCol.inputs.Time, outFromSimCol.inputs.(vars{1}).Data, '-b', 'LineWidth', plotSet.LineWidth);
+          set(subPlotHandle, 'YColor', 'k');
+
+          ylabel([outFromSimCol.inputs.(vars{1}).DataInfo.Units]);
+
+          legend([y1 y2 y3 y4], outFromSimCol.inputs.(vars{1}).name, ...
+                                      outFromSimCol.inputs.(vars{2}).name, ... 
+                                      outFromSimCol.inputs.(vars{3}).name, ... 
+                                      outFromSimCol.inputs.(vars{4}).name, ... 
+                                      'location','Best');
+            
+          title('Inputs to the aircraft');
+          xlabel('Time [seconds]');
+
+          SetAxisProp(subPlotHandle, plotSet);
+
+        
         end
 
     end
