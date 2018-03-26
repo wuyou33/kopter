@@ -4,32 +4,60 @@
 		"selected_items":
 		[
 			[
-				"__",
-				"__cycleN"
+				"gettim",
+				"get_timeSecNewRunMean"
+			],
+			[
+				"def",
+				"defs\tMethod"
+			],
+			[
+				"p",
+				"plotSettings"
 			],
 			[
 				"data",
-				"dataFromRun"
+				"dataID"
+			],
+			[
+				"se",
+				"set_magData"
+			],
+			[
+				"lis",
+				"listOfFilesSortedInFolder"
+			],
+			[
+				"li",
+				"listOfFilesSorted"
+			],
+			[
+				"dat",
+				"data"
+			],
+			[
+				"da",
+				"dataClasses"
+			],
+			[
+				"fol",
+				"folderName"
+			],
+			[
+				"de",
+				"defs\tMethod"
+			],
+			[
+				"__",
+				"__cycleN"
 			],
 			[
 				"get",
 				"get_minF"
 			],
 			[
-				"dat",
-				"dataFromLastRun"
-			],
-			[
 				"ge",
 				"get_previousNCycles"
-			],
-			[
-				"da",
-				"dataFromLastRun"
-			],
-			[
-				"def",
-				"def\tFunction"
 			],
 			[
 				"han2",
@@ -144,30 +172,6 @@
 	"buffers":
 	[
 		{
-			"file": "/D/ETH/code/abaqus/mainAbaqusParametricStudy.py",
-			"settings":
-			{
-				"buffer_size": 10803,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/D/ETH/code/abaqus/moduleParametricStudy.py",
-			"settings":
-			{
-				"buffer_size": 26893,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/D/ETH/code/abaqus/mainParametricStudy.py",
-			"settings":
-			{
-				"buffer_size": 10201,
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "versionsBackup/main_versionsBackup.py",
 			"settings":
 			{
@@ -180,35 +184,45 @@
 			"file": "fatigueData/moduleFunctions.py",
 			"settings":
 			{
-				"buffer_size": 6792,
+				"buffer_size": 10852,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "versionsBackup/inputDirectories.txt",
-			"settings":
-			{
-				"buffer_size": 672,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "fatigueData/filesToLoad.txt",
-			"settings":
-			{
-				"buffer_size": 184,
-				"encoding": "UTF-8",
-				"line_ending": "Windows",
-				"name": "Files to load:"
 			}
 		},
 		{
 			"file": "fatigueData/main.py",
 			"settings":
 			{
-				"buffer_size": 624,
+				"buffer_size": 2161,
 				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "fatigueData/filesToLoad_actuator.txt",
+			"settings":
+			{
+				"buffer_size": 2134,
+				"encoding": "UTF-8",
+				"line_ending": "Windows",
+				"name": "Files to load:"
+			}
+		},
+		{
+			"file": "fatigueData/filesToLoad_gauges_test.txt",
+			"settings":
+			{
+				"buffer_size": 179,
+				"encoding": "UTF-8",
+				"line_ending": "Windows",
+				"name": "Files to load"
+			}
+		},
+		{
+			"file": "//mshzhstg/MSHData/MSH-Project Management Files/Functional Engineering/Test Division/Test_Daten/J17-03-Bench Tests/P3-J17-03-BT0164/01_TDMS_data_Set-complete/02_STEPS/csv_data/mean/mean_PitchLinkMain_100Hz_1.csv",
+			"settings":
+			{
+				"buffer_size": 1107168,
 				"line_ending": "Windows"
 			}
 		}
@@ -220,10 +234,14 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 203.0,
-		"last_filter": "",
+		"height": 392.0,
+		"last_filter": "pac",
 		"selected_items":
 		[
+			[
+				"pac",
+				"Package Control: Install Package"
+			],
 			[
 				"pa",
 				"Package Control: Install Package"
@@ -249,15 +267,24 @@
 	},
 	"expanded_folders":
 	[
-		"/D/kopter",
-		"/D/kopter/fatigueData",
-		"/D/kopter/tolerances",
-		"/D/kopter/versionsBackup",
-		"/D/ETH/code",
-		"/D/ETH/code/abaqus"
+		"/P/kopter",
+		"/P/kopter/fatigueData",
+		"/P/kopter/versionsBackup"
 	],
 	"file_history":
 	[
+		"/P/kopter/versionsBackup/inputDirectories.txt",
+		"//mshzhstg/MSHData/MSH-Project Management Files/Functional Engineering/Test Division/Test_Daten/J17-03-Bench Tests/P3-J17-03-BT0164/01_TDMS_data_Set-complete/02_STEPS/csv_data/min/test.py",
+		"//mshzhstg/MSHData/MSH-Project Management Files/Functional Engineering/Test Division/Test_Daten/J17-03-Bench Tests/P3-J17-03-BT0164/01_TDMS_data_Set-complete/02_STEPS/csv_data/max_InnerPitchLink_100Hz_4.csv",
+		"//mshzhstg/MSHData/MSH-Project Management Files/Functional Engineering/Test Division/Test_Daten/J17-03-Bench Tests/P3-J17-03-BT0164/01_TDMS_data_Set-complete/02_STEPS/csv_data/Inner pitch link [N]_Mean_200Hz_4.csv",
+		"/P/kopter/fatigueData/Pitch link main [N]_Mean_200Hz_10.csv",
+		"//mshzhstg/MSHData/MSH-Project Management Files/Functional Engineering/Test Division/Test_Daten/J17-03-Bench Tests/P3-J17-03-BT0164/01_TDMS_data_Set-complete/02_STEPS/csv_data/Pitch link main [N]_Mean_200Hz_10.csv",
+		"//mshzhstg/MSHData/MSH-Project Management Files/Functional Engineering/Test Division/Test_Daten/J17-03-Bench Tests/P3-J17-03-BT0164/01_TDMS_data_Set-complete/02_STEPS/csv_data/test.CSV",
+		"//mshzhstg/MSHData/MSH-Project Management Files/Functional Engineering/Test Division/Test_Daten/J17-03-Bench Tests/P3-J17-03-BT0164/01_TDMS_data_Set-complete/02_STEPS/csv_data/pitch_link_main.csv",
+		"//mshzhstg/MSHData/MSH-Project Management Files/Functional Engineering/Test Division/Test_Daten/J17-03-Bench Tests/P3-J17-03-BT0164/01_TDMS_data_Set-complete/02_STEPS/csv_data/SWPL_extension_STG_1.CSV",
+		"/D/ETH/code/abaqus/moduleParametricStudy.py",
+		"/D/ETH/code/abaqus/mainParametricStudy.py",
+		"/D/ETH/code/abaqus/mainAbaqusParametricStudy.py",
 		"/D/kopter/fatigueData/main.py",
 		"/D/kopter/versionsBackup/inputDirectories.txt",
 		"/D/kopter/fatigueData/2_Probe_3_Zyklische Ergebnisse.csv",
@@ -363,6 +390,66 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			":",
+			"dataFromLastRun",
+			"get_max()",
+			"F(",
+			"= __timeSec",
+			"__timeSec",
+			"__timeSecNewRun = ",
+			"__timeSecNewRun",
+			"_time",
+			"time",
+			"__timeMax",
+			"._",
+			"._timeMean",
+			"tt",
+			"_m",
+			"__timeSecNewRunMax",
+			"time",
+			"nameField",
+			"__timeSec",
+			".__",
+			"__",
+			"data",
+			"linestyle",
+			"marker",
+			"get",
+			"+=",
+			"self.",
+			"fieldOfFiles",
+			"self",
+			"self.",
+			"dataFromRun",
+			"F(",
+			"F",
+			"cycleN",
+			"description",
+			"__xValues",
+			"dataY",
+			"setXvalues",
+			"\\MSHData",
+			"__setOfFilesAddress_tuple",
+			"dataFromGaugesSingleMagnitudeClass",
+			"dataFromRun",
+			"description",
+			"__description",
+			"file",
+			"description",
+			"absoluteNCycles",
+			"inputFilesAddress",
+			"__setOfFilesAddress_tuple",
+			"getTupleFiles",
+			"addSharedAddress",
+			"pitch",
+			"Inner",
+			"Pitch",
+			"Run",
+			"\\MSHData",
+			"9",
+			"1",
+			"2",
+			"1",
 			"2",
 			"18",
 			"get_absoluteNCycles",
@@ -424,99 +511,11 @@
 	"groups":
 	[
 		{
-			"selected": 4,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "/D/ETH/code/abaqus/mainAbaqusParametricStudy.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 10803,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								188,
-								188
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 975.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "/D/ETH/code/abaqus/moduleParametricStudy.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 26893,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								18704,
-								18704
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 7507.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "/D/ETH/code/abaqus/mainParametricStudy.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 10201,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								699,
-								699
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
 					"file": "versionsBackup/main_versionsBackup.py",
 					"semi_transient": false,
 					"settings":
@@ -528,8 +527,8 @@
 						"selection":
 						[
 							[
-								397,
-								397
+								4416,
+								4416
 							]
 						],
 						"settings":
@@ -538,27 +537,27 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 245.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 6,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 1,
 					"file": "fatigueData/moduleFunctions.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6792,
+						"buffer_size": 10852,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2866,
-								2866
+								5827,
+								5827
 							]
 						],
 						"settings":
@@ -568,19 +567,153 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1335.0,
+						"translation.y": 2356.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
 					"type": "text"
-				},
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
 				{
-					"buffer": 5,
-					"file": "versionsBackup/inputDirectories.txt",
+					"buffer": 1,
+					"file": "fatigueData/moduleFunctions.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 672,
+						"buffer_size": 10852,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6429,
+								6429
+							]
+						],
+						"settings":
+						{
+							"spell_check": true,
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2993.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 2,
+					"file": "fatigueData/main.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2161,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								212,
+								212
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 3,
+					"file": "fatigueData/filesToLoad_actuator.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2134,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2134,
+								2134
+							]
+						],
+						"settings":
+						{
+							"auto_name": "Files to load:",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "fatigueData/filesToLoad_gauges_test.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 179,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								179,
+								179
+							]
+						],
+						"settings":
+						{
+							"auto_name": "Files to load",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "//mshzhstg/MSHData/MSH-Project Management Files/Functional Engineering/Test Division/Test_Daten/J17-03-Bench Tests/P3-J17-03-BT0164/01_TDMS_data_Set-complete/02_STEPS/csv_data/mean/mean_PitchLinkMain_100Hz_1.csv",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1107168,
 						"regions":
 						{
 						},
@@ -596,73 +729,10 @@
 							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 851878.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 5,
-					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 1,
-			"sheets":
-			[
-				{
-					"buffer": 6,
-					"file": "fatigueData/filesToLoad.txt",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 184,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								14,
-								14
-							]
-						],
-						"settings":
-						{
-							"auto_name": "Files to load:",
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "fatigueData/main.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 624,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								470,
-								470
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
 					"type": "text"
 				}
 			]
@@ -687,21 +757,34 @@
 				1
 			],
 			[
+				1,
+				0,
+				2,
+				1
+			],
+			[
 				0,
 				1,
 				1,
+				2
+			],
+			[
+				1,
+				1,
+				2,
 				2
 			]
 		],
 		"cols":
 		[
 			0.0,
+			0.521677124929,
 			1.0
 		],
 		"rows":
 		[
 			0.0,
-			0.5,
+			0.479908675799,
 			1.0
 		]
 	},
@@ -748,7 +831,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 1,
+	"selected_group": 2,
 	"settings":
 	{
 	},
@@ -756,7 +839,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 200.0,
+	"side_bar_width": 167.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

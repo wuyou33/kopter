@@ -1,0 +1,11 @@
+Files to load:
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0164\01_TDMS_data_Set-complete\02_STEPS\SWPL extension Zwick\Step 1\Run_1_Zyklische Ergebnisse.csv
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0164\01_TDMS_data_Set-complete\02_STEPS\SWPL extension Zwick\Step 2\Probe_1_Zyklische Ergebnisse.csv
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0164\01_TDMS_data_Set-complete\02_STEPS\SWPL extension Zwick\Step 3\Probe_2_Zyklische Ergebnisse.csv
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0164\01_TDMS_data_Set-complete\02_STEPS\SWPL extension Zwick\Step 4\Probe_3_Zyklische Ergebnisse.csv
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0164\01_TDMS_data_Set-complete\02_STEPS\SWPL extension Zwick\Step 5\Probe_4_Zyklische Ergebnisse.csv
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0164\01_TDMS_data_Set-complete\02_STEPS\SWPL extension Zwick\Step 6\Probe_5_Zyklische Ergebnisse.csv
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0164\01_TDMS_data_Set-complete\02_STEPS\SWPL extension Zwick\Step 7\Probe_6_Zyklische Ergebnisse.csv
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0164\01_TDMS_data_Set-complete\02_STEPS\SWPL extension Zwick\Step 8\Probe_7_Zyklische Ergebnisse.csv
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0164\01_TDMS_data_Set-complete\02_STEPS\SWPL extension Zwick\Step 9\Probe_8_Zyklische Ergebnisse.csv
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0164\01_TDMS_data_Set-complete\02_STEPS\SWPL extension Zwick\Step 10\Probe_9_Zyklische Ergebnisse.csv

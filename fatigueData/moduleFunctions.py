@@ -6,18 +6,31 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 ###### Functions
+def sortFilesInFolderByLastNumberInName(listOfFiles):
+
+	a = []
+	for file in listOfFiles:
+		if file.endswith('.csv'):
+			fileID_0 = file.split('.')[0]
+			fileID_int = int(fileID_0.split('_')[-1])
+			a += [(file, fileID_int),]
+
+	a_sorted = sorted(a, key=lambda x: x[1])
+	listOfFilesSorted = [b[0] for b in a_sorted]
+
+	return listOfFilesSorted
+
+def cleanString(stringIn):
+	
+	if stringIn[-1:] in ('\t', '\n'):
+
+		return cleanString(stringIn[:-1])
+
+	else:
+
+		return stringIn
+
 def loadFileAddresses(fileName): 
-
-	#Function
-	def cleanString(stringIn):
-		
-		if stringIn[-1:] in ('\t', '\n'):
-
-			return cleanString(stringIn[:-1])
-
-		else:
-
-			return stringIn
 
 	file = open(fileName, 'r')
 
@@ -44,13 +57,13 @@ class inputDataClassDef(object):
 		Initializes the class with local address and empty directory of shared folders
 		"""
 
-		self.__setOfFilesAddress_tuple = ()
+		self.__setOfAddress_tuple = ()
 
 	def addSharedAddress(self, fileAddress):
 
-		if os.path.isfile(fileAddress):
+		if os.path.isfile(fileAddress) or os.path.isdir(fileAddress):
 
-			self.__setOfFilesAddress_tuple += (fileAddress,)
+			self.__setOfAddress_tuple += (fileAddress,)
 
 		else:
 
@@ -58,9 +71,9 @@ class inputDataClassDef(object):
 
 	def getTupleFiles(self):
 
-		return self.__setOfFilesAddress_tuple
+		return self.__setOfAddress_tuple
 
-def importData(fileName):
+def importDataActuator(fileName):
 
 	file = open(fileName, 'r')
 	lines = file.readlines()
@@ -90,6 +103,7 @@ def importData(fileName):
 
 	return dataFromRun
 
+
 def returnNumber(numStr):
 	
 	if numStr[-4] == '.':
@@ -109,7 +123,7 @@ def importPlottingOptions():
 	axes_label_y  = {'size' : 14, 'weight' : 'bold', 'verticalalignment' : 'bottom', 'horizontalalignment' : 'center'} #'verticalalignment' : 'bottom'
 	text_title_properties = {'weight' : 'bold', 'size' : 16}
 	axes_ticks = {'labelsize' : 10}
-	line = {'linewidth' : 2, 'markersize' : 3}
+	line = {'linewidth' : 1.5, 'markersize' : 2}
 	scatter = {'linewidths' : 2}
 	legend = {'fontsize' : 16, 'loc' : 'best'}
 	grid = {'alpha' : 0.7}
@@ -162,6 +176,137 @@ class dataFromRunClass(object):
 	def get_minF(self):
 		return self.__minF
 
+class dataFromGaugesSingleMagnitudeClass(object):
+	"""
+	docstring for dataFromGaugesSingleMagnitudeClass
+
+	Class contaiting data from a certain run
+	"""
+	def __init__(self, description_in, freq_in):
+		# super(dataFromGaugesSingleMagnitudeClass, self).__init__()
+
+		self.__description = description_in
+		self.__freq = freq_in
+
+		self.__max = []
+		self.__mean = []
+		self.__min = []
+
+		self.__timeMax = []
+		self.__timeMean = []
+		self.__timeMin = []
+		self.__timeSecNewRunMax = []
+		self.__timeSecNewRunMean = []
+		self.__timeSecNewRunMin = []
+
+		self.__xValues = []
+		self.__xValuesNewRun = []
+		self.__lastID = 0
+
+	def reStartXvalues(self):
+		self.__xValues = []
+		self.__xValuesNewRun = []
+
+	def set_magData(self, nameField, data):
+
+		if nameField == 'mean':
+			self.__mean += data
+		elif nameField == 'max':
+			self.__max += data
+		elif nameField == 'min':
+			self.__min += data
+
+		else:
+			raise ValueError('Error in identifying data field: ' + nameField)
+
+	def getTimeList(self, nameField):
+		
+		timeSec = np.linspace(0, int(len(self.__xValues)/self.__freq), len(self.__xValues), endpoint=True)
+		timeSecNewRun = [float(t/self.__freq) for t in self.__xValuesNewRun]
+		a = self.__xValuesNewRun
+		f = self.__freq
+		pdb.set_trace()
+
+		if nameField == 'mean':
+			self.__timeMean = timeSec
+			self.__timeSecNewRunMean = timeSecNewRun
+		elif nameField == 'max':
+			self.__timeMax = timeSec
+			self.__timeSecNewRunMax = timeSecNewRun
+		elif nameField == 'min':
+			self.__timeMin = timeSec
+			self.__timeSecNewRunMin = timeSecNewRun
+
+		else:
+			raise ValueError('Error in identifying data field: ' + nameField)
+
+	def importDataForClass(self, fileName, fieldOfFile):
+
+		file = open(fileName, 'r')
+		lines = file.readlines()
+
+		skipLines, dataID, data = 0, [], []
+
+		for line in lines[(skipLines+1):]:
+
+			data += [float(cleanString(line))]
+
+			dataID = dataID + [self.__lastID+1]
+				
+		file.close()
+
+		self.set_magData(fieldOfFile, data)
+
+		self.__lastID = dataID[-1]
+
+		self.__xValuesNewRun += [dataID[-1]]
+
+		self.__xValues += dataID
+	
+	def get_description(self):
+		return self.__description
+
+	def get_max(self):
+		return self.__max
+	def get_mean(self):
+		return self.__mean
+	def get_min(self):
+		return self.__min
+
+	def get_timeMax(self):
+		return self.__timeMax
+	def get_timeMean(self):
+		return self.__timeMean
+	def get_timeMin(self):
+		return self.__timeMin
+
+	def get_timeSecNewRunMax(self):
+		return self.__timeSecNewRunMax
+	def get_timeSecNewRunMean(self):
+		return self.__timeSecNewRunMean
+	def get_timeSecNewRunMin(self):
+		return self.__timeSecNewRunMin
+
+	def plot(self, plotSettings):
+
+		figure, ax = plt.subplots(1, 1)
+		ax.grid(which='both', **plotSettings['grid'])
+		figure.set_size_inches(10, 6, forward=True)
+		ax.tick_params(axis='both', **plotSettings['axesTicks'])
+
+		ax.plot(self.get_timeMax(), self.get_max(), linestyle = '', marker = '+', c = plotSettings['colors'][0], label = 'Max force', **plotSettings['line'])
+		ax.plot(self.get_timeMean(), self.get_mean(), linestyle = '', marker = '+', c = plotSettings['colors'][1], label = 'Mean force', **plotSettings['line'])
+		ax.plot(self.get_timeMin(), self.get_min(), linestyle = '', marker = '+', c = plotSettings['colors'][2], label = 'Min force', **plotSettings['line'])
+
+		#Division line for runs
+		for div in self.get_timeSecNewRunMean():
+			ax.plot(2*[div], [self.get_min()[-1]*1.2, self.get_max()[-1]*1.2], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
+
+		ax.set_xlabel('Time uninterrupted test [seconds]', **plotSettings['axes_x'])
+		ax.set_ylabel('Force [kN]', **plotSettings['axes_y'])
+		ax.legend(**plotSettings['legend'])
+		ax.set_title(self.get_description(), **plotSettings['title'])
+
 def plotSingleRun(dataFromRun, plotSettings):
 
 	figure, ax = plt.subplots(1, 1)
@@ -209,3 +354,4 @@ def plotAllRuns(dataFromRuns, plotSettings):
 	handle2 = plt.Line2D([],[], color=plotSettings['colors'][2], marker='+', linestyle='', label='Min force')
 	legendHandles = legendHandles + [handle0, handle1, handle2]
 	ax.legend(handles = legendHandles, **plotSettings['legend'])
+
