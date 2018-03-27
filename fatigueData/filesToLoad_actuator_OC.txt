@@ -1,0 +1,7 @@
+Files to load:
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0168\01_TDMS_data_Set-complete\01_RAW\Zwick data\Run_6_Zyklische Ergebnisse.csv
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0168\01_TDMS_data_Set-complete\01_RAW\Zwick data\Run_7_Zyklische Ergebnisse.csv
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0168\01_TDMS_data_Set-complete\01_RAW\Zwick data\Run_8_Zyklische Ergebnisse.csv
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0168\01_TDMS_data_Set-complete\01_RAW\Zwick data\Run_10_Zyklische Ergebnisse.csv
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0168\01_TDMS_data_Set-complete\01_RAW\Zwick data\Run_12_Zyklische Ergebnisse.csv
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0168\01_TDMS_data_Set-complete\01_RAW\Zwick data\Run_13_Zyklische Ergebnisse.csv
