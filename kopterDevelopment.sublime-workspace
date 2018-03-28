@@ -4,6 +4,62 @@
 		"selected_items":
 		[
 			[
+				"dat",
+				"dataVar"
+			],
+			[
+				"var",
+				"variables"
+			],
+			[
+				"data",
+				"dataClasses"
+			],
+			[
+				"new",
+				"newPicksMin"
+			],
+			[
+				"el",
+				"elif"
+			],
+			[
+				"ac",
+				"actualPoint"
+			],
+			[
+				"or",
+				"order"
+			],
+			[
+				"__las",
+				"__lastIDminPick"
+			],
+			[
+				"pi",
+				"picksMax"
+			],
+			[
+				"iP",
+				"iPickMax"
+			],
+			[
+				"d",
+				"diff"
+			],
+			[
+				"iPic",
+				"iPickMax"
+			],
+			[
+				"resul",
+				"resultID"
+			],
+			[
+				"orde",
+				"orderDeriv"
+			],
+			[
 				"tic",
 				"ticksMinorInBetween"
 			],
@@ -40,10 +96,6 @@
 				"plotSettings"
 			],
 			[
-				"data",
-				"dataID"
-			],
-			[
 				"se",
 				"set_magData"
 			],
@@ -54,10 +106,6 @@
 			[
 				"li",
 				"listOfFilesSorted"
-			],
-			[
-				"dat",
-				"data"
 			],
 			[
 				"da",
@@ -208,7 +256,16 @@
 			"file": "fatigueData/moduleFunctions.py",
 			"settings":
 			{
-				"buffer_size": 14916,
+				"buffer_size": 20389,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "codingKnowledge/python.py",
+			"settings":
+			{
+				"buffer_size": 857,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -217,13 +274,13 @@
 			"file": "fatigueData/main.py",
 			"settings":
 			{
-				"buffer_size": 2924,
+				"buffer_size": 3561,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "fatigueData/filesToLoad_gauges.txt",
+			"file": "fatigueData/filesToLoad_gauges_OC.txt",
 			"settings":
 			{
 				"buffer_size": 177,
@@ -239,6 +296,14 @@
 				"encoding": "UTF-8",
 				"line_ending": "Windows",
 				"name": "Files to load:"
+			}
+		},
+		{
+			"file": "fatigueData/filesToLoad_actuator_steelLinks.txt",
+			"settings":
+			{
+				"buffer_size": 2134,
+				"line_ending": "Windows"
 			}
 		}
 	],
@@ -413,6 +478,75 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			", re-sampled 100Hz",
+			"variables",
+			"acc",
+			"Last com",
+			"index (file)",
+			"(file)",
+			"--",
+			"file",
+			"Last",
+			"pdb.set_trace()",
+			"hola",
+			"pdb.set_trace()",
+			"2)))",
+			"str((",
+			", 2",
+			"np",
+			"run",
+			"newPicks",
+			":",
+			"+",
+			"set_magData",
+			"=",
+			"plotMaxMinMean",
+			"timeSecNewRunMin",
+			"Max",
+			"_m",
+			"max",
+			"newMeanPicks",
+			"+=",
+			")\n",
+			"=",
+			",",
+			"_in",
+			",",
+			"timeMax",
+			"self.__",
+			"ax",
+			"self.__timeM",
+			"self",
+			"mean",
+			"minIndex",
+			"=",
+			"actualPoint",
+			"Vectm",
+			"assert",
+			"setAbsoluteNCycles",
+			"open",
+			"dataFromRun",
+			"ax",
+			"Value",
+			"__lastID",
+			"Picks",
+			"self.",
+			"max",
+			"=",
+			"-1",
+			"ax",
+			"[]",
+			"ax",
+			"max",
+			"Max",
+			"xValues",
+			"xValuesMax",
+			"dataID",
+			"lastID",
+			"pass",
+			"function",
+			"0",
+			"dataFromGaugesSingleMagnitudeClass",
 			"xticksMajor",
 			"majorTicksNum",
 			"xticksMinor",
@@ -471,76 +605,7 @@
 			"__timeSec",
 			".__",
 			"__",
-			"data",
-			"linestyle",
-			"marker",
-			"get",
-			"+=",
-			"self.",
-			"fieldOfFiles",
-			"self",
-			"self.",
-			"dataFromRun",
-			"F(",
-			"F",
-			"cycleN",
-			"description",
-			"__xValues",
-			"dataY",
-			"setXvalues",
-			"\\MSHData",
-			"__setOfFilesAddress_tuple",
-			"dataFromGaugesSingleMagnitudeClass",
-			"dataFromRun",
-			"description",
-			"__description",
-			"file",
-			"description",
-			"absoluteNCycles",
-			"inputFilesAddress",
-			"__setOfFilesAddress_tuple",
-			"getTupleFiles",
-			"addSharedAddress",
-			"pitch",
-			"Inner",
-			"Pitch",
-			"Run",
-			"\\MSHData",
-			"9",
-			"1",
-			"2",
-			"1",
-			"2",
-			"18",
-			"get_absoluteNCycles",
-			"Cycles",
-			"cycleN",
-			"[d + dataFromRun.get_previousNCycles() for d in dataFromRun.get_cycleN()]",
-			"__previousNCycles",
-			"previousNCycles",
-			"show",
-			"label",
-			"legend",
-			"threePlotForRun",
-			"get_prev",
-			"dataFromRun.get_cycleN()",
-			"rawLi",
-			"rawLi3",
-			"rawLi",
-			"getLocalDirectory",
-			"loadParameters",
-			"__setOfFilesAddress",
-			"sharedAddress",
-			"attributes",
-			"localAddress",
-			"-.",
-			"c =",
-			"get_m",
-			"get_",
-			"()",
-			"CMD",
-			"label",
-			"legend"
+			"data"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -558,7 +623,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -574,8 +639,8 @@
 						"selection":
 						[
 							[
-								4596,
-								4596
+								2693,
+								2693
 							]
 						],
 						"settings":
@@ -584,10 +649,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 429.0,
+						"translation.y": 1326.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -596,15 +661,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 14916,
+						"buffer_size": 20389,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								14176,
-								14176
+								8332,
+								8332
 							]
 						],
 						"settings":
@@ -614,7 +679,72 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 5649.0,
+						"translation.y": 6179.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 1,
+					"file": "fatigueData/moduleFunctions.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 20389,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								16302,
+								16302
+							]
+						],
+						"settings":
+						{
+							"spell_check": true,
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 7403.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "codingKnowledge/python.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 857,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								16,
+								16
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -627,33 +757,32 @@
 			"sheets":
 			[
 				{
-					"buffer": 1,
-					"file": "fatigueData/moduleFunctions.py",
+					"buffer": 3,
+					"file": "fatigueData/main.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 14916,
+						"buffer_size": 3561,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								13907,
-								13907
+								568,
+								568
 							]
 						],
 						"settings":
 						{
-							"spell_check": true,
 							"syntax": "Packages/Python/Python.sublime-syntax",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 273.0,
+						"translation.y": 351.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 3,
 					"type": "text"
 				}
 			]
@@ -663,42 +792,8 @@
 			"sheets":
 			[
 				{
-					"buffer": 2,
-					"file": "fatigueData/main.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2924,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2624,
-								2624
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 1,
-			"sheets":
-			[
-				{
-					"buffer": 3,
-					"file": "fatigueData/filesToLoad_gauges.txt",
+					"buffer": 4,
+					"file": "fatigueData/filesToLoad_gauges_OC.txt",
 					"semi_transient": false,
 					"settings":
 					{
@@ -721,11 +816,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 5,
 					"file": "fatigueData/filesToLoad_actuator_OC.txt",
 					"semi_transient": false,
 					"settings":
@@ -750,7 +845,35 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "fatigueData/filesToLoad_actuator_steelLinks.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2134,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
 					"type": "text"
 				}
 			]
@@ -802,7 +925,7 @@
 		"rows":
 		[
 			0.0,
-			0.523744292237,
+			0.52100456621,
 			1.0
 		]
 	},
@@ -835,7 +958,7 @@
 		[
 			[
 				"",
-				"D:\\kopter\\SH09_s_id\\s_id.sublime-project"
+				"P:\\09_FTI\\testDataAnalysis.sublime-project"
 			]
 		],
 		"width": 380.0
@@ -849,7 +972,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 1,
+	"selected_group": 3,
 	"settings":
 	{
 	},
@@ -857,7 +980,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 176.0,
+	"side_bar_width": 208.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

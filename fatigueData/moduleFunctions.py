@@ -10,8 +10,8 @@ import pdb #pdb.set_trace()
 ###### Functions
 def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 
-	short_opts = "o:f:"
-	long_opts = ["option=","fileName="]
+	short_opts = "f:v:m:" #"o:f:"
+	long_opts = ["fileName=","variables=","magnitudes="] #["option=","fileName="]
 	try:
 		opts, args = getopt.getopt(argv,short_opts,long_opts)
 	except getopt.GetoptError:
@@ -27,13 +27,20 @@ def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 			# postProcFolderName = arg
 			CMDoptionsDict['fileNameOfFileToLoadFiles'] = arg
 
-		elif opt in ("-o", "--option"):
-			if arg.lower() in ('actuator', 'excel'):
+			if 'actuator' in arg.lower():
 				CMDoptionsDict['actuatorFlag'] = True
 				CMDoptionsDict['dmsFlag'] = False
-			elif arg.lower() in ('dms', 'strain', 'gauge'):
+			elif 'gauge' in arg.lower():
 				CMDoptionsDict['actuatorFlag'] = False
 				CMDoptionsDict['dmsFlag'] = True
+
+		elif opt in ("-v", "--variables"):
+
+			CMDoptionsDict['variables'] = arg.split(',')
+
+		elif opt in ("-m", "--magnitudes"):
+
+			CMDoptionsDict['magnitudes'] = arg.split(',')
 
 	return CMDoptionsDict
 
@@ -104,7 +111,7 @@ class inputDataClassDef(object):
 
 		return self.__setOfAddress_tuple
 
-def importDataActuator(fileName):
+def importDataActuator(fileName, iFile):
 
 	file = open(fileName, 'r')
 	lines = file.readlines()
@@ -128,7 +135,9 @@ def importDataActuator(fileName):
 
 	file.close()
 
-	dataFromRun = dataFromRunClass(1)
+	print('----> Last computed data point index (file): ' + str(int(cycleN[-1])/1000.0) + ' thousands')
+
+	dataFromRun = dataFromRunClass(iFile)
 
 	dataFromRun.add_data(cycleN, maxF, meanF, minF)
 
@@ -155,7 +164,7 @@ def importPlottingOptions():
 	axes_ticks = {'labelsize' : 10}
 	line = {'linewidth' : 1.5, 'markersize' : 2}
 	scatter = {'linewidths' : 2}
-	legend = {'fontsize' : 16, 'loc' : 'best'}
+	legend = {'fontsize' : 14, 'loc' : 'best'}
 	grid = {'alpha' : 0.7}
 	colors = ['k', 'b', 'y', 'm', 'r', 'c','k', 'b', 'y', 'm', 'r', 'c','k', 'b', 'y', 'm', 'r', 'c','k', 'b', 'y', 'm', 'r', 'c']
 	markers = ['o', 'v', '^', 's', '*', '+']
@@ -209,33 +218,61 @@ class dataFromRunClass(object):
 	def get_minF(self):
 		return self.__minF
 
+	def plotSingleRun(self, plotSettings):
+
+		figure, ax = plt.subplots(1, 1)
+		figure.set_size_inches(10, 6, forward=True)
+
+		ax.plot(self.get_cycleN(), self.get_maxF(), linestyle = '-', marker = '', c = plotSettings['colors'][0], label = 'Max force', **plotSettings['line'])
+		ax.plot(self.get_cycleN(), self.get_meanF(), linestyle = '-', marker = '', c = plotSettings['colors'][1], label = 'Mean force', **plotSettings['line'])
+		ax.plot(self.get_cycleN(), self.get_minF(), linestyle = '-', marker = '', c = plotSettings['colors'][2], label = 'Min force', **plotSettings['line'])
+
+		ax.set_xlabel('Number of cycles [Millions]', **plotSettings['axes_x'])
+		ax.set_ylabel('Force [kN]', **plotSettings['axes_y'])
+
+		ax.legend(**plotSettings['legend'])
+		ax.set_title('Results from Run #'+str(self.get_id()), **plotSettings['title'])
+
+		#Figure settings
+		ax.grid(which='both', **plotSettings['grid'])
+		ax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])
+		ax.minorticks_on()
+
 class dataFromGaugesSingleMagnitudeClass(object):
 	"""
 	docstring for dataFromGaugesSingleMagnitudeClass
 
 	Class contaiting data from a certain run
 	"""
-	def __init__(self, description_in, testFactor_in):
+	def __init__(self, description_in, testFactor_in, orderDeriv_in):
 		# super(dataFromGaugesSingleMagnitudeClass, self).__init__()
 
 		self.__description = description_in
 		self.__testFactor = testFactor_in
+		self.__orderDeriv = orderDeriv_in
 
 		self.__max = []
 		self.__mean = []
 		self.__min = []
 		self.__rs = []
+		self.__maxPicks = []
+		self.__meanPicks = []
+		self.__minPicks = []
 
 		self.__timeMax = []
 		self.__timeMean = []
 		self.__timeMin = []
 		self.__timeRs = []
+		self.__timePicks = []
+
 		self.__timeSecNewRunMax = []
 		self.__timeSecNewRunMean = []
 		self.__timeSecNewRunMin = []
 		self.__timeSecNewRunRs = []
+		self.__timeSecNewRunPicks = []
 
 		self.__lastID = 0
+		self.__lastIDPick = 0
 		self.__xValues = []
 		self.__xValuesNewRun = []
 
@@ -261,7 +298,7 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		timeSec = np.linspace(0, float(len(self.__xValues)/self.__testFactor), len(self.__xValues), endpoint=True)
 		timeSecNewRun = [float(t/self.__testFactor) for t in self.__xValuesNewRun]
 
-		print('----> Last computed time point: ' + str(timeSec[-1]) + ' millions')
+		print('\n'+'----> Last computed time point for test: ' + str(timeSec[-1]) + ' millions')
 
 		if nameField == 'rs':
 			self.__timeRs = timeSec
@@ -305,10 +342,139 @@ class dataFromGaugesSingleMagnitudeClass(object):
 
 		self.__xValuesNewRun += [dataID[-1],]
 
-		print('\t'+'-> Last computed data point absolute index: ' + str(dataID[-1]/1000000.0) + ' millions')
+		print('\t'+'-> Last computed data point index (file): ' + str(counter/1000000.0) + ' millions')
+		if fieldOfFile == 'rs':
+			print('\t'+'-> Last computed data point index (accumulated): ' + str(dataID[-1]/1000000.0) + ' millions')
 
 		self.__xValues += dataID
-	
+
+	def computePicks(self):
+		"""
+		Inputs: 
+		self.__rs -> All the data points
+		self.__timeRs -> List of data indexes
+		self.__orderDeriv -> order of points to be taken into account, min: 1, max: infty  
+		"""
+		iPickMax = 0
+		iPickMin = 0
+		picksMax = []
+		picksMin = []
+		dataIDmax = []
+		dataIDmin = []
+		iPoint = self.__orderDeriv
+		for point in self.__rs[self.__orderDeriv:(len(self.__rs)+1-self.__orderDeriv)]:
+
+			assert self.__rs[iPoint] == point
+
+			#Check if point is max, min
+
+			resultID = self.chechMinMaxFn(self.__orderDeriv, self.__rs[iPoint - self.__orderDeriv : iPoint + self.__orderDeriv + 1])
+			#Result is return like this: result = resultID
+
+			if resultID == 2:
+
+				#Max function
+				if iPickMax == 0: #To do only in the first time the loop is entered
+					dataIDmax += [self.__lastIDPick+1]
+				else:
+					dataIDmax += [dataIDmax[-1]+1]
+
+				picksMax += [point]
+				iPickMax += 1
+
+			elif resultID == 1:
+
+				#Min function
+				if iPickMin == 0: #To do only in the first time the loop is entered
+					dataIDmin += [self.__lastIDPick+1]
+				else:
+					dataIDmin += [dataIDmin[-1]+1]
+
+				picksMin += [point]
+				iPickMin += 1
+
+			iPoint += 1
+
+
+		#Now all the points in the series have been analysed
+		print('\t'+'-> Number of max picks found :'+str(iPickMax))
+		print('\t'+'-> Number of min picks found :'+str(iPickMin))
+
+		diff = iPickMax - iPickMin
+
+		assert iPickMax == len(picksMax), str(iPickMax)+', '+str(len(picksMax))
+		assert iPickMax == len(dataIDmax), str(iPickMax)+', '+str(len(dataIDmax))
+		assert iPickMin == len(picksMin), str(iPickMin)+', '+str(len(picksMin))
+		assert iPickMin == len(dataIDmin), str(iPickMin)+', '+str(len(dataIDmin))
+
+		if diff > 100:
+			raise ValueError('Too much difference between number of picked max picks and min picks: ' + str(diff))
+
+		minIndex = int(min(iPickMin, iPickMax))
+
+
+		assert dataIDmax[minIndex-1] == dataIDmin[minIndex-1]
+
+
+		# self.__maxPicks += newPicksMax
+		# self.__minPicks += newPicksMin
+		newPicksMax = picksMax[:minIndex]
+		newPicksMin = picksMin[:minIndex]
+
+		# self.__timeMaxPicks += timeMaxPicks
+		timeMaxPicks = [float(t/self.__testFactor) for t in dataIDmax[:minIndex]]
+		timeMinPicks = [float(t/self.__testFactor) for t in dataIDmin[:minIndex]]
+
+		#Get mean values
+		newPicksMean = []
+		timeMeanPicks = []
+		for maxValue, minValue in zip(newPicksMax, newPicksMin):
+
+			newPicksMean += [np.mean([maxValue, minValue]),]
+
+		for maxValueTime, minValueTime in zip(timeMaxPicks, timeMinPicks):
+
+			timeMeanPicks += [np.mean([maxValueTime, minValueTime]),]
+
+		#Final
+		self.__timeSecNewRunPicks += [dataIDmin[minIndex]/self.__testFactor,]
+
+		self.__lastIDPick = dataIDmin[minIndex]
+
+		return newPicksMax, newPicksMean, newPicksMin, timeMaxPicks
+
+	def chechMinMaxFn(self, order, vect):
+		
+		offsetMax = min(vect)
+		offsetMin = max(vect)
+
+
+		newVectMax = [t - offsetMax for t in vect]
+		newVectMin = [t - offsetMin for t in vect]
+
+		actualPointMax = newVectMax[order]
+		actualPointMin = newVectMin[order]
+
+		if max(newVectMax) == actualPointMax:
+
+			return 2 #Max
+
+		elif min(newVectMin) == actualPointMin:
+
+			return 1
+
+		else:
+
+			return -1
+
+	def updatePicksData(self, newPicksMax_in, newPicksMean_in, newPicksMin_in, timePicks_in):
+		
+		self.__maxPicks += newPicksMax_in
+		self.__meanPicks += newPicksMean_in
+		self.__minPicks += newPicksMin_in
+		self.__timePicks += timePicks_in
+
+
 	def get_description(self):
 		return self.__description
 
@@ -323,6 +489,12 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		return self.__mean
 	def get_min(self):
 		return self.__min
+	def get_maxPicks(self):
+		return self.__maxPicks
+	def get_meanPicks(self):
+		return self.__meanPicks
+	def get_minPicks(self):
+		return self.__minPicks
 	def get_rs(self):
 		return self.__rs
 
@@ -332,6 +504,8 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		return self.__timeMean
 	def get_timeMin(self):
 		return self.__timeMin
+	def get_timePicks(self):
+		return self.__timePicks
 	def get_timeRs(self):
 		return self.__timeRs
 
@@ -341,10 +515,12 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		return self.__timeSecNewRunMean
 	def get_timeSecNewRunMin(self):
 		return self.__timeSecNewRunMin
+	def get_timeSecNewRunPicks(self):
+		return self.__timeSecNewRunPicks
 	def get_timeSecNewRunRs(self):
 		return self.__timeSecNewRunRs
 
-	def plotMaxMinMean(self, plotSettings):
+	def plotMaxMinMean_fromDIAdem(self, plotSettings):
 
 		figure, ax = plt.subplots(1, 1)
 		figure.set_size_inches(10, 6, forward=True)
@@ -354,8 +530,11 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		ax.plot(self.get_timeMin(), self.get_min(), linestyle = '', marker = '+', c = plotSettings['colors'][2], label = 'Min force', **plotSettings['line'])
 
 		#Division line for runs
+		maxPlot = self.get_max()[-1]*1.2
+		minPlot = self.get_min()[-1]*1.2
+		ax.plot(2*[0.0], [minPlot, maxPlot], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
 		for div in self.get_timeSecNewRunMean():
-			ax.plot(2*[div], [self.get_min()[-1]*1.2, self.get_max()[-1]*1.2], linestyle = '-', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
+			ax.plot(2*[div], [minPlot, maxPlot], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
 
 		ax.set_xlabel('Number of cycles [Millions]', **plotSettings['axes_x'])
 		ax.set_ylabel('Force [kN]', **plotSettings['axes_y'])
@@ -373,11 +552,42 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		figure, ax = plt.subplots(1, 1)
 		figure.set_size_inches(10, 6, forward=True)
 
-		ax.plot(self.get_timeRs(), self.get_rs(), linestyle = '', marker = '+', c = plotSettings['colors'][0], label = 'Measured force, re-sampled 100Hz', **plotSettings['line'])
+		ax.plot(self.get_timeRs(), self.get_rs(), linestyle = '-', marker = '', c = plotSettings['colors'][0], label = 'Measured force', **plotSettings['line'])
 
 		#Division line for runs
+		maxPlot = max(self.get_rs())*1.2
+		minPlot = min(self.get_rs())*1.2
+		ax.plot(2*[0.0], [minPlot, maxPlot], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
 		for div in self.get_timeSecNewRunRs():
-			ax.plot(2*[div], [min(self.get_rs())*1.2, max(self.get_rs())*1.2], linestyle = '-', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
+			ax.plot(2*[div], [minPlot, maxPlot], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
+
+		ax.set_xlabel('Number of points [Millions]', **plotSettings['axes_x'])
+		ax.set_ylabel('Force [kN]', **plotSettings['axes_y'])
+
+		#Legend and title
+		# ax.legend(**plotSettings['legend'])
+		ax.set_title(self.get_description(), **plotSettings['title'])
+
+		#Figure settings
+		ax.grid(which='both', **plotSettings['grid'])
+		ax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])
+		ax.minorticks_on()
+
+	def plotMinMeanMax(self, plotSettings):
+
+		figure, ax = plt.subplots(1, 1)
+		figure.set_size_inches(10, 6, forward=True)
+
+		ax.plot(self.get_timePicks(), self.get_maxPicks(), linestyle = '-', marker = '', c = plotSettings['colors'][0], label = 'Max force', **plotSettings['line'])
+		ax.plot(self.get_timePicks(), self.get_meanPicks(), linestyle = '-', marker = '', c = plotSettings['colors'][1], label = 'Mean force', **plotSettings['line'])
+		ax.plot(self.get_timePicks(), self.get_minPicks(), linestyle = '-', marker = '', c = plotSettings['colors'][2], label = 'Min force', **plotSettings['line'])
+
+		#Division line for runs
+		maxPlot = max(self.get_maxPicks())*1.2
+		minPlot = min(self.get_minPicks())*1.2
+		ax.plot(2*[0.0], [minPlot, maxPlot], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
+		for div in self.get_timeSecNewRunPicks():
+			ax.plot(2*[div], [minPlot, maxPlot], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
 
 		ax.set_xlabel('Number of cycles [Millions]', **plotSettings['axes_x'])
 		ax.set_ylabel('Force [kN]', **plotSettings['axes_y'])
@@ -391,25 +601,10 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		ax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])
 		ax.minorticks_on()
 
-def plotSingleRun(dataFromRun, plotSettings):
-
-	figure, ax = plt.subplots(1, 1)
-	figure.set_size_inches(10, 6, forward=True)
-
-	ax.plot(dataFromRun.get_cycleN(), dataFromRun.get_maxF(), linestyle = '-', marker = '', c = plotSettings['colors'][0], label = 'Max force', **plotSettings['line'])
-	ax.plot(dataFromRun.get_cycleN(), dataFromRun.get_meanF(), linestyle = '-', marker = '', c = plotSettings['colors'][1], label = 'Mean force', **plotSettings['line'])
-	ax.plot(dataFromRun.get_cycleN(), dataFromRun.get_minF(), linestyle = '-', marker = '', c = plotSettings['colors'][2], label = 'Min force', **plotSettings['line'])
-
-	ax.set_xlabel('Number of cycles [Millions]', **plotSettings['axes_x'])
-	ax.set_ylabel('Force [kN]', **plotSettings['axes_y'])
-
-	ax.legend(**plotSettings['legend'])
-	ax.set_title('Results from Run #'+str(dataFromRun.get_id()), **plotSettings['title'])
-
-	#Figure settings
-	ax.grid(which='both', **plotSettings['grid'])
-	ax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])
-	ax.minorticks_on()
+		print('\n')
+		print('--> Maximum force applied in complete test (mean value):'+str(round(np.mean(self.get_maxPicks()), 2))+' N')
+		print('--> Mean force applied in complete test (mean value):'+str(round(np.mean(self.get_meanPicks()), 2))+' N')
+		print('--> Minimum force applied in complete test (mean value):'+str(round(np.mean(self.get_minPicks()), 2))+' N')
 
 def plotAllRuns(dataFromRuns, plotSettings):
 
@@ -451,31 +646,6 @@ def plotAllRuns(dataFromRuns, plotSettings):
 	#Tick parametersget_xticks
 	# majorTicks = ax.get_xmajorticklabels()
 	ax.minorticks_on()
-	xticksMajor = ax.get_xticks(minor = False)
-	xticksMinor = ax.get_xticks(minor = True)
-	yticksMinor = ax.get_yticks(minor = True)
-	[print(m) for m in xticksMajor]
-	print('-')
-	[print(m) for m in xticksMinor]
-	print('-')
-	# majorTicksNum = [float(m.get_text()) for m in majorTicks]
-
-	xticksMinorUser = []
-	counter = 0
-	for tick in xticksMajor[: len(xticksMajor)-2]:
-		xticksMinorUserInBetween = np.linspace(tick, xticksMajor[counter+1], plotSettings['axes_ticks_n']['x_axis']+1, endpoint=False)
-		[print(m) for m in xticksMinorUserInBetween]
-		print('-')
-		xticksMinorUser += xticksMinorUserInBetween
-		counter += 1
-
-	[print(m) for m in xticksMinorUser]
-	xlistOfLabelsMinor = [str(m) for m in xticksMinor]
-	ylistOfLabelsMinor = [str(m) for m in yticksMinor]
-
-	ax.set_xticklabels(xlistOfLabelsMinor, minor=True)
-	ax.set_yticklabels(ylistOfLabelsMinor, minor=True)
-
 	ax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])
 	####
 
