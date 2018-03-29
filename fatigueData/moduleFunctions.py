@@ -116,7 +116,7 @@ def importDataActuator(fileName, iFile):
 	file = open(fileName, 'r')
 	lines = file.readlines()
 
-	cycleN, maxF, meanF, minF = [], [], [], []
+	cycleN, maxF, meanF, minF, maxDispl, meanDispl, minDispl = [], [], [], [], [], [], []
 
 	lineN = 0
 	for line in lines:
@@ -126,6 +126,9 @@ def importDataActuator(fileName, iFile):
 		if lineN > 1:
 			
 			cycleN += [returnNumber(currentLineSplit[0])]
+			maxDispl += [returnNumber(currentLineSplit[4])]
+			meanDispl += [returnNumber(currentLineSplit[5])]
+			minDispl += [returnNumber(currentLineSplit[6])]
 			maxF += [returnNumber(currentLineSplit[20])]
 			meanF += [returnNumber(currentLineSplit[21])]
 			minF += [returnNumber(currentLineSplit[22])]
@@ -139,7 +142,7 @@ def importDataActuator(fileName, iFile):
 
 	dataFromRun = dataFromRunClass(iFile)
 
-	dataFromRun.add_data(cycleN, maxF, meanF, minF)
+	dataFromRun.add_data(cycleN, maxF, meanF, minF, maxDispl, meanDispl, minDispl)
 
 	return dataFromRun
 
@@ -188,13 +191,16 @@ class dataFromRunClass(object):
 
 		self.__id = id_in
 
-	def add_data(self, cycleN_in, maxF_in, meanF_in, minF_in):
+	def add_data(self, cycleN_in, maxF_in, meanF_in, minF_in, maxDispl_in, meanDispl_in, minDispl_in):
 
 		self.__cycleN = cycleN_in
 		self.__cycleN_mill = [d/1000000 for d in cycleN_in]
 		self.__maxF = maxF_in 
 		self.__meanF = meanF_in 
 		self.__minF = minF_in
+		self.__maxDispl = maxDispl_in 
+		self.__meanDispl = meanDispl_in 
+		self.__minDispl = minDispl_in
 
 	def setAbsoluteNCycles(self, previousNCycles_in):
 		
@@ -217,9 +223,18 @@ class dataFromRunClass(object):
 		return self.__meanF
 	def get_minF(self):
 		return self.__minF
+	def get_maxDispl(self):
+		return self.__maxDispl
+	def get_meanDispl(self):
+		return self.__meanDispl
+	def get_minDispl(self):
+		return self.__minDispl
+
 
 	def plotSingleRun(self, plotSettings):
 
+
+		### Plot force applied by the actuator
 		figure, ax = plt.subplots(1, 1)
 		figure.set_size_inches(10, 6, forward=True)
 
@@ -229,6 +244,26 @@ class dataFromRunClass(object):
 
 		ax.set_xlabel('Number of cycles [Millions]', **plotSettings['axes_x'])
 		ax.set_ylabel('Force [kN]', **plotSettings['axes_y'])
+
+		ax.legend(**plotSettings['legend'])
+		ax.set_title('Results from Run #'+str(self.get_id()), **plotSettings['title'])
+
+		#Figure settings
+		ax.grid(which='both', **plotSettings['grid'])
+		ax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])
+		ax.minorticks_on()
+
+
+		### Plot displacement of actuator
+		figure, ax = plt.subplots(1, 1)
+		figure.set_size_inches(10, 6, forward=True)
+
+		ax.plot(self.get_cycleN(), self.get_maxDispl(), linestyle = '-', marker = '', c = plotSettings['colors'][0], label = 'Max displacement', **plotSettings['line'])
+		ax.plot(self.get_cycleN(), self.get_meanDispl(), linestyle = '-', marker = '', c = plotSettings['colors'][1], label = 'Mean displacement', **plotSettings['line'])
+		ax.plot(self.get_cycleN(), self.get_minDispl(), linestyle = '-', marker = '', c = plotSettings['colors'][2], label = 'Min displacement', **plotSettings['line'])
+
+		ax.set_xlabel('Number of cycles [Millions]', **plotSettings['axes_x'])
+		ax.set_ylabel('Displacement [mm]', **plotSettings['axes_y'])
 
 		ax.legend(**plotSettings['legend'])
 		ax.set_title('Results from Run #'+str(self.get_id()), **plotSettings['title'])
@@ -602,11 +637,11 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		ax.minorticks_on()
 
 		print('\n')
-		print('--> Maximum force applied in complete test (mean value):'+str(round(np.mean(self.get_maxPicks()), 2))+' N')
-		print('--> Mean force applied in complete test (mean value):'+str(round(np.mean(self.get_meanPicks()), 2))+' N')
-		print('--> Minimum force applied in complete test (mean value):'+str(round(np.mean(self.get_minPicks()), 2))+' N')
+		print('--> Maximum force applied in complete test (mean value):'+str(round(np.mean(self.get_maxPicks()), 3))+' N')
+		print('--> Mean force applied in complete test (mean value):'+str(round(np.mean(self.get_meanPicks()), 3))+' N')
+		print('--> Minimum force applied in complete test (mean value):'+str(round(np.mean(self.get_minPicks()), 3))+' N')
 
-def plotAllRuns(dataFromRuns, plotSettings):
+def plotAllRuns_force(dataFromRuns, plotSettings):
 
 	def threePlotForRun(dataFromRun, plotSettings, ax):
 		
@@ -638,7 +673,7 @@ def plotAllRuns(dataFromRuns, plotSettings):
 	ax.legend(handles = legendHandles, **plotSettings['legend'])
 
 	#Title
-	ax.set_title('Results fatigue test', **plotSettings['title'])
+	ax.set_title('Results fatigue test, data from actuator', **plotSettings['title'])
 
 	#Figure settings
 	ax.grid(which='both', **plotSettings['grid'])
@@ -649,4 +684,45 @@ def plotAllRuns(dataFromRuns, plotSettings):
 	ax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])
 	####
 
+def plotAllRuns_displacement(dataFromRuns, plotSettings):
+
+	def threePlotForRun(dataFromRun, plotSettings, ax):
+		
+		ax.plot(dataFromRun.get_absoluteNCycles_mill(), dataFromRun.get_maxDispl(), linestyle = '-', marker = '', c = plotSettings['colors'][0], **plotSettings['line'])
+		ax.plot(dataFromRun.get_absoluteNCycles_mill(), dataFromRun.get_meanDispl(), linestyle = '-', marker = '', c = plotSettings['colors'][1], **plotSettings['line'])
+		ax.plot(dataFromRun.get_absoluteNCycles_mill(), dataFromRun.get_minDispl(), linestyle = '-', marker = '', c = plotSettings['colors'][2], **plotSettings['line'])	
 	
+	figure, ax = plt.subplots(1, 1)
+	figure.set_size_inches(10, 6, forward=True)
+
+	#Plot first division line
+	ax.plot(2*[0.0], [dataFromRuns[0].get_minDispl()[-1]*1.2, dataFromRuns[0].get_maxDispl()[-1]*1.2], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
+	for data in dataFromRuns:
+
+		threePlotForRun(data, plotSettings, ax)
+		
+		#Plot division lines
+		ax.plot(2*[data.get_absoluteNCycles_mill()[-1]], [data.get_minDispl()[-1]*1.2, data.get_maxDispl()[-1]*1.2], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
+
+	ax.set_xlabel('Number of cycles [Millions]', **plotSettings['axes_x'])
+	ax.set_ylabel('Displacement [mm]', **plotSettings['axes_y'])
+
+	# Legends
+	legendHandles = []
+	handle0 = plt.Line2D([],[], color=plotSettings['colors'][0], marker='+', linestyle='', label='Max displacement')
+	handle1 = plt.Line2D([],[], color=plotSettings['colors'][1], marker='+', linestyle='', label='Mean displacement')
+	handle2 = plt.Line2D([],[], color=plotSettings['colors'][2], marker='+', linestyle='', label='Min displacement')
+	legendHandles = legendHandles + [handle0, handle1, handle2]
+	ax.legend(handles = legendHandles, **plotSettings['legend'])
+
+	#Title
+	ax.set_title('Results fatigue test, data from actuator', **plotSettings['title'])
+
+	#Figure settings
+	ax.grid(which='both', **plotSettings['grid'])
+
+	#Tick parametersget_xticks
+	# majorTicks = ax.get_xmajorticklabels()
+	ax.minorticks_on()
+	ax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])
+	####

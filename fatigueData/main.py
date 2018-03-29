@@ -52,11 +52,17 @@ if gaugesFlag:
 					if dataClass.get_description() in fileName: #Restring to only file matching type of variable of class
 
 						print('\n'+'-> Reading: ' + fileName)
-						dataClass.importDataForClass(fileName, var)
+						if var in ('hp', 'lp'):
+							dataClass.importDataForClass(fileName, 'rs')
+						else:
+							dataClass.importDataForClass(fileName, var)
 
 				#Here dataClass has collected the full data for a variable and magnitude
 
-				dataClass.getTimeList(var)
+				if var in ('hp', 'lp'):
+					dataClass.getTimeList('rs')
+				else:
+					dataClass.getTimeList(var)
 				
 				dataClass.reStartXvaluesAndLastID()
 
@@ -82,7 +88,7 @@ if gaugesFlag:
 
 #Import data from actuator
 if actuatorFlag:
-	print('\n'+'**** Running data analysis program for calibrated strain gauges measurements'+'\n')
+	print('\n'+'**** Running data analysis program for actuator measurements'+'\n')
 	inputFilesAddress = loadFileAddresses(CMDoptionsDict['fileNameOfFileToLoadFiles'])
 
 	dataFromRuns, previousNCycles, iFile = [], 0, 1
@@ -106,6 +112,9 @@ if actuatorFlag:
 
 	#Plot data
 	dataFromRuns[5].plotSingleRun(plotSettings)
-	plotAllRuns(dataFromRuns, plotSettings)
+	dataFromRuns[-1].plotSingleRun(plotSettings)
+
+	plotAllRuns_force(dataFromRuns, plotSettings)
+	plotAllRuns_displacement(dataFromRuns, plotSettings)
 
 plt.show(block = True)
