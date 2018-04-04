@@ -10,8 +10,8 @@ import pdb #pdb.set_trace()
 ###### Functions
 def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 
-	short_opts = "f:v:m:" #"o:f:"
-	long_opts = ["fileName=","variables=","magnitudes="] #["option=","fileName="]
+	short_opts = "f:v:m:o:" #"o:f:"
+	long_opts = ["fileName=","variables=","magnitudes=","testOrder="] #["option=","fileName="]
 	try:
 		opts, args = getopt.getopt(argv,short_opts,long_opts)
 	except getopt.GetoptError:
@@ -41,6 +41,16 @@ def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 		elif opt in ("-m", "--magnitudes"):
 
 			CMDoptionsDict['magnitudes'] = arg.split(',')
+
+		elif opt in ("-o", "--testOrder"):
+
+			if arg.lower() in ('true', 't'):
+				CMDoptionsDict['testOrderFlag'] = True
+			elif arg.lower() in ('false', 'f'):
+				CMDoptionsDict['testOrderFlag'] = False
+			else:
+				CMDoptionsDict['testOrderRange'] = arg.split(',')
+				CMDoptionsDict['testOrderFlag'] = True
 
 	return CMDoptionsDict
 
@@ -286,6 +296,8 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		self.__testFactor = testFactor_in
 		self.__orderDeriv = orderDeriv_in
 
+		self.__prescribedLoadsTO = []
+
 		self.__max = []
 		self.__mean = []
 		self.__min = []
@@ -310,6 +322,10 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		self.__lastIDPick = 0
 		self.__xValues = []
 		self.__xValuesNewRun = []
+
+	def set_prescribedLoadsTO(self, loads):
+		
+		self.__prescribedLoadsTO = loads
 
 	def reStartXvaluesAndLastID(self):
 		self.__lastID = 0
@@ -582,7 +598,7 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		ax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])
 		ax.minorticks_on()
 
-	def plotResampled(self, plotSettings):
+	def plotResampled(self, plotSettings, CMDoptionsDict):
 
 		figure, ax = plt.subplots(1, 1)
 		figure.set_size_inches(10, 6, forward=True)
@@ -590,11 +606,17 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		ax.plot(self.get_timeRs(), self.get_rs(), linestyle = '-', marker = '', c = plotSettings['colors'][0], label = 'Measured force', **plotSettings['line'])
 
 		#Division line for runs
-		maxPlot = max(self.get_rs())*1.2
-		minPlot = min(self.get_rs())*1.2
-		ax.plot(2*[0.0], [minPlot, maxPlot], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
+		maxPlot_y = max(self.get_rs())*1.2
+		minPlot_y = min(self.get_rs())*1.2
+		ax.plot(2*[0.0], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
 		for div in self.get_timeSecNewRunRs():
-			ax.plot(2*[div], [minPlot, maxPlot], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
+			ax.plot(2*[div], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
+
+		if CMDoptionsDict['testOrderOption']:
+			maxPlot_x = 0.0
+			minPlot_x = max(self.get_timeSecNewRunRs())
+			for limitLoad in self.__prescribedLoadsTO:
+				ax.plot([minPlot_x, maxPlot_x], 2*[limitLoad], linestyle = '--', marker = '', c = plotSettings['colors'][1], **plotSettings['line'])
 
 		ax.set_xlabel('Number of points [Millions]', **plotSettings['axes_x'])
 		ax.set_ylabel('Force [kN]', **plotSettings['axes_y'])
@@ -641,7 +663,7 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		print('--> Mean force applied in complete test (mean value):'+str(round(np.mean(self.get_meanPicks()), 3))+' N')
 		print('--> Minimum force applied in complete test (mean value):'+str(round(np.mean(self.get_minPicks()), 3))+' N')
 
-def plotAllRuns_force(dataFromRuns, plotSettings):
+def plotAllRuns_force(dataFromRuns, plotSettings, CMDoptionsDict):
 
 	def threePlotForRun(dataFromRun, plotSettings, ax):
 		
@@ -660,6 +682,7 @@ def plotAllRuns_force(dataFromRuns, plotSettings):
 		
 		#Plot division lines
 		ax.plot(2*[data.get_absoluteNCycles_mill()[-1]], [data.get_minF()[-1]*1.2, data.get_maxF()[-1]*1.2], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
+
 
 	ax.set_xlabel('Number of cycles [Millions]', **plotSettings['axes_x'])
 	ax.set_ylabel('Force [kN]', **plotSettings['axes_y'])
@@ -683,6 +706,10 @@ def plotAllRuns_force(dataFromRuns, plotSettings):
 	ax.minorticks_on()
 	ax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])
 	####
+	
+	if CMDoptionsDict['testOrderFlag']:
+		ax.plot([0.0, dataFromRuns[-1].get_absoluteNCycles_mill()[-1]], 2*[CMDoptionsDict['testOrderRange'][0]], linestyle = '--', marker = '', c = plotSettings['colors'][1], **plotSettings['line'])
+		ax.plot([0.0, dataFromRuns[-1].get_absoluteNCycles_mill()[-1]], 2*[CMDoptionsDict['testOrderRange'][-1]], linestyle = '--', marker = '', c = plotSettings['colors'][1], **plotSettings['line'])
 
 def plotAllRuns_displacement(dataFromRuns, plotSettings):
 

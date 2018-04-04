@@ -74,12 +74,32 @@ if gaugesFlag:
 	# Plotting
 	for dataClass in dataClasses: #For each class variable
 
+		#################################
+
+		# Insert data from prescribed loading from the test order
+		if CMDoptionsDict['testOrderFlag']:
+
+			if dataClass.get_description() in ('PitchLinkMain'):
+				dataClass.set_prescribedLoadsTO([3600, -1600])
+
+			elif dataClass.get_description() in ('InnerPitchLink'):
+				dataClass.set_prescribedLoadsTO([3600*1.15, -1600*1.15])
+
+			elif dataClass.get_description() in ('Tension'):
+				dataClass.set_prescribedLoadsTO([4992, -3058])
+
+			elif dataClass.get_description() in ('Bending'):
+				dataClass.set_prescribedLoadsTO([960, -588])
+
+			else:
+				raise ValueError('ERROR: Incorrect handeling of the test order flag loop')
+
 
 		#Plotting max, min and mean from DIAdem
 		# dataClass.plotMaxMinMean_fromDIAdem(plotSettings)
 
 		#Plotting resampled total data
-		dataClass.plotResampled(plotSettings)
+		dataClass.plotResampled(plotSettings, CMDoptionsDict)
 
 		# dataClass.plotMinMeanMax(plotSettings)
 		# pass
@@ -111,10 +131,10 @@ if actuatorFlag:
 	#################################
 
 	#Plot data
-	dataFromRuns[5].plotSingleRun(plotSettings)
+	dataFromRuns[0].plotSingleRun(plotSettings)
 	dataFromRuns[-1].plotSingleRun(plotSettings)
 
-	plotAllRuns_force(dataFromRuns, plotSettings)
+	plotAllRuns_force(dataFromRuns, plotSettings, CMDoptionsDict)
 	plotAllRuns_displacement(dataFromRuns, plotSettings)
 
 plt.show(block = True)
