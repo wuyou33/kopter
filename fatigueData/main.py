@@ -86,10 +86,15 @@ if gaugesFlag:
 				dataClass.set_prescribedLoadsTO([3600*1.15, -1600*1.15])
 
 			elif dataClass.get_description() in ('Tension'):
-				dataClass.set_prescribedLoadsTO([4992, -3058])
+				dataClass.set_prescribedLoadsTO([4992, -3058]) #first phase
+				# dataClass.set_prescribedLoadsTO([5998, -4064]) #second phase
 
 			elif dataClass.get_description() in ('Bending'):
-				dataClass.set_prescribedLoadsTO([960, -588])
+				dataClass.set_prescribedLoadsTO([960, -588]) #first phase
+				# dataClass.set_prescribedLoadsTO([1153, -781]) #second phase
+
+			elif dataClass.get_description() in ('Force-SN27', 'Force-SN28'):
+				dataClass.set_prescribedLoadsTO([4080/10, -820/10])
 
 			else:
 				raise ValueError('ERROR: Incorrect handeling of the test order flag loop')
@@ -122,7 +127,7 @@ if actuatorFlag:
 
 		previousNCycles = dataFromRun_temp.get_absoluteNCycles()[-1]
 
-		print('----> Last computed data point index (accumulated): ' + str(int(previousNCycles)/1000000.0) + ' millions')
+		print('\t'+'-> Last computed data point index (accumulated): ' + str(int(previousNCycles)/1000000.0) + ' millions')
 
 		dataFromRuns += [dataFromRun_temp]
 
@@ -131,8 +136,8 @@ if actuatorFlag:
 	#################################
 
 	#Plot data
-	dataFromRuns[0].plotSingleRun(plotSettings)
-	dataFromRuns[-1].plotSingleRun(plotSettings)
+	# dataFromRuns[0].plotSingleRun(plotSettings)
+	# dataFromRuns[-1].plotSingleRun(plotSettings)
 
 	plotAllRuns_force(dataFromRuns, plotSettings, CMDoptionsDict)
 	plotAllRuns_displacement(dataFromRuns, plotSettings)

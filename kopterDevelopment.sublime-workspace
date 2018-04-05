@@ -264,7 +264,7 @@
 			"file": "fatigueData/moduleFunctions.py",
 			"settings":
 			{
-				"buffer_size": 25357,
+				"buffer_size": 24232,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -282,7 +282,7 @@
 			"file": "fatigueData/main.py",
 			"settings":
 			{
-				"buffer_size": 4511,
+				"buffer_size": 4802,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -486,6 +486,14 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"Last computed",
+			"()",
+			".__",
+			"get_",
+			"self.get_",
+			"testOrderOption",
+			"[3]",
+			"[1]",
 			"CMDoptionsDict",
 			"['testOrderRange']",
 			"Option",
@@ -605,15 +613,7 @@
 			"index",
 			"print",
 			"freq",
-			"__freq",
-			"testFactor",
-			"testFrequency",
-			"get_absoluteNCycles_mill",
-			"pdb.set_trace()",
-			"max",
-			"xVals",
-			"max",
-			"fileName"
+			"__freq"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -621,6 +621,7 @@
 		"regex": true,
 		"replace_history":
 		[
+			"self.__"
 		],
 		"reverse": false,
 		"show_context": true,
@@ -669,15 +670,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 25357,
+						"buffer_size": 24232,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4067,
-								4095
+								4571,
+								4571
 							]
 						],
 						"settings":
@@ -687,10 +688,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 2005.0,
+						"translation.y": 1450.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -705,15 +706,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 25357,
+						"buffer_size": 24232,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								22384,
-								22384
+								12687,
+								12687
 							]
 						],
 						"settings":
@@ -723,10 +724,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 7533.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -742,8 +743,8 @@
 						"selection":
 						[
 							[
-								16,
-								16
+								754,
+								754
 							]
 						],
 						"settings":
@@ -770,15 +771,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4511,
+						"buffer_size": 4802,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4433,
-								4433
+								3413,
+								3413
 							]
 						],
 						"settings":
@@ -787,10 +788,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1566.0,
+						"translation.y": 1014.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 0,
 					"type": "text"
 				}
 			]
@@ -927,13 +928,13 @@
 		"cols":
 		[
 			0.0,
-			0.245129495674,
+			0.411017346141,
 			1.0
 		],
 		"rows":
 		[
 			0.0,
-			0.551141552511,
+			0.663470319634,
 			1.0
 		]
 	},
@@ -946,7 +947,7 @@
 	"project": "kopterDevelopment.sublime-project",
 	"replace":
 	{
-		"height": 42.0
+		"height": 72.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -980,7 +981,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 1,
+	"selected_group": 2,
 	"settings":
 	{
 	},

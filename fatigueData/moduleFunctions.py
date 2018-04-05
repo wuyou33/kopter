@@ -49,7 +49,7 @@ def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 			elif arg.lower() in ('false', 'f'):
 				CMDoptionsDict['testOrderFlag'] = False
 			else:
-				CMDoptionsDict['testOrderRange'] = arg.split(',')
+				CMDoptionsDict['testOrderRange'] = [float(t) for t in arg.split(',')]
 				CMDoptionsDict['testOrderFlag'] = True
 
 	return CMDoptionsDict
@@ -148,7 +148,7 @@ def importDataActuator(fileName, iFile):
 
 	file.close()
 
-	print('----> Last computed data point index (file): ' + str(int(cycleN[-1])/1000.0) + ' thousands')
+	print('\t'+'-> Last computed data point index (file): ' + str(int(cycleN[-1])/1000.0) + ' thousands')
 
 	dataFromRun = dataFromRunClass(iFile)
 
@@ -175,7 +175,7 @@ def importPlottingOptions():
 	axes_label_y  = {'size' : 14, 'weight' : 'bold', 'verticalalignment' : 'bottom', 'horizontalalignment' : 'center'} #'verticalalignment' : 'bottom'
 	text_title_properties = {'weight' : 'bold', 'size' : 16}
 	axes_ticks = {'labelsize' : 10}
-	line = {'linewidth' : 1.5, 'markersize' : 2}
+	line = {'linewidth' : 2, 'markersize' : 2}
 	scatter = {'linewidths' : 2}
 	legend = {'fontsize' : 14, 'loc' : 'best'}
 	grid = {'alpha' : 0.7}
@@ -248,15 +248,15 @@ class dataFromRunClass(object):
 		figure, ax = plt.subplots(1, 1)
 		figure.set_size_inches(10, 6, forward=True)
 
-		ax.plot(self.get_cycleN(), self.get_maxF(), linestyle = '-', marker = '', c = plotSettings['colors'][0], label = 'Max force', **plotSettings['line'])
-		ax.plot(self.get_cycleN(), self.get_meanF(), linestyle = '-', marker = '', c = plotSettings['colors'][1], label = 'Mean force', **plotSettings['line'])
-		ax.plot(self.get_cycleN(), self.get_minF(), linestyle = '-', marker = '', c = plotSettings['colors'][2], label = 'Min force', **plotSettings['line'])
+		ax.plot(self.__cycleN, self.__maxF, linestyle = '-', marker = '', c = plotSettings['colors'][0], label = 'Max force', **plotSettings['line'])
+		ax.plot(self.__cycleN, self.__meanF, linestyle = '-', marker = '', c = plotSettings['colors'][1], label = 'Mean force', **plotSettings['line'])
+		ax.plot(self.__cycleN, self.__minF, linestyle = '-', marker = '', c = plotSettings['colors'][2], label = 'Min force', **plotSettings['line'])
 
 		ax.set_xlabel('Number of cycles [Millions]', **plotSettings['axes_x'])
 		ax.set_ylabel('Force [kN]', **plotSettings['axes_y'])
 
 		ax.legend(**plotSettings['legend'])
-		ax.set_title('Results from Run #'+str(self.get_id()), **plotSettings['title'])
+		ax.set_title('Results from Run #'+str(self.__id), **plotSettings['title'])
 
 		#Figure settings
 		ax.grid(which='both', **plotSettings['grid'])
@@ -268,15 +268,15 @@ class dataFromRunClass(object):
 		figure, ax = plt.subplots(1, 1)
 		figure.set_size_inches(10, 6, forward=True)
 
-		ax.plot(self.get_cycleN(), self.get_maxDispl(), linestyle = '-', marker = '', c = plotSettings['colors'][0], label = 'Max displacement', **plotSettings['line'])
-		ax.plot(self.get_cycleN(), self.get_meanDispl(), linestyle = '-', marker = '', c = plotSettings['colors'][1], label = 'Mean displacement', **plotSettings['line'])
-		ax.plot(self.get_cycleN(), self.get_minDispl(), linestyle = '-', marker = '', c = plotSettings['colors'][2], label = 'Min displacement', **plotSettings['line'])
+		ax.plot(self.__cycleN, self.__maxDispl, linestyle = '-', marker = '', c = plotSettings['colors'][0], label = 'Max displacement', **plotSettings['line'])
+		ax.plot(self.__cycleN, self.__meanDispl, linestyle = '-', marker = '', c = plotSettings['colors'][1], label = 'Mean displacement', **plotSettings['line'])
+		ax.plot(self.__cycleN, self.__minDispl, linestyle = '-', marker = '', c = plotSettings['colors'][2], label = 'Min displacement', **plotSettings['line'])
 
 		ax.set_xlabel('Number of cycles [Millions]', **plotSettings['axes_x'])
 		ax.set_ylabel('Displacement [mm]', **plotSettings['axes_y'])
 
 		ax.legend(**plotSettings['legend'])
-		ax.set_title('Results from Run #'+str(self.get_id()), **plotSettings['title'])
+		ax.set_title('Results from Run #'+str(self.__id), **plotSettings['title'])
 
 		#Figure settings
 		ax.grid(which='both', **plotSettings['grid'])
@@ -529,69 +529,27 @@ class dataFromGaugesSingleMagnitudeClass(object):
 	def get_description(self):
 		return self.__description
 
-	def get_xValues(self):
-		return self.__xValues
-	def get_xValuesNewRun(self):
-		return self.__xValuesNewRun
-
-	def get_max(self):
-		return self.__max
-	def get_mean(self):
-		return self.__mean
-	def get_min(self):
-		return self.__min
-	def get_maxPicks(self):
-		return self.__maxPicks
-	def get_meanPicks(self):
-		return self.__meanPicks
-	def get_minPicks(self):
-		return self.__minPicks
-	def get_rs(self):
-		return self.__rs
-
-	def get_timeMax(self):
-		return self.__timeMax
-	def get_timeMean(self):
-		return self.__timeMean
-	def get_timeMin(self):
-		return self.__timeMin
-	def get_timePicks(self):
-		return self.__timePicks
-	def get_timeRs(self):
-		return self.__timeRs
-
-	def get_timeSecNewRunMax(self):
-		return self.__timeSecNewRunMax
-	def get_timeSecNewRunMean(self):
-		return self.__timeSecNewRunMean
-	def get_timeSecNewRunMin(self):
-		return self.__timeSecNewRunMin
-	def get_timeSecNewRunPicks(self):
-		return self.__timeSecNewRunPicks
-	def get_timeSecNewRunRs(self):
-		return self.__timeSecNewRunRs
-
 	def plotMaxMinMean_fromDIAdem(self, plotSettings):
 
 		figure, ax = plt.subplots(1, 1)
 		figure.set_size_inches(10, 6, forward=True)
 
-		ax.plot(self.get_timeMax(), self.get_max(), linestyle = '', marker = '+', c = plotSettings['colors'][0], label = 'Max force', **plotSettings['line'])
-		ax.plot(self.get_timeMean(), self.get_mean(), linestyle = '', marker = '+', c = plotSettings['colors'][1], label = 'Mean force', **plotSettings['line'])
-		ax.plot(self.get_timeMin(), self.get_min(), linestyle = '', marker = '+', c = plotSettings['colors'][2], label = 'Min force', **plotSettings['line'])
+		ax.plot(self.__timeMax, self.__max, linestyle = '', marker = '+', c = plotSettings['colors'][0], label = 'Max force', **plotSettings['line'])
+		ax.plot(self.__timeMean, self.__mean, linestyle = '', marker = '+', c = plotSettings['colors'][1], label = 'Mean force', **plotSettings['line'])
+		ax.plot(self.__timeMin, self.__min, linestyle = '', marker = '+', c = plotSettings['colors'][2], label = 'Min force', **plotSettings['line'])
 
 		#Division line for runs
-		maxPlot = self.get_max()[-1]*1.2
-		minPlot = self.get_min()[-1]*1.2
+		maxPlot = self.__max[-1]*1.2
+		minPlot = self.__min[-1]*1.2
 		ax.plot(2*[0.0], [minPlot, maxPlot], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
-		for div in self.get_timeSecNewRunMean():
+		for div in self.__timeSecNewRunMean:
 			ax.plot(2*[div], [minPlot, maxPlot], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
 
 		ax.set_xlabel('Number of cycles [Millions]', **plotSettings['axes_x'])
 		ax.set_ylabel('Force [kN]', **plotSettings['axes_y'])
 		
 		ax.legend(**plotSettings['legend'])
-		ax.set_title(self.get_description(), **plotSettings['title'])
+		ax.set_title(self.__description, **plotSettings['title'])
 
 		#Figure settings
 		ax.grid(which='both', **plotSettings['grid'])
@@ -603,27 +561,27 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		figure, ax = plt.subplots(1, 1)
 		figure.set_size_inches(10, 6, forward=True)
 
-		ax.plot(self.get_timeRs(), self.get_rs(), linestyle = '-', marker = '', c = plotSettings['colors'][0], label = 'Measured force', **plotSettings['line'])
+		ax.plot(self.__timeRs, self.__rs, linestyle = '-', marker = '', c = plotSettings['colors'][0], label = 'Measured force', **plotSettings['line'])
 
 		#Division line for runs
-		maxPlot_y = max(self.get_rs())*1.2
-		minPlot_y = min(self.get_rs())*1.2
+		maxPlot_y = max(self.__rs)*1.2
+		minPlot_y = min(self.__rs)*1.2
 		ax.plot(2*[0.0], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
-		for div in self.get_timeSecNewRunRs():
+		for div in self.__timeSecNewRunRs:
 			ax.plot(2*[div], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
 
-		if CMDoptionsDict['testOrderOption']:
+		if CMDoptionsDict['testOrderFlag']:
 			maxPlot_x = 0.0
-			minPlot_x = max(self.get_timeSecNewRunRs())
+			minPlot_x = max(self.__timeSecNewRunRs)
 			for limitLoad in self.__prescribedLoadsTO:
-				ax.plot([minPlot_x, maxPlot_x], 2*[limitLoad], linestyle = '--', marker = '', c = plotSettings['colors'][1], **plotSettings['line'])
+				ax.plot([minPlot_x, maxPlot_x], 2*[limitLoad], linestyle = '--', marker = '', c = plotSettings['colors'][5], **plotSettings['line'])
 
 		ax.set_xlabel('Number of points [Millions]', **plotSettings['axes_x'])
 		ax.set_ylabel('Force [kN]', **plotSettings['axes_y'])
 
 		#Legend and title
 		# ax.legend(**plotSettings['legend'])
-		ax.set_title(self.get_description(), **plotSettings['title'])
+		ax.set_title(self.__description, **plotSettings['title'])
 
 		#Figure settings
 		ax.grid(which='both', **plotSettings['grid'])
@@ -635,15 +593,15 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		figure, ax = plt.subplots(1, 1)
 		figure.set_size_inches(10, 6, forward=True)
 
-		ax.plot(self.get_timePicks(), self.get_maxPicks(), linestyle = '-', marker = '', c = plotSettings['colors'][0], label = 'Max force', **plotSettings['line'])
-		ax.plot(self.get_timePicks(), self.get_meanPicks(), linestyle = '-', marker = '', c = plotSettings['colors'][1], label = 'Mean force', **plotSettings['line'])
-		ax.plot(self.get_timePicks(), self.get_minPicks(), linestyle = '-', marker = '', c = plotSettings['colors'][2], label = 'Min force', **plotSettings['line'])
+		ax.plot(self.__timePicks, self.__maxPicks, linestyle = '-', marker = '', c = plotSettings['colors'][0], label = 'Max force', **plotSettings['line'])
+		ax.plot(self.__timePicks, self.__meanPicks, linestyle = '-', marker = '', c = plotSettings['colors'][1], label = 'Mean force', **plotSettings['line'])
+		ax.plot(self.__timePicks, self.__minPicks, linestyle = '-', marker = '', c = plotSettings['colors'][2], label = 'Min force', **plotSettings['line'])
 
 		#Division line for runs
-		maxPlot = max(self.get_maxPicks())*1.2
-		minPlot = min(self.get_minPicks())*1.2
+		maxPlot = max(self.__maxPicks)*1.2
+		minPlot = min(self.__minPicks)*1.2
 		ax.plot(2*[0.0], [minPlot, maxPlot], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
-		for div in self.get_timeSecNewRunPicks():
+		for div in self.__timeSecNewRunPicks:
 			ax.plot(2*[div], [minPlot, maxPlot], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
 
 		ax.set_xlabel('Number of cycles [Millions]', **plotSettings['axes_x'])
@@ -651,7 +609,7 @@ class dataFromGaugesSingleMagnitudeClass(object):
 
 		#Legend and title
 		ax.legend(**plotSettings['legend'])
-		ax.set_title(self.get_description(), **plotSettings['title'])
+		ax.set_title(self.__description, **plotSettings['title'])
 
 		#Figure settings
 		ax.grid(which='both', **plotSettings['grid'])
@@ -659,9 +617,9 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		ax.minorticks_on()
 
 		print('\n')
-		print('--> Maximum force applied in complete test (mean value):'+str(round(np.mean(self.get_maxPicks()), 3))+' N')
-		print('--> Mean force applied in complete test (mean value):'+str(round(np.mean(self.get_meanPicks()), 3))+' N')
-		print('--> Minimum force applied in complete test (mean value):'+str(round(np.mean(self.get_minPicks()), 3))+' N')
+		print('--> Maximum force applied in complete test (mean value):'+str(round(np.mean(self.__maxPicks), 3))+' N')
+		print('--> Mean force applied in complete test (mean value):'+str(round(np.mean(self.__meanPicks), 3))+' N')
+		print('--> Minimum force applied in complete test (mean value):'+str(round(np.mean(self.__minPicks), 3))+' N')
 
 def plotAllRuns_force(dataFromRuns, plotSettings, CMDoptionsDict):
 
@@ -683,6 +641,10 @@ def plotAllRuns_force(dataFromRuns, plotSettings, CMDoptionsDict):
 		#Plot division lines
 		ax.plot(2*[data.get_absoluteNCycles_mill()[-1]], [data.get_minF()[-1]*1.2, data.get_maxF()[-1]*1.2], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
 
+	#Plot prescribed loads from the T
+	if CMDoptionsDict['testOrderFlag']:
+		ax.plot([0.0, dataFromRuns[-1].get_absoluteNCycles_mill()[-1]], 2*[CMDoptionsDict['testOrderRange'][0]], linestyle = '--', marker = '', c = plotSettings['colors'][5], **plotSettings['line'])
+		ax.plot([0.0, dataFromRuns[-1].get_absoluteNCycles_mill()[-1]], 2*[CMDoptionsDict['testOrderRange'][-1]], linestyle = '--', marker = '', c = plotSettings['colors'][5], **plotSettings['line'])
 
 	ax.set_xlabel('Number of cycles [Millions]', **plotSettings['axes_x'])
 	ax.set_ylabel('Force [kN]', **plotSettings['axes_y'])
@@ -707,9 +669,6 @@ def plotAllRuns_force(dataFromRuns, plotSettings, CMDoptionsDict):
 	ax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])
 	####
 	
-	if CMDoptionsDict['testOrderFlag']:
-		ax.plot([0.0, dataFromRuns[-1].get_absoluteNCycles_mill()[-1]], 2*[CMDoptionsDict['testOrderRange'][0]], linestyle = '--', marker = '', c = plotSettings['colors'][1], **plotSettings['line'])
-		ax.plot([0.0, dataFromRuns[-1].get_absoluteNCycles_mill()[-1]], 2*[CMDoptionsDict['testOrderRange'][-1]], linestyle = '--', marker = '', c = plotSettings['colors'][1], **plotSettings['line'])
 
 def plotAllRuns_displacement(dataFromRuns, plotSettings):
 
