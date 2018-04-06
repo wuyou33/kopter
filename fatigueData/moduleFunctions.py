@@ -546,7 +546,7 @@ class dataFromGaugesSingleMagnitudeClass(object):
 			ax.plot(2*[div], [minPlot, maxPlot], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
 
 		ax.set_xlabel('Number of cycles [Millions]', **plotSettings['axes_x'])
-		ax.set_ylabel('Force [kN]', **plotSettings['axes_y'])
+		ax.set_ylabel('Force [N]', **plotSettings['axes_y'])
 		
 		ax.legend(**plotSettings['legend'])
 		ax.set_title(self.__description, **plotSettings['title'])
@@ -577,7 +577,7 @@ class dataFromGaugesSingleMagnitudeClass(object):
 				ax.plot([minPlot_x, maxPlot_x], 2*[limitLoad], linestyle = '--', marker = '', c = plotSettings['colors'][5], **plotSettings['line'])
 
 		ax.set_xlabel('Number of points [Millions]', **plotSettings['axes_x'])
-		ax.set_ylabel('Force [kN]', **plotSettings['axes_y'])
+		ax.set_ylabel('Force [N]', **plotSettings['axes_y'])
 
 		#Legend and title
 		# ax.legend(**plotSettings['legend'])
@@ -605,7 +605,7 @@ class dataFromGaugesSingleMagnitudeClass(object):
 			ax.plot(2*[div], [minPlot, maxPlot], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
 
 		ax.set_xlabel('Number of cycles [Millions]', **plotSettings['axes_x'])
-		ax.set_ylabel('Force [kN]', **plotSettings['axes_y'])
+		ax.set_ylabel('Force [N]', **plotSettings['axes_y'])
 
 		#Legend and title
 		ax.legend(**plotSettings['legend'])

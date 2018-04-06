@@ -264,7 +264,7 @@
 			"file": "fatigueData/moduleFunctions.py",
 			"settings":
 			{
-				"buffer_size": 24232,
+				"buffer_size": 24229,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -282,7 +282,7 @@
 			"file": "fatigueData/main.py",
 			"settings":
 			{
-				"buffer_size": 4802,
+				"buffer_size": 4800,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -486,6 +486,9 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"var",
+			"kN",
+			"KN",
 			"Last computed",
 			"()",
 			".__",
@@ -610,10 +613,7 @@
 			"max",
 			"1000000",
 			"seconds",
-			"index",
-			"print",
-			"freq",
-			"__freq"
+			"index"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -670,15 +670,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 24232,
+						"buffer_size": 24229,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4571,
-								4571
+								4546,
+								4546
 							]
 						],
 						"settings":
@@ -688,10 +688,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1450.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 2,
 					"type": "text"
 				}
 			]
@@ -706,15 +706,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 24232,
+						"buffer_size": 24229,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								12687,
-								12687
+								4884,
+								4884
 							]
 						],
 						"settings":
@@ -727,7 +727,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -771,15 +771,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4802,
+						"buffer_size": 4800,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3413,
-								3413
+								331,
+								331
 							]
 						],
 						"settings":
@@ -788,7 +788,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1014.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -981,7 +981,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 2,
+	"selected_group": 0,
 	"settings":
 	{
 	},

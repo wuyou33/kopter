@@ -34,39 +34,39 @@ if gaugesFlag:
 	# dataClasses = (dataMainPitchLink,)
 	inputFolderAddress = loadFileAddresses(CMDoptionsDict['fileNameOfFileToLoadFiles'])
 
-	for var in CMDoptionsDict['magnitudes']:
+	for mag in CMDoptionsDict['magnitudes']:
 		for folderName in inputFolderAddress.getTupleFiles(): #For each folder with min, max or mean values
 			os.chdir(folderName)
 			listOfFilesInFolderMathingVar = []
 			for fileName2 in os.listdir(folderName):
-				if fileName2.startswith(var):
+				if fileName2.startswith(mag):
 
 					listOfFilesInFolderMathingVar += [fileName2]
 
 			listOfFilesSortedInFolder = sortFilesInFolderByLastNumberInName(listOfFilesInFolderMathingVar)
 			for dataClass in dataClasses: #For each class variable
-				print('---> Importing data for variable: ' + dataClass.get_description() + ', '+var+ ' values')
+				print('---> Importing data for variable: ' + dataClass.get_description() + ', '+mag+ ' values')
 					
 				for fileName in listOfFilesSortedInFolder: #For each file matching the criteria
 
 					if dataClass.get_description() in fileName: #Restring to only file matching type of variable of class
 
 						print('\n'+'-> Reading: ' + fileName)
-						if var in ('hp', 'lp'):
+						if mag in ('hp', 'lp'):
 							dataClass.importDataForClass(fileName, 'rs')
 						else:
-							dataClass.importDataForClass(fileName, var)
+							dataClass.importDataForClass(fileName, mag)
 
 				#Here dataClass has collected the full data for a variable and magnitude
 
-				if var in ('hp', 'lp'):
+				if mag in ('hp', 'lp'):
 					dataClass.getTimeList('rs')
 				else:
-					dataClass.getTimeList(var)
+					dataClass.getTimeList(mag)
 				
 				dataClass.reStartXvaluesAndLastID()
 
-				if var == 'rs' and False:
+				if mag == 'rs' and False:
 
 					newPicksMax, newPicksMean, newPicksMin, timePicks = dataClass.computePicks() ###STRANGE ERROR, PYTHON BUG?
 					dataClass.updatePicksData(newPicksMax, newPicksMean, newPicksMin, timePicks)
@@ -136,7 +136,7 @@ if actuatorFlag:
 	#################################
 
 	#Plot data
-	# dataFromRuns[0].plotSingleRun(plotSettings)
+	dataFromRuns[0].plotSingleRun(plotSettings)
 	# dataFromRuns[-1].plotSingleRun(plotSettings)
 
 	plotAllRuns_force(dataFromRuns, plotSettings, CMDoptionsDict)
