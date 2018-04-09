@@ -4,8 +4,11 @@ import os
 import sys
 import numpy as np
 import matplotlib.pyplot as plt
+import scipy.stats as st
+import math
 import getopt
 import pdb #pdb.set_trace()
+
 
 ###### Functions
 def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
@@ -712,3 +715,84 @@ def plotAllRuns_displacement(dataFromRuns, plotSettings):
 	ax.minorticks_on()
 	ax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])
 	####
+
+def calculate_stats(dataFromRuns):
+
+	def roundToOneSignificant(x):
+
+		return round(x, -int(math.floor(math.log10(abs(x)))))
+
+	def truncateToSignificantOfOtherNum(num, numRef):
+
+		i, i_out, flagPositive = 0, 0, True
+
+		if num < 0.0:
+			flagPositive = False
+			num = num *-1.0
+
+		for n in str(float(abs(numRef))):
+
+			if not n in ('.','0'):
+
+				i_out = i
+				break
+
+			i += 1
+
+		if i == 0: #Number bigger than 0
+			if flagPositive:
+				return float(str(num)[:-(len(str(abs(numRef)))-2)]+((len(str(abs(numRef)))-2)*'0'))
+			else:
+				print('hole')
+				return -1.0*float(str(num)[:-(len(str(abs(numRef)))-2)]+((len(str(abs(numRef)))-2)*'0'))
+
+		else:
+
+			if flagPositive:
+				return float(str(num)[:i_out+1])
+			else:
+				return -1.0*float(str(num)[:i_out+1])
+
+
+	maxs = []
+	mins = []
+	means = []
+
+	normalDistributionFlag = True
+	confidenceIntervalForTstudent = 95 #in %
+
+	for dataFromRun in dataFromRuns:
+
+		maxs += dataFromRun.get_maxF()
+		means += dataFromRun.get_meanF()
+		mins += dataFromRun.get_minF()
+		
+	
+	#Calculate stats using t-Student distribution
+	mean_max = np.mean(maxs)
+	mean_mean = np.mean(means)
+	mean_min = np.mean(mins)
+
+	std_max = np.std(maxs)
+	std_mean = np.std(means)
+	std_min = np.std(mins)
+
+	intervals_max = st.t.interval(confidenceIntervalForTstudent/100.0, len(maxs)-1, loc=mean_max, scale=st.sem(maxs))
+	intervals_mean = st.t.interval(confidenceIntervalForTstudent/100.0, len(means)-1, loc=mean_mean, scale=st.sem(means))
+	intervals_min = st.t.interval(confidenceIntervalForTstudent/100.0, len(mins)-1, loc=mean_min, scale=st.sem(mins))
+
+	#Intervals
+	if normalDistributionFlag:
+		interval_max = roundToOneSignificant(1.96 * std_max)
+		interval_mean = roundToOneSignificant(1.96 * std_mean)
+		interval_min = roundToOneSignificant(1.96 * std_min)
+	else:
+		interval_max = roundToOneSignificant(abs(intervals_max[1] - intervals_max[0]))
+		interval_mean = roundToOneSignificant(abs(intervals_mean[1] - intervals_mean[0]))
+		interval_min = roundToOneSignificant(abs(intervals_min[1] - intervals_min[0]))
+
+	# pdb.set_trace()
+
+	print('\n'+'-> Range for max values: '+str(truncateToSignificantOfOtherNum(mean_max, interval_max)) + '+-'+ str(interval_max)+' KN (for 95% confidence interval)')
+	print('-> Range for mean values: '+str(truncateToSignificantOfOtherNum(mean_mean, interval_mean)) + '+-'+ str(interval_mean)+' KN (for 95% confidence interval)')
+	print('-> Range for min values: '+str(truncateToSignificantOfOtherNum(mean_min, interval_min)) + '+-'+ str(interval_min)+' KN (for 95% confidence interval)')

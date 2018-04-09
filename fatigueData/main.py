@@ -133,8 +133,15 @@ if actuatorFlag:
 
 		iFile += 1
 
-	#################################
 
+	#################################
+	#Calculate std and mean of recorded values
+	if 'OC' in CMDoptionsDict['fileNameOfFileToLoadFiles']:
+		calculate_stats(dataFromRuns[:-2]) #Only the first loading phase
+	else:
+		calculate_stats(dataFromRuns)
+
+	#################################
 	#Plot data
 	dataFromRuns[0].plotSingleRun(plotSettings)
 	# dataFromRuns[-1].plotSingleRun(plotSettings)
