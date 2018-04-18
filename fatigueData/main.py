@@ -77,7 +77,9 @@ if gaugesFlag:
 		#################################
 
 		# Insert data from prescribed loading from the test order
-		if CMDoptionsDict['testOrderFlag']:
+		if CMDoptionsDict['testOrderFlagFromCMD']:
+
+			CMDoptionsDict['testOrderFlag'] = True
 
 			if dataClass.get_description() in ('PitchLinkMain'):
 				dataClass.set_prescribedLoadsTO([3600, -1600])
@@ -95,6 +97,19 @@ if gaugesFlag:
 
 			elif dataClass.get_description() in ('Force-SN27', 'Force-SN28'):
 				dataClass.set_prescribedLoadsTO([4080/10, -820/10])
+
+			elif dataClass.get_description() in ('DistanceSensor', 'CF', 'BendingMoment', 'MyBlade', 'MyLoadcell', 'MzBlade'):
+
+				if dataClass.get_description() in ('CF'):
+					dataClass.set_prescribedLoadsTO([11446, 0.0])
+					CMDoptionsDict['testOrderFlag'] = True
+
+				elif dataClass.get_description() in ('BendingMoment'):
+					dataClass.set_prescribedLoadsTO([48, -36])
+					CMDoptionsDict['testOrderFlag'] = True
+
+				else:
+					CMDoptionsDict['testOrderFlag'] = False
 
 			else:
 				raise ValueError('ERROR: Incorrect handeling of the test order flag loop')

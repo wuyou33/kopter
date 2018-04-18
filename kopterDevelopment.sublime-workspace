@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"va",
+				"var"
+			],
+			[
+				"get",
+				"get_description"
+			],
+			[
+				"da",
+				"dataClass"
+			],
+			[
 				"num",
 				"numRef"
 			],
@@ -136,10 +148,6 @@
 				"listOfFilesSorted"
 			],
 			[
-				"da",
-				"dataClasses"
-			],
-			[
 				"fol",
 				"folderName"
 			],
@@ -150,10 +158,6 @@
 			[
 				"__",
 				"__cycleN"
-			],
-			[
-				"get",
-				"get_minF"
 			],
 			[
 				"ge",
@@ -276,8 +280,17 @@
 			"file": "fatigueData/moduleFunctions.py",
 			"settings":
 			{
-				"buffer_size": 26798,
+				"buffer_size": 27102,
 				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "fti/ResamplingAndExportToCSV_Alejandro.VBS",
+			"settings":
+			{
+				"buffer_size": 7625,
+				"encoding": "UTF-16 LE with BOM",
 				"line_ending": "Windows"
 			}
 		},
@@ -294,13 +307,13 @@
 			"file": "fatigueData/main.py",
 			"settings":
 			{
-				"buffer_size": 5043,
+				"buffer_size": 5562,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "fatigueData/filesToLoad_gauges_spider.txt",
+			"file": "fatigueData/filesToLoad_gauges_TRbladeholder.txt",
 			"settings":
 			{
 				"buffer_size": 177,
@@ -309,10 +322,11 @@
 			}
 		},
 		{
-			"file": "/P/08_reference/ETH/abaqus/moduleBuildWingBoxAndPostProc.py",
+			"file": "fti/getFlightTestData.vbs",
 			"settings":
 			{
-				"buffer_size": 83756,
+				"buffer_size": 1718,
+				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
@@ -377,13 +391,17 @@
 	[
 		"/P/kopter",
 		"/P/kopter/fatigueData",
+		"/P/kopter/fti",
 		"/P/kopter/s_id",
+		"/P/kopter/tolerances",
 		"/P/kopter/versionsBackup",
 		"/P/08_reference/ETH",
 		"/P/08_reference/ETH/abaqus"
 	],
 	"file_history":
 	[
+		"/P/kopter/tolerances/toleranceChain.py",
+		"/P/kopter/tolerances/configClassModule.py",
 		"/P/kopter/fatigueData/test.py",
 		"/P/08_reference/ETH/abaqus/mainAbaqusParametricStudy.py",
 		"/P/kopter/fatigueData/filesToLoad_gauges_test.txt",
@@ -508,6 +526,20 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"configClass",
+			",",
+			"CNT",
+			"VEL",
+			"ACC",
+			"var_id",
+			"var",
+			"\t",
+			"obj_datadict",
+			"__description",
+			"dataClass",
+			"testOrderFlag",
+			"'",
+			"\"",
 			"2 *",
 			"confidence interval",
 			"interval",
@@ -621,21 +653,7 @@
 			"Value",
 			"__lastID",
 			"Picks",
-			"self.",
-			"max",
-			"=",
-			"-1",
-			"ax",
-			"[]",
-			"ax",
-			"max",
-			"Max",
-			"xValues",
-			"xValuesMax",
-			"dataID",
-			"lastID",
-			"pass",
-			"function"
+			"self."
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -683,7 +701,7 @@
 						"translation.y": 1730.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
@@ -692,23 +710,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 26798,
+						"buffer_size": 27102,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								25910,
-								25910
-							],
-							[
-								25966,
-								25966
-							],
-							[
-								26022,
-								26022
+								2902,
+								2902
 							]
 						],
 						"settings":
@@ -718,10 +728,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1157.0,
+						"translation.y": 3497.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 5,
 					"type": "text"
 				}
 			]
@@ -731,20 +741,50 @@
 			"sheets":
 			[
 				{
-					"buffer": 1,
-					"file": "fatigueData/moduleFunctions.py",
+					"buffer": 2,
+					"file": "fti/ResamplingAndExportToCSV_Alejandro.VBS",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 26798,
+						"buffer_size": 7625,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								15177,
-								15177
+								3229,
+								3229
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/VBScript/VBScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 546.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "fatigueData/moduleFunctions.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 27102,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								16290,
+								16290
 							]
 						],
 						"settings":
@@ -754,14 +794,14 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 6751.0,
+						"translation.y": 7215.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
+					"buffer": 3,
 					"file": "codingKnowledge/python.py",
 					"semi_transient": false,
 					"settings":
@@ -786,42 +826,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
-					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 0,
-			"sheets":
-			[
-				{
-					"buffer": 3,
-					"file": "fatigueData/main.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 5043,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4465,
-								4465
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1475.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
+					"stack_index": 7,
 					"type": "text"
 				}
 			]
@@ -832,7 +837,42 @@
 			[
 				{
 					"buffer": 4,
-					"file": "fatigueData/filesToLoad_gauges_spider.txt",
+					"file": "fatigueData/main.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5562,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3684,
+								3647
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 5,
+					"file": "fatigueData/filesToLoad_gauges_TRbladeholder.txt",
 					"semi_transient": false,
 					"settings":
 					{
@@ -855,40 +895,41 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
-					"file": "/P/08_reference/ETH/abaqus/moduleBuildWingBoxAndPostProc.py",
-					"semi_transient": true,
+					"buffer": 6,
+					"file": "fti/getFlightTestData.vbs",
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 83756,
+						"buffer_size": 1718,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								1107,
+								1107
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/VBScript/VBScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 273.0,
+						"translation.y": 156.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
+					"buffer": 7,
 					"file": "fatigueData/filesToLoad_actuator_spider.txt",
 					"semi_transient": false,
 					"settings":
@@ -913,11 +954,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 8,
 					"file": "fatigueData/filesToLoad_actuator_steelLinks.txt",
 					"semi_transient": false,
 					"settings":
@@ -941,7 +982,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 9,
 					"type": "text"
 				}
 			]
@@ -987,13 +1028,13 @@
 		"cols":
 		[
 			0.0,
-			0.411017346141,
+			0.31171828072,
 			1.0
 		],
 		"rows":
 		[
 			0.0,
-			0.663470319634,
+			0.845205479452,
 			1.0
 		]
 	},
@@ -1040,7 +1081,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 3,
+	"selected_group": 1,
 	"settings":
 	{
 	},

@@ -82,7 +82,8 @@ class configClass(object):
 			print('Max deviation from nom in ground: ' + str(round(a, 4)))
 			print('Min deviation from nom in ground: ' + str(round(b, 4)))
 
-		self.__finalTol = a - b
+		# self.__finalTol = a - b
+		self.__finalTol = max(abs(a), abs(b))
 		if printFlag:
 			print('Oblique distance uncertainty due to tolerances in ground +-' + str(round(self.__finalTol, 4)) + 'mm')
 
@@ -100,7 +101,8 @@ class configClass(object):
 			print('Max deviation from nom in flight: ' + str(round(a, 4)))
 			print('Min deviation from nom in flight: ' + str(round(b, 4)))
 
-		self.__finalTol_flight = a - b
+		# self.__finalTol_flight = a - b
+		self.__finalTol_flight = max(abs(a), abs(b))
 		if printFlag:
 			print('Oblique distance uncertainty due to tolerances in flight +-' + str(round(self.__finalTol_flight, 4)) + 'mm')
 

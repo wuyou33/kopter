@@ -48,12 +48,12 @@ def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 		elif opt in ("-o", "--testOrder"):
 
 			if arg.lower() in ('true', 't'):
-				CMDoptionsDict['testOrderFlag'] = True
+				CMDoptionsDict['testOrderFlagFromCMD'] = True
 			elif arg.lower() in ('false', 'f'):
-				CMDoptionsDict['testOrderFlag'] = False
+				CMDoptionsDict['testOrderFlagFromCMD'] = False
 			else:
 				CMDoptionsDict['testOrderRange'] = [float(t) for t in arg.split(',')]
-				CMDoptionsDict['testOrderFlag'] = True
+				CMDoptionsDict['testOrderFlagFromCMD'] = True
 
 	return CMDoptionsDict
 
@@ -580,7 +580,15 @@ class dataFromGaugesSingleMagnitudeClass(object):
 				ax.plot([minPlot_x, maxPlot_x], 2*[limitLoad], linestyle = '--', marker = '', c = plotSettings['colors'][5], **plotSettings['line'])
 
 		ax.set_xlabel('Number of points [Millions]', **plotSettings['axes_x'])
-		ax.set_ylabel('Force [N]', **plotSettings['axes_y'])
+
+		if self.__description in ('DistanceSensor'):
+			ax.set_ylabel('Displacement [mm]', **plotSettings['axes_y'])
+
+		elif self.__description in ('DistanceSensor', 'BendingMoment', 'MyBlade', 'MyLoadcell', 'MzBlade'):
+			ax.set_ylabel('Moment [Nm]', **plotSettings['axes_y'])
+
+		else:
+			ax.set_ylabel('Force [N]', **plotSettings['axes_y'])
 
 		#Legend and title
 		# ax.legend(**plotSettings['legend'])
