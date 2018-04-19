@@ -12,6 +12,7 @@ CMDoptionsDict = readCMDoptionsMainAbaqusParametric(sys.argv[1:], CMDoptionsDict
 # Import settings
 plotSettings = importPlottingOptions()
 cwd = os.getcwd() #Get working directory
+CMDoptionsDict['cwd'] = cwd
 
 # What to do?
 gaugesFlag = CMDoptionsDict['dmsFlag']
@@ -105,7 +106,7 @@ if gaugesFlag:
 					CMDoptionsDict['testOrderFlag'] = True
 
 				elif dataClass.get_description() in ('BendingMoment'):
-					dataClass.set_prescribedLoadsTO([48, -36])
+					dataClass.set_prescribedLoadsTO([-48, 36]) #Reversed sign, it seems the recording is recording data with opposite sign
 					CMDoptionsDict['testOrderFlag'] = True
 
 				else:

@@ -13,8 +13,8 @@ import pdb #pdb.set_trace()
 ###### Functions
 def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 
-	short_opts = "f:v:m:o:" #"o:f:"
-	long_opts = ["fileName=","variables=","magnitudes=","testOrder="] #["option=","fileName="]
+	short_opts = "f:v:m:o:s:" #"o:f:"
+	long_opts = ["fileName=","variables=","magnitudes=","testOrder=","saveFigure="] #["option=","fileName="]
 	try:
 		opts, args = getopt.getopt(argv,short_opts,long_opts)
 	except getopt.GetoptError:
@@ -54,6 +54,13 @@ def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 			else:
 				CMDoptionsDict['testOrderRange'] = [float(t) for t in arg.split(',')]
 				CMDoptionsDict['testOrderFlagFromCMD'] = True
+
+		elif opt in ("-s", "--saveFigure"):
+
+			if arg.lower() in ('true', 't'):
+				CMDoptionsDict['saveFigure'] = True
+			elif arg.lower() in ('false', 'f'):
+				CMDoptionsDict['saveFigure'] = False
 
 	return CMDoptionsDict
 
@@ -599,6 +606,11 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		ax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])
 		ax.minorticks_on()
 
+		#Save figure
+		if CMDoptionsDict['saveFigure']:
+
+			figure.savefig(os.path.join(CMDoptionsDict['cwd'], self.__description+'.png'))
+
 	def plotMinMeanMax(self, plotSettings):
 
 		figure, ax = plt.subplots(1, 1)
@@ -680,6 +692,10 @@ def plotAllRuns_force(dataFromRuns, plotSettings, CMDoptionsDict):
 	ax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])
 	####
 	
+	#Save figure
+	if CMDoptionsDict['saveFigure']:
+
+		figure.savefig(os.path.join(CMDoptionsDict['cwd'], 'ActuatorLoads.png'))
 
 def plotAllRuns_displacement(dataFromRuns, plotSettings):
 
@@ -723,6 +739,11 @@ def plotAllRuns_displacement(dataFromRuns, plotSettings):
 	ax.minorticks_on()
 	ax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])
 	####
+
+	#Save figure
+	if CMDoptionsDict['saveFigure']:
+
+		figure.savefig(os.path.join(CMDoptionsDict['cwd'], 'ActuatorDisplacement.png'))
 
 def calculate_stats(dataFromRuns):
 
