@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"file",
+				"fileID_0"
+			],
+			[
 				"va",
 				"var"
 			],
@@ -114,10 +118,6 @@
 			[
 				"list",
 				"listOfFilesSortedInFolder"
-			],
-			[
-				"file",
-				"fileName"
 			],
 			[
 				"time",
@@ -280,7 +280,7 @@
 			"file": "fatigueData/moduleFunctions.py",
 			"settings":
 			{
-				"buffer_size": 27704,
+				"buffer_size": 27902,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -289,7 +289,7 @@
 			"file": "fti/ResamplingAndExportToCSV_Alejandro.VBS",
 			"settings":
 			{
-				"buffer_size": 7628,
+				"buffer_size": 7631,
 				"encoding": "UTF-16 LE with BOM",
 				"line_ending": "Windows"
 			}
@@ -307,7 +307,7 @@
 			"file": "fatigueData/main.py",
 			"settings":
 			{
-				"buffer_size": 5666,
+				"buffer_size": 5682,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -710,7 +710,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 27704,
+						"buffer_size": 27902,
 						"regions":
 						{
 						},
@@ -728,10 +728,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 35.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -746,15 +746,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 7628,
+						"buffer_size": 7631,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3497,
-								3497
+								2125,
+								2125
 							]
 						],
 						"settings":
@@ -764,10 +764,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 546.0,
+						"translation.y": 39.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -776,15 +776,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 27704,
+						"buffer_size": 27902,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								25932,
-								25932
+								2115,
+								2115
 							]
 						],
 						"settings":
@@ -794,7 +794,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 6604.0,
+						"translation.y": 627.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -841,15 +841,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5666,
+						"buffer_size": 5682,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3992,
-								3992
+								2317,
+								2317
 							]
 						],
 						"settings":
@@ -858,7 +858,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1521.0,
+						"translation.y": 546.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
@@ -1028,7 +1028,7 @@
 		"cols":
 		[
 			0.0,
-			0.441975290066,
+			0.505059402216,
 			1.0
 		],
 		"rows":

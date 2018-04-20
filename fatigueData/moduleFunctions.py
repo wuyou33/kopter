@@ -13,8 +13,8 @@ import pdb #pdb.set_trace()
 ###### Functions
 def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 
-	short_opts = "f:v:m:o:s:" #"o:f:"
-	long_opts = ["fileName=","variables=","magnitudes=","testOrder=","saveFigure="] #["option=","fileName="]
+	short_opts = "f:v:m:o:s:r:" #"o:f:"
+	long_opts = ["fileName=","variables=","magnitudes=","testOrder=","saveFigure=","rangeFileIDs="] #["option=","fileName="]
 	try:
 		opts, args = getopt.getopt(argv,short_opts,long_opts)
 	except getopt.GetoptError:
@@ -62,16 +62,21 @@ def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 			elif arg.lower() in ('false', 'f'):
 				CMDoptionsDict['saveFigure'] = False
 
+		elif opt in ("-r", "--rangeFileIDs"):
+
+			CMDoptionsDict['rangeFileIDs'] = [int(t) for t in arg.split(',')]
+
 	return CMDoptionsDict
 
-def sortFilesInFolderByLastNumberInName(listOfFiles):
+def sortFilesInFolderByLastNumberInName(listOfFiles, CMDoptionsDict):
 
 	a = []
 	for file in listOfFiles:
 		if file.endswith('.csv'):
 			fileID_0 = file.split('.')[0]
 			fileID_int = int(fileID_0.split('_')[-1])
-			a += [(file, fileID_int),]
+			if fileID_int in CMDoptionsDict['rangeFileIDs']:
+				a += [(file, fileID_int),]
 
 	a_sorted = sorted(a, key=lambda x: x[1])
 	listOfFilesSorted = [b[0] for b in a_sorted]

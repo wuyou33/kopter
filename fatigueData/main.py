@@ -44,7 +44,7 @@ if gaugesFlag:
 
 					listOfFilesInFolderMathingVar += [fileName2]
 
-			listOfFilesSortedInFolder = sortFilesInFolderByLastNumberInName(listOfFilesInFolderMathingVar)
+			listOfFilesSortedInFolder = sortFilesInFolderByLastNumberInName(listOfFilesInFolderMathingVar, CMDoptionsDict)
 			for dataClass in dataClasses: #For each class variable
 				print('---> Importing data for variable: ' + dataClass.get_description() + ', '+mag+ ' values')
 					
