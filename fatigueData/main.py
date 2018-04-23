@@ -17,6 +17,7 @@ CMDoptionsDict['cwd'] = cwd
 # What to do?
 gaugesFlag = CMDoptionsDict['dmsFlag']
 actuatorFlag = CMDoptionsDict['actuatorFlag']
+actuatorMesswerteFlag = CMDoptionsDict['actuatorMesswerte']
 
 # Gauges data analysis
 if gaugesFlag:
@@ -128,7 +129,7 @@ if gaugesFlag:
 	os.chdir(cwd)
 
 #Import data from actuator
-if actuatorFlag:
+elif actuatorFlag:
 	print('\n'+'**** Running data analysis program for actuator measurements'+'\n')
 	inputFilesAddress = loadFileAddresses(CMDoptionsDict['fileNameOfFileToLoadFiles'])
 
@@ -137,7 +138,7 @@ if actuatorFlag:
 	for file in inputFilesAddress.getTupleFiles():
 
 		print('-> Reading: ' + file.split('\\')[-1])
-		dataFromRun_temp = importDataActuator(file, iFile)
+		dataFromRun_temp = importDataActuator(file, iFile, CMDoptionsDict)
 
 		dataFromRun_temp.setAbsoluteNCycles(previousNCycles)
 
@@ -163,6 +164,29 @@ if actuatorFlag:
 	# dataFromRuns[-1].plotSingleRun(plotSettings)
 
 	plotAllRuns_force(dataFromRuns, plotSettings, CMDoptionsDict)
-	plotAllRuns_displacement(dataFromRuns, plotSettings)
+	plotAllRuns_displacement(dataFromRuns, plotSettings, CMDoptionsDict)
+
+elif actuatorMesswerteFlag:
+
+	print('\n'+'**** Running data analysis program for actuator measurements, all data'+'\n')
+	inputFilesAddress = loadFileAddresses(CMDoptionsDict['fileNameOfFileToLoadFiles'])
+
+	dataFromRuns, iFile, lastDataPointCounter = [], 1, 0
+
+	for file in inputFilesAddress.getTupleFiles():
+
+		print('-> Reading: ' + file.split('\\')[-1])
+		dataFromRun_temp = importDataActuator(file, iFile, CMDoptionsDict)
+
+		lastDataPointCounter += dataFromRun_temp.get_lastDataPointCounter()
+
+		print('\t'+'-> Last computed data point index (accumulated): ' + str(int(lastDataPointCounter)/1000000.0) + ' millions')
+
+		dataFromRuns += [dataFromRun_temp]
+
+		iFile += 1
+
+	plotAllRuns_force_Messwerte(dataFromRuns, plotSettings, CMDoptionsDict)
+
 
 plt.show(block = True)

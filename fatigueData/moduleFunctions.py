@@ -30,12 +30,18 @@ def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 			# postProcFolderName = arg
 			CMDoptionsDict['fileNameOfFileToLoadFiles'] = arg
 
-			if 'actuator' in arg.lower():
-				CMDoptionsDict['actuatorFlag'] = True
+			if 'actuatormesswerte' in arg.lower():
+				CMDoptionsDict['actuatorMesswerte'] = True
+				CMDoptionsDict['actuatorFlag'] = False
 				CMDoptionsDict['dmsFlag'] = False
 			elif 'gauge' in arg.lower():
+				CMDoptionsDict['actuatorMesswerte'] = False
 				CMDoptionsDict['actuatorFlag'] = False
 				CMDoptionsDict['dmsFlag'] = True
+			elif 'actuator' in arg.lower():
+				CMDoptionsDict['actuatorMesswerte'] = False
+				CMDoptionsDict['actuatorFlag'] = True
+				CMDoptionsDict['dmsFlag'] = False
 
 		elif opt in ("-v", "--variables"):
 
@@ -136,38 +142,66 @@ class inputDataClassDef(object):
 
 		return self.__setOfAddress_tuple
 
-def importDataActuator(fileName, iFile):
+def importDataActuator(fileName, iFile, CMDoptionsDict):
 
 	file = open(fileName, 'r')
 	lines = file.readlines()
+	fileNameShort = fileName.split('\\')[-1]
 
-	cycleN, maxF, meanF, minF, maxDispl, meanDispl, minDispl = [], [], [], [], [], [], []
+	if CMDoptionsDict['actuatorFlag']:
 
-	lineN = 0
-	for line in lines:
+		cycleN, maxF, meanF, minF, maxDispl, meanDispl, minDispl = [], [], [], [], [], [], []
 
-		currentLineSplit = line.split(';')
+		lineN = 0
+		for line in lines:
 
-		if lineN > 1:
-			
-			cycleN += [returnNumber(currentLineSplit[0])]
-			maxDispl += [returnNumber(currentLineSplit[4])]
-			meanDispl += [returnNumber(currentLineSplit[5])]
-			minDispl += [returnNumber(currentLineSplit[6])]
-			maxF += [returnNumber(currentLineSplit[20])]
-			meanF += [returnNumber(currentLineSplit[21])]
-			minF += [returnNumber(currentLineSplit[22])]
+			currentLineSplit = line.split(';')
 
-		lineN += 1
-			
+			if lineN > 1:
+				
+				cycleN += [returnNumber(currentLineSplit[0])]
+				maxDispl += [returnNumber(currentLineSplit[4])]
+				meanDispl += [returnNumber(currentLineSplit[5])]
+				minDispl += [returnNumber(currentLineSplit[6])]
+				maxF += [returnNumber(currentLineSplit[20])]
+				meanF += [returnNumber(currentLineSplit[21])]
+				minF += [returnNumber(currentLineSplit[22])]
 
-	file.close()
+			lineN += 1
+				
 
-	print('\t'+'-> Last computed data point index (file): ' + str(int(cycleN[-1])/1000.0) + ' thousands')
+		file.close()
 
-	dataFromRun = dataFromRunClass(iFile)
+		print('\t'+'-> Last computed data point index (file): ' + str(int(cycleN[-1])/1000.0) + ' thousands')
 
-	dataFromRun.add_data(cycleN, maxF, meanF, minF, maxDispl, meanDispl, minDispl)
+		dataFromRun = dataFromRunClass(iFile)
+
+		dataFromRun.add_data(cycleN, maxF, meanF, minF, maxDispl, meanDispl, minDispl)
+
+	elif CMDoptionsDict['actuatorMesswerte']:
+
+		weg, kraft = [], []
+
+		lineN = 0
+		for line in lines:
+
+			currentLineSplit = line.split(';')
+
+			if lineN > 1:
+				
+				weg += [returnNumber(currentLineSplit[6])]
+				kraft += [returnNumber(currentLineSplit[9])]
+
+			lineN += 1
+				
+
+		file.close()
+
+		print('\t'+'-> Last computed data point index (file): ' + str(lineN/1000000.0) + ' millions')
+
+		dataFromRun = dataFromRunClassMesswerte(iFile, fileNameShort.split('_')[0]+'_'+fileNameShort.split('_')[1], lineN)
+
+		dataFromRun.add_data(weg, kraft)
 
 	return dataFromRun
 
@@ -204,6 +238,31 @@ def importPlottingOptions():
 	                'colors' : colors, 'markers' : markers, 'linestyles' : linestyles, 'axes_ticks_n' : axes_ticks_n}
 
 	return plotSettings
+
+class dataFromRunClassMesswerte(object):
+	"""docstring for dataFromRunClassMesswerte"""
+	def __init__(self, id_in, testName_in, lastDataPointCounter_in):
+		# super(dataFromRun, self).__init__()
+
+		self.__id = id_in
+		self.__name = testName_in
+		self.__lastDataPointCounter = lastDataPointCounter_in
+
+	def add_data(self, weg_in, kraft_in):
+		
+		self.__weg = weg_in
+		self.__kraft = kraft_in
+
+	def get_lastDataPointCounter(self):
+		return self.__id
+	def get_name(self):
+		return self.__name
+	def get_weg(self):
+		return self.__weg
+	def get_kraft(self):
+		return self.__kraft
+	def get_lastDataPointCounter(self):
+		return self.__lastDataPointCounter
 
 class dataFromRunClass(object):
 	"""
@@ -585,7 +644,7 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		for div in self.__timeSecNewRunRs:
 			ax.plot(2*[div], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
 
-		if CMDoptionsDict['testOrderFlag']:
+		if CMDoptionsDict['testOrderFlagFromCMD']:
 			maxPlot_x = 0.0
 			minPlot_x = max(self.__timeSecNewRunRs)
 			for limitLoad in self.__prescribedLoadsTO:
@@ -670,7 +729,7 @@ def plotAllRuns_force(dataFromRuns, plotSettings, CMDoptionsDict):
 		ax.plot(2*[data.get_absoluteNCycles_mill()[-1]], [data.get_minF()[-1]*1.2, data.get_maxF()[-1]*1.2], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
 
 	#Plot prescribed loads from the T
-	if CMDoptionsDict['testOrderFlag']:
+	if CMDoptionsDict['testOrderFlagFromCMD']:
 		ax.plot([0.0, dataFromRuns[-1].get_absoluteNCycles_mill()[-1]], 2*[CMDoptionsDict['testOrderRange'][0]], linestyle = '--', marker = '', c = plotSettings['colors'][5], **plotSettings['line'])
 		ax.plot([0.0, dataFromRuns[-1].get_absoluteNCycles_mill()[-1]], 2*[CMDoptionsDict['testOrderRange'][-1]], linestyle = '--', marker = '', c = plotSettings['colors'][5], **plotSettings['line'])
 
@@ -702,7 +761,32 @@ def plotAllRuns_force(dataFromRuns, plotSettings, CMDoptionsDict):
 
 		figure.savefig(os.path.join(CMDoptionsDict['cwd'], 'ActuatorLoads.png'))
 
-def plotAllRuns_displacement(dataFromRuns, plotSettings):
+def plotAllRuns_force_Messwerte(dataFromRuns, plotSettings, CMDoptionsDict):
+
+	figure, ax = plt.subplots(1, 1)
+	figure.set_size_inches(10, 6, forward=True)
+
+	counterPlots = 0
+	for data in dataFromRuns:
+
+		ax.plot(data.get_weg(), data.get_kraft(), linestyle = '-', marker = '', c = plotSettings['colors'][counterPlots], label = data.get_name(), **plotSettings['line'])
+
+		counterPlots += 1
+
+	ax.set_xlabel('Displacement [mm]', **plotSettings['axes_x'])
+	ax.set_ylabel('Force [kN]', **plotSettings['axes_y'])
+
+	#Legend and title
+	ax.legend(**plotSettings['legend'])
+	ax.set_title('Results fatigue test, data from actuator', **plotSettings['title'])
+
+	#Figure settings
+	ax.grid(which='both', **plotSettings['grid'])
+	ax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])
+	ax.minorticks_on()
+
+
+def plotAllRuns_displacement(dataFromRuns, plotSettings, CMDoptionsDict):
 
 	def threePlotForRun(dataFromRun, plotSettings, ax):
 		

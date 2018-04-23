@@ -1,0 +1,5 @@
+Files to load:
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0187\01_TDMS_data_Set-complete\01_RAW\0-100k cycles\Run_5_Messwerte.csv
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0187\01_TDMS_data_Set-complete\01_RAW\100k-200k cycles\Run_6_Messwerte.csv
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0187\01_TDMS_data_Set-complete\01_RAW\200k-362400 cycles\Run_7_Messwerte.csv
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0187\01_TDMS_data_Set-complete\01_RAW\362400-448650 cycles\Run_8_Messwerte.csv
