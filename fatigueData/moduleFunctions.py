@@ -21,8 +21,8 @@ def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 		raise ValueError('ERROR: Not correct input to script')
 
 	# check input
-	if len(opts) != len(long_opts):
-		raise ValueError('ERROR: Invalid number of inputs')	
+	# if len(opts) != len(long_opts):
+		# raise ValueError('ERROR: Invalid number of inputs')	
 
 	for opt, arg in opts:
 
@@ -763,6 +763,27 @@ def plotAllRuns_force(dataFromRuns, plotSettings, CMDoptionsDict):
 
 def plotAllRuns_force_Messwerte(dataFromRuns, plotSettings, CMDoptionsDict):
 
+	def cumputeDiffFnNotContinous(x, y):
+		
+		assert len(x)==len(y), 'ERROR: Not equal length for vectors'
+
+		n = len(x)
+
+		diff, pointsID = [], [1]
+		for i in range(1,n-1):
+
+			# delta = abs( abs(x[i+1]) - abs(x[i-1]) )
+			delta = abs( x[i+1] - x[i-1] )
+
+			f = y[i+1] - y[i-1]
+
+			diff += [f/(2.0*delta)]
+
+			if i > 1:
+				pointsID += [pointsID[-1]+1]
+
+		return diff, pointsID
+
 	figure, ax = plt.subplots(1, 1)
 	figure.set_size_inches(10, 6, forward=True)
 
@@ -784,6 +805,50 @@ def plotAllRuns_force_Messwerte(dataFromRuns, plotSettings, CMDoptionsDict):
 	ax.grid(which='both', **plotSettings['grid'])
 	ax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])
 	ax.minorticks_on()
+
+	#Save figure
+	if CMDoptionsDict['saveFigure']:
+
+		figure.savefig(os.path.join(CMDoptionsDict['cwd'], 'ActuatorForceDisplacement.png'))
+
+	#Central differences plot
+	figure, ax = plt.subplots(1, 1)
+	figure.set_size_inches(10, 6, forward=True)
+
+	counter, dataIdAbs, diffAbs = 0, [], []
+	ax.plot(2*[0.0], [-500000, 500000], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
+	for data in dataFromRuns:
+
+		diff_temp, pointsID_temp = cumputeDiffFnNotContinous(data.get_weg(), data.get_kraft())
+
+		if counter == 0:
+			dataIdAbs += pointsID_temp
+		else:
+			dataIdAbs += [dataIdAbs[-1]+t for t in pointsID_temp]
+		
+		# Plot division line
+		ax.plot(2*[dataIdAbs[-1]/1000000.0], [-500000, 500000], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
+		
+		diffAbs += diff_temp
+		counter += 1
+
+	ax.plot([t/1000000.0 for t in dataIdAbs], diffAbs, linestyle = '-', marker = '', c = plotSettings['colors'][0], **plotSettings['line'])
+
+	ax.set_xlabel('Number of points [Millions]', **plotSettings['axes_x'])
+	ax.set_ylabel('Stiffness [mm/kN]', **plotSettings['axes_y'])
+
+	#Legend and title
+	ax.set_title('Results fatigue test, data from actuator', **plotSettings['title'])
+
+	#Figure settings
+	ax.grid(which='both', **plotSettings['grid'])
+	ax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])
+	ax.minorticks_on()
+
+	#Save figure
+	if CMDoptionsDict['saveFigure']:
+
+		figure.savefig(os.path.join(CMDoptionsDict['cwd'], 'ActuatorForceDisplacement.png'))
 
 
 def plotAllRuns_displacement(dataFromRuns, plotSettings, CMDoptionsDict):
