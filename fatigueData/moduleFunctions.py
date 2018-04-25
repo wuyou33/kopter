@@ -337,6 +337,11 @@ class dataFromRunClass(object):
 		ax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])
 		ax.minorticks_on()
 
+		#Double y-axis 
+		axdouble_in_y = ax.twinx()
+		axdouble_in_y.minorticks_on()
+		axdouble_in_y.set_ylim(ax.get_ylim())
+
 
 		### Plot displacement of actuator
 		figure, ax = plt.subplots(1, 1)
@@ -356,6 +361,11 @@ class dataFromRunClass(object):
 		ax.grid(which='both', **plotSettings['grid'])
 		ax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])
 		ax.minorticks_on()
+
+		#Double y-axis 
+		axdouble_in_y = ax.twinx()
+		axdouble_in_y.minorticks_on()
+		axdouble_in_y.set_ylim(ax.get_ylim())
 
 class dataFromGaugesSingleMagnitudeClass(object):
 	"""
@@ -625,6 +635,11 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		ax.legend(**plotSettings['legend'])
 		ax.set_title(self.__description, **plotSettings['title'])
 
+		#Double y-axis 
+		axdouble_in_y = ax.twinx()
+		axdouble_in_y.minorticks_on()
+		axdouble_in_y.set_ylim(ax.get_ylim())
+
 		#Figure settings
 		ax.grid(which='both', **plotSettings['grid'])
 		ax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])
@@ -658,6 +673,9 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		elif self.__description in ('DistanceSensor', 'BendingMoment', 'MyBlade', 'MyLoadcell', 'MzBlade'):
 			ax.set_ylabel('Moment [Nm]', **plotSettings['axes_y'])
 
+		elif self.__description in ('STG1', 'STG2'):
+			ax.set_ylabel('Strain [mm\m]', **plotSettings['axes_y'])
+
 		else:
 			ax.set_ylabel('Force [N]', **plotSettings['axes_y'])
 
@@ -669,6 +687,11 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		ax.grid(which='both', **plotSettings['grid'])
 		ax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])
 		ax.minorticks_on()
+
+		#Double y-axis 
+		axdouble_in_y = ax.twinx()
+		axdouble_in_y.minorticks_on()
+		axdouble_in_y.set_ylim(ax.get_ylim())
 
 		#Save figure
 		if CMDoptionsDict['saveFigure']:
@@ -702,6 +725,11 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		ax.grid(which='both', **plotSettings['grid'])
 		ax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])
 		ax.minorticks_on()
+
+		#Double y-axis 
+		axdouble_in_y = ax.twinx()
+		axdouble_in_y.minorticks_on()
+		axdouble_in_y.set_ylim(ax.get_ylim())
 
 		print('\n')
 		print('--> Maximum force applied in complete test (mean value):'+str(round(np.mean(self.__maxPicks), 3))+' N')
@@ -747,19 +775,30 @@ def plotAllRuns_force(dataFromRuns, plotSettings, CMDoptionsDict):
 	#Title
 	ax.set_title('Results fatigue test, data from actuator', **plotSettings['title'])
 
-	#Figure settings
+	#Figure plotSettings
 	ax.grid(which='both', **plotSettings['grid'])
 
-	#Tick parametersget_xticks
-	# majorTicks = ax.get_xmajorticklabels()
+	#Tick parameters
 	ax.minorticks_on()
 	ax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])
+	####
+
+	#Double y-axis 
+	axdouble_in_y = ax.twinx()
+	axdouble_in_y.minorticks_on()
+	axdouble_in_y.set_ylim(ax.get_ylim())
+	
+	#Tick parametersget_xticks
+	# majorTicks = ax.get_xmajorticklabels()
+	# ax.minorticks_on()
+	# ax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])
 	####
 	
 	#Save figure
 	if CMDoptionsDict['saveFigure']:
 
 		figure.savefig(os.path.join(CMDoptionsDict['cwd'], 'ActuatorLoads.png'))
+
 
 def plotAllRuns_force_Messwerte(dataFromRuns, plotSettings, CMDoptionsDict):
 
@@ -845,6 +884,10 @@ def plotAllRuns_force_Messwerte(dataFromRuns, plotSettings, CMDoptionsDict):
 	ax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])
 	ax.minorticks_on()
 
+	#Double y-axis 
+	axdouble_in_y = ax.twinx()
+	axdouble_in_y.set_ylim(ax.get_ylim())
+
 	#Save figure
 	if CMDoptionsDict['saveFigure']:
 
@@ -888,11 +931,15 @@ def plotAllRuns_displacement(dataFromRuns, plotSettings, CMDoptionsDict):
 	#Figure settings
 	ax.grid(which='both', **plotSettings['grid'])
 
-	#Tick parametersget_xticks
-	# majorTicks = ax.get_xmajorticklabels()
+	#Tick parameters
 	ax.minorticks_on()
 	ax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])
 	####
+
+	#Double y-axis 
+	axdouble_in_y = ax.twinx()
+	axdouble_in_y.minorticks_on()
+	axdouble_in_y.set_ylim(ax.get_ylim())
 
 	#Save figure
 	if CMDoptionsDict['saveFigure']:

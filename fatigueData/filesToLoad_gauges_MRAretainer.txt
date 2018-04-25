@@ -1,0 +1,2 @@
+Folders to load:
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0174\01_TDMS_data_Set-complete\01_RAW\Fatigue test\STG data\2018-03-22_125217\csv_data
