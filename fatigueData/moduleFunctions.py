@@ -404,8 +404,10 @@ class dataFromGaugesSingleMagnitudeClass(object):
 
 		self.__lastID = 0
 		self.__lastIDPick = 0
+		self.__freqData = []
 		self.__xValues = []
 		self.__xValuesNewRun = []
+		self.__stepID = []
 
 	def set_prescribedLoadsTO(self, loads):
 		
@@ -482,6 +484,13 @@ class dataFromGaugesSingleMagnitudeClass(object):
 			print('\t'+'-> Last computed data point index (accumulated): ' + str(dataID[-1]/1000000.0) + ' millions')
 
 		self.__xValues += dataID
+		
+		# Obtain step index
+		fileName_0 = fileName.split('.')[0]
+		self.__stepID += [int(fileName_0.split('_')[-1])]
+
+		#Obtain frequency for recorded data
+		self.__freqData += [float(fileName_0.split('_')[-2][:-2])]
 
 	def computePicks(self):
 		"""
@@ -650,22 +659,32 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		figure, ax = plt.subplots(1, 1)
 		figure.set_size_inches(10, 6, forward=True)
 
-		ax.plot(self.__timeRs, self.__rs, linestyle = '-', marker = '', c = plotSettings['colors'][0], label = 'Measured force', **plotSettings['line'])
+		ax.plot( [t/self.__freqData[0] for t in self.__timeRs], self.__rs, linestyle = '-', marker = '', c = plotSettings['colors'][0], label = 'Measured force', **plotSettings['line'])
 
 		#Division line for runs
 		maxPlot_y = max(self.__rs)*1.2
 		minPlot_y = min(self.__rs)*1.2
+		previousDiv = 0.0
+		i = 0
 		ax.plot(2*[0.0], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
-		for div in self.__timeSecNewRunRs:
+		for div in [t/self.__freqData[0] for t in self.__timeSecNewRunRs]:
 			ax.plot(2*[div], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
+
+			#Add text with step number
+			# pdb.set_trace()
+			ax.text(previousDiv + ((div - previousDiv)/2), minPlot_y, 'Step '+str(self.__stepID[i]), bbox=dict(facecolor='black', alpha=0.2), horizontalalignment = 'center')
+			
+			previousDiv = div
+			i += 1
 
 		if CMDoptionsDict['testOrderFlagFromCMD']:
 			maxPlot_x = 0.0
-			minPlot_x = max(self.__timeSecNewRunRs)
+			minPlot_x = max(self.__timeSecNewRunRs)/self.__freqData[0]
 			for limitLoad in self.__prescribedLoadsTO:
 				ax.plot([minPlot_x, maxPlot_x], 2*[limitLoad], linestyle = '--', marker = '', c = plotSettings['colors'][5], **plotSettings['line'])
 
-		ax.set_xlabel('Number of points [Millions]', **plotSettings['axes_x'])
+		# ax.set_xlabel('Number of points [Millions]', **plotSettings['axes_x'])
+		ax.set_xlabel('Time elapsed [Million seconds]', **plotSettings['axes_x'])
 
 		if self.__description in ('DistanceSensor'):
 			ax.set_ylabel('Displacement [mm]', **plotSettings['axes_y'])
