@@ -18,3 +18,5 @@
 *.toc
 # Simulink compilation files
 */slprj/*
+# Local folder, not to syncronize
+local_notToSync/*
