@@ -325,7 +325,7 @@
 			"file": "fti/ResamplingAndExportToCSV_Alejandro.VBS",
 			"settings":
 			{
-				"buffer_size": 8411,
+				"buffer_size": 9536,
 				"encoding": "UTF-16 LE with BOM",
 				"line_ending": "Windows"
 			}
@@ -791,15 +791,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 8411,
+						"buffer_size": 9536,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2208,
-								2208
+								1806,
+								1806
 							]
 						],
 						"settings":
