@@ -4,6 +4,22 @@
 		"selected_items":
 		[
 			[
+				"file",
+				"fileName"
+			],
+			[
+				"fol",
+				"folder"
+			],
+			[
+				"for",
+				"For"
+			],
+			[
+				"Ne",
+				"Next"
+			],
+			[
 				"cet",
 				"center"
 			],
@@ -26,10 +42,6 @@
 			[
 				"dif",
 				"diff"
-			],
-			[
-				"file",
-				"fileNameShort"
 			],
 			[
 				"coun",
@@ -184,10 +196,6 @@
 				"listOfFilesSorted"
 			],
 			[
-				"fol",
-				"folderName"
-			],
-			[
 				"de",
 				"defs\tMethod"
 			],
@@ -245,10 +253,6 @@
 			],
 			[
 				"forc",
-				"forces"
-			],
-			[
-				"for",
 				"forces"
 			],
 			[
@@ -325,25 +329,17 @@
 			"file": "fti/ResamplingAndExportToCSV_Alejandro.VBS",
 			"settings":
 			{
-				"buffer_size": 9536,
+				"buffer_size": 8198,
 				"encoding": "UTF-16 LE with BOM",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/P/08_reference/ETH/abaqus/moduleParametricStudy.py",
+			"file": "fti/loadMultipleVariablesFromFolders.vbs",
 			"settings":
 			{
-				"buffer_size": 26893,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "codingKnowledge/python.py",
-			"settings":
-			{
-				"buffer_size": 857,
-				"encoding": "UTF-8",
+				"buffer_size": 3038,
+				"encoding": "Western (Windows 1252)",
 				"line_ending": "Windows"
 			}
 		},
@@ -372,6 +368,25 @@
 				"buffer_size": 1718,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "codingKnowledge/python.py",
+			"settings":
+			{
+				"buffer_size": 857,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "codingKnowledge/visualBasicScript.VBS",
+			"settings":
+			{
+				"buffer_size": 151,
+				"encoding": "UTF-8",
+				"line_ending": "Windows",
+				"name": "For Each oFile In oFSO.GetFolder(sFolder).Files"
 			}
 		},
 		{
@@ -434,6 +449,7 @@
 	"expanded_folders":
 	[
 		"/P/kopter",
+		"/P/kopter/codingKnowledge",
 		"/P/kopter/fatigueData",
 		"/P/kopter/fti",
 		"/P/kopter/s_id",
@@ -571,6 +587,12 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"counter_",
+			"counter_b",
+			"fileName",
+			"fileNames",
+			"fileName",
+			"\\\\mshzhstg\\MSHData",
 			"1000000",
 			"split",
 			"int(fileName.split('_')[-1])",
@@ -692,13 +714,7 @@
 			"np",
 			"run",
 			"newPicks",
-			":",
-			"+",
-			"set_magData",
-			"=",
-			"plotMaxMinMean",
-			"timeSecNewRunMin",
-			"Max"
+			":"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -746,7 +762,7 @@
 						"translation.y": 1730.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
+					"stack_index": 11,
 					"type": "text"
 				},
 				{
@@ -762,8 +778,8 @@
 						"selection":
 						[
 							[
-								20255,
-								20255
+								30472,
+								30472
 							]
 						],
 						"settings":
@@ -773,16 +789,16 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 8419.0,
+						"translation.y": 11920.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 6,
 					"type": "text"
 				}
 			]
 		},
 		{
-			"selected": 0,
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -791,15 +807,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 9536,
+						"buffer_size": 8198,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1806,
-								1806
+								1209,
+								1398
 							]
 						],
 						"settings":
@@ -812,33 +828,34 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
 					"buffer": 3,
-					"file": "/P/08_reference/ETH/abaqus/moduleParametricStudy.py",
-					"semi_transient": true,
+					"file": "fti/loadMultipleVariablesFromFolders.vbs",
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 26893,
+						"buffer_size": 3038,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								14080,
-								14080
+								2539,
+								2539
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/VBScript/VBScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 5038.0,
+						"translation.y": 273.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,
@@ -857,8 +874,8 @@
 						"selection":
 						[
 							[
-								8230,
-								8230
+								10476,
+								10476
 							]
 						],
 						"settings":
@@ -873,35 +890,6 @@
 					},
 					"stack_index": 2,
 					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "codingKnowledge/python.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 857,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								857,
-								857
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
 				}
 			]
 		},
@@ -910,7 +898,7 @@
 			"sheets":
 			[
 				{
-					"buffer": 5,
+					"buffer": 4,
 					"file": "fatigueData/main.py",
 					"semi_transient": false,
 					"settings":
@@ -942,11 +930,11 @@
 			]
 		},
 		{
-			"selected": 2,
+			"selected": 3,
 			"sheets":
 			[
 				{
-					"buffer": 6,
+					"buffer": 5,
 					"file": "fatigueData/filesToLoad_gauges_TRAretainer.txt",
 					"semi_transient": false,
 					"settings":
@@ -970,11 +958,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 6,
 					"file": "fti/getFlightTestData.vbs",
 					"semi_transient": false,
 					"settings":
@@ -1000,11 +988,69 @@
 						"translation.y": 78.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "codingKnowledge/python.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 857,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								857,
+								857
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
 					"buffer": 8,
+					"file": "codingKnowledge/visualBasicScript.VBS",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 151,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								151,
+								151
+							]
+						],
+						"settings":
+						{
+							"auto_name": "For Each oFile In oFSO.GetFolder(sFolder).Files",
+							"syntax": "Packages/VBScript/VBScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
 					"file": "fatigueData/filesToLoad_actuator_TRAretainer.txt",
 					"semi_transient": false,
 					"settings":
@@ -1029,11 +1075,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
-					"buffer": 9,
+					"buffer": 10,
 					"file": "fatigueData/filesToLoad_actuator_steelLinks.txt",
 					"semi_transient": false,
 					"settings":
@@ -1057,7 +1103,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 9,
 					"type": "text"
 				}
 			]
@@ -1103,7 +1149,7 @@
 		"cols":
 		[
 			0.0,
-			0.431723959143,
+			0.510885775208,
 			1.0
 		],
 		"rows":
