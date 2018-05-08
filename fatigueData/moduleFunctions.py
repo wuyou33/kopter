@@ -695,6 +695,19 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		elif self.__description in ('STG1', 'STG2'):
 			ax.set_ylabel('Strain [mm\m]', **plotSettings['axes_y'])
 
+		# Magnitudes from the performance test
+		elif self.__description in ('DruckHP1', 'DruckHP2'):
+			ax.set_ylabel('Pressure [bar]', **plotSettings['axes_y'])
+
+		elif self.__description in ('DurchflussHP1', 'DurchflussHP2'):
+			ax.set_ylabel('Volume flow [l/min]', **plotSettings['axes_y'])
+
+		elif self.__description in ('LaserPiston', 'LaserSteuerventilhebel'):
+			ax.set_ylabel('Displacement [mm]', **plotSettings['axes_y'])
+
+		elif self.__description in ('TemperaturHP1', 'TemperaturHP2'):
+			ax.set_ylabel('Temperature [°C]', **plotSettings['axes_y'])
+
 		else:
 			ax.set_ylabel('Force [N]', **plotSettings['axes_y'])
 
