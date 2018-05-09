@@ -403,8 +403,8 @@ def read_two_columns():
                     else:
                         line = line.replace(","," ")
                         col1,col2=line.split()
-                        a.append(float(col1))
-                        b.append(float(col2))
+                        b.append(float(col1)) #Modified from: a.append(float(col1)), a is time in the original code
+                        a.append(float(col2)) #Modified from: b.append(float(col1)), b is amplitude in the original code
                         num=num+1
             break
 

@@ -2,21 +2,38 @@ Set oFSO = CreateObject("Scripting.FileSystemObject")
 Set dictVar = CreateObject("Scripting.Dictionary")
 Set dictVaDiadem = CreateObject("Scripting.Dictionary")
 
-workingFolder = "L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0115 Booster P3\1200-1031112-AE SN2\Step 3.1 (New housing)\"
-csvFolder = "L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0115 Booster P3\1200-1031112-AE SN2\Step 3.1 (New housing)\csv_data\"
+' workingFolder = "L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0115 Booster P3\1200-1031112-AE SN2\Step 3.1 (New housing)\"
+' csvFolder = "L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0115 Booster P3\1200-1031112-AE SN2\Step 3.1 (New housing)\csv_data\"
+
+workingFolder = "L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0115 Booster P3\1200-1031112-AE SN2\Step 3.1\"
+csvFolder = "L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0115 Booster P3\1200-1031112-AE SN2\Step 3.1\csv_data\"
 
 ' These are the folders where the data that wants to be imported is contained.
-commonAddress = "L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0115 Booster P3\1200-1031112-AE SN2\Step 3.1 (New housing)\"
-folders = Array(commonAddress & "2018-03-16_110513\" _
-              , commonAddress & "2018-03-19_093423\" _
-              , commonAddress & "2018-03-20_091923\" _
-              , commonAddress & "2018-04-20_120313\" _
-              , commonAddress & "2018-04-23_091424\" _
-              , commonAddress & "2018-04-23_101919\" _
-              , commonAddress & "2018-04-24_083617\" _
-              , commonAddress & "2018-04-24_172859 (Step 1.1 post test)\" _
-              , commonAddress & "2018-05-03_150824\" _
+' commonAddress = "L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0115 Booster P3\1200-1031112-AE SN2\Step 3.1 (New housing)\"
+commonAddress = "L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0115 Booster P3\1200-1031112-AE SN2\Step 3.1\"
+folders = Array(commonAddress & "2018-01-30_103559\" _
+              , commonAddress & "2018-01-31_115139\" _
+              , commonAddress & "2018-02-13_083036\" _
+              , commonAddress & "2018-02-14_140513\" _
+              , commonAddress & "2018-02-15_101019\" _
+              , commonAddress & "2018-02-16_150804\" _
+              , commonAddress & "2018-02-19_084519\" _
+              , commonAddress & "2018-02-22_110842\" _
+              , commonAddress & "2018-02-23_093532\" _
+              , commonAddress & "2018-02-26_095412\" _
+              , commonAddress & "2018-02-27_095219\" _
               )
+
+' folders = Array(commonAddress & "2018-03-16_110513\" _
+'               , commonAddress & "2018-03-19_093423\" _
+'               , commonAddress & "2018-03-20_091923\" _
+'               , commonAddress & "2018-04-20_120313\" _
+'               , commonAddress & "2018-04-23_091424\" _
+'               , commonAddress & "2018-04-23_101919\" _
+'               , commonAddress & "2018-04-24_083617\" _
+'               , commonAddress & "2018-04-24_172859 (Step 1.1 post test)\" _
+'               , commonAddress & "2018-05-03_150824\" _
+'               )
 
 ' This dictionary contains the original variable names as keys. For each key, a corresponding simplified name is assign and this will be used
 ' in the "csv" file name.
@@ -48,39 +65,39 @@ dictVaDiadem.Add "Temperatur_HP_1_[°C]", "Temperatur HP_1 [°C]"
 dictVaDiadem.Add "Temperatur_HP_2_[°C]", "Temperatur HP_2 [°C]"
 
 newFreq = 100 'Hz'
+importDataFlag = True
+saveAllDataFlag = True 'possible values: True or False
 saveFlagResampledData = True 'possible values: True or False
-saveAllDataFlag = False 'possible values: True or False
 
 ' --------------------------------------------------
-If False Then
-count_folders = 0
-For Each folder in folders
-  count_files = 0
-  For Each variableName in dictVar.Keys
-    For Each oFile In oFSO.GetFolder(folder).Files
-      If oFile.Name = variableName&".tdms" Then
+If importDataFlag Then
+  count_folders = 0
+  For Each folder in folders
+    count_files = 0
+    For Each variableName in dictVar.Keys
+      For Each oFile In oFSO.GetFolder(folder).Files
+        If oFile.Name = variableName&".tdms" Then
 
-        Call DataFileLoad(oFile,"") 'Each new variable is loaded and it is stored alone in a new group'
-        count_files = count_files + 1
-      End if
+          Call DataFileLoad(oFile,"") 'Each new variable is loaded and it is stored alone in a new group'
+          count_files = count_files + 1
+        End if
+      Next
     Next
-  Next
 
-  For j = (2+count_folders) To (count_files+count_folders) Step 1
-    'Collapse all the channels in an unique group
-    Call Data.Move(Data.Root.ChannelGroups(2+count_folders).Channels(1),Data.Root.ChannelGroups(1+count_folders).Channels) 
-    Call Data.Root.ChannelGroups.Remove(2+count_folders) 'Remove the group that have been emptied'
+    For j = (2+count_folders) To (count_files+count_folders) Step 1
+      'Collapse all the channels in an unique group
+      Call Data.Move(Data.Root.ChannelGroups(2+count_folders).Channels(1),Data.Root.ChannelGroups(1+count_folders).Channels) 
+      Call Data.Root.ChannelGroups.Remove(2+count_folders) 'Remove the group that have been emptied'
+    Next
+    
+    count_folders = count_folders + 1
   Next
-  
-  count_folders = count_folders + 1
-Next
 End If
 
 If saveAllDataFlag Then
   Call DataFileSave(workingFolder&"allData.TDM","TDM")
 End If
 
-count_folders = 9
 '-------------------------------------'
 ' Resample magnitudes data and save them in csv format to be post-processed using Python
 id_reSampleGroup = Data.Root.ChannelGroups.Count + 1
@@ -106,3 +123,5 @@ For id = 1 To count_folders Step 1
   Next
  
 Next
+
+call MsgBox ("Execution finished")
