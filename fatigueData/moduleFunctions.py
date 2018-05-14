@@ -13,8 +13,8 @@ import pdb #pdb.set_trace()
 ###### Functions
 def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 
-	short_opts = "f:v:m:o:s:r:" #"o:f:"
-	long_opts = ["fileName=","variables=","magnitudes=","testOrder=","saveFigure=","rangeFileIDs="] #["option=","fileName="]
+	short_opts = "f:v:m:o:s:r:a:" #"o:f:"
+	long_opts = ["fileName=","variables=","magnitudes=","testOrder=","saveFigure=","rangeFileIDs=","additionalCals="] #["option=","fileName="]
 	try:
 		opts, args = getopt.getopt(argv,short_opts,long_opts)
 	except getopt.GetoptError:
@@ -71,6 +71,14 @@ def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 		elif opt in ("-r", "--rangeFileIDs"):
 
 			CMDoptionsDict['rangeFileIDs'] = [int(t) for t in arg.split(',')]
+
+		elif opt in ("-a", "--additionalCals"):
+
+			if arg.lower() in ('false', 'f'):
+				CMDoptionsDict['additionalCalsFlag'] = False
+			else:
+				CMDoptionsDict['additionalCalsFlag'] = True
+				CMDoptionsDict['additionalCalsOpt'] = int(arg)
 
 	return CMDoptionsDict
 
@@ -435,7 +443,7 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		timeSec = np.linspace(0, float(len(self.__xValues)/self.__testFactor), len(self.__xValues), endpoint=True)
 		timeSecNewRun = [float(t/self.__testFactor) for t in self.__xValuesNewRun]
 
-		print('\n'+'----> Last computed time point for test: ' + str(timeSec[-1]) + ' millions')
+		print('\n'+'----> Last computed time point for test: ' + str(timeSec[-1]/1000000) + ' millions / '+calculateDaysHoursMinutes_string(timeSec[-1], self.__freqData[-1]))
 
 		if nameField == 'rs':
 			self.__timeRs = timeSec
@@ -479,10 +487,6 @@ class dataFromGaugesSingleMagnitudeClass(object):
 
 		self.__xValuesNewRun += [dataID[-1],]
 
-		print('\t'+'-> Last computed data point index (file): ' + str(counter/1000000.0) + ' millions')
-		if fieldOfFile == 'rs':
-			print('\t'+'-> Last computed data point index (accumulated): ' + str(dataID[-1]/1000000.0) + ' millions')
-
 		self.__xValues += dataID
 		
 		# Obtain step index
@@ -491,6 +495,11 @@ class dataFromGaugesSingleMagnitudeClass(object):
 
 		#Obtain frequency for recorded data
 		self.__freqData += [float(fileName_0.split('_')[-2][:-2])]
+
+		# Last computed point stats
+		print('\t'+'-> Last computed data point index (file): ' + str(counter/1000000.0) + ' millions / '+calculateDaysHoursMinutes_string(counter, self.__freqData[-1]))
+		if fieldOfFile == 'rs':
+			print('\t'+'-> Last computed data point index (accumulated): ' + str(dataID[-1]/1000000.0) + ' millions / '+calculateDaysHoursMinutes_string(dataID[-1], self.__freqData[-1]))
 
 	def computePicks(self):
 		"""
@@ -621,6 +630,70 @@ class dataFromGaugesSingleMagnitudeClass(object):
 
 	def get_description(self):
 		return self.__description
+	def get_freqData(self):
+		return self.__freqData
+	def get_timeRs(self):
+		return self.__timeRs
+	def get_rs(self):
+		return self.__rs
+	def get_timeSecNewRunRs(self):
+		return self.__timeSecNewRunRs
+	def get_stepID(self):
+		return self.__stepID
+
+	def addDataManual1(self, dataClasses):
+		"""
+		Customized function to calculate the fighting force
+		"""
+		forceHP1 = []
+		forceHP2 = []
+		result = []
+
+		for dataClass in dataClasses:
+
+			if dataClass.get_description() in ('ForcePistonEyeHP1'):
+				forceHP1 = dataClass.get_rs()
+				oneClass = dataClass
+
+			elif dataClass.get_description() in ('ForcePistonEyeHP2'):
+				forceHP2 = dataClass.get_rs()
+
+		for f1, f2 in zip(forceHP1, forceHP2):
+
+			result += [f1-f2]
+
+		self.__rs = result
+		self.__freqData = oneClass.get_freqData()
+		self.__timeRs = oneClass.get_timeRs()
+		self.__timeSecNewRunRs = oneClass.get_timeSecNewRunRs()
+		self.__stepID = oneClass.get_stepID()
+
+	def addDataManual2(self, dataClasses):
+		"""
+		Customized function to calculate the fighting force
+		"""
+		forceHP1 = []
+		forceHP2 = []
+		result = []
+
+		for dataClass in dataClasses:
+
+			if dataClass.get_description() in ('ForcePistonEyeHP1'):
+				forceHP1 = dataClass.get_rs()
+				oneClass = dataClass
+
+			elif dataClass.get_description() in ('ForcePistonEyeHP2'):
+				forceHP2 = dataClass.get_rs()
+
+		for f1, f2 in zip(forceHP1, forceHP2):
+
+			result += [f1+f2]
+
+		self.__rs = result
+		self.__freqData = oneClass.get_freqData()
+		self.__timeRs = oneClass.get_timeRs()
+		self.__timeSecNewRunRs = oneClass.get_timeSecNewRunRs()
+		self.__stepID = oneClass.get_stepID()
 
 	def plotMaxMinMean_fromDIAdem(self, plotSettings):
 
@@ -654,16 +727,26 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		ax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])
 		ax.minorticks_on()
 
-	def plotResampled(self, plotSettings, CMDoptionsDict):
+	def plotResampled(self, plotSettings, CMDoptionsDict, magnitude, additionalInput):
 
 		figure, ax = plt.subplots(1, 1)
 		figure.set_size_inches(10, 6, forward=True)
 
-		ax.plot( [t/self.__freqData[0] for t in self.__timeRs], self.__rs, linestyle = '-', marker = '', c = plotSettings['colors'][0], label = 'Measured force', **plotSettings['line'])
+		ax.plot( [t/self.__freqData[0] for t in self.__timeRs], self.__rs, linestyle = '-', marker = '', c = plotSettings['colors'][0], label = self.__description, **plotSettings['line'])
 
+		if additionalInput[0]:
+			dataClasses = additionalInput[1]
+			for dataClass in dataClasses:
+				if dataClass.get_description() in (additionalInput[2]):
+					oneClass = dataClass
+		
+			ax.plot( [t/oneClass.get_freqData()[0] for t in oneClass.get_timeRs()], oneClass.get_rs(), linestyle = '-', marker = '', c = plotSettings['colors'][1], label = oneClass.get_description(), **plotSettings['line'])
+		
 		#Division line for runs
-		maxPlot_y = max(self.__rs)*1.2
-		minPlot_y = min(self.__rs)*1.2
+		valuesMaxRs = max(self.__rs)
+		valuesMinRs = min(self.__rs)
+		maxPlot_y = valuesMaxRs*1.2 if valuesMaxRs > 0.0 else valuesMaxRs*0.8
+		minPlot_y = valuesMinRs*0.8 if valuesMinRs > 0.0 else valuesMinRs*1.2
 		previousDiv = 0.0
 		i = 0
 		ax.plot(2*[0.0], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
@@ -684,7 +767,8 @@ class dataFromGaugesSingleMagnitudeClass(object):
 				ax.plot([minPlot_x, maxPlot_x], 2*[limitLoad], linestyle = '--', marker = '', c = plotSettings['colors'][5], **plotSettings['line'])
 
 		# ax.set_xlabel('Number of points [Millions]', **plotSettings['axes_x'])
-		ax.set_xlabel('Time elapsed [Million seconds]', **plotSettings['axes_x'])
+		# ax.set_xlabel('Time elapsed [Million seconds]', **plotSettings['axes_x'])
+		ax.set_xlabel('Time elapsed [Seconds]', **plotSettings['axes_x'])
 
 		if self.__description in ('DistanceSensor'):
 			ax.set_ylabel('Displacement [mm]', **plotSettings['axes_y'])
@@ -712,8 +796,10 @@ class dataFromGaugesSingleMagnitudeClass(object):
 			ax.set_ylabel('Force [N]', **plotSettings['axes_y'])
 
 		#Legend and title
-		# ax.legend(**plotSettings['legend'])
-		ax.set_title(self.__description, **plotSettings['title'])
+		if additionalInput[0]:
+			ax.legend(**plotSettings['legend'])
+		else:
+			ax.set_title(self.__description, **plotSettings['title'])
 
 		#Figure settings
 		ax.grid(which='both', **plotSettings['grid'])
@@ -728,7 +814,10 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		#Save figure
 		if CMDoptionsDict['saveFigure']:
 
-			figure.savefig(os.path.join(CMDoptionsDict['cwd'], self.__description+'.png'))
+			if additionalInput[0]:
+				figure.savefig(os.path.join(CMDoptionsDict['cwd'], magnitude+'_'+','.join([str(i) for i in CMDoptionsDict['rangeFileIDs']])+'_'+self.__description+'&'+additionalInput[2]+'.png'))
+			else: 
+				figure.savefig(os.path.join(CMDoptionsDict['cwd'], magnitude+'_'+','.join([str(i) for i in CMDoptionsDict['rangeFileIDs']])+'_'+self.__description+'.png'))
 
 	def plotMinMeanMax(self, plotSettings):
 
@@ -1058,3 +1147,18 @@ def calculate_stats(dataFromRuns):
 	print('\n'+'-> Range for max values: '+str(truncateToSignificantOfOtherNum(mean_max, interval_max)) + '+-'+ str(interval_max)+' KN (for 95% confidence interval)')
 	print('-> Range for mean values: '+str(truncateToSignificantOfOtherNum(mean_mean, interval_mean)) + '+-'+ str(interval_mean)+' KN (for 95% confidence interval)')
 	print('-> Range for min values: '+str(truncateToSignificantOfOtherNum(mean_min, interval_min)) + '+-'+ str(interval_min)+' KN (for 95% confidence interval)')
+
+def calculateDaysHoursMinutes_string(N, freq):
+	
+	seconds = N/freq
+
+	n_days = int(np.floor(seconds/(24*3600)))
+	remainingSeconds = seconds - (24*3600*n_days)
+	n_hours = int(np.floor(remainingSeconds/(3600)))
+	remainingSeconds = remainingSeconds - (3600*n_hours)
+	n_minutes = int(np.floor(remainingSeconds/(60)))
+	remainingSeconds = remainingSeconds - (60*n_minutes)
+
+	totalTimeString = str(n_days)+' days, '+str(n_hours)+' hours, '+str(n_minutes)+' minutes, '+str(round(remainingSeconds, 2))+' seconds ('+str(freq)+' Hz)'
+
+	return totalTimeString

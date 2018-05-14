@@ -5,6 +5,10 @@ import getopt
 
 from moduleFunctions import *
 
+# CMD input
+# gauges:
+# python main.py -f filesToLoad_gauges_enduranceActuatorNewBearing.txt -v DruckHP1,DruckHP2,DurchflussHP1,DurchflussHP2,ForcePistonEyeHP1,ForcePistonEyeHP2,InputForce,LaserPiston,LaserSteuerventilhebel,OutputForce,TemperaturHP1,TemperaturHP2 -m lp -o f -s t -r 1,2,3,4,5,6,7,8,9 -a t
+
 #Read postProc folder name from CMD
 CMDoptionsDict = {}
 CMDoptionsDict = readCMDoptionsMainAbaqusParametric(sys.argv[1:], CMDoptionsDict)
@@ -23,7 +27,7 @@ actuatorMesswerteFlag = CMDoptionsDict['actuatorMesswerte']
 if gaugesFlag:
 	print('\n'+'**** Running data analysis program for calibrated strain gauges measurements'+'\n')
 
-	testFactor = 1000000.0 #HZ
+	testFactor = 1.0 #HZ
 	variables = ('rs',)#('rs', 'min', 'max', 'mean')
 	orderDeriv = 2	
 
@@ -47,7 +51,7 @@ if gaugesFlag:
 
 			listOfFilesSortedInFolder = sortFilesInFolderByLastNumberInName(listOfFilesInFolderMathingVar, CMDoptionsDict)
 			for dataClass in dataClasses: #For each class variable
-				print('---> Importing data for variable: ' + dataClass.get_description() + ', '+mag+ ' values')
+				print('\n'+'---> Importing data for variable: ' + dataClass.get_description() + ', '+mag+ ' values')
 					
 				for fileName in listOfFilesSortedInFolder: #For each file matching the criteria
 
@@ -121,10 +125,25 @@ if gaugesFlag:
 		# dataClass.plotMaxMinMean_fromDIAdem(plotSettings)
 
 		#Plotting resampled total data
-		dataClass.plotResampled(plotSettings, CMDoptionsDict)
+		dataClass.plotResampled(plotSettings, CMDoptionsDict, mag, (False, [], []))
 
 		# dataClass.plotMinMeanMax(plotSettings)
 		# pass
+
+	# Additional calculations
+	if CMDoptionsDict['additionalCalsFlag']:
+
+		print('\n\n'+'-> Additional calculations in progress...')
+
+		# dataAdditional = dataFromGaugesSingleMagnitudeClass('forceFighting', testFactor, orderDeriv)
+		if CMDoptionsDict['additionalCalsOpt'] == 1:
+			dataAdditional = dataFromGaugesSingleMagnitudeClass('forceFightingEyes(HP1-HP2)', testFactor, orderDeriv)
+			dataAdditional.addDataManual1(dataClasses)
+			dataAdditional.plotResampled(plotSettings, CMDoptionsDict, mag, (False, [], []))
+		elif CMDoptionsDict['additionalCalsOpt'] == 2:
+			dataAdditional = dataFromGaugesSingleMagnitudeClass('forceSumEyes(HP1+HP2)', testFactor, orderDeriv)
+			dataAdditional.addDataManual2(dataClasses)
+			dataAdditional.plotResampled(plotSettings, CMDoptionsDict, mag, (True, dataClasses, 'OutputForce'))
 
 	os.chdir(cwd)
 

@@ -24,6 +24,7 @@ folders = Array(commonAddress & "2018-01-30_103559\" _
               , commonAddress & "2018-02-27_095219\" _
               )
 
+' Folders new bearing
 ' folders = Array(commonAddress & "2018-03-16_110513\" _
 '               , commonAddress & "2018-03-19_093423\" _
 '               , commonAddress & "2018-03-20_091923\" _
