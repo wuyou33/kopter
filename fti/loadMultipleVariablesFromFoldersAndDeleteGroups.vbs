@@ -9,13 +9,11 @@ saveAllDataFlagPerStep = True 'possible values: True or False
 saveFlagResampledDataTDM = True 'possible values: True or False
 
 ' --------------------------------------------------
-count_folders = 0
-For Each folder in folders
+For Each folderInfo in fileNamesBigArrayFolders
   'Iterables 
-  count_folders = count_folders + 1
   count_files = 0
-  For Each nameOfFile in fileNames
-    For Each oFile In oFSO.GetFolder(folder).Files
+  For Each nameOfFile in folderInfo(3)
+    For Each oFile In oFSO.GetFolder(folderInfo(1)).Files
       If oFile.Name = nameOfFile&".tdms" Then
 
         Call DataFileLoad(oFile,"") 'Each new variable is loaded and it is stored alone in a new group'
@@ -43,12 +41,12 @@ For Each folder in folders
     '  add downsampled channels to this group
     For Each originalChannel in Data.Root.ChannelGroups(1).Channels
       ' originalChannel = "[1]/"&dictVaDiadem(var)
-      newChannel = "/"&originalChannel.Name&"_"&newFreq&"Hz_"&count_folders
+      newChannel = "/"&originalChannel.Name&"_"&newFreq&"Hz_"&folderInfo(2)
       Call ChnResampleFreqBased("",originalChannel, newChannel,newFreq,"Automatic",0,0)
 
       ' export operation to csv
       If saveFlagResampledData Then
-          fileName = "rs_"&dictVaDiadem(originalChannel.Name)&"_"&newFreq&"Hz_"&count_folders&".csv"
+          fileName = "rs_"&dictVaDiadem(originalChannel.Name)&"_"&newFreq&"Hz_"&folderInfo(2)&".csv"
           Call DataFileSaveSel(csvFolder & fileName,"CSV",newChannel)
       End If
 
@@ -57,11 +55,11 @@ For Each folder in folders
   End If
   
   If saveAllDataFlagPerStep Then
-    Call DataFileSaveSel(workingFolder&"allData_step"&count_folders&".TDM","TDM", Data.Root.ChannelGroups(1).Channels)
+    Call DataFileSaveSel(workingFolder&"allData_step"&folderInfo(2)&".TDM","TDM", Data.Root.ChannelGroups(1).Channels)
   End If
 
   If saveFlagResampledDataTDM Then
-    Call DataFileSaveSel(workingFolder&"resampled_"&newFreq&"Hz_step"&count_folders&".TDM","TDM", Data.Root.ChannelGroups(2).Channels)
+    Call DataFileSaveSel(workingFolder&"resampled_"&newFreq&"Hz_step"&folderInfo(2)&".TDM","TDM", Data.Root.ChannelGroups(2).Channels)
   End If
 
   ' Delete both folders for the group, the one that contains resampled data and the one with the original data

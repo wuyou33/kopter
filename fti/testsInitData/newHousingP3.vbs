@@ -7,23 +7,6 @@ workingFolder = "L:\MSH-Project Management Files\Functional Engineering\Test Div
 ' Where the data will be saved in csv format
 csvFolder = "L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0115 Booster P3\1200-1031112-AE SN2\Step 3.1 (New housing)\csv_data\"
 
-' These are the folders where the data that wants to be imported is contained.
-' Data
-commonAddress = "L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0115 Booster P3\1200-1031112-AE SN2\Step 3.1 (New housing)\"
-
-' Folders new bearing
-folders = Array( _
-                commonAddress & "2018-03-16_110513\" _
-              , commonAddress & "2018-03-19_093423\" _
-              , commonAddress & "2018-03-20_091923\" _
-              , commonAddress & "2018-04-20_120313\" _
-              , commonAddress & "2018-04-23_091424\" _
-              , commonAddress & "2018-04-23_101919\" _
-              , commonAddress & "2018-04-24_083617\" _
-              , commonAddress & "2018-04-24_172859 (Step 1.1 post test)\" _
-              , commonAddress & "2018-05-03_150824\" _
-              )
-
 ' Names of the files that require to be imported from each of the files
 fileNames = Array(_
                     "Temperatur_HP_1_[°C]" _
@@ -39,6 +22,21 @@ fileNames = Array(_
                   , "Laser_Steuerventilhebel_[mm]" _
                   , "Output_force_[N]" _
                   )
+
+
+' These are the folders where the data that wants to be imported is contained. Each folder correspond to a differt time step
+commonAddress = "L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0115 Booster P3\1200-1031112-AE SN2\Step 3.1 (New housing)\"
+fileNamesBigArrayFolders = Array( _
+    Array(commonAddress & "2018-03-16_110513\", 1, fileNames) _
+  , Array(commonAddress & "2018-03-19_093423\", 2, fileNames) _
+  , Array(commonAddress & "2018-03-20_091923\", 3, fileNames) _
+  , Array(commonAddress & "2018-04-20_120313\", 4, fileNames) _
+  , Array(commonAddress & "2018-04-23_091424\", 5, fileNames) _
+  , Array(commonAddress & "2018-04-23_101919\", 6, fileNames) _
+  , Array(commonAddress & "2018-04-24_083617\", 7, fileNames) _
+  , Array(commonAddress & "2018-04-24_172859 (Step 1.1 post test)\", 8, fileNames) _
+  , Array(commonAddress & "2018-05-03_150824\", 9, fileNames) _
+  )
 
 ' variable names inside DIAdem -> variable names for the files to be saved
 ' This dictionary contains the original variable names as keys. For each key, a corresponding simplified name is assign and this will be used
