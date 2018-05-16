@@ -63,10 +63,18 @@ def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 
 		elif opt in ("-s", "--saveFigure"):
 
-			if arg.lower() in ('true', 't'):
+			argSaveFigure= arg.split(',')[0]
+			argShowFigure= arg.split(',')[1]
+
+			if argSaveFigure.lower() in ('true', 't'):
 				CMDoptionsDict['saveFigure'] = True
-			elif arg.lower() in ('false', 'f'):
+			elif argSaveFigure.lower() in ('false', 'f'):
 				CMDoptionsDict['saveFigure'] = False
+
+			if argShowFigure.lower() in ('true', 't'):
+				CMDoptionsDict['showFigures'] = True
+			elif argShowFigure.lower() in ('false', 'f'):
+				CMDoptionsDict['showFigures'] = False
 
 		elif opt in ("-r", "--rangeFileIDs"):
 
@@ -88,7 +96,7 @@ def sortFilesInFolderByLastNumberInName(listOfFiles, CMDoptionsDict):
 	for file in listOfFiles:
 		if file.endswith('.csv'):
 			fileID_0 = file.split('.')[0]
-			fileID_int = int(fileID_0.split('_')[-1])
+			fileID_int = int(fileID_0.split('__')[-1])
 			if fileID_int in CMDoptionsDict['rangeFileIDs']:
 				a += [(file, fileID_int),]
 
@@ -207,7 +215,7 @@ def importDataActuator(fileName, iFile, CMDoptionsDict):
 
 		print('\t'+'-> Last computed data point index (file): ' + str(lineN/1000000.0) + ' millions')
 
-		dataFromRun = dataFromRunClassMesswerte(iFile, fileNameShort.split('_')[0]+'_'+fileNameShort.split('_')[1], lineN)
+		dataFromRun = dataFromRunClassMesswerte(iFile, fileNameShort.split('__')[0]+'_'+fileNameShort.split('__')[1], lineN)
 
 		dataFromRun.add_data(weg, kraft)
 
@@ -491,10 +499,10 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		
 		# Obtain step index
 		fileName_0 = fileName.split('.')[0]
-		self.__stepID += [int(fileName_0.split('_')[-1])]
+		self.__stepID += [int(fileName_0.split('__')[-1])]
 
 		#Obtain frequency for recorded data
-		self.__freqData += [float(fileName_0.split('_')[-2][:-2])]
+		self.__freqData += [float(fileName_0.split('__')[-2][:-2])]
 
 		# Last computed point stats
 		print('\t'+'-> Last computed data point index (file): ' + str(counter/1000000.0) + ' millions / '+calculateDaysHoursMinutes_string(counter, self.__freqData[-1]))
