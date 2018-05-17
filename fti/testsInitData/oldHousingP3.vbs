@@ -59,9 +59,9 @@ loadScript_saveAllDataFlagPerStep = True 'possible values: True or False
 loadScript_saveFlagResampledDataTDM = True 'possible values: True or False
 
 ' Post-processing
-fileNameWithoutIterator_pre = "rs__"
-fileNameWithoutIterator_post = "__"&newFreq&"Hz__" '+iterator 
-fileFormatImport = ".csv"
+fileNameWithoutIterator_pre = "resampled"
+fileNameWithoutIterator_post = "__"&newFreq&"Hz__step" '+iterator 
+fileFormatImport = ".TDM"
 iterators = Array("01","02","03","04","05","06","07","08","09","10","11")
 ' iterators = Array("15","16","17","18")
 ' iterators = Array(18)

@@ -751,8 +751,8 @@ class dataFromGaugesSingleMagnitudeClass(object):
 			ax.plot( [t/oneClass.get_freqData()[0] for t in oneClass.get_timeRs()], oneClass.get_rs(), linestyle = '-', marker = '', c = plotSettings['colors'][1], label = oneClass.get_description(), **plotSettings['line'])
 		
 		#Division line for runs
-		valuesMaxRs = max(self.__rs)
-		valuesMinRs = min(self.__rs)
+		valuesMaxRs = ax.get_ylim()[1]
+		valuesMinRs = ax.get_ylim()[0]
 		maxPlot_y = valuesMaxRs*1.2 if valuesMaxRs > 0.0 else valuesMaxRs*0.8
 		minPlot_y = valuesMinRs*0.8 if valuesMinRs > 0.0 else valuesMinRs*1.2
 		previousDiv = 0.0

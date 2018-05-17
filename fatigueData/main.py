@@ -9,6 +9,7 @@ from moduleFunctions import *
 # gauges:
 # python main.py -f filesToLoad_gauges_enduranceActuatorNewBearing.txt -v DruckHP1,DruckHP2,DurchflussHP1,DurchflussHP2,ForcePistonEyeHP1,ForcePistonEyeHP2,InputForce,LaserPiston,LaserSteuerventilhebel,OutputForce,TemperaturHP1,TemperaturHP2 -m lp -o f -s t,t -r 1,2,3,4,5,6,7,8,9 -a t
 # python main.py -f filesToLoad_gauges_TRbladeholder.txt -v BendingMoment,MyBlade,MyLoadcell,MzBlade,CF -m rs -o f -s t,t -a f -r 11,12,13,14,15
+# python main.py -f filesToLoad_gauges_OC.txt -v Tension,Bending -m rs -o t -s t,t -a f -r 1,2,3,4,5,6
 
 #Read postProc folder name from CMD
 CMDoptionsDict = {}
@@ -95,12 +96,12 @@ if gaugesFlag:
 				dataClass.set_prescribedLoadsTO([3600*1.15, -1600*1.15])
 
 			elif dataClass.get_description() in ('Tension'):
-				dataClass.set_prescribedLoadsTO([4992, -3058]) #first phase
-				# dataClass.set_prescribedLoadsTO([5998, -4064]) #second phase
+				# dataClass.set_prescribedLoadsTO([4992, -3058]) #first phase
+				dataClass.set_prescribedLoadsTO([5998, -4064]) #second phase
 
 			elif dataClass.get_description() in ('Bending'):
-				dataClass.set_prescribedLoadsTO([960, -588]) #first phase
-				# dataClass.set_prescribedLoadsTO([1153, -781]) #second phase
+				# dataClass.set_prescribedLoadsTO([960, -588]) #first phase
+				dataClass.set_prescribedLoadsTO([1153, -781]) #second phase
 
 			elif dataClass.get_description() in ('Force-SN27', 'Force-SN28'):
 				dataClass.set_prescribedLoadsTO([4080/10, -820/10])

@@ -1,6 +1,6 @@
 
 
-filesNamesDataInput = Array("testsInitData\HousingP2.vbs", "testsInitData\oldHousingP3.vbs", "testsInitData\newHousingP3.vbs")
+filesNamesDataInput = Array("testsInitData\oldHousingP3.vbs", "testsInitData\newHousingP3.vbs")
 ' filesNamesDataInput = Array("testsInitData\oldHousingP3.vbs", "testsInitData\HousingP2.vbs")
 ' filesNamesDataInput = Array("testsInitData\TRbladeholderFatigue.vbs")
 ' --------------------------------------------------
@@ -45,7 +45,7 @@ For Each fileNameDataInput in filesNamesDataInput
           ' originalChannel = "[1]/"&dictVaDiadem(var)
           If Ubound(Filter(dictVaDiadem.Keys, originalChannel.Name)) > -1 Then 'If current variable exists in the choice of variables'
 
-            newChannel = "/"&originalChannel.Name&"_"&newFreq&"Hz__"&folderInfo(1)
+            newChannel = "/"&originalChannel.Name&"__"&newFreq&"Hz__"&folderInfo(1)
             Call ChnResampleFreqBased("",originalChannel, newChannel,newFreq,"Automatic",0,0)
 
             ' export operation to csv
@@ -61,11 +61,11 @@ For Each fileNameDataInput in filesNamesDataInput
       End If
       
       If loadScript_saveAllDataFlagPerStep Then
-        Call DataFileSaveSel(workingFolder&"allData_step"&folderInfo(1)&".TDM","TDM", Data.Root.ChannelGroups(1).Channels)
+        Call DataFileSaveSel(workingFolder&"allData__step"&folderInfo(1)&".TDM","TDM", Data.Root.ChannelGroups(1).Channels)
       End If
 
       If loadScript_saveFlagResampledDataTDM Then
-        Call DataFileSaveSel(workingFolder&"resampled_"&newFreq&"Hz_step"&folderInfo(1)&".TDM","TDM", Data.Root.ChannelGroups(2).Channels)
+        Call DataFileSaveSel(workingFolder&"resampled__"&newFreq&"Hz__step"&folderInfo(1)&".TDM","TDM", Data.Root.ChannelGroups(2).Channels)
       End If
 
       ' Delete both folders for the group, the one that contains resampled data and the one with the original data
