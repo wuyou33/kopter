@@ -11,14 +11,18 @@ from moduleFunctions import *
 # python main.py -f filesToLoad_gauges_TRbladeholder.txt -v BendingMoment,MyBlade,MyLoadcell,MzBlade,CF -m rs -o f -s t,t -a f -r 11,12,13,14,15
 # python main.py -f filesToLoad_gauges_OC.txt -v Tension,Bending -m rs -o t -s t,t -a f -r 1,2,3,4,5,6
 
-#Read postProc folder name from CMD
+# Dicitionary of loading options
 CMDoptionsDict = {}
+
+#Get working directory
+cwd = os.getcwd()
+CMDoptionsDict['cwd'] = cwd
+
+#Read postProc folder name from CMD
 CMDoptionsDict = readCMDoptionsMainAbaqusParametric(sys.argv[1:], CMDoptionsDict)
 
 # Import settings
 plotSettings = importPlottingOptions()
-cwd = os.getcwd() #Get working directory
-CMDoptionsDict['cwd'] = cwd
 
 # What to do?
 gaugesFlag = CMDoptionsDict['dmsFlag']
@@ -181,7 +185,7 @@ elif actuatorFlag:
 
 	#################################
 	#Plot data
-	dataFromRuns[0].plotSingleRun(plotSettings)
+	# dataFromRuns[0].plotSingleRun(plotSettings)
 	# dataFromRuns[-1].plotSingleRun(plotSettings)
 
 	plotAllRuns_force(dataFromRuns, plotSettings, CMDoptionsDict)

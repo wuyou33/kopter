@@ -28,7 +28,7 @@ def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 
 		if opt in ("-f", "--fileName"):
 			# postProcFolderName = arg
-			CMDoptionsDict['fileNameOfFileToLoadFiles'] = arg
+			CMDoptionsDict['fileNameOfFileToLoadFiles'] = os.path.join(CMDoptionsDict['cwd'], 'fatigueInputFiles',arg)
 
 			if 'actuatormesswerte' in arg.lower():
 				CMDoptionsDict['actuatorMesswerte'] = True
@@ -192,7 +192,7 @@ def importDataActuator(fileName, iFile, CMDoptionsDict):
 
 		dataFromRun = dataFromRunClass(iFile)
 
-		dataFromRun.add_data(cycleN, maxF, meanF, minF, maxDispl, meanDispl, minDispl)
+		dataFromRun.add_data(cycleN, maxF, meanF, minF, maxDispl, meanDispl, minDispl, int(fileNameShort.split('_')[1]))
 
 	elif CMDoptionsDict['actuatorMesswerte']:
 
@@ -291,7 +291,7 @@ class dataFromRunClass(object):
 
 		self.__id = id_in
 
-	def add_data(self, cycleN_in, maxF_in, meanF_in, minF_in, maxDispl_in, meanDispl_in, minDispl_in):
+	def add_data(self, cycleN_in, maxF_in, meanF_in, minF_in, maxDispl_in, meanDispl_in, minDispl_in, stepID_in):
 
 		self.__cycleN = cycleN_in
 		self.__cycleN_mill = [d/1000000 for d in cycleN_in]
@@ -301,6 +301,7 @@ class dataFromRunClass(object):
 		self.__maxDispl = maxDispl_in 
 		self.__meanDispl = meanDispl_in 
 		self.__minDispl = minDispl_in
+		self.__stepID = stepID_in 
 
 	def setAbsoluteNCycles(self, previousNCycles_in):
 		
@@ -329,6 +330,8 @@ class dataFromRunClass(object):
 		return self.__meanDispl
 	def get_minDispl(self):
 		return self.__minDispl
+	def get_stepID(self):
+		return self.__stepID
 
 
 	def plotSingleRun(self, plotSettings):
@@ -762,7 +765,6 @@ class dataFromGaugesSingleMagnitudeClass(object):
 			ax.plot(2*[div], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
 
 			#Add text with step number
-			# pdb.set_trace()
 			ax.text(previousDiv + ((div - previousDiv)/2), minPlot_y, 'Step '+str(self.__stepID[i]), bbox=dict(facecolor='black', alpha=0.2), horizontalalignment = 'center')
 			
 			previousDiv = div
@@ -876,15 +878,29 @@ def plotAllRuns_force(dataFromRuns, plotSettings, CMDoptionsDict):
 	figure, ax = plt.subplots(1, 1)
 	figure.set_size_inches(10, 6, forward=True)
 
-	#Plot first division line
-	ax.plot(2*[0.0], [dataFromRuns[0].get_minF()[-1]*1.2, dataFromRuns[0].get_maxF()[-1]*1.2], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
+	# Plot all the data
 	for data in dataFromRuns:
 
 		threePlotForRun(data, plotSettings, ax)
-		
-		#Plot division lines
-		ax.plot(2*[data.get_absoluteNCycles_mill()[-1]], [data.get_minF()[-1]*1.2, data.get_maxF()[-1]*1.2], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
 
+	#Plot first division line
+	valuesMaxRs = ax.get_ylim()[1]
+	valuesMinRs = ax.get_ylim()[0]
+	maxPlot_y = valuesMaxRs*1.2 if valuesMaxRs > 0.0 else valuesMaxRs*0.8
+	minPlot_y = valuesMinRs*0.8 if valuesMinRs > 0.0 else valuesMinRs*1.2
+	previousDiv = 0.0
+	ax.plot(2*[0.0], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
+	for data in dataFromRuns:
+		
+		div = data.get_absoluteNCycles_mill()[-1]
+		#Plot division lines
+		ax.plot(2*[div], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
+
+		# Plot text with step index
+		ax.text(previousDiv + ((div - previousDiv)/2), minPlot_y, 'Step '+str(data.get_stepID()), bbox=dict(facecolor='black', alpha=0.2), horizontalalignment = 'center')
+
+		previousDiv = div
+	
 	#Plot prescribed loads from the T
 	if CMDoptionsDict['testOrderFlagFromCMD']:
 		ax.plot([0.0, dataFromRuns[-1].get_absoluteNCycles_mill()[-1]], 2*[CMDoptionsDict['testOrderRange'][0]], linestyle = '--', marker = '', c = plotSettings['colors'][5], **plotSettings['line'])
@@ -1034,15 +1050,31 @@ def plotAllRuns_displacement(dataFromRuns, plotSettings, CMDoptionsDict):
 	figure, ax = plt.subplots(1, 1)
 	figure.set_size_inches(10, 6, forward=True)
 
-	#Plot first division line
-	ax.plot(2*[0.0], [dataFromRuns[0].get_minDispl()[-1]*1.2, dataFromRuns[0].get_maxDispl()[-1]*1.2], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
+	# Plot all the data
 	for data in dataFromRuns:
 
 		threePlotForRun(data, plotSettings, ax)
-		
-		#Plot division lines
-		ax.plot(2*[data.get_absoluteNCycles_mill()[-1]], [data.get_minDispl()[-1]*1.2, data.get_maxDispl()[-1]*1.2], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
 
+	#Plot first division line
+	valuesMaxRs = ax.get_ylim()[1]
+	valuesMinRs = ax.get_ylim()[0]
+	maxPlot_y = valuesMaxRs*1.2 if valuesMaxRs > 0.0 else valuesMaxRs*0.8
+	minPlot_y = valuesMinRs*0.8 if valuesMinRs > 0.0 else valuesMinRs*1.2
+	previousDiv = 0.0
+	ax.plot(2*[0.0], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
+	for data in dataFromRuns:
+
+		# threePlotForRun(data, plotSettings, ax)
+		
+		div = data.get_absoluteNCycles_mill()[-1]
+		#Plot division lines
+		ax.plot(2*[div], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
+
+		# Plot text with step index
+		ax.text(previousDiv + ((div - previousDiv)/2), minPlot_y, 'Step '+str(data.get_stepID()), bbox=dict(facecolor='black', alpha=0.2), horizontalalignment = 'center')
+
+		previousDiv = div
+	
 	ax.set_xlabel('Number of cycles [Millions]', **plotSettings['axes_x'])
 	ax.set_ylabel('Displacement [mm]', **plotSettings['axes_y'])
 
