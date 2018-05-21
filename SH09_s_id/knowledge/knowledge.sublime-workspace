@@ -84,11 +84,13 @@
 	"buffers":
 	[
 		{
+			"contents": "\\documentclass[11pt,a4paper,fleqn,twoside]{article}\n% Compile doing:\n% rm main.aux & rm sections/*.aux & rm main.nlo & rm main.nls & pdflatex main && makeindex main.nlo -s nomencl.ist -o main.nls && bibtex main && pdflatex main && clear && pdflatex main\n\n% Settings\n\\input{settings/doc_settings}\n\n%Define which chapters to include\n\\includeonly{\n\tsections/Introduction,\n\tsections/Model_description\n\t} %{file1,file2,...} \n\n%%%%%%%%%%%%%%%%%\n\n% Document info\n\\title{Model description for the implementation of System Identification methodologies on the rotorcraft SH09}\n\\author{Alejandro Valverde López}\n\n\n\\begin{document}\n\\maketitle\n\\tableofcontents\n\n\\input{sections/0.Nomenclature} %Import nomenclature, no text is written\n\\printnomenclature[0.75in]\n\n%Sections\n\\clearpage\n\\include{sections/Introduction}\n\n\\clearpage\n\\include{sections/TeoryOfHelicopters}\n\n\\clearpage\n\\include{sections/Model_description}\n\n% Bibliography\n\\bibliographystyle{ieeetr}\n\\bibliography{MyBib}\n\n\n\\end{document}",
 			"file": "main.tex",
+			"file_size": 972,
+			"file_write_time": 131649631960000000,
 			"settings":
 			{
-				"buffer_size": 932,
-				"encoding": "UTF-8",
+				"buffer_size": 982,
 				"line_ending": "Unix"
 			}
 		},
@@ -97,7 +99,18 @@
 			"settings":
 			{
 				"buffer_size": 4918,
+				"encoding": "UTF-8",
 				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "sections/TeoryOfHelicopters.tex",
+			"settings":
+			{
+				"buffer_size": 1020,
+				"encoding": "UTF-8",
+				"line_ending": "Windows",
+				"name": "\\section{}"
 			}
 		}
 	],
@@ -141,6 +154,8 @@
 	],
 	"file_history":
 	[
+		"/D/kopter/SH09_s_id/knowledge/MyBib.bib",
+		"/C/Users/aleja/Downloads/My Collection.bib",
 		"/home/alejandro/Documents/kopter/SH09_s_id/knowledge/sections/Introduction.tex",
 		"/home/alejandro/Documents/kopter/tolerances/dampingUncer.py",
 		"/home/alejandro/Documents/kopter/versionsBackup/inputDirectories.txt",
@@ -309,7 +324,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -318,15 +333,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 932,
+						"buffer_size": 982,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								759,
-								759
+								851,
+								833
 							]
 						],
 						"settings":
@@ -337,15 +352,9 @@
 						"translation.y": 273.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 2,
 					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 0,
-			"sheets":
-			[
+				},
 				{
 					"buffer": 1,
 					"file": "sections/Model_description.tex",
@@ -359,8 +368,8 @@
 						"selection":
 						[
 							[
-								0,
-								0
+								27,
+								27
 							]
 						],
 						"settings":
@@ -374,6 +383,41 @@
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 2,
+					"file": "sections/TeoryOfHelicopters.tex",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1020,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1005,
+								1005
+							]
+						],
+						"settings":
+						{
+							"auto_name": "\\section{}",
+							"syntax": "Packages/LaTeXing/support/LaTeX.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 158.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
 					"type": "text"
 				}
 			]
@@ -422,7 +466,7 @@
 		"height": 0.0
 	},
 	"pinned_build_system": "",
-	"project": "main.sublime-project",
+	"project": "knowledge.sublime-project",
 	"replace":
 	{
 		"height": 42.0
@@ -445,7 +489,7 @@
 		[
 			[
 				"",
-				"~/Documents/kopter/kopterProject.sublime-project"
+				"D:\\kopter\\kopterDevelopment.sublime-project"
 			]
 		],
 		"width": 380.0
@@ -459,7 +503,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 0,
+	"selected_group": 1,
 	"settings":
 	{
 	},

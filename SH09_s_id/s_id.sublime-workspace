@@ -178,9 +178,6 @@
 	},
 	"expanded_folders":
 	[
-		"/home/alejandro/Documents/kopter/SH09_s_id",
-		"/home/alejandro/Documents/kopter/SH09_s_id/cranfield",
-		"/home/alejandro/Documents/kopter/SH09_s_id/cranfield/lab2"
 	],
 	"file_history":
 	[
@@ -360,7 +357,7 @@
 						"translation.y": 5472.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -376,8 +373,8 @@
 						"selection":
 						[
 							[
-								1458,
-								1458
+								1459,
+								1459
 							]
 						],
 						"settings":
@@ -387,7 +384,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1131.0,
+						"translation.y": 663.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -417,10 +414,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 468.0,
+						"translation.y": 431.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -484,7 +481,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 3,
 					"type": "text"
 				}
 			]
@@ -492,7 +489,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 21.0
+		"height": 22.0
 	},
 	"input":
 	{
@@ -556,7 +553,7 @@
 		[
 			[
 				"",
-				"D:\\kopter\\kopterDevelopment.sublime-project"
+				"D:\\kopter\\SH09_s_id\\kopterDevelopment.sublime-workspace"
 			]
 		],
 		"width": 380.0
