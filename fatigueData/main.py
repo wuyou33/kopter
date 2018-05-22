@@ -96,16 +96,16 @@ if gaugesFlag:
 			if dataClass.get_description() in ('PitchLinkMain'):
 				dataClass.set_prescribedLoadsTO([3600, -1600])
 
-			elif dataClass.get_description() in ('InnerPitchLink'):
+			elif dataClass.get_description() in ('PitchLinkFlexible'):
 				dataClass.set_prescribedLoadsTO([3600*1.15, -1600*1.15])
 
 			elif dataClass.get_description() in ('Tension'):
-				# dataClass.set_prescribedLoadsTO([4992, -3058]) #first phase
-				dataClass.set_prescribedLoadsTO([5998, -4064]) #second phase
+				dataClass.set_prescribedLoadsTO([4992, -3058]) #first phase
+				# dataClass.set_prescribedLoadsTO([5998, -4064]) #second phase
 
 			elif dataClass.get_description() in ('Bending'):
-				# dataClass.set_prescribedLoadsTO([960, -588]) #first phase
-				dataClass.set_prescribedLoadsTO([1153, -781]) #second phase
+				dataClass.set_prescribedLoadsTO([960, -588]) #first phase
+				# dataClass.set_prescribedLoadsTO([1153, -781]) #second phase
 
 			elif dataClass.get_description() in ('Force-SN27', 'Force-SN28'):
 				dataClass.set_prescribedLoadsTO([4080/10, -820/10])

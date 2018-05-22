@@ -1,8 +1,9 @@
 
 
 ' filesNamesDataInput = Array("testsInitData\oldHousingP3.vbs", "testsInitData\newHousingP3.vbs")
-filesNamesDataInput = Array("testsInitData\HousingP2.vbs")
+' filesNamesDataInput = Array("testsInitData\HousingP2.vbs")
 ' filesNamesDataInput = Array("testsInitData\TRbladeholderFatigue.vbs")
+filesNamesDataInput = Array("testsInitData\steelLinksFatigue.vbs")
 ' --------------------------------------------------
 
 ' Delete all the previous groups
