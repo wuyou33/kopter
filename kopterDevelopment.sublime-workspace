@@ -4,6 +4,30 @@
 		"selected_items":
 		[
 			[
+				"el",
+				"elif"
+			],
+			[
+				"mean",
+				"mean_min"
+			],
+			[
+				"mea",
+				"mean_min"
+			],
+			[
+				"set",
+				"setOne"
+			],
+			[
+				"da",
+				"data"
+			],
+			[
+				"filter",
+				"filterFreqs"
+			],
+			[
 				"ite",
 				"iterator"
 			],
@@ -62,10 +86,6 @@
 			[
 				"a",
 				"arg"
-			],
-			[
-				"da",
-				"dataClass"
 			],
 			[
 				"re",
@@ -160,10 +180,6 @@
 				"confidenceInterval"
 			],
 			[
-				"mea",
-				"mean_max"
-			],
-			[
 				"dataFr",
 				"dataFromRuns"
 			],
@@ -174,10 +190,6 @@
 			[
 				"data",
 				"dataClasses"
-			],
-			[
-				"el",
-				"elif"
 			],
 			[
 				"ac",
@@ -356,19 +368,10 @@
 	"buffers":
 	[
 		{
-			"file": "versionsBackup/main_versionsBackup.py",
-			"settings":
-			{
-				"buffer_size": 4835,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
 			"file": "fatigueData/moduleFunctions.py",
 			"settings":
 			{
-				"buffer_size": 39504,
+				"buffer_size": 42096,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -377,7 +380,7 @@
 			"file": "fti/loadMultipleVariablesFromFoldersAndDeleteGroups.vbs",
 			"settings":
 			{
-				"buffer_size": 3658,
+				"buffer_size": 3705,
 				"encoding": "Western (Windows 1252)",
 				"line_ending": "Windows"
 			}
@@ -386,25 +389,35 @@
 			"file": "fti/ResamplingAndExportToCSV_Alejandro.VBS",
 			"settings":
 			{
-				"buffer_size": 12120,
+				"buffer_size": 12247,
 				"encoding": "UTF-16 LE with BOM",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "fti/testsInitData/TRbladeholderFatigue.vbs",
+			"file": "fti/testToImport.vbs",
 			"settings":
 			{
-				"buffer_size": 4467,
+				"buffer_size": 362,
 				"encoding": "UTF-8",
-				"line_ending": "Windows"
+				"line_ending": "Windows",
+				"name": "' filesNamesDataInput = Array(\"testsInitData\\oldHo"
 			}
 		},
 		{
 			"file": "fatigueData/main.py",
 			"settings":
 			{
-				"buffer_size": 7984,
+				"buffer_size": 9264,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "fti/testsInitData/spiderFatigue.vbs",
+			"settings":
+			{
+				"buffer_size": 2304,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -422,8 +435,17 @@
 			"file": "fti/testsInitData/steelLinksFatigue.vbs",
 			"settings":
 			{
-				"buffer_size": 2790,
+				"buffer_size": 2801,
 				"encoding": "Western (Windows 1252)",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "fti/shortScripts.vbs",
+			"settings":
+			{
+				"buffer_size": 1013,
+				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
@@ -506,6 +528,7 @@
 		"/P/kopter",
 		"/P/kopter/codingKnowledge",
 		"/P/kopter/fatigueData",
+		"/P/kopter/fatigueData/fatigueInputFiles",
 		"/P/kopter/fti",
 		"/P/kopter/fti/testsInitData",
 		"/P/kopter/s_id",
@@ -516,6 +539,8 @@
 	],
 	"file_history":
 	[
+		"/P/kopter/versionsBackup/main_versionsBackup.py",
+		"/P/kopter/fti/testsInitData/TRbladeholderFatigue.vbs",
 		"/P/kopter/fti/shortScripts.vbs",
 		"/P/kopter/fti/Operational and Never-Exceed Limit investigation v2.8.VBS",
 		"/P/kopter/fatigueData/filesToLoad_actuator_spider.txt",
@@ -641,9 +666,7 @@
 		"/P/10_code/labs - System Identification/lab2/script.m",
 		"/P/10_code/labs - System Identification/lab4/script.m",
 		"/P/10_code/labs - System Identification/lab3/main_script.m",
-		"/Y/00_Scripts/AA_Eng_Vib_Analysis/FFT_STDEV_4.VBS",
-		"/Y/00_Scripts/AA_Eng_Vib_Analysis/dataplot.VBS",
-		"/Y/00_Scripts/plot_test/fti_2016-03-17_094251/test_HYD1_Oil_Temp.EMF"
+		"/Y/00_Scripts/AA_Eng_Vib_Analysis/FFT_STDEV_4.VBS"
 	],
 	"find":
 	{
@@ -661,6 +684,41 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"08",
+			"01",
+			"L:\\MSH-Project Management Files\\Functional Engineering\\Test Division\\Test_Daten\\J17-03-Bench Tests\\P3-J17-03-BT0164\\01_TDMS_data_Set-complete\\02_STEPS\\csv_data",
+			"2600*1.15",
+			"2600",
+			"importDataForClass",
+			"additionalCals",
+			"mean_max",
+			"np.mean",
+			"filterFreq",
+			"dataClasses",
+			"variables",
+			"int",
+			"title",
+			"set_trace",
+			"split('.')",
+			"split('')",
+			"'.'",
+			"__filterData",
+			"0.001",
+			"split",
+			"&iterator",
+			"2600",
+			"set_prescribedLoadsTOLimits",
+			"15",
+			"magnitude",
+			"pres",
+			"prescribedLoadsTO",
+			"loads",
+			"set_prescribedLoadsTO",
+			"CMDoptionsDict['testOrderFlag']",
+			"limitLoad",
+			"2600",
+			"1000",
+			"Pitch link main [N]_Mean",
 			"'rs'",
 			"workingFolder",
 			"SWPL extension STG",
@@ -753,47 +811,12 @@
 			" _",
 			"_",
 			"]\"",
-			"\",",
-			",",
-			"&",
-			"L:\\MSH-Project Management Files\\Functional Engineering\\Test Division\\Test_Daten\\J17-03-Bench Tests\\P3-J17-03-BT0115 Booster P3\\1200-1031112-AE SN2\\Step 3.1 (New housing)",
-			"folderInfo",
-			"workingFolder",
-			"fileName",
-			")",
-			"Add",
-			"dictVar",
-			"dict",
-			"variableName",
-			"]\"",
-			",",
-			"\"Temperatur HP_1 [°C]\"",
-			"H",
-			"[l\\m",
-			",",
-			"Add",
-			",",
-			"Add",
-			",",
-			"dictVaDiadem",
-			"dictVar",
-			"Resampled",
-			"FlagResampledData",
-			"°",
-			"Temperatur_HP_1_[°C]",
-			"count_folders",
-			"folders",
-			"count_folders",
-			"id",
-			"count_folders",
-			"saveAllDataFlag",
-			"Flag",
-			"count_folders"
+			"\","
 		],
 		"highlight": true,
 		"in_selection": false,
 		"preserve_case": false,
-		"regex": true,
+		"regex": false,
 		"replace_history":
 		[
 			"self.__"
@@ -801,7 +824,7 @@
 		"reverse": false,
 		"show_context": true,
 		"use_buffer2": true,
-		"whole_word": true,
+		"whole_word": false,
 		"wrap": true
 	},
 	"groups":
@@ -812,48 +835,19 @@
 			[
 				{
 					"buffer": 0,
-					"file": "versionsBackup/main_versionsBackup.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4835,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3307,
-								3307
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1730.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 11,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
 					"file": "fatigueData/moduleFunctions.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 39504,
+						"buffer_size": 42096,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								14518,
-								14518
+								15118,
+								15118
 							]
 						],
 						"settings":
@@ -863,27 +857,27 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 6133.0,
+						"translation.y": 5300.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
+					"buffer": 1,
 					"file": "fti/loadMultipleVariablesFromFoldersAndDeleteGroups.vbs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3658,
+						"buffer_size": 3705,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								525,
-								233
+								1381,
+								1381
 							]
 						],
 						"settings":
@@ -893,33 +887,33 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 234.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 2,
 					"type": "text"
 				}
 			]
 		},
 		{
-			"selected": 2,
+			"selected": 1,
 			"sheets":
 			[
 				{
-					"buffer": 3,
+					"buffer": 2,
 					"file": "fti/ResamplingAndExportToCSV_Alejandro.VBS",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 12120,
+						"buffer_size": 12247,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								6545,
-								6545
+								1512,
+								1352
 							]
 						],
 						"settings":
@@ -929,57 +923,56 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1170.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
-					"file": "fti/testsInitData/TRbladeholderFatigue.vbs",
+					"buffer": 3,
+					"file": "fti/testToImport.vbs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4467,
+						"buffer_size": 362,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3412,
-								3412
+								362,
+								362
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/VBScript/VBScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
+							"auto_name": "' filesNamesDataInput = Array(\"testsInitData\\oldHo",
+							"syntax": "Packages/VBScript/VBScript.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 145.0,
+						"translation.y": 52.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 1,
+					"buffer": 0,
 					"file": "fatigueData/moduleFunctions.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 39504,
+						"buffer_size": 42096,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								12859,
-								12859
+								24221,
+								24221
 							]
 						],
 						"settings":
@@ -989,33 +982,33 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 5638.0,
+						"translation.y": 9590.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 6,
 					"type": "text"
 				}
 			]
 		},
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
-					"buffer": 5,
+					"buffer": 4,
 					"file": "fatigueData/main.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 7984,
+						"buffer_size": 9264,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3309,
-								3309
+								5135,
+								5135
 							]
 						],
 						"settings":
@@ -1025,10 +1018,40 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 702.0,
+						"translation.y": 1568.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "fti/testsInitData/spiderFatigue.vbs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2304,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1917,
+								1917
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/VBScript/VBScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 351.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
 					"type": "text"
 				}
 			]
@@ -1064,7 +1087,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
@@ -1073,15 +1096,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2790,
+						"buffer_size": 2801,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								439,
-								439
+								1987,
+								1987
 							]
 						],
 						"settings":
@@ -1091,7 +1114,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 273.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 4,
@@ -1099,6 +1122,34 @@
 				},
 				{
 					"buffer": 8,
+					"file": "fti/shortScripts.vbs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1013,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								22,
+								22
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/VBScript/VBScript.tmLanguage"
+						},
+						"translation.x": 12.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
 					"file": "fatigueData/fatigueInputFiles/filesToLoad_gauges_enduranceActuatorP2.txt",
 					"semi_transient": false,
 					"settings":
@@ -1122,11 +1173,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 11,
 					"type": "text"
 				},
 				{
-					"buffer": 9,
+					"buffer": 10,
 					"file": "fti/testsInitData/oldHousingP3.vbs",
 					"semi_transient": false,
 					"settings":
@@ -1152,11 +1203,11 @@
 						"translation.y": 312.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 10,
 					"type": "text"
 				},
 				{
-					"buffer": 10,
+					"buffer": 11,
 					"file": "fti/testsInitData/HousingP2.vbs",
 					"semi_transient": false,
 					"settings":
@@ -1182,7 +1233,7 @@
 						"translation.y": 546.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 12,
 					"type": "text"
 				}
 			]
@@ -1228,13 +1279,13 @@
 		"cols":
 		[
 			0.0,
-			0.472371105123,
+			0.477632227496,
 			1.0
 		],
 		"rows":
 		[
 			0.0,
-			0.609786319499,
+			0.610734186798,
 			1.0
 		]
 	},
@@ -1289,7 +1340,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 373.0,
+	"side_bar_width": 272.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

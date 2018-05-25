@@ -13,8 +13,8 @@ import pdb #pdb.set_trace()
 ###### Functions
 def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 
-	short_opts = "f:v:m:o:s:r:a:" #"o:f:"
-	long_opts = ["fileName=","variables=","magnitudes=","testOrder=","saveFigure=","rangeFileIDs=","additionalCals="] #["option=","fileName="]
+	short_opts = "f:v:m:o:s:r:a:c:" #"o:f:"
+	long_opts = ["fileName=","variables=","magnitudes=","testOrder=","saveFigure=","rangeFileIDs=","additionalCals=","correctionFilter="] #["option=","fileName="]
 	try:
 		opts, args = getopt.getopt(argv,short_opts,long_opts)
 	except getopt.GetoptError:
@@ -88,6 +88,14 @@ def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 				CMDoptionsDict['additionalCalsFlag'] = True
 				CMDoptionsDict['additionalCalsOpt'] = int(arg)
 
+		elif opt in ("-c", "--correctionFilter"):
+
+			if arg.lower() in ('false', 'f'):
+				CMDoptionsDict['correctionFilterFlag'] = False
+			else:
+				CMDoptionsDict['correctionFilterFlag'] = True
+				CMDoptionsDict['correctionFilterNum'] = float(arg)
+
 	return CMDoptionsDict
 
 def sortFilesInFolderByLastNumberInName(listOfFiles, CMDoptionsDict):
@@ -95,7 +103,7 @@ def sortFilesInFolderByLastNumberInName(listOfFiles, CMDoptionsDict):
 	a = []
 	for file in listOfFiles:
 		if file.endswith('.csv'):
-			fileID_0 = file.split('.')[0]
+			fileID_0 = file.split('.csv')[0]
 			fileID_int = int(fileID_0.split('__')[-1])
 			if fileID_int in CMDoptionsDict['rangeFileIDs']:
 				a += [(file, fileID_int),]
@@ -244,7 +252,7 @@ def importPlottingOptions():
 	scatter = {'linewidths' : 2}
 	legend = {'fontsize' : 14, 'loc' : 'best'}
 	grid = {'alpha' : 0.7}
-	colors = ['k', 'b', 'y', 'm', 'r', 'c','k', 'b', 'y', 'm', 'r', 'c','k', 'b', 'y', 'm', 'r', 'c','k', 'b', 'y', 'm', 'r', 'c']
+	colors = ['k', 'b', 'y', 'm', 'r', 'c', 'g', 'k', 'b', 'y', 'm', 'r', 'c','k', 'b', 'y', 'm', 'r', 'c','k', 'b', 'y', 'm', 'r', 'c']
 	markers = ['o', 'v', '^', 's', '*', '+']
 	linestyles = ['-', '--', '-.', ':']
 	axes_ticks_n = {'x_axis' : 3} #Number of minor labels in between 
@@ -400,11 +408,15 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		self.__orderDeriv = orderDeriv_in
 
 		self.__prescribedLoadsTO = []
+		self.__prescribedLoadsTOLimits = []
 
 		self.__max = []
 		self.__mean = []
 		self.__min = []
 		self.__rs = []
+
+		self.__MinMax = []
+
 		self.__maxPicks = []
 		self.__meanPicks = []
 		self.__minPicks = []
@@ -424,13 +436,18 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		self.__lastID = 0
 		self.__lastIDPick = 0
 		self.__freqData = []
+		self.__filterData = []
 		self.__xValues = []
 		self.__xValuesNewRun = []
 		self.__stepID = []
 
-	def set_prescribedLoadsTO(self, loads):
+	def set_prescribedLoadsTO(self, loads_in):
 		
-		self.__prescribedLoadsTO = loads
+		self.__prescribedLoadsTO = loads_in
+
+	def set_prescribedLoadsTOLimits(self, loads_in):
+		
+		self.__prescribedLoadsTOLimits = loads_in
 
 	def reStartXvaluesAndLastID(self):
 		self.__lastID = 0
@@ -439,7 +456,7 @@ class dataFromGaugesSingleMagnitudeClass(object):
 
 	def set_magData(self, nameField, data):
 
-		if nameField == 'rs':
+		if nameField in ('rs','lp','hp'):
 			self.__rs += data
 		elif nameField == 'mean':
 			self.__mean += data
@@ -472,7 +489,7 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		else:
 			raise ValueError('Error in identifying data field: ' + nameField)
 
-	def importDataForClass(self, fileName, fieldOfFile):
+	def importDataForClass(self, fileName, fieldOfFile, CMDoptionsDict):
 
 		file = open(fileName, 'r')
 		lines = file.readlines()
@@ -481,7 +498,10 @@ class dataFromGaugesSingleMagnitudeClass(object):
 
 		for line in lines[(skipLines+1):]:
 
-			data += [float(cleanString(line))]
+			if CMDoptionsDict['correctionFilterFlag'] and fieldOfFile in ('lp', 'hp'):
+				data += [float(cleanString(line)) + CMDoptionsDict['correctionFilterNum']]
+			else:
+				data += [float(cleanString(line))]
 
 			if counter == 0: #First iteration
 				dataID += [self.__lastID+1]
@@ -492,7 +512,13 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		
 		file.close()
 
+		if CMDoptionsDict['correctionFilterFlag'] and fieldOfFile in ('lp', 'hp'):
+			print('\t'+'-> Correction applied to each imported data point, value: '+str(CMDoptionsDict['correctionFilterNum']))
+
 		self.set_magData(fieldOfFile, data)
+
+		# Min and max
+		self.__MinMax += [[min(data), max(data)]]
 
 		self.__lastID = dataID[-1]
 
@@ -501,15 +527,20 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		self.__xValues += dataID
 		
 		# Obtain step index
-		fileName_0 = fileName.split('.')[0]
+		fileName_0 = fileName.split('.csv')[0]
 		self.__stepID += [int(fileName_0.split('__')[-1])]
 
 		#Obtain frequency for recorded data
-		self.__freqData += [float(fileName_0.split('__')[-2][:-2])]
+		if fieldOfFile in ('lp', 'hp'):
+			self.__filterData += [float(fileName_0.split('__')[-2][:-2])]
+			self.__freqData += [float(fileName_0.split('__')[-3][:-2])]
+		else:
+			self.__freqData += [float(fileName_0.split('__')[-2][:-2])]
 
 		# Last computed point stats
 		print('\t'+'-> Last computed data point index (file): ' + str(counter/1000000.0) + ' millions / '+calculateDaysHoursMinutes_string(counter, self.__freqData[-1]))
-		if fieldOfFile == 'rs':
+		print('\t'+'-> Max and min values read (file), max: ' + str(round(self.__MinMax[-1][1], 3)) + ', min: '+str(round(self.__MinMax[-1][0], 3)))
+		if fieldOfFile in ('rs', 'lp', 'hp'):
 			print('\t'+'-> Last computed data point index (accumulated): ' + str(dataID[-1]/1000000.0) + ' millions / '+calculateDaysHoursMinutes_string(dataID[-1], self.__freqData[-1]))
 
 	def computePicks(self):
@@ -743,7 +774,18 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		figure, ax = plt.subplots(1, 1)
 		figure.set_size_inches(10, 6, forward=True)
 
-		ax.plot( [t/self.__freqData[0] for t in self.__timeRs], self.__rs, linestyle = '-', marker = '', c = plotSettings['colors'][0], label = self.__description, **plotSettings['line'])
+		if CMDoptionsDict['correctionFilterFlag']:
+			ax.plot( [t/self.__freqData[0] for t in self.__timeRs], [o + CMDoptionsDict['correctionFilterNum'] for o in self.__rs], linestyle = '-', marker = '', c = plotSettings['colors'][0], label = self.__description, **plotSettings['line'])
+		else:
+			ax.plot( [t/self.__freqData[0] for t in self.__timeRs], self.__rs, linestyle = '-', marker = '', c = plotSettings['colors'][0], label = self.__description, **plotSettings['line'])
+
+		# Mean based on max and min
+		mean_min = np.mean([setOne[0] for setOne in self.__MinMax])
+		mean_max = np.mean([setOne[1] for setOne in self.__MinMax])
+
+		mean_fromMinMax = ((mean_max - mean_min)/2) + mean_min
+
+		print('mean record data :'+str(mean_fromMinMax))
 
 		if additionalInput[0]:
 			dataClasses = additionalInput[1]
@@ -775,6 +817,9 @@ class dataFromGaugesSingleMagnitudeClass(object):
 			minPlot_x = max(self.__timeSecNewRunRs)/self.__freqData[0]
 			for limitLoad in self.__prescribedLoadsTO:
 				ax.plot([minPlot_x, maxPlot_x], 2*[limitLoad], linestyle = '--', marker = '', c = plotSettings['colors'][5], **plotSettings['line'])
+				if self.__prescribedLoadsTOLimits:
+					for limitLoadBoundary in self.__prescribedLoadsTOLimits:
+						ax.plot([minPlot_x, maxPlot_x], 2*[limitLoad*limitLoadBoundary], linestyle = '-.', marker = '', c = plotSettings['colors'][6], **plotSettings['line'])
 
 		# ax.set_xlabel('Number of points [Millions]', **plotSettings['axes_x'])
 		# ax.set_xlabel('Time elapsed [Million seconds]', **plotSettings['axes_x'])
@@ -809,7 +854,15 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		if additionalInput[0]:
 			ax.legend(**plotSettings['legend'])
 		else:
-			ax.set_title(self.__description, **plotSettings['title'])
+			if magnitude == 'rs':
+				ax.set_title(self.__description+', re-sampled data to '+str(int(self.__freqData[0]))+' Hz', **plotSettings['title'])
+			elif magnitude == 'lp':
+				a = self.__filterData[0]
+				ax.set_title(self.__description+', low-pass filtered with '+str(float(self.__filterData[0]))+' Hz cut-off freq.', **plotSettings['title'])
+			elif magnitude == 'hp':
+				ax.set_title(self.__description+', high-pass filtered with '+str(float(self.__filterData[0]))+' Hz cut-off freq.', **plotSettings['title'])
+			else:
+				ax.set_title(self.__description, **plotSettings['title'])
 
 		#Figure settings
 		ax.grid(which='both', **plotSettings['grid'])

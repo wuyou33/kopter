@@ -46,6 +46,7 @@ fileNamesBigArrayFolders = Array( _
   ,  Array(commonAddress & "\", "1309", Array("STEP_1309.TDM")) _
   ,  Array(commonAddress & "\", "1310", Array("STEP_1310.TDM")) _
   ,  Array(commonAddress & "\", "1311", Array("STEP_1311.TDM")) _
+  ,  Array(commonAddress & "\", "1312", Array("STEP_1312.TDM")) _
   )
 
 ' variable names inside DIAdem -> variable names for the files to be saved
@@ -72,9 +73,9 @@ fileFormatImport = ".TDM"
 ' iterators = Array("1201","1202","1203","1204","1205","1206","1207","1208","1209","1210","1301","1302","1303","1304","1305","1306","1307","1308","1309","1310")
 ' iterators = Array("15","16","17","18")
 ' iterators = Array("19","20")
-iterators = Array("1311")
+iterators = Array("1312")
 
-filterFreq = 0.001 'Hz'
+filterFreq = 0.1 'Hz'
 
 ' Executiong flags
 importDataFlag = True
