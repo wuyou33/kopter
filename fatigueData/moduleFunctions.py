@@ -5,6 +5,7 @@ import sys
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy.stats as st
+import statistics as stat
 import math
 import getopt
 import pdb #pdb.set_trace()
@@ -1255,3 +1256,56 @@ def calculateDaysHoursMinutes_string(N, freq):
 	totalTimeString = str(n_days)+' days, '+str(n_hours)+' hours, '+str(n_minutes)+' minutes, '+str(round(remainingSeconds, 2))+' seconds ('+str(freq)+' Hz)'
 
 	return totalTimeString
+
+def getNewVectorWithoutOutliers(x_list, y_list):
+	######### Enter, x_list and y_list values
+
+	# Error vector
+	def errorVectorFunction(x_list, y_list, regre):
+
+		# Error vector
+		e = []
+		for x,y in zip(x_list, y_list):
+			e += [y - ( regre[1] + (regre[0]*x) )] 
+		vari = stat.variance(e)
+
+		return e, vari
+
+	# Remove outliers
+	def removeOutliers(x_list, y_list, e_list, vari_error, lim):
+		
+		# New vectors
+		x_out, y_out, outliers = [], [], []
+
+		for x,y,e in zip(x_list, y_list, e_list):
+
+			factor = abs(e) / np.sqrt(vari_error)
+
+			if factor > lim:
+				outliers += [[x, y],]
+
+			else:
+				x_out += [x]
+				y_out += [y]
+
+		return x_out, y_out, outliers
+
+	# split in ranges
+	range_spacing = 100
+	init_range = 0
+	size_vector = len(x_list)
+
+	assert len(x_list) == len(y_list), 'ERROR: Mismatch between the sizes of x, y'
+
+	for x, y in zip(x_list, y_list):
+
+		x_range = 
+		y_range = 
+
+	# Linear fit
+	# f(x) = regre[0]*x_list + regre[1]
+	regre = np.polyfit(x_list, y_list, 1)
+
+	error_list, vari = errorVectorFunction(x_list, y_list, regre)
+
+	x_list, y_list, outliers = removeOutliers(x_list, y_list, error_list, vari, 1.960) #2.576 
