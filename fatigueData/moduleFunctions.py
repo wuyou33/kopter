@@ -5,6 +5,7 @@ import sys
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy.stats as st
+import statistics as stat
 import math
 import getopt
 import pdb #pdb.set_trace()
@@ -517,9 +518,40 @@ class dataFromGaugesSingleMagnitudeClass(object):
 
 		self.set_magData(fieldOfFile, data)
 
-		# Min and max
-		self.__MinMax += [[min(data), max(data)]]
+		# Remove outliers and calculate max and min
+		flagOutliers = True
+		if flagOutliers and fieldOfFile in ('lp', 'hp'):
 
+			# split in ranges
+			range_spacing = 10000
+			size_vector = len(data)
+			intervals = int(np.floor(size_vector/range_spacing))
+			x_range_interest, y_range_interest, x_range_interest_2, y_range_interest_2 = [], [], [], []
+
+			for i in range(intervals):
+
+				x_range = data[int(i*range_spacing):int((i+1)*range_spacing)]
+
+				x_range_interest += [max(x_range)]
+				y_range_interest += [x_range.index(max(x_range)) + 1] #Index of the vector starts with 0, the first y value is 1
+				
+				x_range_interest_2 += [min(x_range)]
+				y_range_interest_2 += [x_range.index(min(x_range)) + 1] #Index of the vector starts with 0, the first y value is 1
+				# print(str(i))
+
+
+			x_range_woOutliers, y_range_woOutliers = getNewVectorWithoutOutliers(x_range_interest, y_range_interest)
+			x_range_woOutliers_2, y_range_woOutliers_2 = getNewVectorWithoutOutliers(x_range_interest_2, y_range_interest_2)
+
+			if fieldOfFile in ('hp'):
+				self.__MinMax += [[max(min(x_range_woOutliers), abs(max(x_range_woOutliers_2))), min(max(x_range_woOutliers), abs(min(x_range_woOutliers_2)))]]
+			elif fieldOfFile in ('lp'):
+				self.__MinMax += [[min(x_range_woOutliers), max(x_range_woOutliers)]] #This is not the way this should work, SOMETHING IS WRONG- Removal of outliers does not work
+
+		else:
+			# Min and max
+			self.__MinMax += [[min(data), max(data)]]
+		
 		self.__lastID = dataID[-1]
 
 		self.__xValuesNewRun += [dataID[-1],]
@@ -539,7 +571,11 @@ class dataFromGaugesSingleMagnitudeClass(object):
 
 		# Last computed point stats
 		print('\t'+'-> Last computed data point index (file): ' + str(counter/1000000.0) + ' millions / '+calculateDaysHoursMinutes_string(counter, self.__freqData[-1]))
-		print('\t'+'-> Max and min values read (file), max: ' + str(round(self.__MinMax[-1][1], 3)) + ', min: '+str(round(self.__MinMax[-1][0], 3)))
+		print('\t'+'-> Max and min values read (file), max: ' + str(max(data)) + ', min: '+str(min(data)))
+
+		if flagOutliers and fieldOfFile in ('lp', 'hp'):
+			print('\t'+'-> Max and min values without outliers (file), max: ' + str(round(self.__MinMax[-1][1], 2)) + ', min: '+str(round(self.__MinMax[-1][0], 2)))
+		
 		if fieldOfFile in ('rs', 'lp', 'hp'):
 			print('\t'+'-> Last computed data point index (accumulated): ' + str(dataID[-1]/1000000.0) + ' millions / '+calculateDaysHoursMinutes_string(dataID[-1], self.__freqData[-1]))
 
@@ -774,10 +810,7 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		figure, ax = plt.subplots(1, 1)
 		figure.set_size_inches(10, 6, forward=True)
 
-		if CMDoptionsDict['correctionFilterFlag']:
-			ax.plot( [t/self.__freqData[0] for t in self.__timeRs], [o + CMDoptionsDict['correctionFilterNum'] for o in self.__rs], linestyle = '-', marker = '', c = plotSettings['colors'][0], label = self.__description, **plotSettings['line'])
-		else:
-			ax.plot( [t/self.__freqData[0] for t in self.__timeRs], self.__rs, linestyle = '-', marker = '', c = plotSettings['colors'][0], label = self.__description, **plotSettings['line'])
+		ax.plot( [t/self.__freqData[0] for t in self.__timeRs], self.__rs, linestyle = '-', marker = '', c = plotSettings['colors'][0], label = self.__description, **plotSettings['line'])
 
 		# Mean based on max and min
 		mean_min = np.mean([setOne[0] for setOne in self.__MinMax])
@@ -808,6 +841,7 @@ class dataFromGaugesSingleMagnitudeClass(object):
 
 			#Add text with step number
 			ax.text(previousDiv + ((div - previousDiv)/2), minPlot_y, 'Step '+str(self.__stepID[i]), bbox=dict(facecolor='black', alpha=0.2), horizontalalignment = 'center')
+			# ax.text(previousDiv + ((div - previousDiv)/2), 500, 'Step '+str(self.__stepID[i]), bbox=dict(facecolor='black', alpha=0.2), horizontalalignment = 'center')
 			
 			previousDiv = div
 			i += 1
@@ -1255,3 +1289,48 @@ def calculateDaysHoursMinutes_string(N, freq):
 	totalTimeString = str(n_days)+' days, '+str(n_hours)+' hours, '+str(n_minutes)+' minutes, '+str(round(remainingSeconds, 2))+' seconds ('+str(freq)+' Hz)'
 
 	return totalTimeString
+
+def getNewVectorWithoutOutliers(x_list, y_list):
+	######### Enter, x_list and y_list values
+
+	# Error vector
+	def errorVectorFunction(x_list, y_list, regre):
+
+		# Error vector
+		e = []
+		for x,y in zip(x_list, y_list):
+			e += [y - ( regre[1] + (regre[0]*x) )] 
+		vari = stat.variance(e)
+
+		return e, vari
+
+	# Remove outliers
+	def removeOutliers(x_list, y_list, e_list, vari_error, lim):
+		
+		# New vectors
+		x_out, y_out, outliers = [], [], []
+		for x,y,e in zip(x_list, y_list, e_list):
+
+			factor = abs(e) / np.sqrt(vari_error)
+
+			if factor > lim:
+				outliers += [[x, y],]
+
+			else:
+				x_out += [x]
+				y_out += [y]
+
+		return x_out, y_out, outliers
+
+	assert len(x_list) == len(y_list), 'ERROR: Mismatch between the sizes of x, y'
+
+	# Linear fit
+	# f(x) = regre[0]*x_list + regre[1]
+
+	regre = np.polyfit(x_list, y_list, 1)
+
+	error_list, vari = errorVectorFunction(x_list, y_list, regre)
+
+	x_list_woOutliers, y_list_woOutliers, outliers = removeOutliers(x_list, y_list, error_list, vari, 1.960) #2.576
+
+	return x_list_woOutliers, y_list_woOutliers
