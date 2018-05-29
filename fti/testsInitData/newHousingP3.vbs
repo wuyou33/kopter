@@ -76,7 +76,7 @@ importDataFlag = True
 FlagFTTData = False
 
 FlagFilteredData = True
-FlagHighPass = False 'False if low pass'
+FlagHighPass = True 'False if low pass'
 
 FlagMaxMinMeanData = False
 

@@ -14,8 +14,8 @@ import pdb #pdb.set_trace()
 ###### Functions
 def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 
-	short_opts = "f:v:m:o:s:r:a:c:" #"o:f:"
-	long_opts = ["fileName=","variables=","magnitudes=","testOrder=","saveFigure=","rangeFileIDs=","additionalCals=","correctionFilter="] #["option=","fileName="]
+	short_opts = "f:v:m:o:s:r:a:c:n:" #"o:f:"
+	long_opts = ["fileName=","variables=","magnitudes=","testOrder=","saveFigure=","rangeFileIDs=","additionalCals=","correctionFilter=", "multipleYaxisInSameFigure="] #["option=","fileName="]
 	try:
 		opts, args = getopt.getopt(argv,short_opts,long_opts)
 	except getopt.GetoptError:
@@ -43,6 +43,8 @@ def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 				CMDoptionsDict['actuatorMesswerte'] = False
 				CMDoptionsDict['actuatorFlag'] = True
 				CMDoptionsDict['dmsFlag'] = False
+			else:
+				raise ValueError('ERROR: Wrong input for parameter '+opt)
 
 		elif opt in ("-v", "--variables"):
 
@@ -59,8 +61,7 @@ def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 			elif arg.lower() in ('false', 'f'):
 				CMDoptionsDict['testOrderFlagFromCMD'] = False
 			else:
-				CMDoptionsDict['testOrderRange'] = [float(t) for t in arg.split(',')]
-				CMDoptionsDict['testOrderFlagFromCMD'] = True
+				raise ValueError('ERROR: Wrong input for parameter '+opt)
 
 		elif opt in ("-s", "--saveFigure"):
 
@@ -76,6 +77,8 @@ def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 				CMDoptionsDict['showFigures'] = True
 			elif argShowFigure.lower() in ('false', 'f'):
 				CMDoptionsDict['showFigures'] = False
+			else:
+				raise ValueError('ERROR: Wrong input for parameter '+opt)
 
 		elif opt in ("-r", "--rangeFileIDs"):
 
@@ -96,6 +99,16 @@ def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 			else:
 				CMDoptionsDict['correctionFilterFlag'] = True
 				CMDoptionsDict['correctionFilterNum'] = float(arg)
+
+		elif opt in ("-n", "--multipleYaxisInSameFigure"):
+
+			if arg.lower() in ('true', 't'):
+				CMDoptionsDict['multipleYaxisInSameFigure'] = True
+				CMDoptionsDict['numberMultipleYaxisInSameFigure'] = max(len(CMDoptionsDict['variables']),len(CMDoptionsDict['magnitudes']))
+			elif arg.lower() in ('false', 'f'):
+				CMDoptionsDict['multipleYaxisInSameFigure'] = False
+			else:
+				raise ValueError('ERROR: Wrong input for parameter '+opt)
 
 	return CMDoptionsDict
 
@@ -124,25 +137,94 @@ def cleanString(stringIn):
 
 		return stringIn
 
-def loadFileAddresses(fileName): 
+class dataForVariable(object):
+	"""docstring for dataForVariable"""
+	def __init__(self):
+		self.__name = []
+		self.__xLabel = []
+		self.__staticLoad = []
+		self.__alternateLoad = []
+		self.__maxLoad = []
+		self.__minLoad = []
+
+	def set_attr(self, attr_string, value):
+		
+		self.setattr('__'+attr_string, value)
+
+	def get_attr(self, attr_string):
+		
+		return self.getattr('__'+attr_string)
+		
+
+def loadFileAddressesAndData(fileName, typeData):
+
+	def addSectionsInfoActuator(rawLine, section_index, inputDataClass):
+		
+		cleanLine = cleanString(rawLine)
+		
+		if section_index == 1:
+			inputDataClass.addSharedAddress(cleanLine)
+
+		elif section_index == 2:
+
+			inputDataClass.addDataFromTestOrder([float(t) for t in cleanLine.split(',')])
+
+		return inputDataClass
+
+	
+	def addSectionsInfoGauge(rawLine, section_index, inputDataClass):
+		
+		cleanLine = cleanString(rawLine)
+
+		if section_index == 1:
+			inputDataClass.addSharedAddress(cleanString(rawLine))
+
+		elif section_index == 2:
+
+			variableStringKey = cleanLine.split(':')[0]
+			valueLine0 = cleanLine.split(':')[1]
+			valueLine = valueLine0.lstrip()
+
+			if 'BLABLA':
+
+				pass
+
+			if 'name' in cleanLine:
+
+				variableStringKey = valueLine
+
 
 	file = open(fileName, 'r')
 
 	lines = file.readlines()
 
-	directoryAddressClass = inputDataClassDef()
+	inputDataClass = inputDataClassDef()
 
-	for i in range(1, int((len(lines)))):
+	newSectionIdentifier = '->'
+
+	section_index = 0
+
+	for i in range(0, int((len(lines)))):
 
 		rawLine = lines[i]
 
-		if rawLine != '':
+		if cleanString(rawLine) != '': #Filter out blank lines
 
-			directoryAddressClass.addSharedAddress(cleanString(rawLine))
+			if newSectionIdentifier in rawLine: #Header detected, change to new sections
+
+				section_index += 1
+				
+			elif typeData == 'actuator':
+
+				inputDataClass = addSectionsInfoActuator(rawLine, section_index, inputDataClass)
+
+			elif typeData == 'gauge':
+
+				inputDataClass = addSectionsInfoGauge(rawLine, section_index, inputDataClass)
 
 	file.close()
 
-	return directoryAddressClass
+	return inputDataClass
 
 class inputDataClassDef(object):
 	"""docstring for inputData"""
@@ -152,6 +234,8 @@ class inputDataClassDef(object):
 		"""
 
 		self.__setOfAddress_tuple = ()
+		self.__testOrderRange = []
+		self.__variablesInfoDict= {}
 
 	def addSharedAddress(self, fileAddress):
 
@@ -163,9 +247,26 @@ class inputDataClassDef(object):
 
 			print('WARNING: Address '+fileAddress+' does not exist or is not a directory, entry skipped')
 
+	def addDataFromTestOrder(self, testOrderRange_in):
+		self.__testOrderRange = testOrderRange_in
+
 	def getTupleFiles(self):
 
 		return self.__setOfAddress_tuple
+
+	def get_testOrderRange(self):
+		return self.__testOrderRange
+
+	def addVariablesInfoDict(self, variableStringKey, variableClass):
+
+		if not 'variableStringKey' in self.__variablesInfoDict.keys():
+			self.__variablesInfoDict['variableStringKey'] = variableClass
+		else:
+			self.__variablesInfoDict.update({'variableStringKey': variableClass})
+
+	def get_variablesInfoDict(self):
+		return self.__variablesInfoDict
+
 
 def importDataActuator(fileName, iFile, CMDoptionsDict):
 
@@ -224,7 +325,7 @@ def importDataActuator(fileName, iFile, CMDoptionsDict):
 
 		print('\t'+'-> Last computed data point index (file): ' + str(lineN/1000000.0) + ' millions')
 
-		dataFromRun = dataFromRunClassMesswerte(iFile, fileNameShort.split('__')[0]+'_'+fileNameShort.split('__')[1], lineN)
+		dataFromRun = dataFromRunClassMesswerte(iFile, fileNameShort.split('_')[0]+'_'+fileNameShort.split('_')[1], lineN)
 
 		dataFromRun.add_data(weg, kraft)
 
@@ -261,6 +362,12 @@ def importPlottingOptions():
 	plotSettings = {'axes_x':axes_label_x,'axes_y':axes_label_y, 'title':text_title_properties,
 	                'axesTicks':axes_ticks, 'line':line, 'legend':legend, 'grid':grid, 'scatter':scatter,
 	                'colors' : colors, 'markers' : markers, 'linestyles' : linestyles, 'axes_ticks_n' : axes_ticks_n}
+
+	# Additional computing data
+	plotSettings['currentAxis'] = [None, -1] #[Axis object, index]
+	plotSettings['listMultipleAxes'] = None
+	plotSettings['currentFigureMultipleAxes'] = None
+
 
 	return plotSettings
 
@@ -805,10 +912,26 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		ax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])
 		ax.minorticks_on()
 
-	def plotResampled(self, plotSettings, CMDoptionsDict, magnitude, additionalInput):
+	def plotResampled(self, plotSettings, CMDoptionsDict, magnitude, additionalInput, inputDataClass):
 
-		figure, ax = plt.subplots(1, 1)
-		figure.set_size_inches(10, 6, forward=True)
+		if CMDoptionsDict['multipleYaxisInSameFigure'] and plotSettings['currentAxis'][1] == -1:
+			figure, axesList = plt.subplots(CMDoptionsDict['numberMultipleYaxisInSameFigure'], 1, sharex='col')
+			figure.set_size_inches(12, 8, forward=True)
+			plotSettings.update({'listMultipleAxes': axesList})
+			plotSettings.update({'currentFigureMultipleAxes': figure})
+
+			ax = axesList[0]
+			plotSettings.update({'currentAxis': [ax, 0]})
+
+		elif CMDoptionsDict['multipleYaxisInSameFigure'] and plotSettings['currentAxis'][1] != -1:
+			
+			new_ax_id = plotSettings['currentAxis'][1]+1
+			ax = plotSettings['listMultipleAxes'][new_ax_id]
+			plotSettings.update({'currentAxis': [ax, new_ax_id]})
+		else:
+			# Normal operation, one single plot
+			figure, ax = plt.subplots(1, 1)
+			figure.set_size_inches(10, 6, forward=True)
 
 		ax.plot( [t/self.__freqData[0] for t in self.__timeRs], self.__rs, linestyle = '-', marker = '', c = plotSettings['colors'][0], label = self.__description, **plotSettings['line'])
 
@@ -857,15 +980,20 @@ class dataFromGaugesSingleMagnitudeClass(object):
 
 		# ax.set_xlabel('Number of points [Millions]', **plotSettings['axes_x'])
 		# ax.set_xlabel('Time elapsed [Million seconds]', **plotSettings['axes_x'])
-		ax.set_xlabel('Time elapsed [Seconds]', **plotSettings['axes_x'])
+		if not CMDoptionsDict['multipleYaxisInSameFigure']:
+			ax.set_xlabel('Time elapsed [Seconds]', **plotSettings['axes_x'])
+		elif CMDoptionsDict['numberMultipleYaxisInSameFigure']==(plotSettings['currentAxis'][1]+1):
+			ax.set_xlabel('Time elapsed [Seconds]', **plotSettings['axes_x'])
 
-		if self.__description in ('DistanceSensor'):
+		if True:
+			ax.set_ylabel(inputDataClass.get_variablesInfoDict()[self.__description].get_attr('xLabel'), **plotSettings['axes_y'])
+		elif self.__description in ('DistanceSensor'):
 			ax.set_ylabel('Displacement [mm]', **plotSettings['axes_y'])
 
 		elif self.__description in ('DistanceSensor', 'BendingMoment', 'MyBlade', 'MyLoadcell', 'MzBlade'):
 			ax.set_ylabel('Moment [Nm]', **plotSettings['axes_y'])
 
-		elif self.__description in ('STG1', 'STG2'):
+		elif self.__description in ('STG1', 'STG2', 'SpiderStrain'):
 			ax.set_ylabel('Strain [mm\m]', **plotSettings['axes_y'])
 
 		# Magnitudes from the performance test
@@ -909,12 +1037,18 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		axdouble_in_y.set_ylim(ax.get_ylim())
 
 		#Save figure
-		if CMDoptionsDict['saveFigure']:
+		if CMDoptionsDict['saveFigure'] and not CMDoptionsDict['multipleYaxisInSameFigure']:
 
 			if additionalInput[0]:
 				figure.savefig(os.path.join(CMDoptionsDict['cwd'], magnitude+'_'+','.join([str(i) for i in CMDoptionsDict['rangeFileIDs']])+'_'+self.__description+'&'+additionalInput[2]+'.png'))
 			else: 
 				figure.savefig(os.path.join(CMDoptionsDict['cwd'], magnitude+'_'+','.join([str(i) for i in CMDoptionsDict['rangeFileIDs']])+'_'+self.__description+'.png'))
+		elif CMDoptionsDict['saveFigure'] and CMDoptionsDict['numberMultipleYaxisInSameFigure']==(plotSettings['currentAxis'][1]+1): #CMDoptionsDict['multipleYaxisInSameFigure'] is True
+
+			figure = plotSettings['currentFigureMultipleAxes']
+			figure.savefig(os.path.join(CMDoptionsDict['cwd'], ','.join([str(i) for i in CMDoptionsDict['magnitudes']])+'_'+','.join([str(i) for i in CMDoptionsDict['rangeFileIDs']])+'_'+','.join([str(i) for i in CMDoptionsDict['variables']])+'.png'))
+
+		return plotSettings
 
 	def plotMinMeanMax(self, plotSettings):
 
@@ -954,7 +1088,7 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		print('--> Mean force applied in complete test (mean value):'+str(round(np.mean(self.__meanPicks), 3))+' N')
 		print('--> Minimum force applied in complete test (mean value):'+str(round(np.mean(self.__minPicks), 3))+' N')
 
-def plotAllRuns_force(dataFromRuns, plotSettings, CMDoptionsDict):
+def plotAllRuns_force(dataFromRuns, plotSettings, CMDoptionsDict, inputDataClass):
 
 	def threePlotForRun(dataFromRun, plotSettings, ax):
 		
@@ -990,8 +1124,8 @@ def plotAllRuns_force(dataFromRuns, plotSettings, CMDoptionsDict):
 	
 	#Plot prescribed loads from the T
 	if CMDoptionsDict['testOrderFlagFromCMD']:
-		ax.plot([0.0, dataFromRuns[-1].get_absoluteNCycles_mill()[-1]], 2*[CMDoptionsDict['testOrderRange'][0]], linestyle = '--', marker = '', c = plotSettings['colors'][5], **plotSettings['line'])
-		ax.plot([0.0, dataFromRuns[-1].get_absoluteNCycles_mill()[-1]], 2*[CMDoptionsDict['testOrderRange'][-1]], linestyle = '--', marker = '', c = plotSettings['colors'][5], **plotSettings['line'])
+		ax.plot([0.0, dataFromRuns[-1].get_absoluteNCycles_mill()[-1]], 2*[inputDataClass.get_testOrderRange()[0]], linestyle = '--', marker = '', c = plotSettings['colors'][5], **plotSettings['line'])
+		ax.plot([0.0, dataFromRuns[-1].get_absoluteNCycles_mill()[-1]], 2*[inputDataClass.get_testOrderRange()[-1]], linestyle = '--', marker = '', c = plotSettings['colors'][5], **plotSettings['line'])
 
 	ax.set_xlabel('Number of cycles [Millions]', **plotSettings['axes_x'])
 	ax.set_ylabel('Force [kN]', **plotSettings['axes_y'])
@@ -1032,7 +1166,7 @@ def plotAllRuns_force(dataFromRuns, plotSettings, CMDoptionsDict):
 		figure.savefig(os.path.join(CMDoptionsDict['cwd'], 'ActuatorLoads.png'))
 
 
-def plotAllRuns_force_Messwerte(dataFromRuns, plotSettings, CMDoptionsDict):
+def plotAllRuns_force_Messwerte(dataFromRuns, plotSettings, CMDoptionsDict, inputDataClass):
 
 	def cumputeDiffFnNotContinous(x, y):
 		
@@ -1126,7 +1260,7 @@ def plotAllRuns_force_Messwerte(dataFromRuns, plotSettings, CMDoptionsDict):
 		figure.savefig(os.path.join(CMDoptionsDict['cwd'], 'ActuatorForceDisplacement.png'))
 
 
-def plotAllRuns_displacement(dataFromRuns, plotSettings, CMDoptionsDict):
+def plotAllRuns_displacement(dataFromRuns, plotSettings, CMDoptionsDict, inputDataClass):
 
 	def threePlotForRun(dataFromRun, plotSettings, ax):
 		

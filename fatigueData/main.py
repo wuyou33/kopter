@@ -24,9 +24,6 @@ CMDoptionsDict['cwd'] = cwd
 #Read postProc folder name from CMD
 CMDoptionsDict = readCMDoptionsMainAbaqusParametric(sys.argv[1:], CMDoptionsDict)
 
-# Import settings
-plotSettings = importPlottingOptions()
-
 # What to do?
 gaugesFlag = CMDoptionsDict['dmsFlag']
 actuatorFlag = CMDoptionsDict['actuatorFlag']
@@ -38,17 +35,19 @@ if gaugesFlag:
 
 	testFactor = 1.0 #HZ
 	orderDeriv = 2	
-
-	dataClasses = ()
-	for var in CMDoptionsDict['variables']:
-		dataVar = dataFromGaugesSingleMagnitudeClass(var, testFactor, orderDeriv)
-		dataClasses += (dataVar, )
-		# dataInnerPitchLink = dataFromGaugesSingleMagnitudeClass('InnerPitchLink', testFactor, orderDeriv)
-	# dataClasses = (dataMainPitchLink, dataInnerPitchLink)
-	# dataClasses = (dataMainPitchLink,)
-	inputFolderAddress = loadFileAddresses(CMDoptionsDict['fileNameOfFileToLoadFiles'])
-
 	for magComplex in CMDoptionsDict['magnitudes']:
+
+		# Import settings
+		plotSettings = importPlottingOptions()
+
+		dataClasses = ()
+		for var in CMDoptionsDict['variables']:
+			dataVar = dataFromGaugesSingleMagnitudeClass(var, testFactor, orderDeriv)
+			dataClasses += (dataVar, )
+			# dataInnerPitchLink = dataFromGaugesSingleMagnitudeClass('InnerPitchLink', testFactor, orderDeriv)
+		# dataClasses = (dataMainPitchLink, dataInnerPitchLink)
+		# dataClasses = (dataMainPitchLink,)
+		inputFolderAddress = loadFileAddresses(CMDoptionsDict['fileNameOfFileToLoadFiles'])
 
 		mag = magComplex[:2]
 
@@ -69,16 +68,22 @@ if gaugesFlag:
 						listOfFilesInFolderMathingVar += [fileName2]
 
 			listOfFilesSortedInFolder = sortFilesInFolderByLastNumberInName(listOfFilesInFolderMathingVar, CMDoptionsDict)
-			# pdb.set_trace()
+
 			for dataClass in dataClasses: #For each class variable
 				print('\n'+'---> Importing data for variable: ' + dataClass.get_description() + ', '+mag+ ' values')
 					
 				for fileName in listOfFilesSortedInFolder: #For each file matching the criteria
 
+					fileFoundFlag = False
 					if dataClass.get_description() in fileName: #Restring to only file matching type of variable of class
 
 						print('\n'+'-> Reading: ' + fileName)
 						dataClass.importDataForClass(fileName, mag, CMDoptionsDict)
+						fileFoundFlag = True
+
+				if not fileFoundFlag:
+					pass
+					# raise ValueError('ERROR: Not file found for the selected parameters in working folder')
 
 				#Here dataClass has collected the full data for a variable and magnitude
 
@@ -144,11 +149,11 @@ if gaugesFlag:
 						dataClass.set_prescribedLoadsTO([4080/10, -820/10])
 
 					elif mag == 'lp':
-						dataClass.set_prescribedLoadsTO([1630])
+						dataClass.set_prescribedLoadsTO([1630/10])
 						dataClass.set_prescribedLoadsTOLimits([1.05, 0.95])
 
 					elif mag == 'hp':
-						dataClass.set_prescribedLoadsTO([2450, -2450])
+						dataClass.set_prescribedLoadsTO([2450/10, -2450/10])
 						dataClass.set_prescribedLoadsTOLimits([1.03, 0.97])
 
 				elif dataClass.get_description() in ('DistanceSensor', 'CF', 'BendingMoment', 'MyBlade', 'MyLoadcell', 'MzBlade'):
@@ -197,12 +202,16 @@ if gaugesFlag:
 
 #Import data from actuator
 elif actuatorFlag:
+
+	# Import plot settings
+	plotSettings = importPlottingOptions()
+
 	print('\n'+'**** Running data analysis program for actuator measurements'+'\n')
-	inputFilesAddress = loadFileAddresses(CMDoptionsDict['fileNameOfFileToLoadFiles'])
+	inputDataClass = loadFileAddressesAndData(CMDoptionsDict['fileNameOfFileToLoadFiles'], 'actuator')
 
 	dataFromRuns, previousNCycles, iFile = [], 0, 1
 
-	for file in inputFilesAddress.getTupleFiles():
+	for file in inputDataClass.getTupleFiles():
 
 		print('-> Reading: ' + file.split('\\')[-1])
 		dataFromRun_temp = importDataActuator(file, iFile, CMDoptionsDict)
@@ -230,17 +239,17 @@ elif actuatorFlag:
 	# dataFromRuns[0].plotSingleRun(plotSettings)
 	# dataFromRuns[-1].plotSingleRun(plotSettings)
 
-	plotAllRuns_force(dataFromRuns, plotSettings, CMDoptionsDict)
-	plotAllRuns_displacement(dataFromRuns, plotSettings, CMDoptionsDict)
+	plotAllRuns_force(dataFromRuns, plotSettings, CMDoptionsDict, inputDataClass)
+	plotAllRuns_displacement(dataFromRuns, plotSettings, CMDoptionsDict, inputDataClass)
 
 elif actuatorMesswerteFlag:
 
 	print('\n'+'**** Running data analysis program for actuator measurements, all data'+'\n')
-	inputFilesAddress = loadFileAddresses(CMDoptionsDict['fileNameOfFileToLoadFiles'])
+	inputDataClass = loadFileAddresses(CMDoptionsDict['fileNameOfFileToLoadFiles'])
 
 	dataFromRuns, iFile, lastDataPointCounter = [], 1, 0
 
-	for file in inputFilesAddress.getTupleFiles():
+	for file in inputDataClass.getTupleFiles():
 
 		print('-> Reading: ' + file.split('\\')[-1])
 		dataFromRun_temp = importDataActuator(file, iFile, CMDoptionsDict)
@@ -253,7 +262,7 @@ elif actuatorMesswerteFlag:
 
 		iFile += 1
 
-	plotAllRuns_force_Messwerte(dataFromRuns, plotSettings, CMDoptionsDict)
+	plotAllRuns_force_Messwerte(dataFromRuns, plotSettings, CMDoptionsDict, inputDataClass)
 
 
 plt.show(block = CMDoptionsDict['showFigures'])
