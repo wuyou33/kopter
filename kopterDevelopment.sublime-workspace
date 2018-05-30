@@ -4,6 +4,26 @@
 		"selected_items":
 		[
 			[
+				"mag",
+				"magnitude"
+			],
+			[
+				"val",
+				"valueLine"
+			],
+			[
+				"var",
+				"variableStringKey"
+			],
+			[
+				"dic",
+				"dict_temp"
+			],
+			[
+				"vla",
+				"valueLine"
+			],
+			[
 				"def",
 				"def\tFunction"
 			],
@@ -26,10 +46,6 @@
 			[
 				"skip",
 				"skipLines"
-			],
-			[
-				"mag",
-				"magnitudes"
 			],
 			[
 				"file",
@@ -90,10 +106,6 @@
 			[
 				"va",
 				"var"
-			],
-			[
-				"var",
-				"variableName"
 			],
 			[
 				"gor",
@@ -415,7 +427,7 @@
 			"file": "fatigueData/moduleFunctions.py",
 			"settings":
 			{
-				"buffer_size": 49153,
+				"buffer_size": 50360,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -426,6 +438,15 @@
 			{
 				"buffer_size": 3705,
 				"encoding": "Western (Windows 1252)",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "fatigueData/fatigueInputFiles/filesToLoad_gauges_TRbladeholder.txt",
+			"settings":
+			{
+				"buffer_size": 775,
+				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
@@ -442,29 +463,43 @@
 			"file": "fti/testToImport.vbs",
 			"settings":
 			{
-				"buffer_size": 362,
+				"buffer_size": 427,
 				"encoding": "UTF-8",
-				"line_ending": "Windows",
-				"name": "' filesNamesDataInput = Array(\"testsInitData\\oldHo"
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "fti/testsInitData/TRbladeholderFatigue.vbs",
+			"settings":
+			{
+				"buffer_size": 4531,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
 			}
 		},
 		{
 			"file": "fatigueData/fatigueInputFiles/filesToLoad_gauges_steelLinks.txt",
 			"settings":
 			{
-				"buffer_size": 469,
+				"buffer_size": 619,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"contents": "import os\nimport sys\nimport pdb #pdb.set_trace()\nimport getopt\n\nfrom moduleFunctions import *\n\n# CMD input\n# actuator:\n# python main.py -f filesToLoad_actuator_outerBearing.txt -o -2.1,2.1 -s t\n# \n# gauges:\n# python main.py -f filesToLoad_gauges_enduranceActuatorNewBearing.txt -v DruckHP1,DruckHP2,DurchflussHP1,DurchflussHP2,ForcePistonEyeHP1,ForcePistonEyeHP2,InputForce,LaserPiston,LaserSteuerventilhebel,OutputForce,TemperaturHP1,TemperaturHP2 -m lp -o f -s t,t -r 1,2,3,4,5,6,7,8,9 -a t\n# python main.py -f filesToLoad_gauges_TRbladeholder.txt -v BendingMoment,MyBlade,MyLoadcell,MzBlade,CF -m rs -o f -s t,t -a f -r 11,12,13,14,15\n# python main.py -f filesToLoad_gauges_OC.txt -v Tension,Bending -m rs -o t -s t,t -a f -r 1,2,3,4,5,6\n\n# Dicitionary of loading options\nCMDoptionsDict = {}\n\n#Get working directory\ncwd = os.getcwd()\nCMDoptionsDict['cwd'] = cwd\n\n#Read postProc folder name from CMD\nCMDoptionsDict = readCMDoptionsMainAbaqusParametric(sys.argv[1:], CMDoptionsDict)\n\n# What to do?\ngaugesFlag = CMDoptionsDict['dmsFlag']\nactuatorFlag = CMDoptionsDict['actuatorFlag']\nactuatorMesswerteFlag = CMDoptionsDict['actuatorMesswerte']\n\n# Gauges data analysis\nif gaugesFlag:\n\tprint('\\n'+'**** Running data analysis program for calibrated strain gauges measurements'+'\\n')\n\n\ttestFactor = 1.0 #HZ\n\torderDeriv = 2\t\n\tfor magComplex in CMDoptionsDict['magnitudes']:\n\n\t\t# Import settings\n\t\tplotSettings = importPlottingOptions()\n\n\t\tdataClasses = ()\n\t\tfor var in CMDoptionsDict['variables']:\n\t\t\tdataVar = dataFromGaugesSingleMagnitudeClass(var, testFactor, orderDeriv)\n\t\t\tdataClasses += (dataVar, )\n\t\t\t# dataInnerPitchLink = dataFromGaugesSingleMagnitudeClass('InnerPitchLink', testFactor, orderDeriv)\n\t\t# dataClasses = (dataMainPitchLink, dataInnerPitchLink)\n\t\t# dataClasses = (dataMainPitchLink,)\n\t\tinputFolderAddress = loadFileAddresses(CMDoptionsDict['fileNameOfFileToLoadFiles'])\n\n\t\tmag = magComplex[:2]\n\n\t\tif magComplex[2:]:\n\t\t\tadditionalMag = magComplex[2:]\n\n\t\tfor folderName in inputFolderAddress.getTupleFiles(): #For each folder with min, max or mean values\n\t\t\tos.chdir(folderName)\n\t\t\tlistOfFilesInFolderMathingVar = []\n\t\t\tfor fileName2 in os.listdir(folderName):\n\t\t\t\tif magComplex[2:]:\n\t\t\t\t\tif fileName2.startswith(mag) and fileName2.split('__')[-2][:-2] == additionalMag:\n\t\t\t\t\t\t# pdb.set_trace()\n\t\t\t\t\t\tlistOfFilesInFolderMathingVar += [fileName2]\n\t\t\t\telse:\n\t\t\t\t\tif fileName2.startswith(mag):\n\t\t\t\t\t\t# pdb.set_trace()\n\t\t\t\t\t\tlistOfFilesInFolderMathingVar += [fileName2]\n\n\t\t\tlistOfFilesSortedInFolder = sortFilesInFolderByLastNumberInName(listOfFilesInFolderMathingVar, CMDoptionsDict)\n\n\t\t\tfor dataClass in dataClasses: #For each class variable\n\t\t\t\tprint('\\n'+'---> Importing data for variable: ' + dataClass.get_description() + ', '+mag+ ' values')\n\t\t\t\t\t\n\t\t\t\tfor fileName in listOfFilesSortedInFolder: #For each file matching the criteria\n\n\t\t\t\t\tfileFoundFlag = False\n\t\t\t\t\tif dataClass.get_description() in fileName: #Restring to only file matching type of variable of class\n\n\t\t\t\t\t\tprint('\\n'+'-> Reading: ' + fileName)\n\t\t\t\t\t\tdataClass.importDataForClass(fileName, mag, CMDoptionsDict)\n\t\t\t\t\t\tfileFoundFlag = True\n\n\t\t\t\tif not fileFoundFlag:\n\t\t\t\t\tpass\n\t\t\t\t\t# raise ValueError('ERROR: Not file found for the selected parameters in working folder')\n\n\t\t\t\t#Here dataClass has collected the full data for a variable and magnitude\n\n\t\t\t\tif mag in ('hp', 'lp'):\n\t\t\t\t\tdataClass.getTimeList('rs')\n\t\t\t\telse:\n\t\t\t\t\tdataClass.getTimeList(mag)\n\t\t\t\t\n\t\t\t\tdataClass.reStartXvaluesAndLastID()\n\n\t\t\t\tif mag == 'rs' and False:\n\n\t\t\t\t\tnewPicksMax, newPicksMean, newPicksMin, timePicks = dataClass.computePicks() ###STRANGE ERROR, PYTHON BUG?\n\t\t\t\t\tdataClass.updatePicksData(newPicksMax, newPicksMean, newPicksMin, timePicks)\n\n\t\t# Plotting\n\t\tfor dataClass in dataClasses: #For each class variable\n\n\t\t\t#################################\n\n\t\t\t# Insert data from prescribed loading from the test order\n\t\t\tif CMDoptionsDict['testOrderFlagFromCMD']:\n\n\t\t\t\tCMDoptionsDict['testOrderFlag'] = True\n\n\t\t\t\tif dataClass.get_description() in ('PitchLinkMain'):\n\n\t\t\t\t\tif mag == 'rs':\n\t\t\t\t\t\tdataClass.set_prescribedLoadsTO([3600, -1600])\n\n\t\t\t\t\telif mag == 'lp': #5% error allowed from the alternate loading\n\t\t\t\t\t\tdataClass.set_prescribedLoadsTO([1000])\n\t\t\t\t\t\tdataClass.set_prescribedLoadsTOLimits([1.05, 0.95])\n\n\t\t\t\t\telif mag == 'hp': #3% error allowed from the alternate loading\n\t\t\t\t\t\tdataClass.set_prescribedLoadsTO([2600, -2600])\n\t\t\t\t\t\tdataClass.set_prescribedLoadsTOLimits([1.03, 0.97])\n\n\t\t\t\telif dataClass.get_description() in ('PitchLinkFlexible'):\n\n\t\t\t\t\tif mag == 'rs':\n\t\t\t\t\t\tdataClass.set_prescribedLoadsTO([3600*1.15, -1600*1.15])\n\n\t\t\t\t\telif mag == 'lp':\n\t\t\t\t\t\tdataClass.set_prescribedLoadsTO([1000*1.15])\n\t\t\t\t\t\tdataClass.set_prescribedLoadsTOLimits([1.05, 0.95])\n\n\t\t\t\t\telif mag == 'hp':\n\t\t\t\t\t\tdataClass.set_prescribedLoadsTO([2600*1.15, -2600*1.15])\n\t\t\t\t\t\tdataClass.set_prescribedLoadsTOLimits([1.03, 0.97])\n\n\t\t\t\telif dataClass.get_description() in ('Tension'):\n\t\t\t\t\tdataClass.set_prescribedLoadsTO([4992, -3058]) #first phase\n\t\t\t\t\t# dataClass.set_prescribedLoadsTO([5998, -4064]) #second phase\n\n\t\t\t\telif dataClass.get_description() in ('Bending'):\n\t\t\t\t\tdataClass.set_prescribedLoadsTO([960, -588]) #first phase\n\t\t\t\t\t# dataClass.set_prescribedLoadsTO([1153, -781]) #second phase\n\n\t\t\t\telif dataClass.get_description() in ('Force-SN27', 'Force-SN28'):\n\n\t\t\t\t\tif mag == 'rs':\n\t\t\t\t\t\tdataClass.set_prescribedLoadsTO([4080/10, -820/10])\n\n\t\t\t\t\telif mag == 'lp':\n\t\t\t\t\t\tdataClass.set_prescribedLoadsTO([1630/10])\n\t\t\t\t\t\tdataClass.set_prescribedLoadsTOLimits([1.05, 0.95])\n\n\t\t\t\t\telif mag == 'hp':\n\t\t\t\t\t\tdataClass.set_prescribedLoadsTO([2450/10, -2450/10])\n\t\t\t\t\t\tdataClass.set_prescribedLoadsTOLimits([1.03, 0.97])\n\n\t\t\t\telif dataClass.get_description() in ('DistanceSensor', 'CF', 'BendingMoment', 'MyBlade', 'MyLoadcell', 'MzBlade'):\n\n\t\t\t\t\tif dataClass.get_description() in ('CF'):\n\t\t\t\t\t\tdataClass.set_prescribedLoadsTO([11446, 0.0])\n\t\t\t\t\t\tCMDoptionsDict['testOrderFlag'] = True\n\n\t\t\t\t\telif dataClass.get_description() in ('BendingMoment'):\n\t\t\t\t\t\tdataClass.set_prescribedLoadsTO([-48, 36]) #Reversed sign, it seems the recording is recording data with opposite sign\n\t\t\t\t\t\tCMDoptionsDict['testOrderFlag'] = True\n\n\t\t\t\t\telse:\n\t\t\t\t\t\tCMDoptionsDict['testOrderFlag'] = False\n\n\t\t\t\telse:\n\t\t\t\t\traise ValueError('ERROR: Incorrect handeling of the test order flag loop')\n\n\n\t\t\t#Plotting max, min and mean from DIAdem\n\t\t\t# dataClass.plotMaxMinMean_fromDIAdem(plotSettings)\n\n\t\t\t#Plotting resampled total data\n\t\t\tif CMDoptionsDict['showFigures'] or CMDoptionsDict['saveFigure']:\n\t\t\t\tdataClass.plotResampled(plotSettings, CMDoptionsDict, mag, (False, [], []), inputDataClass)\n\n\t\t\t# dataClass.plotMinMeanMax(plotSettings)\n\t\t\t# pass\n\n\t\t# Additional calculations\n\t\tif CMDoptionsDict['additionalCalsFlag']:\n\n\t\t\tprint('\\n\\n'+'-> Additional calculations in progress...')\n\n\t\t\t# dataAdditional = dataFromGaugesSingleMagnitudeClass('forceFighting', testFactor, orderDeriv)\n\t\t\tif CMDoptionsDict['additionalCalsOpt'] == 1:\n\t\t\t\tdataAdditional = dataFromGaugesSingleMagnitudeClass('forceFightingEyes(HP1-HP2)', testFactor, orderDeriv)\n\t\t\t\tdataAdditional.addDataManual1(dataClasses)\n\t\t\t\tdataAdditional.plotResampled(plotSettings, CMDoptionsDict, mag, (False, [], []))\n\t\t\telif CMDoptionsDict['additionalCalsOpt'] == 2:\n\t\t\t\tdataAdditional = dataFromGaugesSingleMagnitudeClass('forceSumEyes(HP1+HP2)', testFactor, orderDeriv)\n\t\t\t\tdataAdditional.addDataManual2(dataClasses)\n\t\t\t\tdataAdditional.plotResampled(plotSettings, CMDoptionsDict, mag, (True, dataClasses, 'OutputForce'))\n\n\tos.chdir(cwd)\n\n#Import data from actuator\nelif actuatorFlag:\n\n\t# Import plot settings\n\tplotSettings = importPlottingOptions()\n\n\tprint('\\n'+'**** Running data analysis program for actuator measurements'+'\\n')\n\tinputDataClass = loadFileAddressesAndData(CMDoptionsDict['fileNameOfFileToLoadFiles'], 'actuator')\n\n\tdataFromRuns, previousNCycles, iFile = [], 0, 1\n\n\tfor file in inputDataClass.getTupleFiles():\n\n\t\tprint('-> Reading: ' + file.split('\\\\')[-1])\n\t\tdataFromRun_temp = importDataActuator(file, iFile, CMDoptionsDict)\n\n\t\tdataFromRun_temp.setAbsoluteNCycles(previousNCycles)\n\n\t\tpreviousNCycles = dataFromRun_temp.get_absoluteNCycles()[-1]\n\n\t\tprint('\\t'+'-> Last computed data point index (accumulated): ' + str(int(previousNCycles)/1000000.0) + ' millions')\n\n\t\tdataFromRuns += [dataFromRun_temp]\n\n\t\tiFile += 1\n\n\n\t#################################\n\t#Calculate std and mean of recorded values\n\tif 'OC' in CMDoptionsDict['fileNameOfFileToLoadFiles']:\n\t\tcalculate_stats(dataFromRuns[:-2]) #Only the first loading phase\n\telse:\n\t\tcalculate_stats(dataFromRuns)\n\n\t#################################\n\t#Plot data\n\t# dataFromRuns[0].plotSingleRun(plotSettings)\n\t# dataFromRuns[-1].plotSingleRun(plotSettings)\n\n\tplotAllRuns_force(dataFromRuns, plotSettings, CMDoptionsDict, inputDataClass)\n\tplotAllRuns_displacement(dataFromRuns, plotSettings, CMDoptionsDict, inputDataClass)\n\nelif actuatorMesswerteFlag:\n\n\tprint('\\n'+'**** Running data analysis program for actuator measurements, all data'+'\\n')\n\tinputDataClass = loadFileAddresses(CMDoptionsDict['fileNameOfFileToLoadFiles'])\n\n\tdataFromRuns, iFile, lastDataPointCounter = [], 1, 0\n\n\tfor file in inputDataClass.getTupleFiles():\n\n\t\tprint('-> Reading: ' + file.split('\\\\')[-1])\n\t\tdataFromRun_temp = importDataActuator(file, iFile, CMDoptionsDict)\n\n\t\tlastDataPointCounter += dataFromRun_temp.get_lastDataPointCounter()\n\n\t\tprint('\\t'+'-> Last computed data point index (accumulated): ' + str(int(lastDataPointCounter)/1000000.0) + ' millions')\n\n\t\tdataFromRuns += [dataFromRun_temp]\n\n\t\tiFile += 1\n\n\tplotAllRuns_force_Messwerte(dataFromRuns, plotSettings, CMDoptionsDict, inputDataClass)\n\n\nplt.show(block = CMDoptionsDict['showFigures'])",
 			"file": "fatigueData/main.py",
-			"file_size": 9928,
-			"file_write_time": 131720783989057020,
 			"settings":
 			{
-				"buffer_size": 9677,
+				"buffer_size": 7699,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "fatigueData/fatigueInputFiles/filesToLoad_gauges_spider.txt",
+			"settings":
+			{
+				"buffer_size": 693,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -550,6 +585,7 @@
 	],
 	"file_history":
 	[
+		"/P/kopter/fti/testToImport.vbs",
 		"/P/kopter/fti/testsInitData/spiderFatigue.vbs",
 		"/P/kopter/fti/shortScripts.vbs",
 		"/P/kopter/fti/testsInitData/HousingP2.vbs",
@@ -676,8 +712,7 @@
 		"/L/TEMP/michal/flap_stop/dampingUncer.py",
 		"/P/10_code/kopter/main_versionsBackup.py",
 		"/P/10_code/kopter/inputDirectories.txt",
-		"/L/MSH/02_Development/SKYe S09/05_Flight Systems/50_Engineering/J62/J62-00 General/40_Testing/41_FTI/22_DATA ANALYSIS P2/MFST_postprocessing_CalculationScript_v01.VBS",
-		"/P/10_code/kopter/improvements.py"
+		"/L/MSH/02_Development/SKYe S09/05_Flight Systems/50_Engineering/J62/J62-00 General/40_Testing/41_FTI/22_DATA ANALYSIS P2/MFST_postprocessing_CalculationScript_v01.VBS"
 	],
 	"find":
 	{
@@ -695,6 +730,24 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"(N)",
+			"magnitude ==",
+			"margin =",
+			"margin",
+			"x-label",
+			"__variablesInfoDict",
+			"get_variablesInfoDict",
+			"inputFolderAddress",
+			"loadFileAddressesAndData",
+			"variableClass",
+			"addVariablesInfoDict",
+			"currentVariable",
+			"valueLine",
+			"valueLine0",
+			"dict_temp",
+			"inputDataClassDef",
+			"inputDataClass",
+			"section_index",
 			"plotResampled",
 			"set_trace",
 			"CMDoptionsDict",
@@ -804,25 +857,7 @@
 			"\"\\\"",
 			"13",
 			"\"\\\"",
-			"Array",
-			"13",
-			" _",
-			"iterators",
-			"Bending moment (Loadcell) w\\o offset (Nm)_Mean",
-			"fileName",
-			"loadScript_saveFlagResampledDataCSV",
-			"split('_')",
-			"split",
-			"DataFileSaveSel",
-			"_",
-			"CSV",
-			"DataFileSaveSel",
-			"variableName",
-			"originalChannel.Name",
-			"originalChannel",
-			"id",
-			"False",
-			"counter_b"
+			"Array"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -841,7 +876,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -850,7 +885,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 49153,
+						"buffer_size": 50360,
 						"regions":
 						{
 						},
@@ -871,7 +906,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 9,
 					"type": "text"
 				},
 				{
@@ -901,17 +936,45 @@
 						"translation.y": 554.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 8,
 					"type": "text"
 				}
 			]
 		},
 		{
-			"selected": 3,
+			"selected": 4,
 			"sheets":
 			[
 				{
 					"buffer": 2,
+					"file": "fatigueData/fatigueInputFiles/filesToLoad_gauges_TRbladeholder.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 775,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								450,
+								450
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
 					"file": "fti/PostProc_CompTesting_Alejandro.VBS",
 					"semi_transient": false,
 					"settings":
@@ -934,39 +997,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1131.0,
+						"translation.y": 3276.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "fti/testToImport.vbs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 362,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								362,
-								362
-							]
-						],
-						"settings":
-						{
-							"auto_name": "' filesNamesDataInput = Array(\"testsInitData\\oldHo",
-							"syntax": "Packages/VBScript/VBScript.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
@@ -975,15 +1009,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 49153,
+						"buffer_size": 50360,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4986,
-								4986
+								31608,
+								31608
 							]
 						],
 						"settings":
@@ -994,27 +1028,159 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 360.0,
+						"translation.y": 12086.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
 					"buffer": 4,
-					"file": "fatigueData/fatigueInputFiles/filesToLoad_gauges_steelLinks.txt",
+					"file": "fti/testToImport.vbs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 469,
+						"buffer_size": 427,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								469,
-								469
+								293,
+								293
+							],
+							[
+								427,
+								427
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/VBScript/VBScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "fti/testsInitData/TRbladeholderFatigue.vbs",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 4531,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3534,
+								3541
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/VBScript/VBScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 468.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "fatigueData/fatigueInputFiles/filesToLoad_gauges_steelLinks.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 619,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								619,
+								619
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 7,
+					"file": "fatigueData/main.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7699,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								794,
+								794
+							]
+						],
+						"settings":
+						{
+							"history_list_is_closing": true,
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 8,
+					"file": "fatigueData/fatigueInputFiles/filesToLoad_gauges_spider.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 693,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								260,
+								260
 							]
 						],
 						"settings":
@@ -1027,51 +1193,9 @@
 					},
 					"stack_index": 1,
 					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 0,
-			"sheets":
-			[
+				},
 				{
-					"buffer": 5,
-					"file": "fatigueData/main.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 9677,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								6604,
-								6618
-							]
-						],
-						"settings":
-						{
-							"history_list_is_closing": true,
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 92.0,
-						"translation.y": 2114.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 1,
-			"sheets":
-			[
-				{
-					"buffer": 6,
+					"buffer": 9,
 					"file": "fti/testsInitData/newHousingP3.vbs",
 					"semi_transient": false,
 					"settings":
@@ -1097,11 +1221,11 @@
 						"translation.y": 741.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 11,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 10,
 					"file": "fatigueData/fatigueInputFiles/filesToLoad_actuator_spider.txt",
 					"semi_transient": false,
 					"settings":
@@ -1171,13 +1295,13 @@
 		"cols":
 		[
 			0.0,
-			0.397778242263,
+			0.433094227393,
 			1.0
 		],
 		"rows":
 		[
 			0.0,
-			0.610734186798,
+			0.461875739309,
 			1.0
 		]
 	},
@@ -1224,7 +1348,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 2,
+	"selected_group": 3,
 	"settings":
 	{
 	},

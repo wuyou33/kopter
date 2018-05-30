@@ -35,10 +35,9 @@ if gaugesFlag:
 
 	testFactor = 1.0 #HZ
 	orderDeriv = 2	
+	# Import settings
+	plotSettings = importPlottingOptions()
 	for magComplex in CMDoptionsDict['magnitudes']:
-
-		# Import settings
-		plotSettings = importPlottingOptions()
 
 		dataClasses = ()
 		for var in CMDoptionsDict['variables']:
@@ -47,14 +46,13 @@ if gaugesFlag:
 			# dataInnerPitchLink = dataFromGaugesSingleMagnitudeClass('InnerPitchLink', testFactor, orderDeriv)
 		# dataClasses = (dataMainPitchLink, dataInnerPitchLink)
 		# dataClasses = (dataMainPitchLink,)
-		inputFolderAddress = loadFileAddresses(CMDoptionsDict['fileNameOfFileToLoadFiles'])
-
+		inputDataClass = loadFileAddressesAndData(CMDoptionsDict['fileNameOfFileToLoadFiles'], 'gauges')
 		mag = magComplex[:2]
 
 		if magComplex[2:]:
 			additionalMag = magComplex[2:]
 
-		for folderName in inputFolderAddress.getTupleFiles(): #For each folder with min, max or mean values
+		for folderName in inputDataClass.getTupleFiles(): #For each folder with min, max or mean values
 			os.chdir(folderName)
 			listOfFilesInFolderMathingVar = []
 			for fileName2 in os.listdir(folderName):
@@ -109,33 +107,7 @@ if gaugesFlag:
 
 				CMDoptionsDict['testOrderFlag'] = True
 
-				if dataClass.get_description() in ('PitchLinkMain'):
-
-					if mag == 'rs':
-						dataClass.set_prescribedLoadsTO([3600, -1600])
-
-					elif mag == 'lp': #5% error allowed from the alternate loading
-						dataClass.set_prescribedLoadsTO([1000])
-						dataClass.set_prescribedLoadsTOLimits([1.05, 0.95])
-
-					elif mag == 'hp': #3% error allowed from the alternate loading
-						dataClass.set_prescribedLoadsTO([2600, -2600])
-						dataClass.set_prescribedLoadsTOLimits([1.03, 0.97])
-
-				elif dataClass.get_description() in ('PitchLinkFlexible'):
-
-					if mag == 'rs':
-						dataClass.set_prescribedLoadsTO([3600*1.15, -1600*1.15])
-
-					elif mag == 'lp':
-						dataClass.set_prescribedLoadsTO([1000*1.15])
-						dataClass.set_prescribedLoadsTOLimits([1.05, 0.95])
-
-					elif mag == 'hp':
-						dataClass.set_prescribedLoadsTO([2600*1.15, -2600*1.15])
-						dataClass.set_prescribedLoadsTOLimits([1.03, 0.97])
-
-				elif dataClass.get_description() in ('Tension'):
+				if dataClass.get_description() in ('Tension'):
 					dataClass.set_prescribedLoadsTO([4992, -3058]) #first phase
 					# dataClass.set_prescribedLoadsTO([5998, -4064]) #second phase
 
@@ -143,42 +115,13 @@ if gaugesFlag:
 					dataClass.set_prescribedLoadsTO([960, -588]) #first phase
 					# dataClass.set_prescribedLoadsTO([1153, -781]) #second phase
 
-				elif dataClass.get_description() in ('Force-SN27', 'Force-SN28'):
-
-					if mag == 'rs':
-						dataClass.set_prescribedLoadsTO([4080/10, -820/10])
-
-					elif mag == 'lp':
-						dataClass.set_prescribedLoadsTO([1630/10])
-						dataClass.set_prescribedLoadsTOLimits([1.05, 0.95])
-
-					elif mag == 'hp':
-						dataClass.set_prescribedLoadsTO([2450/10, -2450/10])
-						dataClass.set_prescribedLoadsTOLimits([1.03, 0.97])
-
-				elif dataClass.get_description() in ('DistanceSensor', 'CF', 'BendingMoment', 'MyBlade', 'MyLoadcell', 'MzBlade'):
-
-					if dataClass.get_description() in ('CF'):
-						dataClass.set_prescribedLoadsTO([11446, 0.0])
-						CMDoptionsDict['testOrderFlag'] = True
-
-					elif dataClass.get_description() in ('BendingMoment'):
-						dataClass.set_prescribedLoadsTO([-48, 36]) #Reversed sign, it seems the recording is recording data with opposite sign
-						CMDoptionsDict['testOrderFlag'] = True
-
-					else:
-						CMDoptionsDict['testOrderFlag'] = False
-
-				else:
-					raise ValueError('ERROR: Incorrect handeling of the test order flag loop')
-
 
 			#Plotting max, min and mean from DIAdem
 			# dataClass.plotMaxMinMean_fromDIAdem(plotSettings)
 
 			#Plotting resampled total data
 			if CMDoptionsDict['showFigures'] or CMDoptionsDict['saveFigure']:
-				dataClass.plotResampled(plotSettings, CMDoptionsDict, mag, (False, [], []))
+				dataClass.plotResampled(plotSettings, CMDoptionsDict, mag, (False, [], []), inputDataClass)
 
 			# dataClass.plotMinMeanMax(plotSettings)
 			# pass

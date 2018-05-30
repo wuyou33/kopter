@@ -1,0 +1,3 @@
+Files to load:
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0173\01_TDMS_data_Set-complete\01_RAW\Zwick data\Run_7_Messwerte.csv
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0173\01_TDMS_data_Set-complete\01_RAW\Zwick data\Run_8_Messwerte.csv

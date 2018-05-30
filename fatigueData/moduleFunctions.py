@@ -137,7 +137,7 @@ def cleanString(stringIn):
 
 		return stringIn
 
-class dataForVariable(object):
+class dataForVariable(object): #NOT IN USE
 	"""docstring for dataForVariable"""
 	def __init__(self):
 		self.__name = []
@@ -172,27 +172,38 @@ def loadFileAddressesAndData(fileName, typeData):
 		return inputDataClass
 
 	
-	def addSectionsInfoGauge(rawLine, section_index, inputDataClass):
+	def addSectionsInfoGauge(rawLine, section_index, inputDataClass, currentVariable):
 		
 		cleanLine = cleanString(rawLine)
 
 		if section_index == 1:
 			inputDataClass.addSharedAddress(cleanString(rawLine))
 
-		elif section_index == 2:
+		elif section_index > 1:
 
 			variableStringKey = cleanLine.split(':')[0]
-			valueLine0 = cleanLine.split(':')[1]
-			valueLine = valueLine0.lstrip()
+			valueLine2 = cleanLine.split(':')[1]
+			valueLine1 = valueLine2.lstrip()
+			valueLine = valueLine1.rstrip()
 
-			if 'BLABLA':
 
-				pass
+			if 'name:' in cleanLine:
 
-			if 'name' in cleanLine:
+				currentVariable = valueLine
+				dict_temp_fromClass = inputDataClass.get_variablesInfoDict()
 
-				variableStringKey = valueLine
+				dict_temp = {'name' : valueLine}
+				inputDataClass.updateVariablesInfoDict(valueLine, dict_temp)
 
+			else:
+
+				dict_temp_fromClass = inputDataClass.get_variablesInfoDict()
+				dict_temp = dict_temp_fromClass[currentVariable]
+				dict_temp[variableStringKey] = valueLine
+				inputDataClass.updateVariablesInfoDict(currentVariable, dict_temp)
+
+
+		return inputDataClass, currentVariable
 
 	file = open(fileName, 'r')
 
@@ -202,13 +213,14 @@ def loadFileAddressesAndData(fileName, typeData):
 
 	newSectionIdentifier = '->'
 
-	section_index = 0
+	section_index, currentVariable = 0, None
 
 	for i in range(0, int((len(lines)))):
 
 		rawLine = lines[i]
 
 		if cleanString(rawLine) != '': #Filter out blank lines
+
 
 			if newSectionIdentifier in rawLine: #Header detected, change to new sections
 
@@ -218,9 +230,9 @@ def loadFileAddressesAndData(fileName, typeData):
 
 				inputDataClass = addSectionsInfoActuator(rawLine, section_index, inputDataClass)
 
-			elif typeData == 'gauge':
+			elif typeData == 'gauges':
 
-				inputDataClass = addSectionsInfoGauge(rawLine, section_index, inputDataClass)
+				inputDataClass, currentVariable = addSectionsInfoGauge(rawLine, section_index, inputDataClass, currentVariable)
 
 	file.close()
 
@@ -257,12 +269,12 @@ class inputDataClassDef(object):
 	def get_testOrderRange(self):
 		return self.__testOrderRange
 
-	def addVariablesInfoDict(self, variableStringKey, variableClass):
+	def updateVariablesInfoDict(self, variableStringKey, variableDict):
 
-		if not 'variableStringKey' in self.__variablesInfoDict.keys():
-			self.__variablesInfoDict['variableStringKey'] = variableClass
-		else:
-			self.__variablesInfoDict.update({'variableStringKey': variableClass})
+		# if not 'variableStringKey' in self.__variablesInfoDict.keys():
+		# 	self.__variablesInfoDict['variableStringKey'] = variableDict
+		# else:
+		self.__variablesInfoDict.update({variableStringKey: variableDict})
 
 	def get_variablesInfoDict(self):
 		return self.__variablesInfoDict
@@ -515,9 +527,6 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		self.__testFactor = testFactor_in
 		self.__orderDeriv = orderDeriv_in
 
-		self.__prescribedLoadsTO = []
-		self.__prescribedLoadsTOLimits = []
-
 		self.__max = []
 		self.__mean = []
 		self.__min = []
@@ -549,13 +558,6 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		self.__xValuesNewRun = []
 		self.__stepID = []
 
-	def set_prescribedLoadsTO(self, loads_in):
-		
-		self.__prescribedLoadsTO = loads_in
-
-	def set_prescribedLoadsTOLimits(self, loads_in):
-		
-		self.__prescribedLoadsTOLimits = loads_in
 
 	def reStartXvaluesAndLastID(self):
 		self.__lastID = 0
@@ -969,13 +971,27 @@ class dataFromGaugesSingleMagnitudeClass(object):
 			previousDiv = div
 			i += 1
 
-		if CMDoptionsDict['testOrderFlagFromCMD']:
+		# Test Order plots 
+		if CMDoptionsDict['testOrderFlagFromCMD'] and inputDataClass.get_variablesInfoDict()[self.__description]['TO spec'] in ('yes', 'y'):
 			maxPlot_x = 0.0
 			minPlot_x = max(self.__timeSecNewRunRs)/self.__freqData[0]
-			for limitLoad in self.__prescribedLoadsTO:
+
+			limitsLoadsBoundaries = []
+			if magnitude == 'rs':
+				limitLoads = [float(t) for t in [inputDataClass.get_variablesInfoDict()[self.__description]['max load'], inputDataClass.get_variablesInfoDict()[self.__description]['min load']]]
+			elif magnitude == 'lp' and inputDataClass.get_variablesInfoDict()[self.__description]['Fatigue load spec'] in ('yes', 'y'):
+				limitLoads = [float(inputDataClass.get_variablesInfoDict()[self.__description]['static load'])]
+				margin = float(inputDataClass.get_variablesInfoDict()[self.__description]['margin static load (%)'])
+				limitsLoadsBoundaries = [1 + (margin/100), 1 - (margin/100)]
+			elif magnitude == 'hp' and inputDataClass.get_variablesInfoDict()[self.__description]['Fatigue load spec'] in ('yes', 'y'):
+				limitLoads = [float(inputDataClass.get_variablesInfoDict()[self.__description]['alternate load']), -float(inputDataClass.get_variablesInfoDict()[self.__description]['alternate load'])]
+				margin = float(inputDataClass.get_variablesInfoDict()[self.__description]['margin alternate load (%)'])
+				limitsLoadsBoundaries = [1 + (margin/100), 1 - (margin/100)]
+
+			for limitLoad in limitLoads:
 				ax.plot([minPlot_x, maxPlot_x], 2*[limitLoad], linestyle = '--', marker = '', c = plotSettings['colors'][5], **plotSettings['line'])
-				if self.__prescribedLoadsTOLimits:
-					for limitLoadBoundary in self.__prescribedLoadsTOLimits:
+				if limitsLoadsBoundaries:
+					for limitLoadBoundary in limitsLoadsBoundaries:
 						ax.plot([minPlot_x, maxPlot_x], 2*[limitLoad*limitLoadBoundary], linestyle = '-.', marker = '', c = plotSettings['colors'][6], **plotSettings['line'])
 
 		# ax.set_xlabel('Number of points [Millions]', **plotSettings['axes_x'])
@@ -986,14 +1002,9 @@ class dataFromGaugesSingleMagnitudeClass(object):
 			ax.set_xlabel('Time elapsed [Seconds]', **plotSettings['axes_x'])
 
 		if True:
-			ax.set_ylabel(inputDataClass.get_variablesInfoDict()[self.__description].get_attr('xLabel'), **plotSettings['axes_y'])
-		elif self.__description in ('DistanceSensor'):
-			ax.set_ylabel('Displacement [mm]', **plotSettings['axes_y'])
+			ax.set_ylabel(inputDataClass.get_variablesInfoDict()[self.__description]['y-label'], **plotSettings['axes_y'])
 
-		elif self.__description in ('DistanceSensor', 'BendingMoment', 'MyBlade', 'MyLoadcell', 'MzBlade'):
-			ax.set_ylabel('Moment [Nm]', **plotSettings['axes_y'])
-
-		elif self.__description in ('STG1', 'STG2', 'SpiderStrain'):
+		elif self.__description in ('STG1', 'STG2'):
 			ax.set_ylabel('Strain [mm\m]', **plotSettings['axes_y'])
 
 		# Magnitudes from the performance test

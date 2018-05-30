@@ -3,16 +3,24 @@ L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\
 
 -> Variable info
 name: PitchLinkMain
-x-label: Force [N]
-static load (N): 1000
-alternate load (N): 2600
-max load (N): 3600
-min load (N): -1600
+y-label: Force [N]
+TO spec: yes
+max load: 3600
+min load: -1600
+Fatigue load spec: yes
+static load: 1000
+margin static load (%): 5
+alternate load: 2600
+margin alternate load (%): 3
 
 -> Variable info
 name: PitchLinkFlexible
-x-label: Force [N]
-static load (N): 1000
-alternate load (N): 2600
-max load (N): 3600
-min load (N): -1600
+y-label: Force [N]
+TO spec: yes
+max load: 4140
+min load: -1840
+Fatigue load spec: yes
+static load: 1150
+margin static load (%): 5
+alternate load: 2990
+margin alternate load (%): 3

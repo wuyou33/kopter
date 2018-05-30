@@ -1,2 +1,42 @@
-Folders to load:
+-> Folders to load:
 L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0169\01_TDMS_data_Set-complete\02_STEPS\csv_data
+
+-> Variable info
+name: CF
+y-label: Force [N]
+TO spec: yes
+max load: 11446
+min load: 0.0
+Fatigue load spec: no
+
+-> Variable info
+name: BendingMoment
+y-label: Moment [Nm]
+TO spec: yes
+max load: 36
+min load: -48
+Fatigue load spec: no
+
+-> Variable info
+name: DistanceSensor
+y-label: Displacement [mm]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: MyBlade
+y-label: Moment [Nm]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: MyLoadcell
+y-label: Moment [Nm]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: MzBlade
+y-label: Moment [Nm]
+TO spec: no
+Fatigue load spec: no
