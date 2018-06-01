@@ -7,20 +7,6 @@ workingFolder = "L:\MSH-Project Management Files\Functional Engineering\Test Div
 ' Where the data will be saved in csv format
 csvFolder = "L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0169\01_TDMS_data_Set-complete\02_STEPS\csv_data\"
 
-' Names of the files that require to be imported from each of the files, fileName.tdms
-' fileNames = Array(_
-'                     "Brücke_(V_V)" _
-'                   , "Druck_HP_1" _
-'                   , "Druck_HP_2" _
-'                   , "Druck_HP_2_[bar]" _
-'                   , "Durchfluss_HP1" _
-'                   , "Durchfluss_HP2" _
-'                   , "Laser_Piston" _
-'                   , "Laser_Steuerventilhebel" _
-'                   , "Temperatur_HP_1" _
-'                   , "Temperatur_HP_2" _
-'                   )
-
 
 ' These are the folders where the data that wants to be imported is contained. Each folder correspond to a differt time step
 commonAddress = "L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0169\01_TDMS_data_Set-complete\02_STEPS"
@@ -49,9 +35,16 @@ fileNamesBigArrayFolders = Array( _
   ,  Array(commonAddress & "\", "1312", Array("STEP_1312.TDM")) _
   )
 
+' The variable iterators is used to load and operate only selected steps from above
+' iterators = Array("1312")
+iterators = Array("1201","1202","1203","1204","1205","1206","1207","1208","1209","1210","1301","1302","1303","1304","1305","1306","1307","1308","1309","1310")',"1311","1312"'
+' iterators = Array("1311","1312")
+' iterators = Array("19","20")
+
 ' variable names inside DIAdem -> variable names for the files to be saved
 ' This dictionary contains the original variable names as keys. For each key, a corresponding simplified name is assign and this will be used
 ' in the "csv" file name.
+' The variable name has to be written without: spaces , . _ -
 dictVaDiadem.Add "Distance Sensor w\o offset (mm)_Mean", "DistanceSensor"
 dictVaDiadem.Add "Centrifugal force w\o offset (N)_Mean", "CF"
 dictVaDiadem.Add "Bending moment (Loadcell) w\o offset (Nm)_Mean", "BendingMoment"
@@ -70,10 +63,6 @@ loadScript_saveFlagResampledDataTDM = True 'possible values: True or False
 fileNameWithoutIterator_pre = "resampled"
 fileNameWithoutIterator_post = "__"&newFreq&"Hz__step" '+iterator 
 fileFormatImport = ".TDM"
-' iterators = Array("1201","1202","1203","1204","1205","1206","1207","1208","1209","1210","1301","1302","1303","1304","1305","1306","1307","1308","1309","1310")
-' iterators = Array("15","16","17","18")
-' iterators = Array("19","20")
-iterators = Array("1312")
 
 filterFreq = 0.1 'Hz'
 

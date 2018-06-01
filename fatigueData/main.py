@@ -57,11 +57,11 @@ if gaugesFlag:
 			listOfFilesInFolderMathingVar = []
 			for fileName2 in os.listdir(folderName):
 				if magComplex[2:]:
-					if fileName2.startswith(mag) and fileName2.split('__')[-2][:-2] == additionalMag:
+					if fileName2.startswith(mag) and float(fileName2.split('.csv')[0].split('__')[-1]) in CMDoptionsDict['rangeFileIDs'] and fileName2.split('__')[-2][:-2] == additionalMag:
 						# pdb.set_trace()
 						listOfFilesInFolderMathingVar += [fileName2]
 				else:
-					if fileName2.startswith(mag):
+					if fileName2.startswith(mag) and float(fileName2.split('.csv')[0].split('__')[-1]) in CMDoptionsDict['rangeFileIDs']:
 						# pdb.set_trace()
 						listOfFilesInFolderMathingVar += [fileName2]
 
@@ -72,19 +72,13 @@ if gaugesFlag:
 					
 				for fileName in listOfFilesSortedInFolder: #For each file matching the criteria
 
-					fileFoundFlag = False
 					if dataClass.get_description() in fileName: #Restring to only file matching type of variable of class
 
 						print('\n'+'-> Reading: ' + fileName)
 						dataClass.importDataForClass(fileName, mag, CMDoptionsDict)
-						fileFoundFlag = True
 
-				if not fileFoundFlag:
-					pass
-					# raise ValueError('ERROR: Not file found for the selected parameters in working folder')
 
 				#Here dataClass has collected the full data for a variable and magnitude
-
 				if mag in ('hp', 'lp'):
 					dataClass.getTimeList('rs')
 				else:
@@ -157,7 +151,7 @@ elif actuatorFlag:
 	for file in inputDataClass.getTupleFiles():
 
 		print('-> Reading: ' + file.split('\\')[-1])
-		dataFromRun_temp = importDataActuator(file, iFile, CMDoptionsDict)
+		dataFromRun_temp = importDataActuator(file, iFile, CMDoptionsDict, inputDataClass)
 
 		dataFromRun_temp.setAbsoluteNCycles(previousNCycles)
 
@@ -187,17 +181,25 @@ elif actuatorFlag:
 
 elif actuatorMesswerteFlag:
 
-	print('\n'+'**** Running data analysis program for actuator measurements, all data'+'\n')
-	inputDataClass = loadFileAddresses(CMDoptionsDict['fileNameOfFileToLoadFiles'])
+	# Import plot settings
+	plotSettings = importPlottingOptions()
 
-	dataFromRuns, iFile, lastDataPointCounter = [], 1, 0
+	print('\n'+'**** Running data analysis program for actuator measurements, all data'+'\n')
+	inputDataClass = loadFileAddressesAndData(CMDoptionsDict['fileNameOfFileToLoadFiles'], 'actuatorMesswerte')
+
+	dataFromRuns, iFile, lastDataPointCounter, lastTimeList, totalTime = [], 1, 0, [], []
 
 	for file in inputDataClass.getTupleFiles():
 
 		print('-> Reading: ' + file.split('\\')[-1])
-		dataFromRun_temp = importDataActuator(file, iFile, CMDoptionsDict)
+		dataFromRun_temp = importDataActuator(file, iFile, CMDoptionsDict, inputDataClass)
 
 		lastDataPointCounter += dataFromRun_temp.get_lastDataPointCounter()
+		
+		if not lastTimeList: #If list is empty
+			lastTimeList += [dataFromRun_temp.get_time()[-1]]
+		else:
+			lastTimeList += [lastTimeList[-1]+dataFromRun_temp.get_time()[-1]]
 
 		print('\t'+'-> Last computed data point index (accumulated): ' + str(int(lastDataPointCounter)/1000000.0) + ' millions')
 
@@ -205,7 +207,10 @@ elif actuatorMesswerteFlag:
 
 		iFile += 1
 
-	plotAllRuns_force_Messwerte(dataFromRuns, plotSettings, CMDoptionsDict, inputDataClass)
+	timesDict = {'lastTimeList': lastTimeList}
+
+	# plotAllRuns_force_Messwerte(dataFromRuns, plotSettings, CMDoptionsDict, inputDataClass)
+	plotAllRuns_filtered_Messwerte(dataFromRuns, timesDict, plotSettings, CMDoptionsDict, inputDataClass)
 
 
 plt.show(block = CMDoptionsDict['showFigures'])

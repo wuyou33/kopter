@@ -1,3 +1,20 @@
-Files to load:
+-> Files to load:
 L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0173\01_TDMS_data_Set-complete\01_RAW\Zwick data\Run_7_Messwerte.csv
 L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0173\01_TDMS_data_Set-complete\01_RAW\Zwick data\Run_8_Messwerte.csv
+
+-> Test runs
+7,8
+
+-> Signal characteristics actuator
+sampling_freq: 300
+cycle_freq: 6
+time_offset: 2
+cut-off_freq: 0.01
+TO spec: yes
+max load: 4.08
+min load: -0.82
+Fatigue load spec: yes
+static load: 1.63
+margin static load (%): 5
+alternate load: 2.45
+margin alternate load (%): 3
