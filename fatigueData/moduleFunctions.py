@@ -14,8 +14,8 @@ import pdb #pdb.set_trace()
 ###### Functions
 def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 
-	short_opts = "f:v:m:o:s:r:a:c:" #"o:f:"
-	long_opts = ["fileName=","variables=","magnitudes=","testOrder=","saveFigure=","rangeFileIDs=","additionalCals=","correctionFilter="] #["option=","fileName="]
+	short_opts = "f:v:m:o:s:r:a:c:n:" #"o:f:"
+	long_opts = ["fileName=","variables=","magnitudes=","testOrder=","saveFigure=","rangeFileIDs=","additionalCals=","correctionFilter=", "multipleYaxisInSameFigure="] #["option=","fileName="]
 	try:
 		opts, args = getopt.getopt(argv,short_opts,long_opts)
 	except getopt.GetoptError:
@@ -43,6 +43,8 @@ def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 				CMDoptionsDict['actuatorMesswerte'] = False
 				CMDoptionsDict['actuatorFlag'] = True
 				CMDoptionsDict['dmsFlag'] = False
+			else:
+				raise ValueError('ERROR: Wrong input for parameter '+opt)
 
 		elif opt in ("-v", "--variables"):
 
@@ -59,8 +61,7 @@ def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 			elif arg.lower() in ('false', 'f'):
 				CMDoptionsDict['testOrderFlagFromCMD'] = False
 			else:
-				CMDoptionsDict['testOrderRange'] = [float(t) for t in arg.split(',')]
-				CMDoptionsDict['testOrderFlagFromCMD'] = True
+				raise ValueError('ERROR: Wrong input for parameter '+opt)
 
 		elif opt in ("-s", "--saveFigure"):
 
@@ -76,6 +77,8 @@ def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 				CMDoptionsDict['showFigures'] = True
 			elif argShowFigure.lower() in ('false', 'f'):
 				CMDoptionsDict['showFigures'] = False
+			else:
+				raise ValueError('ERROR: Wrong input for parameter '+opt)
 
 		elif opt in ("-r", "--rangeFileIDs"):
 
@@ -97,6 +100,16 @@ def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 				CMDoptionsDict['correctionFilterFlag'] = True
 				CMDoptionsDict['correctionFilterNum'] = float(arg)
 
+		elif opt in ("-n", "--multipleYaxisInSameFigure"):
+
+			if arg.lower() in ('true', 't'):
+				CMDoptionsDict['multipleYaxisInSameFigure'] = True
+				CMDoptionsDict['numberMultipleYaxisInSameFigure'] = max(len(CMDoptionsDict['variables']),len(CMDoptionsDict['magnitudes']))
+			elif arg.lower() in ('false', 'f'):
+				CMDoptionsDict['multipleYaxisInSameFigure'] = False
+			else:
+				raise ValueError('ERROR: Wrong input for parameter '+opt)
+
 	return CMDoptionsDict
 
 def sortFilesInFolderByLastNumberInName(listOfFiles, CMDoptionsDict):
@@ -106,8 +119,7 @@ def sortFilesInFolderByLastNumberInName(listOfFiles, CMDoptionsDict):
 		if file.endswith('.csv'):
 			fileID_0 = file.split('.csv')[0]
 			fileID_int = int(fileID_0.split('__')[-1])
-			if fileID_int in CMDoptionsDict['rangeFileIDs']:
-				a += [(file, fileID_int),]
+			a += [(file, fileID_int),]
 
 	a_sorted = sorted(a, key=lambda x: x[1])
 	listOfFilesSorted = [b[0] for b in a_sorted]
@@ -124,25 +136,145 @@ def cleanString(stringIn):
 
 		return stringIn
 
-def loadFileAddresses(fileName): 
+class dataForVariable(object): #NOT IN USE
+	"""docstring for dataForVariable"""
+	def __init__(self):
+		self.__name = []
+		self.__xLabel = []
+		self.__staticLoad = []
+		self.__alternateLoad = []
+		self.__maxLoad = []
+		self.__minLoad = []
+
+	def set_attr(self, attr_string, value):
+		
+		self.setattr('__'+attr_string, value)
+
+	def get_attr(self, attr_string):
+		
+		return self.getattr('__'+attr_string)
+		
+
+def loadFileAddressesAndData(fileName, typeData):
+
+	def addSectionsInfoActuator(rawLine, section_index, inputDataClass):
+		
+		cleanLine = cleanString(rawLine)
+		
+		if section_index == 1:
+			inputDataClass.addSharedAddress(cleanLine)
+
+		elif section_index == 2:
+
+			inputDataClass.addDataFromTestOrder([float(t) for t in cleanLine.split(',')])
+
+		return inputDataClass
+
+	def addSectionsInfoActuatorMesswerte(rawLine, section_index, inputDataClass):
+		
+		cleanLine = cleanString(rawLine)
+		
+		if section_index == 1:
+			inputDataClass.addSharedAddress(cleanLine)
+
+		elif section_index == 2:
+
+			dict_temp_fromClass = inputDataClass.get_actuatorDataInfoDict()
+
+			if not 'runs' in dict_temp_fromClass.keys():
+
+				valueLine1 = cleanLine.lstrip()
+				valueLine = valueLine1.rstrip()
+
+				valueRuns = [int(t) for t in valueLine.split(',')]
+
+				inputDataClass.updateActuatorDataInfoDict('runs', valueRuns)
+
+		elif section_index == 3:
+
+			variableStringKey = cleanLine.split(':')[0]
+			valueLine2 = cleanLine.split(':')[1]
+			valueLine1 = valueLine2.lstrip()
+			valueLine = valueLine1.rstrip()
+
+			dict_temp_fromClass = inputDataClass.get_actuatorDataInfoDict()
+
+			if not variableStringKey in dict_temp_fromClass.keys():
+
+				inputDataClass.updateActuatorDataInfoDict(variableStringKey, valueLine)
+
+		return inputDataClass
+
+	
+	def addSectionsInfoGauge(rawLine, section_index, inputDataClass, currentVariable):
+		
+		cleanLine = cleanString(rawLine)
+
+		if section_index == 1:
+			inputDataClass.addSharedAddress(cleanString(rawLine))
+
+		elif section_index > 1:
+
+			variableStringKey = cleanLine.split(':')[0]
+			valueLine2 = cleanLine.split(':')[1]
+			valueLine1 = valueLine2.lstrip()
+			valueLine = valueLine1.rstrip()
+
+
+			if 'name:' in cleanLine:
+
+				currentVariable = valueLine
+				dict_temp_fromClass = inputDataClass.get_variablesInfoDict()
+
+				dict_temp = {'name' : valueLine}
+				inputDataClass.updateVariablesInfoDict(valueLine, dict_temp)
+
+			else:
+
+				dict_temp_fromClass = inputDataClass.get_variablesInfoDict()
+				dict_temp = dict_temp_fromClass[currentVariable]
+				dict_temp[variableStringKey] = valueLine
+				inputDataClass.updateVariablesInfoDict(currentVariable, dict_temp)
+
+
+		return inputDataClass, currentVariable
 
 	file = open(fileName, 'r')
 
 	lines = file.readlines()
 
-	directoryAddressClass = inputDataClassDef()
+	inputDataClass = inputDataClassDef()
 
-	for i in range(1, int((len(lines)))):
+	newSectionIdentifier = '->'
+
+	section_index, currentVariable = 0, None
+
+	for i in range(0, int((len(lines)))):
 
 		rawLine = lines[i]
 
-		if rawLine != '':
+		if cleanString(rawLine) != '': #Filter out blank lines
 
-			directoryAddressClass.addSharedAddress(cleanString(rawLine))
+
+			if newSectionIdentifier in rawLine: #Header detected, change to new sections
+
+				section_index += 1
+				
+			elif typeData == 'actuator':
+
+				inputDataClass = addSectionsInfoActuator(rawLine, section_index, inputDataClass)
+
+			elif typeData == 'actuatorMesswerte':
+
+				inputDataClass = addSectionsInfoActuatorMesswerte(rawLine, section_index, inputDataClass)
+
+			elif typeData == 'gauges':
+
+				inputDataClass, currentVariable = addSectionsInfoGauge(rawLine, section_index, inputDataClass, currentVariable)
 
 	file.close()
 
-	return directoryAddressClass
+	return inputDataClass
 
 class inputDataClassDef(object):
 	"""docstring for inputData"""
@@ -152,6 +284,9 @@ class inputDataClassDef(object):
 		"""
 
 		self.__setOfAddress_tuple = ()
+		self.__testOrderRange = []
+		self.__variablesInfoDict= {}
+		self.__actuatorDataInfoDict= {}
 
 	def addSharedAddress(self, fileAddress):
 
@@ -163,11 +298,32 @@ class inputDataClassDef(object):
 
 			print('WARNING: Address '+fileAddress+' does not exist or is not a directory, entry skipped')
 
+	def updateActuatorDataInfoDict(self, variableStringKey, variableDict):
+
+		self.__actuatorDataInfoDict.update({variableStringKey: variableDict})
+
+	def get_actuatorDataInfoDict(self):
+		return self.__actuatorDataInfoDict
+
+	def addDataFromTestOrder(self, testOrderRange_in):
+		self.__testOrderRange = testOrderRange_in
+
 	def getTupleFiles(self):
 
 		return self.__setOfAddress_tuple
 
-def importDataActuator(fileName, iFile, CMDoptionsDict):
+	def get_testOrderRange(self):
+		return self.__testOrderRange
+
+	def updateVariablesInfoDict(self, variableStringKey, variableDict):
+
+		self.__variablesInfoDict.update({variableStringKey: variableDict})
+
+	def get_variablesInfoDict(self):
+		return self.__variablesInfoDict
+
+
+def importDataActuator(fileName, iFile, CMDoptionsDict, inputDataClass):
 
 	file = open(fileName, 'r')
 	lines = file.readlines()
@@ -224,9 +380,28 @@ def importDataActuator(fileName, iFile, CMDoptionsDict):
 
 		print('\t'+'-> Last computed data point index (file): ' + str(lineN/1000000.0) + ' millions')
 
-		dataFromRun = dataFromRunClassMesswerte(iFile, fileNameShort.split('__')[0]+'_'+fileNameShort.split('__')[1], lineN)
+		dataFromRun = dataFromRunClassMesswerte(iFile, fileNameShort.split('_')[0]+'_'+fileNameShort.split('_')[1], lineN)
 
 		dataFromRun.add_data(weg, kraft)
+
+		# Artificially create time vector
+		step_from_freq = 1 / float(inputDataClass.get_actuatorDataInfoDict()['sampling_freq'])
+		time_from_freq = np.arange(0.0, step_from_freq*(lineN - int(inputDataClass.get_actuatorDataInfoDict()['time_offset'])), step = step_from_freq)
+		dataFromRun.add_time(time_from_freq)
+		assert len(time_from_freq) == len(kraft), 'ERROR: Vector length mismatch. The length of the force vector is '+ str(len(kraft))+' and the length of the time vector is '+str(len(time_from_freq))
+
+		#Filtering
+		low_pass_force_data = filter(kraft, float(inputDataClass.get_actuatorDataInfoDict()['sampling_freq']), 'low-pass', float(inputDataClass.get_actuatorDataInfoDict()['cut-off_freq'])) #0.1 Hz of cut-off freq
+		high_pass_force_data = filter(kraft, float(inputDataClass.get_actuatorDataInfoDict()['sampling_freq']), 'high-pass', float(inputDataClass.get_actuatorDataInfoDict()['cut-off_freq'])) #0.1 Hz of cut-off freq
+		low_pass_displ_data = filter(weg, float(inputDataClass.get_actuatorDataInfoDict()['sampling_freq']), 'low-pass', float(inputDataClass.get_actuatorDataInfoDict()['cut-off_freq'])) #0.1 Hz of cut-off freq
+		high_pass_displ_data = filter(weg, float(inputDataClass.get_actuatorDataInfoDict()['sampling_freq']), 'high-pass', float(inputDataClass.get_actuatorDataInfoDict()['cut-off_freq'])) #0.1 Hz of cut-off freq
+
+		if CMDoptionsDict['correctionFilterFlag']:
+				low_pass_force_data = [t + CMDoptionsDict['correctionFilterNum'] for t in low_pass_force_data]
+				high_pass_force_data = [t - CMDoptionsDict['correctionFilterNum'] for t in high_pass_force_data]
+		
+		dataFromRun.add_filteredData(lowpass_displ_in = low_pass_displ_data, highpass_displ_in = high_pass_displ_data, lowpass_force_in = low_pass_force_data, highpass_force_in = high_pass_force_data)
+
 
 	return dataFromRun
 
@@ -247,7 +422,7 @@ def importPlottingOptions():
 	#Plotting options
 	axes_label_x  = {'size' : 14, 'weight' : 'bold', 'verticalalignment' : 'top', 'horizontalalignment' : 'center'} #'verticalalignment' : 'top'
 	axes_label_y  = {'size' : 14, 'weight' : 'bold', 'verticalalignment' : 'bottom', 'horizontalalignment' : 'center'} #'verticalalignment' : 'bottom'
-	text_title_properties = {'weight' : 'bold', 'size' : 16}
+	text_title_properties = {'weight' : 'bold', 'size' : 14}
 	axes_ticks = {'labelsize' : 10}
 	line = {'linewidth' : 2, 'markersize' : 2}
 	scatter = {'linewidths' : 2}
@@ -262,6 +437,12 @@ def importPlottingOptions():
 	                'axesTicks':axes_ticks, 'line':line, 'legend':legend, 'grid':grid, 'scatter':scatter,
 	                'colors' : colors, 'markers' : markers, 'linestyles' : linestyles, 'axes_ticks_n' : axes_ticks_n}
 
+	# Additional computing data
+	plotSettings['currentAxis'] = [None, -1] #[Axis object, index]
+	plotSettings['listMultipleAxes'] = None
+	plotSettings['currentFigureMultipleAxes'] = None
+
+
 	return plotSettings
 
 class dataFromRunClassMesswerte(object):
@@ -269,23 +450,37 @@ class dataFromRunClassMesswerte(object):
 	def __init__(self, id_in, testName_in, lastDataPointCounter_in):
 		# super(dataFromRun, self).__init__()
 
-		self.__id = id_in
+		self.id = id_in
 		self.__name = testName_in
 		self.__lastDataPointCounter = lastDataPointCounter_in
 
+	def get_attr(self, attr_string):
+		
+		return getattr(self, attr_string)
+
+	def add_time(self,time_in):
+		self.__time = time_in
+
 	def add_data(self, weg_in, kraft_in):
 		
-		self.__weg = weg_in
-		self.__kraft = kraft_in
+		self.weg = weg_in
+		self.kraft = kraft_in
 
-	def get_lastDataPointCounter(self):
-		return self.__id
+	def add_filteredData(self, lowpass_force_in, highpass_force_in, lowpass_displ_in, highpass_displ_in):
+		
+		self.lowpass_force = lowpass_force_in
+		self.highpass_force = highpass_force_in
+		self.lowpass_displ = lowpass_displ_in
+		self.highpass_displ = highpass_displ_in
+
 	def get_name(self):
 		return self.__name
 	def get_weg(self):
-		return self.__weg
+		return self.weg
 	def get_kraft(self):
-		return self.__kraft
+		return self.kraft
+	def get_time(self):
+		return self.__time
 	def get_lastDataPointCounter(self):
 		return self.__lastDataPointCounter
 
@@ -408,9 +603,6 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		self.__testFactor = testFactor_in
 		self.__orderDeriv = orderDeriv_in
 
-		self.__prescribedLoadsTO = []
-		self.__prescribedLoadsTOLimits = []
-
 		self.__max = []
 		self.__mean = []
 		self.__min = []
@@ -442,13 +634,6 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		self.__xValuesNewRun = []
 		self.__stepID = []
 
-	def set_prescribedLoadsTO(self, loads_in):
-		
-		self.__prescribedLoadsTO = loads_in
-
-	def set_prescribedLoadsTOLimits(self, loads_in):
-		
-		self.__prescribedLoadsTOLimits = loads_in
 
 	def reStartXvaluesAndLastID(self):
 		self.__lastID = 0
@@ -518,9 +703,40 @@ class dataFromGaugesSingleMagnitudeClass(object):
 
 		self.set_magData(fieldOfFile, data)
 
-		# Min and max
-		self.__MinMax += [[min(data), max(data)]]
+		# Remove outliers and calculate max and min
+		flagOutliers = False
+		if flagOutliers and fieldOfFile in ('lp', 'hp'):
 
+			# split in ranges
+			range_spacing = 10000
+			size_vector = len(data)
+			intervals = int(np.floor(size_vector/range_spacing))
+			x_range_interest, y_range_interest, x_range_interest_2, y_range_interest_2 = [], [], [], []
+
+			for i in range(intervals):
+
+				x_range = data[int(i*range_spacing):int((i+1)*range_spacing)]
+
+				x_range_interest += [max(x_range)]
+				y_range_interest += [x_range.index(max(x_range)) + 1] #Index of the vector starts with 0, the first y value is 1
+				
+				x_range_interest_2 += [min(x_range)]
+				y_range_interest_2 += [x_range.index(min(x_range)) + 1] #Index of the vector starts with 0, the first y value is 1
+				# print(str(i))
+
+
+			x_range_woOutliers, y_range_woOutliers = getNewVectorWithoutOutliers(x_range_interest, y_range_interest)
+			x_range_woOutliers_2, y_range_woOutliers_2 = getNewVectorWithoutOutliers(x_range_interest_2, y_range_interest_2)
+
+			if fieldOfFile in ('hp'):
+				self.__MinMax += [[max(min(x_range_woOutliers), abs(max(x_range_woOutliers_2))), min(max(x_range_woOutliers), abs(min(x_range_woOutliers_2)))]]
+			elif fieldOfFile in ('lp'):
+				self.__MinMax += [[min(x_range_woOutliers), max(x_range_woOutliers)]] #This is not the way this should work, SOMETHING IS WRONG- Removal of outliers does not work
+
+		else:
+			# Min and max
+			self.__MinMax += [[min(data), max(data)]]
+		
 		self.__lastID = dataID[-1]
 
 		self.__xValuesNewRun += [dataID[-1],]
@@ -540,7 +756,11 @@ class dataFromGaugesSingleMagnitudeClass(object):
 
 		# Last computed point stats
 		print('\t'+'-> Last computed data point index (file): ' + str(counter/1000000.0) + ' millions / '+calculateDaysHoursMinutes_string(counter, self.__freqData[-1]))
-		print('\t'+'-> Max and min values read (file), max: ' + str(round(self.__MinMax[-1][1], 3)) + ', min: '+str(round(self.__MinMax[-1][0], 3)))
+		print('\t'+'-> Max and min values read (file), max: ' + str(max(data)) + ', min: '+str(min(data)))
+
+		if flagOutliers and fieldOfFile in ('lp', 'hp'):
+			print('\t'+'-> Max and min values without outliers (file), max: ' + str(round(self.__MinMax[-1][1], 2)) + ', min: '+str(round(self.__MinMax[-1][0], 2)))
+		
 		if fieldOfFile in ('rs', 'lp', 'hp'):
 			print('\t'+'-> Last computed data point index (accumulated): ' + str(dataID[-1]/1000000.0) + ' millions / '+calculateDaysHoursMinutes_string(dataID[-1], self.__freqData[-1]))
 
@@ -770,15 +990,28 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		ax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])
 		ax.minorticks_on()
 
-	def plotResampled(self, plotSettings, CMDoptionsDict, magnitude, additionalInput):
+	def plotResampled(self, plotSettings, CMDoptionsDict, magnitude, additionalInput, inputDataClass):
 
-		figure, ax = plt.subplots(1, 1)
-		figure.set_size_inches(10, 6, forward=True)
+		if CMDoptionsDict['multipleYaxisInSameFigure'] and CMDoptionsDict['numberMultipleYaxisInSameFigure'] != 1 and plotSettings['currentAxis'][1] == -1:
+			figure, axesList = plt.subplots(CMDoptionsDict['numberMultipleYaxisInSameFigure'], 1, sharex='col')
+			figure.set_size_inches(12, 8, forward=True)
+			plotSettings.update({'listMultipleAxes': axesList})
+			plotSettings.update({'currentFigureMultipleAxes': figure})
 
-		if CMDoptionsDict['correctionFilterFlag']:
-			ax.plot( [t/self.__freqData[0] for t in self.__timeRs], [o + CMDoptionsDict['correctionFilterNum'] for o in self.__rs], linestyle = '-', marker = '', c = plotSettings['colors'][0], label = self.__description, **plotSettings['line'])
+			ax = axesList[0]
+			plotSettings.update({'currentAxis': [ax, 0]})
+
+		elif CMDoptionsDict['multipleYaxisInSameFigure'] and CMDoptionsDict['numberMultipleYaxisInSameFigure'] != 1 and plotSettings['currentAxis'][1] != -1:
+			
+			new_ax_id = plotSettings['currentAxis'][1]+1
+			ax = plotSettings['listMultipleAxes'][new_ax_id]
+			plotSettings.update({'currentAxis': [ax, new_ax_id]})
 		else:
-			ax.plot( [t/self.__freqData[0] for t in self.__timeRs], self.__rs, linestyle = '-', marker = '', c = plotSettings['colors'][0], label = self.__description, **plotSettings['line'])
+			# Normal operation, one single plot
+			figure, ax = plt.subplots(1, 1)
+			figure.set_size_inches(10, 6, forward=True)
+
+		ax.plot( [t/self.__freqData[0] for t in self.__timeRs], self.__rs, linestyle = '-', marker = '', c = plotSettings['colors'][0], label = self.__description, **plotSettings['line'])
 
 		# Mean based on max and min
 		mean_min = np.mean([setOne[0] for setOne in self.__MinMax])
@@ -813,24 +1046,38 @@ class dataFromGaugesSingleMagnitudeClass(object):
 			previousDiv = div
 			i += 1
 
-		if CMDoptionsDict['testOrderFlagFromCMD']:
+		# Test Order plots 
+		if CMDoptionsDict['testOrderFlagFromCMD'] and ( (inputDataClass.get_variablesInfoDict()[self.__description]['TO spec'] in ('yes', 'y') and magnitude == 'rs') or (inputDataClass.get_variablesInfoDict()[self.__description]['Fatigue load spec'] in ('yes', 'y') and magnitude in ('lp', 'hp')) ):
 			maxPlot_x = 0.0
 			minPlot_x = max(self.__timeSecNewRunRs)/self.__freqData[0]
-			for limitLoad in self.__prescribedLoadsTO:
+
+			limitsLoadsBoundaries = []
+			if magnitude == 'rs':
+				limitLoads = [float(t) for t in [inputDataClass.get_variablesInfoDict()[self.__description]['max load'], inputDataClass.get_variablesInfoDict()[self.__description]['min load']]]
+			elif magnitude == 'lp' and inputDataClass.get_variablesInfoDict()[self.__description]['Fatigue load spec'] in ('yes', 'y'):
+				limitLoads = [float(inputDataClass.get_variablesInfoDict()[self.__description]['static load'])]
+				margin = float(inputDataClass.get_variablesInfoDict()[self.__description]['margin static load (%)'])
+				limitsLoadsBoundaries = [1 + (margin/100), 1 - (margin/100)]
+			elif magnitude == 'hp' and inputDataClass.get_variablesInfoDict()[self.__description]['Fatigue load spec'] in ('yes', 'y'):
+				limitLoads = [float(inputDataClass.get_variablesInfoDict()[self.__description]['alternate load']), -float(inputDataClass.get_variablesInfoDict()[self.__description]['alternate load'])]
+				margin = float(inputDataClass.get_variablesInfoDict()[self.__description]['margin alternate load (%)'])
+				limitsLoadsBoundaries = [1 + (margin/100), 1 - (margin/100)]
+
+			for limitLoad in limitLoads:
 				ax.plot([minPlot_x, maxPlot_x], 2*[limitLoad], linestyle = '--', marker = '', c = plotSettings['colors'][5], **plotSettings['line'])
-				if self.__prescribedLoadsTOLimits:
-					for limitLoadBoundary in self.__prescribedLoadsTOLimits:
+				if limitsLoadsBoundaries:
+					for limitLoadBoundary in limitsLoadsBoundaries:
 						ax.plot([minPlot_x, maxPlot_x], 2*[limitLoad*limitLoadBoundary], linestyle = '-.', marker = '', c = plotSettings['colors'][6], **plotSettings['line'])
 
 		# ax.set_xlabel('Number of points [Millions]', **plotSettings['axes_x'])
 		# ax.set_xlabel('Time elapsed [Million seconds]', **plotSettings['axes_x'])
-		ax.set_xlabel('Time elapsed [Seconds]', **plotSettings['axes_x'])
+		if not CMDoptionsDict['multipleYaxisInSameFigure']:
+			ax.set_xlabel('Time elapsed [Seconds]', **plotSettings['axes_x'])
+		elif CMDoptionsDict['numberMultipleYaxisInSameFigure']==(plotSettings['currentAxis'][1]+1):
+			ax.set_xlabel('Time elapsed [Seconds]', **plotSettings['axes_x'])
 
-		if self.__description in ('DistanceSensor'):
-			ax.set_ylabel('Displacement [mm]', **plotSettings['axes_y'])
-
-		elif self.__description in ('DistanceSensor', 'BendingMoment', 'MyBlade', 'MyLoadcell', 'MzBlade'):
-			ax.set_ylabel('Moment [Nm]', **plotSettings['axes_y'])
+		if True:
+			ax.set_ylabel(inputDataClass.get_variablesInfoDict()[self.__description]['y-label'], **plotSettings['axes_y'])
 
 		elif self.__description in ('STG1', 'STG2'):
 			ax.set_ylabel('Strain [mm\m]', **plotSettings['axes_y'])
@@ -876,12 +1123,18 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		axdouble_in_y.set_ylim(ax.get_ylim())
 
 		#Save figure
-		if CMDoptionsDict['saveFigure']:
+		if CMDoptionsDict['saveFigure'] and not CMDoptionsDict['multipleYaxisInSameFigure']:
 
 			if additionalInput[0]:
 				figure.savefig(os.path.join(CMDoptionsDict['cwd'], magnitude+'_'+','.join([str(i) for i in CMDoptionsDict['rangeFileIDs']])+'_'+self.__description+'&'+additionalInput[2]+'.png'))
 			else: 
 				figure.savefig(os.path.join(CMDoptionsDict['cwd'], magnitude+'_'+','.join([str(i) for i in CMDoptionsDict['rangeFileIDs']])+'_'+self.__description+'.png'))
+		elif CMDoptionsDict['saveFigure'] and CMDoptionsDict['numberMultipleYaxisInSameFigure']==(plotSettings['currentAxis'][1]+1): #CMDoptionsDict['multipleYaxisInSameFigure'] is True
+
+			figure = plotSettings['currentFigureMultipleAxes']
+			figure.savefig(os.path.join(CMDoptionsDict['cwd'], ','.join([str(i) for i in CMDoptionsDict['magnitudes']])+'_'+','.join([str(i) for i in CMDoptionsDict['rangeFileIDs']])+'_'+','.join([str(i) for i in CMDoptionsDict['variables']])+'.png'))
+
+		return plotSettings
 
 	def plotMinMeanMax(self, plotSettings):
 
@@ -921,7 +1174,7 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		print('--> Mean force applied in complete test (mean value):'+str(round(np.mean(self.__meanPicks), 3))+' N')
 		print('--> Minimum force applied in complete test (mean value):'+str(round(np.mean(self.__minPicks), 3))+' N')
 
-def plotAllRuns_force(dataFromRuns, plotSettings, CMDoptionsDict):
+def plotAllRuns_force(dataFromRuns, plotSettings, CMDoptionsDict, inputDataClass):
 
 	def threePlotForRun(dataFromRun, plotSettings, ax):
 		
@@ -957,8 +1210,8 @@ def plotAllRuns_force(dataFromRuns, plotSettings, CMDoptionsDict):
 	
 	#Plot prescribed loads from the T
 	if CMDoptionsDict['testOrderFlagFromCMD']:
-		ax.plot([0.0, dataFromRuns[-1].get_absoluteNCycles_mill()[-1]], 2*[CMDoptionsDict['testOrderRange'][0]], linestyle = '--', marker = '', c = plotSettings['colors'][5], **plotSettings['line'])
-		ax.plot([0.0, dataFromRuns[-1].get_absoluteNCycles_mill()[-1]], 2*[CMDoptionsDict['testOrderRange'][-1]], linestyle = '--', marker = '', c = plotSettings['colors'][5], **plotSettings['line'])
+		ax.plot([0.0, dataFromRuns[-1].get_absoluteNCycles_mill()[-1]], 2*[inputDataClass.get_testOrderRange()[0]], linestyle = '--', marker = '', c = plotSettings['colors'][5], **plotSettings['line'])
+		ax.plot([0.0, dataFromRuns[-1].get_absoluteNCycles_mill()[-1]], 2*[inputDataClass.get_testOrderRange()[-1]], linestyle = '--', marker = '', c = plotSettings['colors'][5], **plotSettings['line'])
 
 	ax.set_xlabel('Number of cycles [Millions]', **plotSettings['axes_x'])
 	ax.set_ylabel('Force [kN]', **plotSettings['axes_y'])
@@ -999,7 +1252,7 @@ def plotAllRuns_force(dataFromRuns, plotSettings, CMDoptionsDict):
 		figure.savefig(os.path.join(CMDoptionsDict['cwd'], 'ActuatorLoads.png'))
 
 
-def plotAllRuns_force_Messwerte(dataFromRuns, plotSettings, CMDoptionsDict):
+def plotAllRuns_force_Messwerte(dataFromRuns, plotSettings, CMDoptionsDict, inputDataClass):
 
 	def cumputeDiffFnNotContinous(x, y):
 		
@@ -1093,7 +1346,7 @@ def plotAllRuns_force_Messwerte(dataFromRuns, plotSettings, CMDoptionsDict):
 		figure.savefig(os.path.join(CMDoptionsDict['cwd'], 'ActuatorForceDisplacement.png'))
 
 
-def plotAllRuns_displacement(dataFromRuns, plotSettings, CMDoptionsDict):
+def plotAllRuns_displacement(dataFromRuns, plotSettings, CMDoptionsDict, inputDataClass):
 
 	def threePlotForRun(dataFromRun, plotSettings, ax):
 		
@@ -1236,8 +1489,6 @@ def calculate_stats(dataFromRuns):
 		interval_mean = roundToOneSignificant(abs(intervals_mean[1] - intervals_mean[0]))
 		interval_min = roundToOneSignificant(abs(intervals_min[1] - intervals_min[0]))
 
-	# pdb.set_trace()
-
 	print('\n'+'-> Range for max values: '+str(truncateToSignificantOfOtherNum(mean_max, interval_max)) + '+-'+ str(interval_max)+' KN (for 95% confidence interval)')
 	print('-> Range for mean values: '+str(truncateToSignificantOfOtherNum(mean_mean, interval_mean)) + '+-'+ str(interval_mean)+' KN (for 95% confidence interval)')
 	print('-> Range for min values: '+str(truncateToSignificantOfOtherNum(mean_min, interval_min)) + '+-'+ str(interval_min)+' KN (for 95% confidence interval)')
@@ -1276,7 +1527,10 @@ def getNewVectorWithoutOutliers(x_list, y_list):
 		
 		# New vectors
 		x_out, y_out, outliers = [], [], []
+<<<<<<< HEAD
 
+=======
+>>>>>>> 482daaf2f6546c733e185e7b25425d54ccec6a0b
 		for x,y,e in zip(x_list, y_list, e_list):
 
 			factor = abs(e) / np.sqrt(vari_error)
@@ -1290,6 +1544,7 @@ def getNewVectorWithoutOutliers(x_list, y_list):
 
 		return x_out, y_out, outliers
 
+<<<<<<< HEAD
 	# split in ranges
 	range_spacing = 100
 	init_range = 0
@@ -1304,8 +1559,144 @@ def getNewVectorWithoutOutliers(x_list, y_list):
 
 	# Linear fit
 	# f(x) = regre[0]*x_list + regre[1]
+=======
+	assert len(x_list) == len(y_list), 'ERROR: Mismatch between the sizes of x, y'
+
+	# Linear fit
+	# f(x) = regre[0]*x_list + regre[1]
+
+>>>>>>> 482daaf2f6546c733e185e7b25425d54ccec6a0b
 	regre = np.polyfit(x_list, y_list, 1)
 
 	error_list, vari = errorVectorFunction(x_list, y_list, regre)
 
+<<<<<<< HEAD
 	x_list, y_list, outliers = removeOutliers(x_list, y_list, error_list, vari, 1.960) #2.576 
+=======
+	x_list_woOutliers, y_list_woOutliers, outliers = removeOutliers(x_list, y_list, error_list, vari, 1.960) #2.576
+
+	return x_list_woOutliers, y_list_woOutliers
+
+def plotAllRuns_filtered_Messwerte(dataFromRuns, timesDict, plotSettings, CMDoptionsDict, inputDataClass):
+	
+	attrs_to_plot_list = [['kraft', 'lowpass_force', 'highpass_force'], ['weg', 'lowpass_displ', 'highpass_displ']]
+	titles = {'kraft': 'Force measured by the actuator',
+				'weg' : 'Displacement imposed by the actuator',
+				'lowpass_force': 'Force low-pass filtered with '+inputDataClass.get_actuatorDataInfoDict()['cut-off_freq']+' Hz cut-off freq.', 
+				'highpass_force': 'Force high-pass filtered with '+inputDataClass.get_actuatorDataInfoDict()['cut-off_freq']+' Hz cut-off freq.',
+				'lowpass_displ': 'Displacement low-pass filtered with '+inputDataClass.get_actuatorDataInfoDict()['cut-off_freq']+' Hz cut-off freq.', 
+				'highpass_displ': 'Displacement high-pass filtered with '+inputDataClass.get_actuatorDataInfoDict()['cut-off_freq']+' Hz cut-off freq.'}
+
+	for attrs_to_plot in attrs_to_plot_list:
+		figure, axesList = plt.subplots(3, 1, sharex='col')
+		figure.set_size_inches(12, 8, forward=True)
+
+		for ax, attr in zip(axesList, attrs_to_plot):
+
+			LastData, lastPoint = None, 0.0
+
+			for data in dataFromRuns:
+
+				if not LastData:
+					ax.plot( data.get_time().tolist(), data.get_attr(attr), linestyle = '-', marker = '', c = plotSettings['colors'][0], label = data.get_name(), **plotSettings['line'])
+				else:
+					lastPoint += LastData.get_time().tolist()[-1]
+					ax.plot( [t+lastPoint for t in data.get_time().tolist()] , data.get_attr(attr), linestyle = '-', marker = '', c = plotSettings['colors'][0], label = data.get_name(), **plotSettings['line'])
+
+					#Give mean high-pass
+					if attr == 'highpass_force':
+						print('Mean value: ' + str(np.mean(data.get_attr(attr))))
+
+				LastData = data
+
+
+
+			#Division line for runs
+			valuesMaxRs = ax.get_ylim()[1]
+			valuesMinRs = ax.get_ylim()[0]
+			maxPlot_y = valuesMaxRs*1.2 if valuesMaxRs > 0.0 else valuesMaxRs*0.8
+			minPlot_y = valuesMinRs*0.8 if valuesMinRs > 0.0 else valuesMinRs*1.2
+			previousDiv = 0.0
+			i = 0
+			ax.plot(2*[0.0], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
+			for div in timesDict['lastTimeList']:
+				ax.plot(2*[div], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
+
+				#Add text with step number
+				ax.text(previousDiv + ((div - previousDiv)/2), minPlot_y, 'Step '+str(inputDataClass.get_actuatorDataInfoDict()['runs'][i]), bbox=dict(facecolor='black', alpha=0.2), horizontalalignment = 'center')
+				
+				previousDiv = div
+				i += 1
+
+			if CMDoptionsDict['testOrderFlagFromCMD'] and inputDataClass.get_actuatorDataInfoDict()['TO spec'] in ('yes', 'y') and ('force' in attr or 'kraft' in attr):
+				maxPlot_x = 0.0
+				minPlot_x = timesDict['lastTimeList'][-1]
+				limitsLoadsBoundaries = []
+				if attr == 'kraft':
+					limitLoads = [float(t) for t in [inputDataClass.get_actuatorDataInfoDict()['max load'], inputDataClass.get_actuatorDataInfoDict()['min load']]]
+				elif attr == 'lowpass_force' and inputDataClass.get_actuatorDataInfoDict()['Fatigue load spec'] in ('yes', 'y'):
+					limitLoads = [float(inputDataClass.get_actuatorDataInfoDict()['static load'])]
+					margin = float(inputDataClass.get_actuatorDataInfoDict()['margin static load (%)'])
+					limitsLoadsBoundaries = [1 + (margin/100), 1 - (margin/100)]
+				elif attr == 'highpass_force' and inputDataClass.get_actuatorDataInfoDict()['Fatigue load spec'] in ('yes', 'y'):
+					limitLoads = [float(inputDataClass.get_actuatorDataInfoDict()['alternate load']), -float(inputDataClass.get_actuatorDataInfoDict()['alternate load'])]
+					margin = float(inputDataClass.get_actuatorDataInfoDict()['margin alternate load (%)'])
+					limitsLoadsBoundaries = [1 + (margin/100), 1 - (margin/100)]
+
+				for limitLoad in limitLoads:
+					ax.plot([minPlot_x, maxPlot_x], 2*[limitLoad], linestyle = '--', marker = '', c = plotSettings['colors'][5], **plotSettings['line'])
+					if limitsLoadsBoundaries:
+						for limitLoadBoundary in limitsLoadsBoundaries:
+							ax.plot([minPlot_x, maxPlot_x], 2*[limitLoad*limitLoadBoundary], linestyle = '-.', marker = '', c = plotSettings['colors'][6], **plotSettings['line'])
+
+			if 'force' in attr or 'kraft' in attr:
+				ax.set_ylabel('Force [KN]', **plotSettings['axes_y'])
+			elif 'weg' in attr or 'displ' in attr:
+				ax.set_ylabel('Displ. [mm]', **plotSettings['axes_y'])
+
+			ax.set_title(titles[attr], **plotSettings['title'])
+
+			#Figure settings
+			ax.grid(which='both', **plotSettings['grid'])
+			ax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])
+			ax.minorticks_on()
+
+			#Double y-axis 
+			axdouble_in_y = ax.twinx()
+			axdouble_in_y.minorticks_on()
+			axdouble_in_y.set_ylim(ax.get_ylim())
+
+		#Only last ax
+		ax.set_xlabel('Time [s]', **plotSettings['axes_x'])
+
+		#Save figure
+		if CMDoptionsDict['saveFigure']:
+
+			figure.savefig(os.path.join(CMDoptionsDict['cwd'], titles[attrs_to_plot[0]]+'.png'))
+
+
+def filter(data, fs, typeFilter, cutoff):
+
+	from scipy.signal import butter, lfilter, freqz
+
+	def butter_filter(data, cutoff, fs, typeFilter_in, order_in=5):
+		if 'low' in typeFilter_in:
+			typeFilter = 'low'
+		elif 'high' in typeFilter_in:
+			typeFilter = 'high'
+		# nyq = 0.5 * fs
+		# normal_cutoff = cutoff / nyq
+		b, a = butter(order, cutoff, btype=typeFilter, analog=False)
+		y = lfilter(b, a, data)
+		return y
+
+	# Filter requirements.
+	order = 6
+	# fs = 30.0       # sample rate, Hz
+	# cutoff = 3.667  # desired cutoff frequency of the filter, Hz
+
+	y = butter_filter(data, cutoff, fs, typeFilter,order_in = order)
+	y = butter_filter(y, cutoff, fs, typeFilter,order_in = order)
+
+	return y
+>>>>>>> 482daaf2f6546c733e185e7b25425d54ccec6a0b

@@ -1,2 +1,26 @@
-Folders to load:
+-> Folders to load:
 L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0164\01_TDMS_data_Set-complete\02_STEPS\csv_data
+
+-> Variable info
+name: PitchLinkMain
+y-label: Force [N]
+TO spec: yes
+max load: 3600
+min load: -1600
+Fatigue load spec: yes
+static load: 1000
+margin static load (%): 5
+alternate load: 2600
+margin alternate load (%): 3
+
+-> Variable info
+name: PitchLinkFlexible
+y-label: Force [N]
+TO spec: yes
+max load: 4140
+min load: -1840
+Fatigue load spec: yes
+static load: 1150
+margin static load (%): 5
+alternate load: 2990
+margin alternate load (%): 3

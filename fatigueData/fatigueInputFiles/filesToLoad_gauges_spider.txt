@@ -1,2 +1,32 @@
-Folders to load:
+-> Folders to load:
 L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0173\01_TDMS_data_Set-complete\02_STEPS\csv_data
+
+-> Variable info
+name: Force-SN27
+y-label: Force [N]
+TO spec: yes
+max load: 408
+min load: -82
+Fatigue load spec: yes
+static load: 163
+margin static load (%): 5
+alternate load: 245
+margin alternate load (%): 3
+
+-> Variable info
+name: Force-SN28
+y-label: Force [N]
+TO spec: yes
+max load: 408
+min load: -82
+Fatigue load spec: yes
+static load: 163
+margin static load (%): 5
+alternate load: 245
+margin alternate load (%): 3
+
+-> Variable info
+name: SpiderStrain
+y-label: Strain [mm\m]
+TO spec: no
+Fatigue load spec: no

@@ -6,6 +6,9 @@ import getopt
 from moduleFunctions import *
 
 # CMD input
+# actuator:
+# python main.py -f filesToLoad_actuator_outerBearing.txt -o -2.1,2.1 -s t
+# 
 # gauges:
 # python main.py -f filesToLoad_gauges_enduranceActuatorNewBearing.txt -v DruckHP1,DruckHP2,DurchflussHP1,DurchflussHP2,ForcePistonEyeHP1,ForcePistonEyeHP2,InputForce,LaserPiston,LaserSteuerventilhebel,OutputForce,TemperaturHP1,TemperaturHP2 -m lp -o f -s t,t -r 1,2,3,4,5,6,7,8,9 -a t
 # python main.py -f filesToLoad_gauges_TRbladeholder.txt -v BendingMoment,MyBlade,MyLoadcell,MzBlade,CF -m rs -o f -s t,t -a f -r 11,12,13,14,15
@@ -21,9 +24,6 @@ CMDoptionsDict['cwd'] = cwd
 #Read postProc folder name from CMD
 CMDoptionsDict = readCMDoptionsMainAbaqusParametric(sys.argv[1:], CMDoptionsDict)
 
-# Import settings
-plotSettings = importPlottingOptions()
-
 # What to do?
 gaugesFlag = CMDoptionsDict['dmsFlag']
 actuatorFlag = CMDoptionsDict['actuatorFlag']
@@ -35,38 +35,38 @@ if gaugesFlag:
 
 	testFactor = 1.0 #HZ
 	orderDeriv = 2	
-
-	dataClasses = ()
-	for var in CMDoptionsDict['variables']:
-		dataVar = dataFromGaugesSingleMagnitudeClass(var, testFactor, orderDeriv)
-		dataClasses += (dataVar, )
-		# dataInnerPitchLink = dataFromGaugesSingleMagnitudeClass('InnerPitchLink', testFactor, orderDeriv)
-	# dataClasses = (dataMainPitchLink, dataInnerPitchLink)
-	# dataClasses = (dataMainPitchLink,)
-	inputFolderAddress = loadFileAddresses(CMDoptionsDict['fileNameOfFileToLoadFiles'])
-
+	# Import settings
+	plotSettings = importPlottingOptions()
 	for magComplex in CMDoptionsDict['magnitudes']:
 
+		dataClasses = ()
+		for var in CMDoptionsDict['variables']:
+			dataVar = dataFromGaugesSingleMagnitudeClass(var, testFactor, orderDeriv)
+			dataClasses += (dataVar, )
+			# dataInnerPitchLink = dataFromGaugesSingleMagnitudeClass('InnerPitchLink', testFactor, orderDeriv)
+		# dataClasses = (dataMainPitchLink, dataInnerPitchLink)
+		# dataClasses = (dataMainPitchLink,)
+		inputDataClass = loadFileAddressesAndData(CMDoptionsDict['fileNameOfFileToLoadFiles'], 'gauges')
 		mag = magComplex[:2]
 
 		if magComplex[2:]:
 			additionalMag = magComplex[2:]
 
-		for folderName in inputFolderAddress.getTupleFiles(): #For each folder with min, max or mean values
+		for folderName in inputDataClass.getTupleFiles(): #For each folder with min, max or mean values
 			os.chdir(folderName)
 			listOfFilesInFolderMathingVar = []
 			for fileName2 in os.listdir(folderName):
 				if magComplex[2:]:
-					if fileName2.startswith(mag) and fileName2.split('__')[-2][:-2] == additionalMag:
+					if fileName2.startswith(mag) and float(fileName2.split('.csv')[0].split('__')[-1]) in CMDoptionsDict['rangeFileIDs'] and fileName2.split('__')[-2][:-2] == additionalMag:
 						# pdb.set_trace()
 						listOfFilesInFolderMathingVar += [fileName2]
 				else:
-					if fileName2.startswith(mag):
+					if fileName2.startswith(mag) and float(fileName2.split('.csv')[0].split('__')[-1]) in CMDoptionsDict['rangeFileIDs']:
 						# pdb.set_trace()
 						listOfFilesInFolderMathingVar += [fileName2]
 
 			listOfFilesSortedInFolder = sortFilesInFolderByLastNumberInName(listOfFilesInFolderMathingVar, CMDoptionsDict)
-			# pdb.set_trace()
+
 			for dataClass in dataClasses: #For each class variable
 				print('\n'+'---> Importing data for variable: ' + dataClass.get_description() + ', '+mag+ ' values')
 					
@@ -77,8 +77,8 @@ if gaugesFlag:
 						print('\n'+'-> Reading: ' + fileName)
 						dataClass.importDataForClass(fileName, mag, CMDoptionsDict)
 
-				#Here dataClass has collected the full data for a variable and magnitude
 
+				#Here dataClass has collected the full data for a variable and magnitude
 				if mag in ('hp', 'lp'):
 					dataClass.getTimeList('rs')
 				else:
@@ -101,33 +101,7 @@ if gaugesFlag:
 
 				CMDoptionsDict['testOrderFlag'] = True
 
-				if dataClass.get_description() in ('PitchLinkMain'):
-
-					if mag == 'rs':
-						dataClass.set_prescribedLoadsTO([3600, -1600])
-
-					elif mag == 'lp': #5% error allowed from the alternate loading
-						dataClass.set_prescribedLoadsTO([1000])
-						dataClass.set_prescribedLoadsTOLimits([1.05, 0.95])
-
-					elif mag == 'hp': #3% error allowed from the alternate loading
-						dataClass.set_prescribedLoadsTO([2600, -2600])
-						dataClass.set_prescribedLoadsTOLimits([1.03, 0.97])
-
-				elif dataClass.get_description() in ('PitchLinkFlexible'):
-
-					if mag == 'rs':
-						dataClass.set_prescribedLoadsTO([3600*1.15, -1600*1.15])
-
-					elif mag == 'lp':
-						dataClass.set_prescribedLoadsTO([1000*1.15])
-						dataClass.set_prescribedLoadsTOLimits([1.05, 0.95])
-
-					elif mag == 'hp':
-						dataClass.set_prescribedLoadsTO([2600*1.15, -2600*1.15])
-						dataClass.set_prescribedLoadsTOLimits([1.03, 0.97])
-
-				elif dataClass.get_description() in ('Tension'):
+				if dataClass.get_description() in ('Tension'):
 					dataClass.set_prescribedLoadsTO([4992, -3058]) #first phase
 					# dataClass.set_prescribedLoadsTO([5998, -4064]) #second phase
 
@@ -135,42 +109,13 @@ if gaugesFlag:
 					dataClass.set_prescribedLoadsTO([960, -588]) #first phase
 					# dataClass.set_prescribedLoadsTO([1153, -781]) #second phase
 
-				elif dataClass.get_description() in ('Force-SN27', 'Force-SN28'):
-
-					if mag == 'rs':
-						dataClass.set_prescribedLoadsTO([4080/10, -820/10])
-
-					elif mag == 'lp':
-						dataClass.set_prescribedLoadsTO([1630])
-						dataClass.set_prescribedLoadsTOLimits([1.05, 0.95])
-
-					elif mag == 'hp':
-						dataClass.set_prescribedLoadsTO([2450, -2450])
-						dataClass.set_prescribedLoadsTOLimits([1.03, 0.97])
-
-				elif dataClass.get_description() in ('DistanceSensor', 'CF', 'BendingMoment', 'MyBlade', 'MyLoadcell', 'MzBlade'):
-
-					if dataClass.get_description() in ('CF'):
-						dataClass.set_prescribedLoadsTO([11446, 0.0])
-						CMDoptionsDict['testOrderFlag'] = True
-
-					elif dataClass.get_description() in ('BendingMoment'):
-						dataClass.set_prescribedLoadsTO([-48, 36]) #Reversed sign, it seems the recording is recording data with opposite sign
-						CMDoptionsDict['testOrderFlag'] = True
-
-					else:
-						CMDoptionsDict['testOrderFlag'] = False
-
-				else:
-					raise ValueError('ERROR: Incorrect handeling of the test order flag loop')
-
 
 			#Plotting max, min and mean from DIAdem
 			# dataClass.plotMaxMinMean_fromDIAdem(plotSettings)
 
 			#Plotting resampled total data
 			if CMDoptionsDict['showFigures'] or CMDoptionsDict['saveFigure']:
-				dataClass.plotResampled(plotSettings, CMDoptionsDict, mag, (False, [], []))
+				dataClass.plotResampled(plotSettings, CMDoptionsDict, mag, (False, [], []), inputDataClass)
 
 			# dataClass.plotMinMeanMax(plotSettings)
 			# pass
@@ -194,15 +139,19 @@ if gaugesFlag:
 
 #Import data from actuator
 elif actuatorFlag:
+
+	# Import plot settings
+	plotSettings = importPlottingOptions()
+
 	print('\n'+'**** Running data analysis program for actuator measurements'+'\n')
-	inputFilesAddress = loadFileAddresses(CMDoptionsDict['fileNameOfFileToLoadFiles'])
+	inputDataClass = loadFileAddressesAndData(CMDoptionsDict['fileNameOfFileToLoadFiles'], 'actuator')
 
 	dataFromRuns, previousNCycles, iFile = [], 0, 1
 
-	for file in inputFilesAddress.getTupleFiles():
+	for file in inputDataClass.getTupleFiles():
 
 		print('-> Reading: ' + file.split('\\')[-1])
-		dataFromRun_temp = importDataActuator(file, iFile, CMDoptionsDict)
+		dataFromRun_temp = importDataActuator(file, iFile, CMDoptionsDict, inputDataClass)
 
 		dataFromRun_temp.setAbsoluteNCycles(previousNCycles)
 
@@ -227,22 +176,30 @@ elif actuatorFlag:
 	# dataFromRuns[0].plotSingleRun(plotSettings)
 	# dataFromRuns[-1].plotSingleRun(plotSettings)
 
-	plotAllRuns_force(dataFromRuns, plotSettings, CMDoptionsDict)
-	plotAllRuns_displacement(dataFromRuns, plotSettings, CMDoptionsDict)
+	plotAllRuns_force(dataFromRuns, plotSettings, CMDoptionsDict, inputDataClass)
+	plotAllRuns_displacement(dataFromRuns, plotSettings, CMDoptionsDict, inputDataClass)
 
 elif actuatorMesswerteFlag:
 
+	# Import plot settings
+	plotSettings = importPlottingOptions()
+
 	print('\n'+'**** Running data analysis program for actuator measurements, all data'+'\n')
-	inputFilesAddress = loadFileAddresses(CMDoptionsDict['fileNameOfFileToLoadFiles'])
+	inputDataClass = loadFileAddressesAndData(CMDoptionsDict['fileNameOfFileToLoadFiles'], 'actuatorMesswerte')
 
-	dataFromRuns, iFile, lastDataPointCounter = [], 1, 0
+	dataFromRuns, iFile, lastDataPointCounter, lastTimeList, totalTime = [], 1, 0, [], []
 
-	for file in inputFilesAddress.getTupleFiles():
+	for file in inputDataClass.getTupleFiles():
 
 		print('-> Reading: ' + file.split('\\')[-1])
-		dataFromRun_temp = importDataActuator(file, iFile, CMDoptionsDict)
+		dataFromRun_temp = importDataActuator(file, iFile, CMDoptionsDict, inputDataClass)
 
 		lastDataPointCounter += dataFromRun_temp.get_lastDataPointCounter()
+		
+		if not lastTimeList: #If list is empty
+			lastTimeList += [dataFromRun_temp.get_time()[-1]]
+		else:
+			lastTimeList += [lastTimeList[-1]+dataFromRun_temp.get_time()[-1]]
 
 		print('\t'+'-> Last computed data point index (accumulated): ' + str(int(lastDataPointCounter)/1000000.0) + ' millions')
 
@@ -250,7 +207,10 @@ elif actuatorMesswerteFlag:
 
 		iFile += 1
 
-	plotAllRuns_force_Messwerte(dataFromRuns, plotSettings, CMDoptionsDict)
+	timesDict = {'lastTimeList': lastTimeList}
+
+	# plotAllRuns_force_Messwerte(dataFromRuns, plotSettings, CMDoptionsDict, inputDataClass)
+	plotAllRuns_filtered_Messwerte(dataFromRuns, timesDict, plotSettings, CMDoptionsDict, inputDataClass)
 
 
 plt.show(block = CMDoptionsDict['showFigures'])
