@@ -4,14 +4,10 @@
 		"selected_items":
 		[
 			[
-<<<<<<< HEAD
-				"def",
-				"def\tFunction"
+				"figu",
+				"figure_settings"
 			],
 			[
-				"fli",
-				"fileNames"
-=======
 				"value",
 				"valueLine"
 			],
@@ -242,11 +238,90 @@
 			[
 				"sef",
 				"self"
->>>>>>> 482daaf2f6546c733e185e7b25425d54ccec6a0b
 			],
 			[
-				"file",
-				"fileNames"
+				"get",
+				"get_description"
+			],
+			[
+				"num",
+				"numRef"
+			],
+			[
+				"roun",
+				"roundToOneSignificant"
+			],
+			[
+				"in",
+				"interval"
+			],
+			[
+				"con",
+				"confidenceInterval"
+			],
+			[
+				"dataFr",
+				"dataFromRuns"
+			],
+			[
+				"Er",
+				"ERROR"
+			],
+			[
+				"data",
+				"dataClasses"
+			],
+			[
+				"ac",
+				"actualPoint"
+			],
+			[
+				"or",
+				"order"
+			],
+			[
+				"__las",
+				"__lastIDminPick"
+			],
+			[
+				"pi",
+				"picksMax"
+			],
+			[
+				"iP",
+				"iPickMax"
+			],
+			[
+				"d",
+				"diff"
+			],
+			[
+				"iPic",
+				"iPickMax"
+			],
+			[
+				"orde",
+				"orderDeriv"
+			],
+			[
+				"tic",
+				"ticksMinorInBetween"
+			],
+			[
+				"ma",
+				"majorTicks"
+			],
+			[
+				"whi",
+				"which"
+			],
+			[
+				"list",
+				"listOfFilesSortedInFolder"
+			],
+			[
+				"time",
+				"timeSec"
 			],
 			[
 				"gettim",
@@ -255,10 +330,6 @@
 			[
 				"p",
 				"plotSettings"
-			],
-			[
-				"data",
-				"dataID"
 			],
 			[
 				"se",
@@ -273,28 +344,12 @@
 				"listOfFilesSorted"
 			],
 			[
-				"dat",
-				"data"
-			],
-			[
-				"da",
-				"dataClasses"
-			],
-			[
-				"fol",
-				"folderName"
-			],
-			[
 				"de",
 				"defs\tMethod"
 			],
 			[
 				"__",
 				"__cycleN"
-			],
-			[
-				"get",
-				"get_minF"
 			],
 			[
 				"ge",
@@ -317,24 +372,12 @@
 				"plotSettings"
 			],
 			[
-				"re",
-				"return"
-			],
-			[
 				"por",
 				"previousNCycles_in"
 			],
 			[
 				"pr",
 				"PreviousNCycles_in"
-			],
-			[
-				"fil",
-				"fileName"
-			],
-			[
-				"in",
-				"inputFilesAddress"
 			],
 			[
 				"Add",
@@ -350,10 +393,6 @@
 			],
 			[
 				"forc",
-				"forces"
-			],
-			[
-				"for",
 				"forces"
 			],
 			[
@@ -375,10 +414,6 @@
 			[
 				"com",
 				"computeToleranceUncertainty"
-			],
-			[
-				"con",
-				"conf"
 			],
 			[
 				"angle",
@@ -413,25 +448,15 @@
 	"buffers":
 	[
 		{
-			"file": "versionsBackup/main_versionsBackup.py",
+			"file": "fatigueData/moduleFunctions.py",
 			"settings":
 			{
-<<<<<<< HEAD
-				"buffer_size": 4835,
-=======
-				"buffer_size": 59454,
->>>>>>> 482daaf2f6546c733e185e7b25425d54ccec6a0b
+				"buffer_size": 60262,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-<<<<<<< HEAD
-			"file": "fatigueData/moduleFunctions.py",
-			"settings":
-			{
-				"buffer_size": 43254,
-=======
 			"file": "fti/loadMultipleVariablesFromFoldersAndDeleteGroups.vbs",
 			"settings":
 			{
@@ -453,90 +478,45 @@
 			"file": "fatigueData/fatigueInputFiles/filesToLoad_actuatorMesswerte_outerBearing.txt",
 			"settings":
 			{
-				"buffer_size": 1042,
+				"buffer_size": 1004,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "fatigueData/fatigueInputFiles/filesToLoad_gauges_steelLinks.txt",
+			"file": "fatigueData/fatigueInputFiles/filesToLoad_actuator_spider.txt",
 			"settings":
 			{
-				"buffer_size": 619,
->>>>>>> 482daaf2f6546c733e185e7b25425d54ccec6a0b
-				"encoding": "UTF-8",
+				"buffer_size": 444,
 				"line_ending": "Windows"
 			}
 		},
 		{
-<<<<<<< HEAD
-			"file": "fti/testsInitData/newHousingP3.vbs",
-			"settings":
-			{
-				"buffer_size": 4076,
-				"encoding": "Western (Windows 1252)",
-=======
 			"file": "fatigueData/main.py",
 			"settings":
 			{
-				"buffer_size": 8172,
-				"encoding": "UTF-8",
->>>>>>> 482daaf2f6546c733e185e7b25425d54ccec6a0b
-				"line_ending": "Windows"
-			}
-		},
-		{
-<<<<<<< HEAD
-			"file": "fatigueData/main.py",
-			"settings":
-			{
-				"buffer_size": 9264,
-=======
-			"file": "fti/testsInitData/TRbladeholderFatigue.vbs",
-			"settings":
-			{
-				"buffer_size": 4145,
+				"buffer_size": 7795,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "fatigueData/fatigueInputFiles/filesToLoad_actuatorMesswerte_spider.txt",
+			"file": "fti/testToImport.vbs",
 			"settings":
 			{
-				"buffer_size": 659,
->>>>>>> 482daaf2f6546c733e185e7b25425d54ccec6a0b
+				"buffer_size": 558,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-<<<<<<< HEAD
-			"file": "fti/loadMultipleVariablesFromFoldersAndDeleteGroups.vbs",
+			"file": "fti/testsInitData/TRAretainerFatigue.vbs",
 			"settings":
 			{
-				"buffer_size": 3705,
+				"buffer_size": 2531,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
-=======
-			"file": "fti/testsInitData/newHousingP3.vbs",
-			"settings":
-			{
-				"buffer_size": 4075,
-				"encoding": "Western (Windows 1252)",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "fatigueData/fatigueInputFiles/filesToLoad_gauges_spider.txt",
-			"settings":
-			{
-				"buffer_size": 693,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
->>>>>>> 482daaf2f6546c733e185e7b25425d54ccec6a0b
 		}
 	],
 	"build_system": "",
@@ -546,28 +526,28 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 245.0,
-		"last_filter": "",
+		"height": 104.0,
+		"last_filter": "from",
 		"selected_items":
 		[
 			[
-				"Fr",
+				"from",
 				"Text Pastry: From 1 To X"
 			],
 			[
-				"pa",
-				"Package Control: Install Package"
-			],
-			[
-				"ins",
-				"Package Control: Install Package"
+				"past",
+				"Text Pastry: Generate a list of numbers from 1 to 100"
 			],
 			[
 				"pac",
 				"Package Control: Install Package"
+			],
+			[
+				"pa",
+				"Package Control: Install Package"
 			]
 		],
-		"width": 337.0
+		"width": 444.0
 	},
 	"console":
 	{
@@ -587,27 +567,38 @@
 	},
 	"expanded_folders":
 	[
-		"/D/Cranfield",
-		"/D/Cranfield/Modules",
-		"/D/Cranfield/Modules/2.Flight Experimental Methods",
-		"/D/Cranfield/Modules/2.Flight Experimental Methods/Data from flight",
-		"/D/Cranfield/Modules/2.Flight Experimental Methods/Data from flight/3.Longitudinal Static and Manoeuvre Stability"
+		"/P/kopter",
+		"/P/kopter/codingKnowledge",
+		"/P/kopter/fatigueData",
+		"/P/kopter/fatigueData/fatigueInputFiles",
+		"/P/kopter/fti",
+		"/P/kopter/fti/testsInitData",
+		"/P/kopter/s_id",
+		"/P/kopter/tolerances",
+		"/P/kopter/versionsBackup",
+		"/P/08_reference/ETH",
+		"/P/08_reference/ETH/abaqus"
 	],
 	"file_history":
 	[
-<<<<<<< HEAD
-		"/D/Cranfield/Modules/9.Experimental Aerodynamics/assignment - Experimental Aerodynamics/matlab Lab 5 - Exp. Aerodynamics/FsClass.m",
-		"/D/kopter/fatigueData/filesToLoad_gauges_test.txt",
-		"/D/kopter/fti/testsInitData/newHousingP3.vbs",
-		"/D/kopter/fatigueData/filesToLoad_actuator.txt",
-=======
-		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_actuator_spider.txt",
-		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_actuator_outerBearing.txt",
+		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_gauges_steelLinks.txt",
+		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_actuatorMesswerte_TRAretainer.txt",
+		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_actuatorMesswerte_OCLoad1.txt",
+		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_actuatorMesswerte_OCLoad2.txt",
+		"/P/kopter/fti/testsInitData/OCFatigue.vbs",
+		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_gauges_OCLoad2.txt",
 		"/P/kopter/fatigueData/moduleFunctions.py",
-		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_gauges_TRbladeholderLoad1.txt",
+		"/P/kopter/fti/testsInitData/newHousingP3.vbs",
 		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_gauges_TRbladeholderLoad2.txt",
-		"/P/kopter/fti/testToImport.vbs",
+		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_actuator_TRAretainer.txt",
+		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_gauges_MRAretainer.txt",
+		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_gauges_spider.txt",
 		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_actuatorMesswerte_spider.txt",
+		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_gauges_TRAretainer.txt",
+		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_actuator_spider.txt",
+		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_gauges_TRbladeholderLoad1.txt",
+		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_actuator_outerBearing.txt",
+		"/P/kopter/fti/testToImport.vbs",
 		"/P/kopter/fti/testsInitData/spiderFatigue.vbs",
 		"/P/kopter/fti/shortScripts.vbs",
 		"/P/kopter/fti/testsInitData/HousingP2.vbs",
@@ -624,7 +615,6 @@
 		"/P/kopter/fatigueData/filesToLoad_actuator_TRAretainer.txt",
 		"/P/kopter/codingKnowledge/visualBasicScript.VBS",
 		"/P/kopter/fti/ResamplingAndExportToCSV_Alejandro.VBS",
-		"/P/kopter/fti/testsInitData/newHousingP3.vbs",
 		"/P/kopter/fti/Analysis tool v1.1.VBS",
 		"/P/kopter/fti/DIADEM.tlb",
 		"/P/kopter/codingKnowledge/python.py",
@@ -640,8 +630,8 @@
 		"/P/kopter/fatigueData/filesToLoad_gauges_test.txt",
 		"/L/MSH-Project Management Files/Functional Engineering/Test Division/Test_Daten/J17-03-Bench Tests/P3-J17-03-BT0164/01_TDMS_data_Set-complete/02_STEPS/csv_data/min_PitchLinkMain_100Hz_1.csv",
 		"/L/MSH-Project Management Files/Functional Engineering/Test Division/Test_Daten/J17-03-Bench Tests/P3-J17-03-BT0164/01_TDMS_data_Set-complete/02_STEPS/csv_data/min_PitchLinkMain_100Hz_2.csv",
->>>>>>> 482daaf2f6546c733e185e7b25425d54ccec6a0b
 		"//mshzhstg/MSHData/MSH-Project Management Files/Functional Engineering/Test Division/Test_Daten/J17-03-Bench Tests/P3-J17-03-BT0164/01_TDMS_data_Set-complete/02_STEPS/csv_data/mean/mean_PitchLinkMain_100Hz_1.csv",
+		"/L/MSH-Project Management Files/Functional Engineering/Test Division/Test_Daten/J17-03-Bench Tests/P3-J17-03-BT0164/01_TDMS_data_Set-complete/02_STEPS/csv_data/Inner pitch link [N]_Mean_100Hz_1.csv",
 		"/P/kopter/versionsBackup/inputDirectories.txt",
 		"//mshzhstg/MSHData/MSH-Project Management Files/Functional Engineering/Test Division/Test_Daten/J17-03-Bench Tests/P3-J17-03-BT0164/01_TDMS_data_Set-complete/02_STEPS/csv_data/min/test.py",
 		"//mshzhstg/MSHData/MSH-Project Management Files/Functional Engineering/Test Division/Test_Daten/J17-03-Bench Tests/P3-J17-03-BT0164/01_TDMS_data_Set-complete/02_STEPS/csv_data/max_InnerPitchLink_100Hz_4.csv",
@@ -718,34 +708,7 @@
 		"//mshzhstg/mshdata/MSH/02_Development/SKYe S09/06_Avionic/J00 Testing and FTI/SKYe test Benches/0c - Various Information/Simulator/Flight Physics/Flightlab_controller_design/read_LTI_matrix_from_FL.m",
 		"//mshzhstg/mshdata/MSH/02_Development/SKYe S09/06_Avionic/J00 Testing and FTI/SKYe test Benches/0c - Various Information/Simulator/Flight Physics/Flightlab_controller_design/read_LTI_matrix_from_FL_2.m",
 		"/P/10_code/kopter/SH09_s_id/C_mat_from_FL_v1.txt",
-		"/P/10_code/kopter/SH09_s_id/A_mat_from_FL_v1.txt",
-		"//mshzhstg/mshdata/MSH/02_Development/SKYe S09/06_Avionic/J00 Testing and FTI/SKYe test Benches/0c - Various Information/Simulator/Flight Physics/Flightlab_controller_design/FCS_tuning.m",
-		"/L/TEMP/michal/flap_stop/configClassModule.py",
-		"/P/10_code/kopter/SH09_s_id/main_versionsBackup.py",
-		"//mshzhstg/mshdata/MSH/02_Development/SKYe S09/06_Avionic/J00 Testing and FTI/SKYe test Benches/0c - Various Information/Simulator/Flight Physics/Flightlab_controller_design/A_mat_from_FL_v2.txt",
-		"//mshzhstg/mshdata/MSH/02_Development/SKYe S09/06_Avionic/J00 Testing and FTI/SKYe test Benches/0c - Various Information/Simulator/Flight Physics/Flightlab_controller_design/A_mat_from_FL_v1.txt",
-		"/P/10_code/kopter/SH09_s_id/C_mat_from_FL_v2.txt",
-		"/P/10_code/kopter/SH09_s_id/B_mat_from_FL_v1.txt",
-		"/P/10_code/kopter/versionsBackup/main_versionsBackup.py",
-		"/P/10_code/kopter/s_id/sidpac/startup.m",
-<<<<<<< HEAD
-		"/L/TEMP/michal/flap_stop/toleranceChain.py",
-		"/L/TEMP/michal/flap_stop/dampingUncer.py",
-		"/P/10_code/kopter/main_versionsBackup.py",
-		"/P/10_code/kopter/inputDirectories.txt",
-		"/L/MSH/02_Development/SKYe S09/05_Flight Systems/50_Engineering/J62/J62-00 General/40_Testing/41_FTI/22_DATA ANALYSIS P2/MFST_postprocessing_CalculationScript_v01.VBS",
-		"/P/10_code/kopter/improvements.py",
-		"/P/10_code/kopter/PythonNotes.sublime-project",
-		"/P/10_code/labs - System Identification/lab2/script.m",
-		"/P/10_code/labs - System Identification/lab4/script.m",
-		"/P/10_code/labs - System Identification/lab3/main_script.m",
-		"/Y/00_Scripts/AA_Eng_Vib_Analysis/FFT_STDEV_4.VBS",
-		"/Y/00_Scripts/AA_Eng_Vib_Analysis/dataplot.VBS",
-		"/Y/00_Scripts/plot_test/fti_2016-03-17_094251/test_HYD1_Oil_Temp.EMF",
-		"/P/10_code/abaqus-master/abaqus-master/setUpParametricStudy.py"
-=======
-		"/L/TEMP/michal/flap_stop/toleranceChain.py"
->>>>>>> 482daaf2f6546c733e185e7b25425d54ccec6a0b
+		"/P/10_code/kopter/SH09_s_id/A_mat_from_FL_v1.txt"
 	],
 	"find":
 	{
@@ -756,8 +719,6 @@
 		"height": 104.0,
 		"where_history":
 		[
-			"D:\\Cranfield\\Matlab",
-			"D:\\Cranfield\\Modules\\6.Flight Dynamic Principles\\assesment\\matlab - FDP"
 		]
 	},
 	"find_state":
@@ -765,134 +726,22 @@
 		"case_sensitive": true,
 		"find_history":
 		[
-<<<<<<< HEAD
-			"outliers",
-			"tst_naca5gen",
-			"folderInfo(2)",
-			"count_files",
-			"fileNames",
-			"count_folders",
-			"For",
-			"count_folders",
-			"fileNames)",
-			")",
-			"Array",
-			",",
-			"1",
-			"commonAddress",
-			"\n\t",
-			"commonAddress",
-			"(fileNames",
-			"fileNames",
-			"Add",
-			"commonAddress &",
-			"Add",
-			"&",
-			":",
-			"dataFromLastRun",
-			"get_max()",
-			"F(",
-			"= __timeSec",
-			"__timeSec",
-			"__timeSecNewRun = ",
-			"__timeSecNewRun",
-			"_time",
-			"time",
-			"__timeMax",
-			"._",
-			"._timeMean",
-			"tt",
-			"_m",
-			"__timeSecNewRunMax",
-			"time",
-			"nameField",
-			"__timeSec",
-			".__",
-			"__",
-			"data",
-			"linestyle",
-			"marker",
-			"get",
-			"+=",
-			"self.",
-			"fieldOfFiles",
-			"self",
-			"self.",
-			"dataFromRun",
-			"F(",
-			"F",
-			"cycleN",
-			"description",
-			"__xValues",
-			"dataY",
-			"setXvalues",
-			"\\MSHData",
-			"__setOfFilesAddress_tuple",
-			"dataFromGaugesSingleMagnitudeClass",
-			"dataFromRun",
-			"description",
-			"__description",
-			"file",
-			"description",
-			"absoluteNCycles",
-			"inputFilesAddress",
-			"__setOfFilesAddress_tuple",
-			"getTupleFiles",
-			"addSharedAddress",
-			"pitch",
-			"Inner",
-			"Pitch",
-			"Run",
-			"\\MSHData",
-			"9",
-			"1",
-			"2",
-			"1",
-			"2",
-			"18",
-			"get_absoluteNCycles",
-			"Cycles",
-			"cycleN",
-			"[d + dataFromRun.get_previousNCycles() for d in dataFromRun.get_cycleN()]",
-			"__previousNCycles",
-			"previousNCycles",
-			"show",
-			"label",
-			"legend",
-			"threePlotForRun",
-			"get_prev",
-			"dataFromRun.get_cycleN()",
-			"rawLi",
-			"rawLi3",
-			"rawLi",
-			"getLocalDirectory",
-			"loadParameters",
-			"__setOfFilesAddress",
-			"sharedAddress",
-			"attributes",
-			"localAddress",
-			"-.",
-			"c =",
-			"get_m",
-			"get_",
-			"()",
-			"CMD",
-			"label",
-			"legend",
-			"label",
-			"cycleN",
-			"ycleN",
-			"cycleN",
-			"_in",
-			",",
-			"a",
-			"0",
-			"num",
-			"a",
-			"U",
-			"ä",
-			"Ü"
-=======
+			"set_trace()",
+			"cycle_freq",
+			"lowpass_force",
+			"attrs_to_plot_list",
+			"savefig",
+			"set_trace()",
+			"inputDataClass.get_actuatorDataInfoDict()['runs']",
+			"'runs'",
+			"[N]",
+			"Zyklische Ergebnisse",
+			"L:\\MSH-Project Management Files\\Functional Engineering\\Test Division\\Test_Daten\\J17-03-Bench Tests\\P3-J17-03-BT0169\\01_TDMS_data_Set-complete\\02_STEPS\\csv_data",
+			"<<<<<<<<",
+			"<<<<<<<<<<<<<<<<<<",
+			">>>>>>>",
+			"static load: ",
+			"static load",
 			", raw data",
 			"high_pass_displ_data",
 			"t,t",
@@ -1004,31 +853,15 @@
 			"01",
 			"L:\\MSH-Project Management Files\\Functional Engineering\\Test Division\\Test_Daten\\J17-03-Bench Tests\\P3-J17-03-BT0164\\01_TDMS_data_Set-complete\\02_STEPS\\csv_data",
 			"2600*1.15",
-			"2600",
-			"importDataForClass",
-			"additionalCals",
-			"mean_max",
-			"np.mean",
-			"filterFreq",
-			"dataClasses",
-			"variables",
-			"int",
-			"title",
-			"set_trace",
-			"split('.')",
-			"split('')",
-			"'.'",
-			"__filterData",
-			"0.001",
-			"split"
->>>>>>> 482daaf2f6546c733e185e7b25425d54ccec6a0b
+			"2600"
 		],
 		"highlight": true,
 		"in_selection": false,
 		"preserve_case": false,
-		"regex": true,
+		"regex": false,
 		"replace_history":
 		[
+			"self.__"
 		],
 		"reverse": false,
 		"show_context": true,
@@ -1039,347 +872,55 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "versionsBackup/main_versionsBackup.py",
+					"file": "fatigueData/moduleFunctions.py",
 					"semi_transient": false,
 					"settings":
 					{
-<<<<<<< HEAD
-						"buffer_size": 4835,
-=======
-						"buffer_size": 59454,
->>>>>>> 482daaf2f6546c733e185e7b25425d54ccec6a0b
+						"buffer_size": 60262,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-<<<<<<< HEAD
-								4416,
-								4416
-=======
-								33896,
-								33896
->>>>>>> 482daaf2f6546c733e185e7b25425d54ccec6a0b
+								5182,
+								5182
 							]
 						],
 						"settings":
 						{
-<<<<<<< HEAD
-=======
 							"history_list_is_closing": true,
 							"spell_check": true,
->>>>>>> 482daaf2f6546c733e185e7b25425d54ccec6a0b
 							"syntax": "Packages/Python/Python.sublime-syntax",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-<<<<<<< HEAD
-						"translation.y": 0.0,
+						"translation.y": 2206.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 5,
-=======
-						"translation.y": 13422.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
->>>>>>> 482daaf2f6546c733e185e7b25425d54ccec6a0b
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "fatigueData/moduleFunctions.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 43254,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-<<<<<<< HEAD
-								42170,
-								42170
-=======
-								2176,
-								2176
->>>>>>> 482daaf2f6546c733e185e7b25425d54ccec6a0b
-							]
-						],
-						"settings":
-						{
-							"spell_check": true,
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-<<<<<<< HEAD
-						"translation.y": 16435.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 0,
-			"sheets":
-			[
-				{
-					"buffer": 1,
-					"file": "fatigueData/moduleFunctions.py",
-=======
-						"translation.y": 554.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 9,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "fti/PostProc_CompTesting_Alejandro.VBS",
->>>>>>> 482daaf2f6546c733e185e7b25425d54ccec6a0b
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 43254,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-<<<<<<< HEAD
-								159,
-								159
-=======
-								6709,
-								6720
->>>>>>> 482daaf2f6546c733e185e7b25425d54ccec6a0b
-							]
-						],
-						"settings":
-						{
-							"spell_check": true,
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1431.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-<<<<<<< HEAD
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "fti/testsInitData/newHousingP3.vbs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4076,
-=======
-					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 0,
-			"sheets":
-			[
-				{
-					"buffer": 3,
-					"file": "fatigueData/fatigueInputFiles/filesToLoad_actuatorMesswerte_outerBearing.txt",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1042,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								917,
-								917
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "fatigueData/fatigueInputFiles/filesToLoad_gauges_steelLinks.txt",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 619,
->>>>>>> 482daaf2f6546c733e185e7b25425d54ccec6a0b
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-<<<<<<< HEAD
-								0,
-								0
-=======
-								619,
-								619
->>>>>>> 482daaf2f6546c733e185e7b25425d54ccec6a0b
-							]
-						],
-						"settings":
-						{
-<<<<<<< HEAD
-							"syntax": "Packages/VBScript/VBScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-=======
-							"syntax": "Packages/Text/Plain text.tmLanguage"
->>>>>>> 482daaf2f6546c733e185e7b25425d54ccec6a0b
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-<<<<<<< HEAD
-					"stack_index": 3,
-=======
-					"stack_index": 10,
->>>>>>> 482daaf2f6546c733e185e7b25425d54ccec6a0b
-					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 0,
-			"sheets":
-			[
-				{
-<<<<<<< HEAD
-					"buffer": 3,
-=======
-					"buffer": 5,
->>>>>>> 482daaf2f6546c733e185e7b25425d54ccec6a0b
-					"file": "fatigueData/main.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 8172,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-<<<<<<< HEAD
-								0,
-								0
-=======
-								6589,
-								6589
->>>>>>> 482daaf2f6546c733e185e7b25425d54ccec6a0b
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-<<<<<<< HEAD
-						"translation.y": 269.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 0,
-			"sheets":
-			[
-				{
-					"buffer": 4,
 					"file": "fti/loadMultipleVariablesFromFoldersAndDeleteGroups.vbs",
 					"semi_transient": false,
 					"settings":
 					{
 						"buffer_size": 3705,
-=======
-						"translation.y": 1936.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 0,
-					"file": "fatigueData/moduleFunctions.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 59454,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								54758,
-								54758
-							]
-						],
-						"settings":
-						{
-							"history_list_is_closing": true,
-							"spell_check": true,
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 20059.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "fti/testsInitData/TRbladeholderFatigue.vbs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4145,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3977,
-								3977
+								2176,
+								2176
 							]
 						],
 						"settings":
@@ -1387,76 +928,6 @@
 							"syntax": "Packages/VBScript/VBScript.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 429.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 0,
-			"sheets":
-			[
-				{
-					"buffer": 0,
-					"file": "fatigueData/moduleFunctions.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 59454,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								11910,
-								11910
-							],
-							[
-								11985,
-								11985
-							]
-						],
-						"settings":
-						{
-							"history_list_is_closing": true,
-							"spell_check": true,
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 4918.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "fatigueData/fatigueInputFiles/filesToLoad_actuatorMesswerte_spider.txt",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 659,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								498,
-								498
-							]
-						],
-						"settings":
-						{
-							"spell_check": true,
-							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -1466,20 +937,20 @@
 					"type": "text"
 				},
 				{
-					"buffer": 8,
-					"file": "fti/testsInitData/newHousingP3.vbs",
+					"buffer": 2,
+					"file": "fti/PostProc_CompTesting_Alejandro.VBS",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4075,
+						"buffer_size": 12247,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3907,
-								3907
+								3304,
+								3315
 							]
 						],
 						"settings":
@@ -1489,33 +960,33 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 741.0,
+						"translation.y": 378.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 11,
+					"stack_index": 7,
 					"type": "text"
-				},
+				}
+			]
+		},
+		{
+			"selected": 1,
+			"sheets":
+			[
 				{
-					"buffer": 9,
-					"file": "fatigueData/fatigueInputFiles/filesToLoad_gauges_spider.txt",
+					"buffer": 3,
+					"file": "fatigueData/fatigueInputFiles/filesToLoad_actuatorMesswerte_outerBearing.txt",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 693,
->>>>>>> 482daaf2f6546c733e185e7b25425d54ccec6a0b
+						"buffer_size": 1004,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-<<<<<<< HEAD
-								2275,
-								2275
-=======
-								599,
-								485
->>>>>>> 482daaf2f6546c733e185e7b25425d54ccec6a0b
+								818,
+								818
 							]
 						],
 						"settings":
@@ -1523,17 +994,204 @@
 							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
-<<<<<<< HEAD
-						"translation.y": 630.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-=======
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "fatigueData/fatigueInputFiles/filesToLoad_actuator_spider.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 444,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								444,
+								444
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 5,
+					"file": "fatigueData/main.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7795,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2378,
+								2378
+							],
+							[
+								2562,
+								2562
+							]
+						],
+						"settings":
+						{
+							"history_list_is_closing": true,
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 481.0,
+						"zoom_level": 1.0
+					},
 					"stack_index": 8,
->>>>>>> 482daaf2f6546c733e185e7b25425d54ccec6a0b
+					"type": "text"
+				},
+				{
+					"buffer": 0,
+					"file": "fatigueData/moduleFunctions.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 60262,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1585,
+								1585
+							]
+						],
+						"settings":
+						{
+							"history_list_is_closing": true,
+							"spell_check": true,
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 390.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "fatigueData/moduleFunctions.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 60262,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								59807,
+								59807
+							]
+						],
+						"settings":
+						{
+							"history_list_is_closing": true,
+							"spell_check": true,
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 21355.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "fti/testToImport.vbs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 558,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								558,
+								558
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/VBScript/VBScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "fti/testsInitData/TRAretainerFatigue.vbs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2531,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2169,
+								2169
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/VBScript/VBScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 234.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
 					"type": "text"
 				}
 			]
@@ -1541,7 +1199,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 22.0
+		"height": 27.0
 	},
 	"input":
 	{
@@ -1579,21 +1237,13 @@
 		"cols":
 		[
 			0.0,
-<<<<<<< HEAD
-			0.5,
-=======
-			0.563197026023,
->>>>>>> 482daaf2f6546c733e185e7b25425d54ccec6a0b
+			0.428776732762,
 			1.0
 		],
 		"rows":
 		[
 			0.0,
-<<<<<<< HEAD
-			0.571914708981,
-=======
-			0.544748858447,
->>>>>>> 482daaf2f6546c733e185e7b25425d54ccec6a0b
+			0.438812785388,
 			1.0
 		]
 	},
@@ -1606,7 +1256,7 @@
 	"project": "kopterDevelopment.sublime-project",
 	"replace":
 	{
-		"height": 42.0
+		"height": 72.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -1626,7 +1276,7 @@
 		[
 			[
 				"",
-				"D:\\kopter\\SH09_s_id\\s_id.sublime-project"
+				"P:\\09_FTI\\testDataAnalysis.sublime-project"
 			]
 		],
 		"width": 380.0
@@ -1640,7 +1290,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 0,
+	"selected_group": 3,
 	"settings":
 	{
 	},
@@ -1648,11 +1298,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-<<<<<<< HEAD
-	"side_bar_width": 252.0,
-=======
-	"side_bar_width": 306.0,
->>>>>>> 482daaf2f6546c733e185e7b25425d54ccec6a0b
+	"side_bar_width": 325.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

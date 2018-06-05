@@ -1,0 +1,26 @@
+-> Folders to load:
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0168\01_TDMS_data_Set-complete\02_STEPS\csv_data
+
+-> Variable info
+name: Tension
+y-label: Force [N]
+TO spec: yes
+max load: 5998
+min load: -4064
+Fatigue load spec: yes
+static load: 967
+margin static load (%): 5
+alternate load: 5031
+margin alternate load (%): 3
+
+-> Variable info
+name: Bending
+y-label: Moment [Nm]
+TO spec: yes
+max load: 1153
+min load: -781
+Fatigue load spec: yes
+static load: 186
+margin static load (%): 5
+alternate load: 967
+margin alternate load (%): 3

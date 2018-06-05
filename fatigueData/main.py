@@ -58,11 +58,9 @@ if gaugesFlag:
 			for fileName2 in os.listdir(folderName):
 				if magComplex[2:]:
 					if fileName2.startswith(mag) and float(fileName2.split('.csv')[0].split('__')[-1]) in CMDoptionsDict['rangeFileIDs'] and fileName2.split('__')[-2][:-2] == additionalMag:
-						# pdb.set_trace()
 						listOfFilesInFolderMathingVar += [fileName2]
 				else:
 					if fileName2.startswith(mag) and float(fileName2.split('.csv')[0].split('__')[-1]) in CMDoptionsDict['rangeFileIDs']:
-						# pdb.set_trace()
 						listOfFilesInFolderMathingVar += [fileName2]
 
 			listOfFilesSortedInFolder = sortFilesInFolderByLastNumberInName(listOfFilesInFolderMathingVar, CMDoptionsDict)
@@ -93,22 +91,6 @@ if gaugesFlag:
 
 		# Plotting
 		for dataClass in dataClasses: #For each class variable
-
-			#################################
-
-			# Insert data from prescribed loading from the test order
-			if CMDoptionsDict['testOrderFlagFromCMD']:
-
-				CMDoptionsDict['testOrderFlag'] = True
-
-				if dataClass.get_description() in ('Tension'):
-					dataClass.set_prescribedLoadsTO([4992, -3058]) #first phase
-					# dataClass.set_prescribedLoadsTO([5998, -4064]) #second phase
-
-				elif dataClass.get_description() in ('Bending'):
-					dataClass.set_prescribedLoadsTO([960, -588]) #first phase
-					# dataClass.set_prescribedLoadsTO([1153, -781]) #second phase
-
 
 			#Plotting max, min and mean from DIAdem
 			# dataClass.plotMaxMinMean_fromDIAdem(plotSettings)
@@ -150,18 +132,20 @@ elif actuatorFlag:
 
 	for file in inputDataClass.getTupleFiles():
 
-		print('-> Reading: ' + file.split('\\')[-1])
-		dataFromRun_temp = importDataActuator(file, iFile, CMDoptionsDict, inputDataClass)
+		if float(file.split('\\')[-1].split('_')[1]) in CMDoptionsDict['rangeFileIDs']:
 
-		dataFromRun_temp.setAbsoluteNCycles(previousNCycles)
+			print('-> Reading: ' + file.split('\\')[-1])
+			dataFromRun_temp = importDataActuator(file, iFile, CMDoptionsDict, inputDataClass)
 
-		previousNCycles = dataFromRun_temp.get_absoluteNCycles()[-1]
+			dataFromRun_temp.setAbsoluteNCycles(previousNCycles)
 
-		print('\t'+'-> Last computed data point index (accumulated): ' + str(int(previousNCycles)/1000000.0) + ' millions')
+			previousNCycles = dataFromRun_temp.get_absoluteNCycles()[-1]
 
-		dataFromRuns += [dataFromRun_temp]
+			print('\t'+'-> Last computed data point index (accumulated): ' + str(int(previousNCycles)/1000000.0) + ' millions')
 
-		iFile += 1
+			dataFromRuns += [dataFromRun_temp]
+
+			iFile += 1
 
 
 	#################################
@@ -191,21 +175,23 @@ elif actuatorMesswerteFlag:
 
 	for file in inputDataClass.getTupleFiles():
 
-		print('-> Reading: ' + file.split('\\')[-1])
-		dataFromRun_temp = importDataActuator(file, iFile, CMDoptionsDict, inputDataClass)
+		if float(file.split('\\')[-1].split('_')[1]) in CMDoptionsDict['rangeFileIDs']: #Filter out test steps that are not specified 
 
-		lastDataPointCounter += dataFromRun_temp.get_lastDataPointCounter()
-		
-		if not lastTimeList: #If list is empty
-			lastTimeList += [dataFromRun_temp.get_time()[-1]]
-		else:
-			lastTimeList += [lastTimeList[-1]+dataFromRun_temp.get_time()[-1]]
+			print('-> Reading: ' + file.split('\\')[-1])
+			dataFromRun_temp = importDataActuator(file, iFile, CMDoptionsDict, inputDataClass)
 
-		print('\t'+'-> Last computed data point index (accumulated): ' + str(int(lastDataPointCounter)/1000000.0) + ' millions')
+			lastDataPointCounter += dataFromRun_temp.get_lastDataPointCounter()
+			
+			if not lastTimeList: #If list is empty
+				lastTimeList += [dataFromRun_temp.get_time()[-1]]
+			else:
+				lastTimeList += [lastTimeList[-1]+dataFromRun_temp.get_time()[-1]]
 
-		dataFromRuns += [dataFromRun_temp]
+			print('\t'+'-> Last computed data point index (accumulated): ' + str(int(lastDataPointCounter)/1000000.0) + ' millions')
 
-		iFile += 1
+			dataFromRuns += [dataFromRun_temp]
+
+			iFile += 1
 
 	timesDict = {'lastTimeList': lastTimeList}
 

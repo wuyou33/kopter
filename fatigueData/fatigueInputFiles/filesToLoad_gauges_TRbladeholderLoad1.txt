@@ -30,11 +30,11 @@ Fatigue load spec: no
 -> Variable info
 name: MyBlade
 y-label: Moment [Nm]
-TO spec: bo
-max load: -37
-min load: 49
+TO spec: yes
+max load: 49
+min load: -37
 Fatigue load spec: yes
-static load: -6
+static load: 6
 margin static load (%): 5
 alternate load: 43
 margin alternate load (%): 3
@@ -48,11 +48,11 @@ Fatigue load spec: no
 -> Variable info
 name: MzBlade
 y-label: Moment [Nm]
-TO spec: no
-max load: -35
-min load: 40
+TO spec: yes
+max load: 40
+min load: -35
 Fatigue load spec: yes
-static load: -6
+static load: 2.5
 margin static load (%): 5
 alternate load: 37.5
 margin alternate load (%): 3

@@ -179,19 +179,6 @@ def loadFileAddressesAndData(fileName, typeData):
 
 		elif section_index == 2:
 
-			dict_temp_fromClass = inputDataClass.get_actuatorDataInfoDict()
-
-			if not 'runs' in dict_temp_fromClass.keys():
-
-				valueLine1 = cleanLine.lstrip()
-				valueLine = valueLine1.rstrip()
-
-				valueRuns = [int(t) for t in valueLine.split(',')]
-
-				inputDataClass.updateActuatorDataInfoDict('runs', valueRuns)
-
-		elif section_index == 3:
-
 			variableStringKey = cleanLine.split(':')[0]
 			valueLine2 = cleanLine.split(':')[1]
 			valueLine1 = valueLine2.lstrip()
@@ -432,10 +419,12 @@ def importPlottingOptions():
 	markers = ['o', 'v', '^', 's', '*', '+']
 	linestyles = ['-', '--', '-.', ':']
 	axes_ticks_n = {'x_axis' : 3} #Number of minor labels in between 
+	figure_settings = {'dpi' : 400}
 
 	plotSettings = {'axes_x':axes_label_x,'axes_y':axes_label_y, 'title':text_title_properties,
 	                'axesTicks':axes_ticks, 'line':line, 'legend':legend, 'grid':grid, 'scatter':scatter,
-	                'colors' : colors, 'markers' : markers, 'linestyles' : linestyles, 'axes_ticks_n' : axes_ticks_n}
+	                'colors' : colors, 'markers' : markers, 'linestyles' : linestyles, 'axes_ticks_n' : axes_ticks_n,
+	                'figure_settings' : figure_settings}
 
 	# Additional computing data
 	plotSettings['currentAxis'] = [None, -1] #[Axis object, index]
@@ -684,8 +673,10 @@ class dataFromGaugesSingleMagnitudeClass(object):
 
 		for line in lines[(skipLines+1):]:
 
-			if CMDoptionsDict['correctionFilterFlag'] and fieldOfFile in ('lp', 'hp'):
+			if CMDoptionsDict['correctionFilterFlag'] and fieldOfFile in ('lp'):
 				data += [float(cleanString(line)) + CMDoptionsDict['correctionFilterNum']]
+			elif CMDoptionsDict['correctionFilterFlag'] and fieldOfFile in ('hp'):
+				data += [float(cleanString(line)) - CMDoptionsDict['correctionFilterNum']]
 			else:
 				data += [float(cleanString(line))]
 
@@ -1126,13 +1117,16 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		if CMDoptionsDict['saveFigure'] and not CMDoptionsDict['multipleYaxisInSameFigure']:
 
 			if additionalInput[0]:
-				figure.savefig(os.path.join(CMDoptionsDict['cwd'], magnitude+'_'+','.join([str(i) for i in CMDoptionsDict['rangeFileIDs']])+'_'+self.__description+'&'+additionalInput[2]+'.png'))
+				figure.savefig(os.path.join(CMDoptionsDict['cwd'], magnitude+'_'+','.join([str(i) for i in CMDoptionsDict['rangeFileIDs']])+'_'+self.__description+'&'+additionalInput[2]+'.png'), dpi = plotSettings['figure_settings']['dpi'])
 			else: 
-				figure.savefig(os.path.join(CMDoptionsDict['cwd'], magnitude+'_'+','.join([str(i) for i in CMDoptionsDict['rangeFileIDs']])+'_'+self.__description+'.png'))
+				figure.savefig(os.path.join(CMDoptionsDict['cwd'], magnitude+'_'+','.join([str(i) for i in CMDoptionsDict['rangeFileIDs']])+'_'+self.__description+'.png'), dpi = plotSettings['figure_settings']['dpi'])
 		elif CMDoptionsDict['saveFigure'] and CMDoptionsDict['numberMultipleYaxisInSameFigure']==(plotSettings['currentAxis'][1]+1): #CMDoptionsDict['multipleYaxisInSameFigure'] is True
 
 			figure = plotSettings['currentFigureMultipleAxes']
-			figure.savefig(os.path.join(CMDoptionsDict['cwd'], ','.join([str(i) for i in CMDoptionsDict['magnitudes']])+'_'+','.join([str(i) for i in CMDoptionsDict['rangeFileIDs']])+'_'+','.join([str(i) for i in CMDoptionsDict['variables']])+'.png'))
+			if len(CMDoptionsDict['rangeFileIDs']) < 8:
+				figure.savefig(os.path.join(CMDoptionsDict['cwd'], ','.join([str(i) for i in CMDoptionsDict['magnitudes']])+'_'+','.join([str(i) for i in CMDoptionsDict['rangeFileIDs']])+'_'+','.join([str(i) for i in CMDoptionsDict['variables']])+'.png'), dpi = plotSettings['figure_settings']['dpi'])
+			else:
+				figure.savefig(os.path.join(CMDoptionsDict['cwd'], ','.join([str(i) for i in CMDoptionsDict['magnitudes']])+'_'+str(CMDoptionsDict['rangeFileIDs'][0])+'...'+str(CMDoptionsDict['rangeFileIDs'][-1])+'_'+','.join([str(i) for i in CMDoptionsDict['variables']])+'.png'), dpi = plotSettings['figure_settings']['dpi'])
 
 		return plotSettings
 
@@ -1249,7 +1243,7 @@ def plotAllRuns_force(dataFromRuns, plotSettings, CMDoptionsDict, inputDataClass
 	#Save figure
 	if CMDoptionsDict['saveFigure']:
 
-		figure.savefig(os.path.join(CMDoptionsDict['cwd'], 'ActuatorLoads.png'))
+		figure.savefig(os.path.join(CMDoptionsDict['cwd'], 'ActuatorLoads.png'), dpi = plotSettings['figure_settings']['dpi'])
 
 
 def plotAllRuns_force_Messwerte(dataFromRuns, plotSettings, CMDoptionsDict, inputDataClass):
@@ -1300,7 +1294,7 @@ def plotAllRuns_force_Messwerte(dataFromRuns, plotSettings, CMDoptionsDict, inpu
 	#Save figure
 	if CMDoptionsDict['saveFigure']:
 
-		figure.savefig(os.path.join(CMDoptionsDict['cwd'], 'ActuatorForceDisplacement.png'))
+		figure.savefig(os.path.join(CMDoptionsDict['cwd'], 'ActuatorForceDisplacement.png'), dpi = plotSettings['figure_settings']['dpi'])
 
 	#Central differences plot
 	figure, ax = plt.subplots(1, 1)
@@ -1343,7 +1337,7 @@ def plotAllRuns_force_Messwerte(dataFromRuns, plotSettings, CMDoptionsDict, inpu
 	#Save figure
 	if CMDoptionsDict['saveFigure']:
 
-		figure.savefig(os.path.join(CMDoptionsDict['cwd'], 'ActuatorForceDisplacement.png'))
+		figure.savefig(os.path.join(CMDoptionsDict['cwd'], 'ActuatorForceDisplacement.png'), dpi = plotSettings['figure_settings']['dpi'])
 
 
 def plotAllRuns_displacement(dataFromRuns, plotSettings, CMDoptionsDict, inputDataClass):
@@ -1412,7 +1406,7 @@ def plotAllRuns_displacement(dataFromRuns, plotSettings, CMDoptionsDict, inputDa
 	#Save figure
 	if CMDoptionsDict['saveFigure']:
 
-		figure.savefig(os.path.join(CMDoptionsDict['cwd'], 'ActuatorDisplacement.png'))
+		figure.savefig(os.path.join(CMDoptionsDict['cwd'], 'ActuatorDisplacement.png'), dpi = plotSettings['figure_settings']['dpi'])
 
 def calculate_stats(dataFromRuns):
 
@@ -1527,10 +1521,7 @@ def getNewVectorWithoutOutliers(x_list, y_list):
 		
 		# New vectors
 		x_out, y_out, outliers = [], [], []
-<<<<<<< HEAD
 
-=======
->>>>>>> 482daaf2f6546c733e185e7b25425d54ccec6a0b
 		for x,y,e in zip(x_list, y_list, e_list):
 
 			factor = abs(e) / np.sqrt(vari_error)
@@ -1544,7 +1535,6 @@ def getNewVectorWithoutOutliers(x_list, y_list):
 
 		return x_out, y_out, outliers
 
-<<<<<<< HEAD
 	# split in ranges
 	range_spacing = 100
 	init_range = 0
@@ -1552,27 +1542,13 @@ def getNewVectorWithoutOutliers(x_list, y_list):
 
 	assert len(x_list) == len(y_list), 'ERROR: Mismatch between the sizes of x, y'
 
-	for x, y in zip(x_list, y_list):
-
-		x_range = 
-		y_range = 
-
-	# Linear fit
-	# f(x) = regre[0]*x_list + regre[1]
-=======
-	assert len(x_list) == len(y_list), 'ERROR: Mismatch between the sizes of x, y'
-
 	# Linear fit
 	# f(x) = regre[0]*x_list + regre[1]
 
->>>>>>> 482daaf2f6546c733e185e7b25425d54ccec6a0b
 	regre = np.polyfit(x_list, y_list, 1)
 
 	error_list, vari = errorVectorFunction(x_list, y_list, regre)
 
-<<<<<<< HEAD
-	x_list, y_list, outliers = removeOutliers(x_list, y_list, error_list, vari, 1.960) #2.576 
-=======
 	x_list_woOutliers, y_list_woOutliers, outliers = removeOutliers(x_list, y_list, error_list, vari, 1.960) #2.576
 
 	return x_list_woOutliers, y_list_woOutliers
@@ -1580,6 +1556,7 @@ def getNewVectorWithoutOutliers(x_list, y_list):
 def plotAllRuns_filtered_Messwerte(dataFromRuns, timesDict, plotSettings, CMDoptionsDict, inputDataClass):
 	
 	attrs_to_plot_list = [['kraft', 'lowpass_force', 'highpass_force'], ['weg', 'lowpass_displ', 'highpass_displ']]
+	# attrs_to_plot_list = [['kraft']]
 	titles = {'kraft': 'Force measured by the actuator',
 				'weg' : 'Displacement imposed by the actuator',
 				'lowpass_force': 'Force low-pass filtered with '+inputDataClass.get_actuatorDataInfoDict()['cut-off_freq']+' Hz cut-off freq.', 
@@ -1588,10 +1565,13 @@ def plotAllRuns_filtered_Messwerte(dataFromRuns, timesDict, plotSettings, CMDopt
 				'highpass_displ': 'Displacement high-pass filtered with '+inputDataClass.get_actuatorDataInfoDict()['cut-off_freq']+' Hz cut-off freq.'}
 
 	for attrs_to_plot in attrs_to_plot_list:
-		figure, axesList = plt.subplots(3, 1, sharex='col')
+		figure, axesList = plt.subplots(len(attrs_to_plot), 1, sharex='col')
 		figure.set_size_inches(12, 8, forward=True)
 
+		# if True:
 		for ax, attr in zip(axesList, attrs_to_plot):
+			# ax = axesList
+			# attr = 'kraft'
 
 			LastData, lastPoint = None, 0.0
 
@@ -1623,7 +1603,7 @@ def plotAllRuns_filtered_Messwerte(dataFromRuns, timesDict, plotSettings, CMDopt
 				ax.plot(2*[div], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
 
 				#Add text with step number
-				ax.text(previousDiv + ((div - previousDiv)/2), minPlot_y, 'Step '+str(inputDataClass.get_actuatorDataInfoDict()['runs'][i]), bbox=dict(facecolor='black', alpha=0.2), horizontalalignment = 'center')
+				ax.text(previousDiv + ((div - previousDiv)/2), minPlot_y, 'Step '+str(CMDoptionsDict['rangeFileIDs'][i]), bbox=dict(facecolor='black', alpha=0.2), horizontalalignment = 'center')
 				
 				previousDiv = div
 				i += 1
@@ -1672,7 +1652,7 @@ def plotAllRuns_filtered_Messwerte(dataFromRuns, timesDict, plotSettings, CMDopt
 		#Save figure
 		if CMDoptionsDict['saveFigure']:
 
-			figure.savefig(os.path.join(CMDoptionsDict['cwd'], titles[attrs_to_plot[0]]+'.png'))
+			figure.savefig(os.path.join(CMDoptionsDict['cwd'], titles[attrs_to_plot[0]]+'.png'), dpi = plotSettings['figure_settings']['dpi'])
 
 
 def filter(data, fs, typeFilter, cutoff):
@@ -1696,7 +1676,6 @@ def filter(data, fs, typeFilter, cutoff):
 	# cutoff = 3.667  # desired cutoff frequency of the filter, Hz
 
 	y = butter_filter(data, cutoff, fs, typeFilter,order_in = order)
-	y = butter_filter(y, cutoff, fs, typeFilter,order_in = order)
+	# y = butter_filter(y, cutoff, fs, typeFilter,order_in = order)
 
 	return y
->>>>>>> 482daaf2f6546c733e185e7b25425d54ccec6a0b

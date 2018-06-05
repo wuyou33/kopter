@@ -1,2 +1,14 @@
-Folders to load:
+-> Folders to load:
 L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0182\01_TDMS_data_Set-complete\01_RAW\Fatigue test\csv_data
+
+-> Variable info
+name: S01
+y-label: Strain [mm\m]
+TO spec: no
+max load: -
+min load: *
+Fatigue load spec: no
+static load: -
+margin static load (%): 5
+alternate load: -
+margin alternate load (%): 3

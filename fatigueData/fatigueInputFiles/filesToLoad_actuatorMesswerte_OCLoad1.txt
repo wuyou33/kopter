@@ -1,0 +1,20 @@
+-> Files to load:
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0168\01_TDMS_data_Set-complete\01_RAW\Zwick data\Run_6_Messwerte.csv
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0168\01_TDMS_data_Set-complete\01_RAW\Zwick data\Run_7_Messwerte.csv
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0168\01_TDMS_data_Set-complete\01_RAW\Zwick data\Run_8_Messwerte.csv
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0168\01_TDMS_data_Set-complete\01_RAW\Zwick data\Run_10_Messwerte.csv
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0168\01_TDMS_data_Set-complete\01_RAW\Zwick data\Run_12_Messwerte.csv
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0168\01_TDMS_data_Set-complete\01_RAW\Zwick data\Run_13_Messwerte.csv
+
+-> Loads upper and lower limits:
+sampling_freq: 20
+time_offset: 2
+cut-off_freq: 0.005
+TO spec: yes
+max load: 5.083
+min load: -3.114
+Fatigue load spec: yes
+static load: 0.985
+margin static load (%): 5
+alternate load: 4.099
+margin alternate load (%): 3

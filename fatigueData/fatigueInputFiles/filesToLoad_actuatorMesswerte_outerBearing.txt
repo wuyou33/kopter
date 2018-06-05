@@ -4,14 +4,10 @@ L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\
 L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0187\01_TDMS_data_Set-complete\01_RAW\200k-362400 cycles\Run_7_Messwerte.csv
 L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0187\01_TDMS_data_Set-complete\01_RAW\362400-448650 cycles\Run_8_Messwerte.csv
 
--> Test runs
-5,6,7,8
-
 -> Signal characteristics actuator
-sampling_freq: 1000
-cycle_freq: 10
+sampling_freq: 20
 time_offset: 2
-cut-off_freq: 0.01
+cut-off_freq: 0.005
 TO spec: yes
 max load: 17
 min load: -7
