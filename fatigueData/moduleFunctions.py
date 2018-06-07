@@ -419,7 +419,7 @@ def importPlottingOptions():
 	markers = ['o', 'v', '^', 's', '*', '+']
 	linestyles = ['-', '--', '-.', ':']
 	axes_ticks_n = {'x_axis' : 3} #Number of minor labels in between 
-	figure_settings = {'dpi' : 400}
+	figure_settings = {'dpi' : 200}
 
 	plotSettings = {'axes_x':axes_label_x,'axes_y':axes_label_y, 'title':text_title_properties,
 	                'axesTicks':axes_ticks, 'line':line, 'legend':legend, 'grid':grid, 'scatter':scatter,
@@ -1243,7 +1243,7 @@ def plotAllRuns_force(dataFromRuns, plotSettings, CMDoptionsDict, inputDataClass
 	#Save figure
 	if CMDoptionsDict['saveFigure']:
 
-		figure.savefig(os.path.join(CMDoptionsDict['cwd'], 'ActuatorLoads.png'), dpi = plotSettings['figure_settings']['dpi'])
+		figure.savefig(os.path.join(CMDoptionsDict['cwd'], 'ActuatorLoadsMaxMinMean.png'), dpi = plotSettings['figure_settings']['dpi'])
 
 
 def plotAllRuns_force_Messwerte(dataFromRuns, plotSettings, CMDoptionsDict, inputDataClass):
@@ -1294,7 +1294,7 @@ def plotAllRuns_force_Messwerte(dataFromRuns, plotSettings, CMDoptionsDict, inpu
 	#Save figure
 	if CMDoptionsDict['saveFigure']:
 
-		figure.savefig(os.path.join(CMDoptionsDict['cwd'], 'ActuatorForceDisplacement.png'), dpi = plotSettings['figure_settings']['dpi'])
+		figure.savefig(os.path.join(CMDoptionsDict['cwd'], 'ActuatorForceDisplacementTotalStaticAlternate.png'), dpi = plotSettings['figure_settings']['dpi'])
 
 	#Central differences plot
 	figure, ax = plt.subplots(1, 1)
@@ -1406,7 +1406,7 @@ def plotAllRuns_displacement(dataFromRuns, plotSettings, CMDoptionsDict, inputDa
 	#Save figure
 	if CMDoptionsDict['saveFigure']:
 
-		figure.savefig(os.path.join(CMDoptionsDict['cwd'], 'ActuatorDisplacement.png'), dpi = plotSettings['figure_settings']['dpi'])
+		figure.savefig(os.path.join(CMDoptionsDict['cwd'], 'ActuatorDisplacementMaxMinMean.png'), dpi = plotSettings['figure_settings']['dpi'])
 
 def calculate_stats(dataFromRuns):
 
@@ -1557,8 +1557,8 @@ def plotAllRuns_filtered_Messwerte(dataFromRuns, timesDict, plotSettings, CMDopt
 	
 	attrs_to_plot_list = [['kraft', 'lowpass_force', 'highpass_force'], ['weg', 'lowpass_displ', 'highpass_displ']]
 	# attrs_to_plot_list = [['kraft']]
-	titles = {'kraft': 'Force measured by the actuator',
-				'weg' : 'Displacement imposed by the actuator',
+	titles = {'kraft': 'Force measured by the actuator, total, static and alternate',
+				'weg' : 'Displacement imposed by the actuator, total, static and alternate',
 				'lowpass_force': 'Force low-pass filtered with '+inputDataClass.get_actuatorDataInfoDict()['cut-off_freq']+' Hz cut-off freq.', 
 				'highpass_force': 'Force high-pass filtered with '+inputDataClass.get_actuatorDataInfoDict()['cut-off_freq']+' Hz cut-off freq.',
 				'lowpass_displ': 'Displacement low-pass filtered with '+inputDataClass.get_actuatorDataInfoDict()['cut-off_freq']+' Hz cut-off freq.', 

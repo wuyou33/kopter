@@ -1,2 +1,5 @@
-Files to load:
+-> Files to load:
 L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0174\01_TDMS_data_Set-complete\01_RAW\Fatigue test\Zwick data\Run_6_Zyklische Ergebnisse.csv
+
+-> Loads upper and lower limits:
+2.6,-5.6
