@@ -283,7 +283,8 @@ class inputDataClassDef(object):
 
 		else:
 
-			print('WARNING: Address '+fileAddress+' does not exist or is not a directory, entry skipped')
+			raise ValueError('ERROR: Address '+fileAddress+' does not exist or is not a directory, entry skipped')
+
 
 	def updateActuatorDataInfoDict(self, variableStringKey, variableDict):
 
@@ -411,7 +412,7 @@ def importPlottingOptions():
 	axes_label_y  = {'size' : 14, 'weight' : 'bold', 'verticalalignment' : 'bottom', 'horizontalalignment' : 'center'} #'verticalalignment' : 'bottom'
 	text_title_properties = {'weight' : 'bold', 'size' : 14}
 	axes_ticks = {'labelsize' : 10}
-	line = {'linewidth' : 2, 'markersize' : 2}
+	line = {'linewidth' : 1.5, 'markersize' : 2}
 	scatter = {'linewidths' : 2}
 	legend = {'fontsize' : 14, 'loc' : 'best'}
 	grid = {'alpha' : 0.7}
@@ -1062,7 +1063,7 @@ class dataFromGaugesSingleMagnitudeClass(object):
 
 		# ax.set_xlabel('Number of points [Millions]', **plotSettings['axes_x'])
 		# ax.set_xlabel('Time elapsed [Million seconds]', **plotSettings['axes_x'])
-		if not CMDoptionsDict['multipleYaxisInSameFigure']:
+		if not CMDoptionsDict['multipleYaxisInSameFigure'] or CMDoptionsDict['numberMultipleYaxisInSameFigure'] == 1:
 			ax.set_xlabel('Time elapsed [Seconds]', **plotSettings['axes_x'])
 		elif CMDoptionsDict['numberMultipleYaxisInSameFigure']==(plotSettings['currentAxis'][1]+1):
 			ax.set_xlabel('Time elapsed [Seconds]', **plotSettings['axes_x'])

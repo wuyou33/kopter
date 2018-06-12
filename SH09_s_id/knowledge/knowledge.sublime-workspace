@@ -84,14 +84,12 @@
 	"buffers":
 	[
 		{
-			"contents": "\\documentclass[11pt,a4paper,fleqn,twoside]{article}\n% Compile doing:\n% rm main.aux & rm sections/*.aux & rm main.nlo & rm main.nls & pdflatex main && makeindex main.nlo -s nomencl.ist -o main.nls && bibtex main && pdflatex main && clear && pdflatex main\n\n% Settings\n\\input{settings/doc_settings}\n\n%Define which chapters to include\n\\includeonly{\n\tsections/Introduction,\n\tsections/Model_description\n\t} %{file1,file2,...} \n\n%%%%%%%%%%%%%%%%%\n\n% Document info\n\\title{Model description for the implementation of System Identification methodologies on the rotorcraft SH09}\n\\author{Alejandro Valverde López}\n\n\n\\begin{document}\n\\maketitle\n\\tableofcontents\n\n\\input{sections/0.Nomenclature} %Import nomenclature, no text is written\n\\printnomenclature[0.75in]\n\n%Sections\n\\clearpage\n\\include{sections/Introduction}\n\n\\clearpage\n\\include{sections/TeoryOfHelicopters}\n\n\\clearpage\n\\include{sections/Model_description}\n\n% Bibliography\n\\bibliographystyle{ieeetr}\n\\bibliography{MyBib}\n\n\n\\end{document}",
 			"file": "main.tex",
-			"file_size": 972,
-			"file_write_time": 131649631960000000,
 			"settings":
 			{
-				"buffer_size": 982,
-				"line_ending": "Unix"
+				"buffer_size": 932,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
 			}
 		},
 		{
@@ -150,7 +148,7 @@
 	},
 	"expanded_folders":
 	[
-		"/D/kopter/SH09_s_id/knowledge"
+		"/P/kopter/SH09_s_id/knowledge"
 	],
 	"file_history":
 	[
@@ -333,7 +331,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 982,
+						"buffer_size": 932,
 						"regions":
 						{
 						},
@@ -368,8 +366,8 @@
 						"selection":
 						[
 							[
-								27,
-								27
+								776,
+								776
 							]
 						],
 						"settings":
@@ -414,7 +412,7 @@
 							"syntax": "Packages/LaTeXing/support/LaTeX.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 158.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -503,7 +501,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 1,
+	"selected_group": 0,
 	"settings":
 	{
 	},

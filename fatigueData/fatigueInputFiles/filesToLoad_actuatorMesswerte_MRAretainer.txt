@@ -3,7 +3,7 @@ L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\
 
 
 -> Signal characteristics actuator
-sampling_freq: 20
+sampling_freq: 3
 time_offset: 2
 cut-off_freq: 0.01
 TO spec: yes

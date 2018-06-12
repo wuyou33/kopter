@@ -1,0 +1,28 @@
+-> Files to load:
+\\mshzhstg\MSHData\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0179\01_TDMS_data_Set-complete\01_RAW\Piston Bending Fatigue\Run_6_Messwerte.csv
+\\mshzhstg\MSHData\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0179\01_TDMS_data_Set-complete\01_RAW\Piston Bending Fatigue\Run_7_Messwerte.csv
+\\mshzhstg\MSHData\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0179\01_TDMS_data_Set-complete\01_RAW\Piston Bending Fatigue\Run_9_Messwerte.csv
+\\mshzhstg\MSHData\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0179\01_TDMS_data_Set-complete\01_RAW\Piston Bending Fatigue\Run_10_Messwerte.csv
+\\mshzhstg\MSHData\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0179\01_TDMS_data_Set-complete\01_RAW\Piston Bending Fatigue\Run_11_Messwerte.csv
+\\mshzhstg\MSHData\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0179\01_TDMS_data_Set-complete\01_RAW\Piston Bending Fatigue\Run_12_Messwerte.csv
+\\mshzhstg\MSHData\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0179\01_TDMS_data_Set-complete\01_RAW\Piston Bending Fatigue\Run_14_Messwerte.csv
+\\mshzhstg\MSHData\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0179\01_TDMS_data_Set-complete\01_RAW\Piston Bending Fatigue\Run_15_Messwerte.csv
+\\mshzhstg\MSHData\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0179\01_TDMS_data_Set-complete\01_RAW\Piston Bending Fatigue\Run_16_Messwerte.csv
+\\mshzhstg\MSHData\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0179\01_TDMS_data_Set-complete\01_RAW\Piston Bending Fatigue\Run_17_Messwerte.csv
+\\mshzhstg\MSHData\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0179\01_TDMS_data_Set-complete\01_RAW\Piston Bending Fatigue\Run_18_Messwerte.csv
+\\mshzhstg\MSHData\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0179\01_TDMS_data_Set-complete\01_RAW\Piston Bending Fatigue\Run_19_Messwerte.csv
+\\mshzhstg\MSHData\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0179\01_TDMS_data_Set-complete\01_RAW\Piston Bending Fatigue\Run_20_Messwerte.csv
+
+
+-> Signal characteristics actuator
+sampling_freq: 3
+time_offset: 2
+cut-off_freq: 0.01
+TO spec: yes
+max load: 2.31
+min load: 0.69
+Fatigue load spec: yes
+static load: 1.5
+margin static load (%): 5
+alternate load: 0.81
+margin alternate load (%): 3
