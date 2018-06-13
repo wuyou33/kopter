@@ -2,19 +2,29 @@
 
 \subsection{Equations of Motion for Rigid Airframe}
 
-As shown in \cite{Cooke}...
+  As shown in \cite{Cooke}...
 
-The axes to be used are the helicopter body axes $(O,x,y,z)$ fixed in the helicopter and with its origin at the body axes centre. The components of velocity and force along the $Ox$, $Oy$ and $Oz$ axes are $U$, $V$, $W$ and $X$, $Y$, $Z$, respectively. The components of the rates of rotation about the same axes are $p$, $q$ and $r$ and the moments $L$, $M$ and $N$.
+  The axes to be used are the helicopter body axes $(O,x,y,z)$ fixed in the helicopter and with its origin at the body axes centre. The components of velocity and force along the $Ox$, $Oy$ and $Oz$ axes are $U$, $V$, $W$ and $X$, $Y$, $Z$, respectively. The components of the rates of rotation about the same axes are $p$, $q$ and $r$ and the moments $L$, $M$ and $N$.
 
-Considering the position that the position of the centre of gravity $CG$ is given by the co-ordinates $d_x$, $d_y$ and $d_z$ relative to the body axes centre, the absolute velocity of $CG$ is given by $u'$, $v'$ and $w'$:
+  Considering the position that the position of the centre of gravity $CG$ is given by the co-ordinates $d_x$, $d_y$ and $d_z$ relative to the body axes centre, the absolute velocity of $CG$ is given by $u'$, $v'$ and $w'$:
 
-\begin{equation}
-	u' = U - r d_y + q d_z \qquad v' = V - p d_z + r d_x \qquad w' = W - q d_x + p d_y
-\end{equation}
+  \begin{equation}
+  	u' = U - r d_y + q d_z \qquad v' = V - p d_z + r d_x \qquad w' = W - q d_x + p d_y
+  \end{equation}
 
-\noindent
-and similarly, for the accelerations of the $CG$:
+  \noindent
+  and similarly, for the accelerations of the $CG$:
 
-\begin{equation}
-	a'_x = \dot{U}' - r v' + q w' \qquad a'_y = \dot{v}' - p w' + r u' \qquad a_z' = \dot{w}' - q u' + p v'
-\end{equation}
+  \begin{equation}
+  	a'_x = \dot{U}' - r v' + q w' \qquad a'_y = \dot{v}' - p w' + r u' \qquad a_z' = \dot{w}' - q u' + p v'
+  \end{equation}
+
+\subsection{Relationship between feathering law and flapping law for hovering}
+  
+  The feathering control law is given by: $$ \theta(\phi) = \theta_0 + \theta_{1C}\cos{\phi} + \theta_{1S}\sin{\phi}$$
+
+  Then, it can be assumed that the flapping angle can be reduced to its first harmonic: $$\beta(\phi) = \beta_0 + \beta_{1C}\cos{\phi} + \beta_{1S}\sin{\phi}$$. Then the constant part $\beta_0$ is given by: $$\beta_0 = \frac{\alpha_\beta \theta_0 - \delta_\beta \lambda_{i0}}{\lambda_\beta^2}$$.
+
+  \begin{eqarray}
+    \beta_{1C} = \frac{\alpha_\beta}{(\lambda_\beta^2 - 1)^2 + \eta}
+  \end{eqarray}

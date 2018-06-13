@@ -105,7 +105,7 @@
 			"file": "sections/TeoryOfHelicopters.tex",
 			"settings":
 			{
-				"buffer_size": 1020,
+				"buffer_size": 1645,
 				"encoding": "UTF-8",
 				"line_ending": "Windows",
 				"name": "\\section{}"
@@ -148,7 +148,7 @@
 	},
 	"expanded_folders":
 	[
-		"/P/kopter/SH09_s_id/knowledge"
+		"/D/kopter/SH09_s_id/knowledge"
 	],
 	"file_history":
 	[
@@ -213,6 +213,7 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"theta",
 			"=",
 			"C",
 			"linearDataSH09",
@@ -366,8 +367,8 @@
 						"selection":
 						[
 							[
-								776,
-								776
+								361,
+								359
 							]
 						],
 						"settings":
@@ -377,7 +378,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 92.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
@@ -395,24 +396,27 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1020,
+						"buffer_size": 1645,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1005,
-								1005
+								1628,
+								1628
 							]
 						],
 						"settings":
 						{
 							"auto_name": "\\section{}",
-							"syntax": "Packages/LaTeXing/support/LaTeX.tmLanguage"
+							"spell_check": true,
+							"syntax": "Packages/LaTeXing/support/LaTeX.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 7.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -454,7 +458,7 @@
 		"rows":
 		[
 			0.0,
-			0.5,
+			0.29185520362,
 			1.0
 		]
 	},
@@ -501,7 +505,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 0,
+	"selected_group": 1,
 	"settings":
 	{
 	},
