@@ -87,28 +87,31 @@
 			"file": "main.tex",
 			"settings":
 			{
-				"buffer_size": 932,
+				"buffer_size": 1014,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "\\section{Theory of Helicopters}\n\n\\subsection{Equations of Motion for Rigid Airframe}\n\n  As shown in \\cite{Cooke}...\n\n  The axes to be used are the helicopter body axes $(O,x,y,z)$ fixed in the helicopter and with its origin at the body axes centre. The components of velocity and force along the $Ox$, $Oy$ and $Oz$ axes are $U$, $V$, $W$ and $X$, $Y$, $Z$, respectively. The components of the rates of rotation about the same axes are $p$, $q$ and $r$ and the moments $L$, $M$ and $N$.\n\n  Considering the position that the position of the centre of gravity $CG$ is given by the co-ordinates $d_x$, $d_y$ and $d_z$ relative to the body axes centre, the absolute velocity of $CG$ is given by $u'$, $v'$ and $w'$:\n\n  \\begin{equation}\n  \tu' = U - r d_y + q d_z \\qquad v' = V - p d_z + r d_x \\qquad w' = W - q d_x + p d_y\n  \\end{equation}\n\n  \\noindent\n  and similarly, for the accelerations of the $CG$:\n\n  \\begin{equation}\n  \ta'_x = \\dot{U}' - r v' + q w' \\qquad a'_y = \\dot{v}' - p w' + r u' \\qquad a_z' = \\dot{w}' - q u' + p v'\n  \\end{equation}\n\n\\subsection{Relationship between feathering law and flapping law for hovering}\n\n  The flapping equation for hover is given by:$$M_{b,y_{A1}}^{a,E} + k_\\beta \\beta + I_\\beta \\left( \\frac{\\mathrm{d}^2\\beta}{\\mathrm{d}t^2} + \\Omega^2\\beta \\right) + x_{\\mathrm{GB}}M_P\\Omega^2e\\beta = 0, $$\n\n  \\noindent\n  where the aerodynamic moment is given by:\n\n  \\begin{equation}\n    M_{b,y_{A1}}^{a,E} = \\rho a c \\Omega^2 R^4 \\left\\{ \\left[ -\\frac{1}{6} + \\frac{1}{4} \\frac{e}{R} - \\frac{1}{12} \\left( \\frac{e}{R} \\right)^3 \\right] \\lambda_i +  \\left[ \\frac{1}{8} - \\frac{1}{3}\\frac{e}{R} ... \\right] \\right\\},\n  \\end{equation}\n\n  \\noindent\n  then, substituting $\\psi = \\Omega t$:\n\n  \\begin{equation}\n    \\frac{\\mathrm{d}^2\\beta}{\\mathrm{d}\\psi^2} + \\eta_\\beta \\frac{\\mathrm{d}\\beta}{\\mathrm{d}\\psi} + \\lambda_\\beta^2\\beta + \\delta_\\beta \\lambda_i - \\alpha_\\beta \\theta = 0,\n  \\end{equation}\n\n  \\noindent\n  where $\\eta_\\beta$, $\\delta_\\beta$ and $\\alpha_\\beta$ are function of the Lock number $\\gamma = \\rho a c R^4 / I_\\beta$, the blade eccentricity $e$ and the rotor radius $R$:\n\n  \\begin{eqnarray}\n    \\eta_\\beta &=& \\frac{\\gamma}{8} \\left[ 1 - \\frac{8}{3}\\frac{e}{R} + 2 \\left(\\frac{e}{R}\\right)^2 - \\frac{1}{3}\\left(\\frac{e}{R}\\right)^4 \\right], \\\\[6pt]\n    \\delta_\\beta &=& \\frac{\\gamma}{8} \\left[- \\frac{4}{3} + 2 \\frac{e}{R} - \\frac{2}{3}\\left(\\frac{e}{R}\\right)^3 \\right], \\\\[6pt]\n    \\alpha_\\beta &=& \\frac{\\gamma}{8} \\left[1 - \\frac{4}{3} \\frac{e}{R} + \\frac{1}{3}\\left(\\frac{e}{R}\\right)^4 \\right].\n  \\end{eqnarray}\n\n  \\noindent %damped natural frequency is written like w_d in the control systems Cranfield notes\n  The blade natural damped natural frequency $\\lambda_\\beta$ is given by:$$\\lambda_\\beta = \\sqrt{  1 + \\frac{3}{2(1 - e/R)}\\frac{e}{R} + 3 \\frac{k_\\beta}{R^3 m_P \\Omega^2} \\frac{1}{(1 - e/R)^3} }.$ \n  \n  \\noindent\n  The feathering control law is given by: $$ \\theta(\\phi) = \\theta_0 + \\theta_{1C}\\cos{\\phi} + \\theta_{1S}\\sin{\\phi}$$\n\n  Then, it can be assumed that the flapping angle can be reduced to its first harmonic: $$\\beta(\\phi) = \\beta_0 + \\beta_{1C}\\cos{\\phi} + \\beta_{1S}\\sin{\\phi}.$$ Then the constant part $\\beta_0$ is given by: $$\\beta_0 = \\frac{\\alpha_\\beta \\theta_0 - \\delta_\\beta \\lambda_{i0}}{\\lambda_\\beta^2},$$\n\n  \\noindent\n  and $\\beta_{1C}$ and $\\beta_{1C}$ are given by:\n\n  \\begin{eqnarray}\n    \\beta_{1C} = \\frac{\\alpha_\\beta}{(\\lambda_\\beta^2 - 1)^2 + \\eta_\\beta^2} [(\\lambda_\\beta^2 - 1)\\theta_{1C} - \\eta_\\beta \\theta_{1S}], \\\\[6pt]\n    \\beta_{1S} = \\frac{\\alpha_\\beta}{(\\lambda_\\beta^2 - 1)^2 + \\eta_\\beta^2} [\\eta_\\beta \\theta_{1C} + (\\lambda_\\beta^2 - 1)\\theta_{1S}].\n  \\end{eqnarray}\n\n",
+			"file": "sections/TheoryOfHelicopters.tex",
+			"file_size": 3735,
+			"file_write_time": 131734748167131690,
+			"settings":
+			{
+				"buffer_size": 3671,
+				"encoding": "UTF-8",
+				"line_ending": "Windows",
+				"name": "\\section{}"
 			}
 		},
 		{
 			"file": "sections/Model_description.tex",
 			"settings":
 			{
-				"buffer_size": 4918,
+				"buffer_size": 8488,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "sections/TeoryOfHelicopters.tex",
-			"settings":
-			{
-				"buffer_size": 1645,
-				"encoding": "UTF-8",
-				"line_ending": "Windows",
-				"name": "\\section{}"
 			}
 		}
 	],
@@ -148,10 +151,13 @@
 	},
 	"expanded_folders":
 	[
-		"/D/kopter/SH09_s_id/knowledge"
+		"/P/kopter/SH09_s_id/knowledge",
+		"/P/kopter/SH09_s_id/knowledge/sections",
+		"/P/kopter/SH09_s_id/knowledge/settings"
 	],
 	"file_history":
 	[
+		"/P/kopter/SH09_s_id/knowledge/sections/Model_description.tex",
 		"/D/kopter/SH09_s_id/knowledge/MyBib.bib",
 		"/C/Users/aleja/Downloads/My Collection.bib",
 		"/home/alejandro/Documents/kopter/SH09_s_id/knowledge/sections/Introduction.tex",
@@ -213,6 +219,39 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"lon",
+			"col",
+			"u \\\\ w \\\\ q \\\\ \\theta",
+			"=",
+			"equation",
+			"\\mat{",
+			"&",
+			"ped",
+			"\\\\",
+			"} \\\\",
+			"m {",
+			"{",
+			"ped",
+			"col",
+			"=",
+			"L",
+			"lon",
+			"u",
+			"v",
+			"lat",
+			"v",
+			"X",
+			"lat",
+			"coll",
+			"circ",
+			"circle",
+			"\\\\",
+			"m (",
+			"=",
+			"delta",
+			"eqnarray",
+			"eqarray",
+			"eqnarray",
 			"theta",
 			"=",
 			"C",
@@ -323,7 +362,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -332,15 +371,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 932,
+						"buffer_size": 1014,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								851,
-								833
+								932,
+								932
 							]
 						],
 						"settings":
@@ -348,40 +387,10 @@
 							"syntax": "Packages/LaTeXing/support/LaTeX.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 273.0,
+						"translation.y": 195.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "sections/Model_description.tex",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4918,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								361,
-								359
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/LaTeXing/support/LaTeX.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 92.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -391,20 +400,20 @@
 			"sheets":
 			[
 				{
-					"buffer": 2,
-					"file": "sections/TeoryOfHelicopters.tex",
+					"buffer": 1,
+					"file": "sections/TheoryOfHelicopters.tex",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1645,
+						"buffer_size": 3671,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1628,
-								1628
+								2852,
+								2852
 							]
 						],
 						"settings":
@@ -416,10 +425,52 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 7.0,
+						"translation.y": 379.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "sections/Model_description.tex",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8488,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								8034,
+								8034
+							],
+							[
+								8045,
+								8045
+							],
+							[
+								8056,
+								8056
+							],
+							[
+								8067,
+								8067
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LaTeXing/support/LaTeX.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1683.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -458,7 +509,7 @@
 		"rows":
 		[
 			0.0,
-			0.29185520362,
+			0.184868304057,
 			1.0
 		]
 	},
@@ -509,7 +560,7 @@
 	"settings":
 	{
 	},
-	"show_minimap": true,
+	"show_minimap": false,
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,

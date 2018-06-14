@@ -63,7 +63,6 @@
 \subsection{Helicopter model}
 
   \subsubsection{Model forces and moments coefficients}
-    $\mat{F}$ matrix
     Forces: 
     $$
     X_u, X_v, X_w, X_p, X_q, X_r \\
@@ -81,19 +80,59 @@
     Controllability, $\mat{G}$ matrix:
     Forces
     $$
-    X_{\delta_{\mathrm{lon}}}, X_{\delta_{\mathrm{lat}}}, X_{\delta_{\mathrm{ped}}}, X_{\delta_{\mathrm{col}}} \\
-    Y_{\delta_{\mathrm{lon}}}, Y_{\delta_{\mathrm{lat}}}, Y_{\delta_{\mathrm{ped}}}, Y_{\delta_{\mathrm{col}}} \\
-    Z_{\delta_{\mathrm{lon}}}, Z_{\delta_{\mathrm{lat}}}, Z_{\delta_{\mathrm{ped}}}, Z_{\delta_{\mathrm{col}}}
+    X_{\theta_{\mathrm{lon}}}, X_{\theta_{\mathrm{lat}}}, X_{\theta_{\mathrm{ped}}}, X_{\theta_{\mathrm{col}}} \\
+    Y_{\theta_{\mathrm{lon}}}, Y_{\theta_{\mathrm{lat}}}, Y_{\theta_{\mathrm{ped}}}, Y_{\theta_{\mathrm{col}}} \\
+    Z_{\theta_{\mathrm{lon}}}, Z_{\theta_{\mathrm{lat}}}, Z_{\theta_{\mathrm{ped}}}, Z_{\theta_{\mathrm{col}}}
     $$
 
     Moments
     $$
-    M_{\delta_{\mathrm{lon}}}, M_{\delta_{\mathrm{lat}}}, M_{\delta_{\mathrm{ped}}}, M_{\delta_{\mathrm{col}}} \\
-    N_{\delta_{\mathrm{lon}}}, N_{\delta_{\mathrm{lat}}}, N_{\delta_{\mathrm{ped}}}, N_{\delta_{\mathrm{col}}} \\
-    N_{\delta_{\mathrm{lon}}}, N_{\delta_{\mathrm{lat}}}, N_{\delta_{\mathrm{ped}}}, N_{\delta_{\mathrm{col}}}
+    M_{\theta_{\mathrm{lon}}}, M_{\theta_{\mathrm{lat}}}, M_{\theta_{\mathrm{ped}}}, M_{\theta_{\mathrm{col}}} \\
+    N_{\theta_{\mathrm{lon}}}, N_{\theta_{\mathrm{lat}}}, N_{\theta_{\mathrm{ped}}}, N_{\theta_{\mathrm{col}}} \\
+    N_{\theta_{\mathrm{lon}}}, N_{\theta_{\mathrm{lat}}}, N_{\theta_{\mathrm{ped}}}, N_{\theta_{\mathrm{col}}}
     $$
 
     Time delays
     $$
     \tau_{\mathrm{lon}}, \tau_{\mathrm{lat}}, \tau_{\mathrm{ped}}, \tau_{\mathrm{col}}
     $$
+
+  \subsubsection{Equations of motion for a linearised model}
+
+    The linearisation of forces and moments by means of the small perturbation theory about the body axes centre leads to:
+
+    \begin{eqnarray}
+      X &=& m \{\dot{u} + q W_e -d_x(q^2 + r^2) + d_y(pq - \dot{r}) + d_z(pr + \dot{q}) \} \\[6pt]
+      Y &=& m \{ \dot{v} - p W_e + r U_e + d_x(pq + \dot{r}) - d_y(p^2 + r^2) + d_z(qr - \dot{p}) \} \\[6pt]
+      Z &=& m \{\dot{w} - q U_e + d_x(pr - \dot{q}) + d_y(qr + \dot{p}) + d_z(p^2 + q^2) \} \\[6pt]
+      L &=& I_{xx} \dot{p} - I_{xz}\dot{r} - Y d_z + Z d_y \\[6pt]
+      M &=& I_{yy} \dot{q} - Z d_x + X d_z \\[6pt]
+      N &=& I_{zz} \dot{r} - I_{xz} \dot{p} - X d_y +Y d_x
+    \end{eqnarray}
+
+    And, considering the forces and moments arise from aerodynamic, gravitational and control sources, it can be written that:
+
+    \begin{eqnarray}
+      X &=& u \mathring{X}_u + w \mathring{X}_w + q \mathring{X}_q - \theta m g \cos \theta_e + \theta_{\mathrm{lon}} \mathring{X}_{\theta_{\mathrm{lon}}} + \theta_{\mathrm{col}} \mathring{X}_{\theta_{\mathrm{col}}} \\[6pt]
+      Y &=& v \mathring{Y}_v + p \mathring{Y}_p + r \mathring{Y}_r + \phi m g \sin \theta_e + \psi m g \cos \theta_e + \theta_{\mathrm{lat}} \mathring{Y}_{\theta_{\mathrm{lat}}} + \theta_{\mathrm{ped}} \mathring{Y}_{\theta_{\mathrm{ped}}} \\[6pt]
+      Z &=& u \mathring{Z}_u + w \mathring{Z}_w + q \mathring{Z}_q - \theta m g \sin \theta_e + \theta_{\mathrm{lon}} \mathring{Z}_{\theta_{\mathrm{lon}}} + \theta_{\mathrm{col}} \mathring{Z}_{\theta_{\mathrm{col}}} \\[6pt]
+      L &=& v \mathring{L}_v + p \mathring{L}_p + r \mathring{L}_r + \theta_{\mathrm{lat}} \mathring{L}_{\theta_{\mathrm{lat}}} + \theta_{\mathrm{ped}} \mathring{L}_{\theta_{\mathrm{ped}}} + \theta_{\mathrm{lon}} \mathring{L}_{\theta_{\mathrm{lon}}}\\[6pt] %lon added here
+      M &=& u \mathring{M}_u + w \mathring{M}_w + q \mathring{M}_q + \theta_{\mathrm{lon}} \mathring{M}_{\theta_{\mathrm{lon}}} + \theta_{\mathrm{col}} \mathring{M}_{\theta_{\mathrm{col}}} + \theta_{\mathrm{ped}} \mathring{M}_{\theta_{\mathrm{ped}}} + \theta_{\mathrm{lat}} \mathring{M}_{\theta_{\mathrm{lat}}}\\[6pt] %pedal and lat added here
+      N &=& v \mathring{N}_v + p \mathring{N}_p + r \mathring{N}_r + \theta_{\mathrm{lat}} \mathring{N}_{\theta_{\mathrm{lat}}} + \theta_{\mathrm{ped}} \mathring{N}_{\theta_{\mathrm{ped}}}
+    \end{eqnarray}
+
+  \subsubsection{Longitudinal and lateral dynamics from the linearized model}
+
+    The linearized model for longitudinal dynamics results on:
+
+    \begin{eqnarray}
+      \left[ \begin{array}{c} \dot{u} \\ \dot{w} \\ \dot{q} \\ \dot{\theta} \end{array} \right] &=& \mat{A} \left[ \begin{array}{c} u \\ w \\ q \\ \theta \end{array} \right] + \mat{B} \left[ \begin{array}{c} \theta_{\mathrm{col}} \\ \theta_{\mathrm{lon}} \end{array} \right] \\[6pt]
+      \mat{y} &=& \mat{C} \left[ \begin{array}{c} u \\ w \\ q \\ \theta \end{array} \right] + \mat{D} \left[ \begin{array}{c} \theta_{\mathrm{col}} \\ \theta_{\mathrm{lon}} \end{array} \right]
+    \end{eqnarray}
+
+    And for the lateral, results on:
+
+    \begin{eqnarray}
+      \left[ \begin{array}{c} \dot{v} \\ \dot{p} \\ \dot{r} \\ \dot{\phi} \end{array} \right] &=& \mat{A} \left[ \begin{array}{c} v \\ p \\ r \\ \phi \end{array} \right] + \mat{B} \left[ \begin{array}{c} \theta_{\mathrm{lat}} \\ \theta_{\mathrm{ped}} \end{array} \right] \\[6pt]
+      \mat{y} &=& \mat{C} \left[ \begin{array}{c} v \\ p \\ r \\ \phi \end{array} \right] + \mat{D} \left[ \begin{array}{c} \theta_{\mathrm{lat}} \\ \theta_{\mathrm{ped}} \end{array} \right]
+    \end{eqnarray}
