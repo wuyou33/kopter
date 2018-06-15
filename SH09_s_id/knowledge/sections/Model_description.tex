@@ -130,9 +130,13 @@
       \mat{y} &=& \mat{C} \left[ \begin{array}{c} u \\ w \\ q \\ \theta \end{array} \right] + \mat{D} \left[ \begin{array}{c} \theta_{\mathrm{col}} \\ \theta_{\mathrm{lon}} \end{array} \right]
     \end{eqnarray}
 
+    Ultimately, this will result in the following characteristic equation: $$(T_1 s + 1) ( T_2 s + 1) / (s^2 + 2\zeta \omega_n s + \omega_n^2) = 0$$
+
     And for the lateral, results on:
 
     \begin{eqnarray}
       \left[ \begin{array}{c} \dot{v} \\ \dot{p} \\ \dot{r} \\ \dot{\phi} \end{array} \right] &=& \mat{A} \left[ \begin{array}{c} v \\ p \\ r \\ \phi \end{array} \right] + \mat{B} \left[ \begin{array}{c} \theta_{\mathrm{lat}} \\ \theta_{\mathrm{ped}} \end{array} \right] \\[6pt]
       \mat{y} &=& \mat{C} \left[ \begin{array}{c} v \\ p \\ r \\ \phi \end{array} \right] + \mat{D} \left[ \begin{array}{c} \theta_{\mathrm{lat}} \\ \theta_{\mathrm{ped}} \end{array} \right]
     \end{eqnarray}
+
+    Ultimately, this will result in the following characteristic equation for the lateral/directional motion: $$(T_1 s + 1) ( T_2 s + 1) / (s^2 + 2\zeta \omega_n s + \omega_n^2) s = 0$$

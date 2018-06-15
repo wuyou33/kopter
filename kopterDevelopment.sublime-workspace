@@ -575,9 +575,7 @@
 		"/P/kopter",
 		"/P/kopter/codingKnowledge",
 		"/P/kopter/fatigueData",
-		"/P/kopter/fatigueData/fatigueInputFiles",
 		"/P/kopter/fti",
-		"/P/kopter/fti/testsInitData",
 		"/P/kopter/s_id",
 		"/P/kopter/tolerances",
 		"/P/kopter/versionsBackup",
@@ -1068,7 +1066,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 4701.0,
+						"translation.y": 4896.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,
