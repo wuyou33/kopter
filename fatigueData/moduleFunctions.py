@@ -674,17 +674,25 @@ class dataFromGaugesSingleMagnitudeClass(object):
 
 		for line in lines[(skipLines+1):]:
 
-			if CMDoptionsDict['correctionFilterFlag'] and fieldOfFile in ('lp'):
-				data += [float(cleanString(line)) + CMDoptionsDict['correctionFilterNum']]
-			elif CMDoptionsDict['correctionFilterFlag'] and fieldOfFile in ('hp'):
-				data += [float(cleanString(line)) - CMDoptionsDict['correctionFilterNum']]
-			else:
-				data += [float(cleanString(line))]
+			if cleanString(line) != '': #Filter out blank lines
 
-			if counter == 0: #First iteration
-				dataID += [self.__lastID+1]
-			else:
-				dataID += [dataID[-1]+1]
+				try:
+
+					if CMDoptionsDict['correctionFilterFlag'] and fieldOfFile in ('lp'):
+						data += [float(cleanString(line)) + CMDoptionsDict['correctionFilterNum']]
+					elif CMDoptionsDict['correctionFilterFlag'] and fieldOfFile in ('hp'):
+						data += [float(cleanString(line)) - CMDoptionsDict['correctionFilterNum']]
+					else:
+						data += [float(cleanString(line))]
+
+				except ValueError as e:
+					print('Error when reading line '+str(counter)+', data content: '+cleanString(line))
+					raise e
+
+				if counter == 0: #First iteration
+					dataID += [self.__lastID+1]
+				else:
+					dataID += [dataID[-1]+1]
 
 			counter += 1
 		
@@ -984,6 +992,8 @@ class dataFromGaugesSingleMagnitudeClass(object):
 
 	def plotResampled(self, plotSettings, CMDoptionsDict, magnitude, additionalInput, inputDataClass):
 
+		plotsDone = 0
+
 		if CMDoptionsDict['multipleYaxisInSameFigure'] and CMDoptionsDict['numberMultipleYaxisInSameFigure'] != 1 and plotSettings['currentAxis'][1] == -1:
 			figure, axesList = plt.subplots(CMDoptionsDict['numberMultipleYaxisInSameFigure'], 1, sharex='col')
 			figure.set_size_inches(12, 8, forward=True)
@@ -1003,8 +1013,9 @@ class dataFromGaugesSingleMagnitudeClass(object):
 			figure, ax = plt.subplots(1, 1)
 			figure.set_size_inches(10, 6, forward=True)
 
-		ax.plot( [t/self.__freqData[0] for t in self.__timeRs], self.__rs, linestyle = '-', marker = '', c = plotSettings['colors'][0], label = self.__description, **plotSettings['line'])
-
+		if not additionalInput[0]:
+			ax.plot( [t/self.__freqData[0] for t in self.__timeRs], self.__rs, linestyle = '-', marker = '', c = plotSettings['colors'][plotsDone], label = self.__description, **plotSettings['line'])
+			plotsDone += 1
 		# Mean based on max and min
 		mean_min = np.mean([setOne[0] for setOne in self.__MinMax])
 		mean_max = np.mean([setOne[1] for setOne in self.__MinMax])
@@ -1016,10 +1027,13 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		if additionalInput[0]:
 			dataClasses = additionalInput[1]
 			for dataClass in dataClasses:
-				if dataClass.get_description() in (additionalInput[2]):
-					oneClass = dataClass
-		
-			ax.plot( [t/oneClass.get_freqData()[0] for t in oneClass.get_timeRs()], oneClass.get_rs(), linestyle = '-', marker = '', c = plotSettings['colors'][1], label = oneClass.get_description(), **plotSettings['line'])
+				for additionalInputString in additionalInput[2]:
+					if dataClass.get_description() in (additionalInputString):
+						oneClass = dataClass
+			
+						ax.plot( [t/oneClass.get_freqData()[0] for t in oneClass.get_timeRs()], oneClass.get_rs(), linestyle = '-', marker = '', c = plotSettings['colors'][plotsDone], label = oneClass.get_description(), **plotSettings['line'])
+
+						plotsDone += 1
 		
 		#Division line for runs
 		valuesMaxRs = ax.get_ylim()[1]
@@ -1039,7 +1053,7 @@ class dataFromGaugesSingleMagnitudeClass(object):
 			i += 1
 
 		# Test Order plots 
-		if CMDoptionsDict['testOrderFlagFromCMD'] and ( (inputDataClass.get_variablesInfoDict()[self.__description]['TO spec'] in ('yes', 'y') and magnitude == 'rs') or (inputDataClass.get_variablesInfoDict()[self.__description]['Fatigue load spec'] in ('yes', 'y') and magnitude in ('lp', 'hp')) ):
+		if not additionalInput[0] and CMDoptionsDict['testOrderFlagFromCMD'] and ( (inputDataClass.get_variablesInfoDict()[self.__description]['TO spec'] in ('yes', 'y') and magnitude == 'rs') or (inputDataClass.get_variablesInfoDict()[self.__description]['Fatigue load spec'] in ('yes', 'y') and magnitude in ('lp', 'hp')) ):
 			maxPlot_x = 0.0
 			minPlot_x = max(self.__timeSecNewRunRs)/self.__freqData[0]
 

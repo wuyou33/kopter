@@ -1,0 +1,122 @@
+-> Folders to load:
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0159\06_Dat_Analysis
+
+-> Variable info
+name: BoosterLinklong
+y-label: Force [N]
+TO spec: yes
+max load: 1250
+min load: -1250
+Fatigue load spec: yes
+static load: 0.0
+margin static load (%): 5
+alternate load: 1250
+margin alternate load (%): 3
+
+-> Variable info
+name: BoosterLinkcol
+y-label: Force [N]
+TO spec: yes
+max load: 2300
+min load: -2300
+Fatigue load spec: yes
+static load: 0.0
+margin static load (%): 5
+alternate load: 2300
+margin alternate load (%): 3
+
+-> Variable info
+name: BoosterLinklat
+y-label: Force [N]
+TO spec: yes
+max load: 1250
+min load: -1250
+Fatigue load spec: yes
+static load: 0.0
+margin static load (%): 5
+alternate load: 1250
+margin alternate load (%): 3
+
+-> Variable info
+name: HolderRight
+y-label: Strain [mm\m]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: RossC
+y-label: Strain [mm\m]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: RossB
+y-label: Strain [mm\m]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: RossA
+y-label: Strain [mm\m]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: LeverColl
+y-label: Strain [mm\m]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: LeverLong
+y-label: Strain [mm\m]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: LeverLat
+y-label: Strain [mm\m]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: SteerRodblue
+y-label: Force [N]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: SteerRodgold
+y-label: Force [N]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: SteerRodblack
+y-label: Force [N]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: COLLPosition
+y-label: UnkownDimension
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: LONGPosition
+y-label: UnkownDimension
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: LATPosition
+y-label: UnkownDimension
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: NumberCycles
+y-label: Number of cycles
+TO spec: no
+Fatigue load spec: no
