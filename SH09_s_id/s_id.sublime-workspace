@@ -4,6 +4,54 @@
 		"selected_items":
 		[
 			[
+				"value",
+				"valueLine"
+			],
+			[
+				"var",
+				"variableStringKey"
+			],
+			[
+				"dat",
+				"data_proc"
+			],
+			[
+				"nam",
+				"name"
+			],
+			[
+				"plo",
+				"plotSettings"
+			],
+			[
+				"ax",
+				"axesList"
+			],
+			[
+				"CMD",
+				"CMDoptionsDict"
+			],
+			[
+				"fil",
+				"fileName"
+			],
+			[
+				"folder",
+				"folderFTdata"
+			],
+			[
+				"folde",
+				"folderFTdata"
+			],
+			[
+				"name",
+				"name_in"
+			],
+			[
+				"C",
+				"CMDoptionsDict"
+			],
+			[
 				"impo",
 				"importDataFlightTestDataSingle"
 			],
@@ -134,6 +182,33 @@
 			}
 		},
 		{
+			"file": "SH09_ft.py",
+			"settings":
+			{
+				"buffer_size": 809,
+				"encoding": "UTF-8",
+				"line_ending": "Windows",
+				"name": "SH09_fti"
+			}
+		},
+		{
+			"file": "flightTestData/P2-J17-01-FT0038/data/fti_variables_info.txt",
+			"settings":
+			{
+				"buffer_size": 161,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "flightTestData/P2-J17-01-FT0038/data/VRU_ACC_X.csv",
+			"settings":
+			{
+				"buffer_size": 3420936,
+				"line_ending": "Windows"
+			}
+		},
+		{
 			"file": "functions/postSim_callback_F16.m",
 			"settings":
 			{
@@ -148,6 +223,51 @@
 				"buffer_size": 515,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "# Collection of functions\nimport os\nimport sys\nimport numpy as np\nimport matplotlib.pyplot as plt\nimport scipy.stats as st\nimport statistics as stat\nimport math\nimport getopt\nimport pdb #pdb.set_trace()\n\n\n###### Functions\ndef readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):\n\n\tshort_opts = \"f:v:m:o:s:r:a:c:n:\" #\"o:f:\"\n\tlong_opts = [\"fileName=\",\"variables=\",\"magnitudes=\",\"testOrder=\",\"saveFigure=\",\"rangeFileIDs=\",\"additionalCals=\",\"correctionFilter=\", \"multipleYaxisInSameFigure=\"] #[\"option=\",\"fileName=\"]\n\ttry:\n\t\topts, args = getopt.getopt(argv,short_opts,long_opts)\n\texcept getopt.GetoptError:\n\t\traise ValueError('ERROR: Not correct input to script')\n\n\t# check input\n\t# if len(opts) != len(long_opts):\n\t\t# raise ValueError('ERROR: Invalid number of inputs')\t\n\n\tfor opt, arg in opts:\n\n\t\tif opt in (\"-f\", \"--fileName\"):\n\t\t\t# postProcFolderName = arg\n\t\t\tCMDoptionsDict['fileNameOfFileToLoadFiles'] = os.path.join(CMDoptionsDict['cwd'], 'fatigueInputFiles',arg)\n\n\t\t\tif 'actuatormesswerte' in arg.lower():\n\t\t\t\tCMDoptionsDict['actuatorMesswerte'] = True\n\t\t\t\tCMDoptionsDict['actuatorFlag'] = False\n\t\t\t\tCMDoptionsDict['dmsFlag'] = False\n\t\t\telif 'gauge' in arg.lower():\n\t\t\t\tCMDoptionsDict['actuatorMesswerte'] = False\n\t\t\t\tCMDoptionsDict['actuatorFlag'] = False\n\t\t\t\tCMDoptionsDict['dmsFlag'] = True\n\t\t\telif 'actuator' in arg.lower():\n\t\t\t\tCMDoptionsDict['actuatorMesswerte'] = False\n\t\t\t\tCMDoptionsDict['actuatorFlag'] = True\n\t\t\t\tCMDoptionsDict['dmsFlag'] = False\n\t\t\telse:\n\t\t\t\traise ValueError('ERROR: Wrong input for parameter '+opt)\n\n\t\telif opt in (\"-v\", \"--variables\"):\n\n\t\t\tCMDoptionsDict['variables'] = arg.split(',')\n\n\t\telif opt in (\"-m\", \"--magnitudes\"):\n\n\t\t\tCMDoptionsDict['magnitudes'] = arg.split(',')\n\n\t\telif opt in (\"-o\", \"--testOrder\"):\n\n\t\t\tif arg.lower() in ('true', 't'):\n\t\t\t\tCMDoptionsDict['testOrderFlagFromCMD'] = True\n\t\t\telif arg.lower() in ('false', 'f'):\n\t\t\t\tCMDoptionsDict['testOrderFlagFromCMD'] = False\n\t\t\telse:\n\t\t\t\traise ValueError('ERROR: Wrong input for parameter '+opt)\n\n\t\telif opt in (\"-s\", \"--saveFigure\"):\n\n\t\t\targSaveFigure= arg.split(',')[0]\n\t\t\targShowFigure= arg.split(',')[1]\n\n\t\t\tif argSaveFigure.lower() in ('true', 't'):\n\t\t\t\tCMDoptionsDict['saveFigure'] = True\n\t\t\telif argSaveFigure.lower() in ('false', 'f'):\n\t\t\t\tCMDoptionsDict['saveFigure'] = False\n\n\t\t\tif argShowFigure.lower() in ('true', 't'):\n\t\t\t\tCMDoptionsDict['showFigures'] = True\n\t\t\telif argShowFigure.lower() in ('false', 'f'):\n\t\t\t\tCMDoptionsDict['showFigures'] = False\n\t\t\telse:\n\t\t\t\traise ValueError('ERROR: Wrong input for parameter '+opt)\n\n\t\telif opt in (\"-r\", \"--rangeFileIDs\"):\n\n\t\t\tCMDoptionsDict['rangeFileIDs'] = [int(t) for t in arg.split(',')]\n\n\t\telif opt in (\"-a\", \"--additionalCals\"):\n\n\t\t\tif arg.lower() in ('false', 'f'):\n\t\t\t\tCMDoptionsDict['additionalCalsFlag'] = False\n\t\t\telse:\n\t\t\t\tCMDoptionsDict['additionalCalsFlag'] = True\n\t\t\t\tCMDoptionsDict['additionalCalsOpt'] = int(arg)\n\n\t\telif opt in (\"-c\", \"--correctionFilter\"):\n\n\t\t\tif arg.lower() in ('false', 'f'):\n\t\t\t\tCMDoptionsDict['correctionFilterFlag'] = False\n\t\t\telse:\n\t\t\t\tCMDoptionsDict['correctionFilterFlag'] = True\n\t\t\t\tCMDoptionsDict['correctionFilterNum'] = float(arg)\n\n\t\telif opt in (\"-n\", \"--multipleYaxisInSameFigure\"):\n\n\t\t\tif arg.lower() in ('true', 't'):\n\t\t\t\tCMDoptionsDict['multipleYaxisInSameFigure'] = True\n\t\t\t\tCMDoptionsDict['numberMultipleYaxisInSameFigure'] = max(len(CMDoptionsDict['variables']),len(CMDoptionsDict['magnitudes']))\n\t\t\telif arg.lower() in ('false', 'f'):\n\t\t\t\tCMDoptionsDict['multipleYaxisInSameFigure'] = False\n\t\t\telse:\n\t\t\t\traise ValueError('ERROR: Wrong input for parameter '+opt)\n\n\treturn CMDoptionsDict\n\ndef sortFilesInFolderByLastNumberInName(listOfFiles, CMDoptionsDict):\n\n\ta = []\n\tfor file in listOfFiles:\n\t\tif file.endswith('.csv'):\n\t\t\tfileID_0 = file.split('.csv')[0]\n\t\t\tfileID_int = int(fileID_0.split('__')[-1])\n\t\t\ta += [(file, fileID_int),]\n\n\ta_sorted = sorted(a, key=lambda x: x[1])\n\tlistOfFilesSorted = [b[0] for b in a_sorted]\n\n\treturn listOfFilesSorted\n\ndef cleanString(stringIn):\n\t\n\tif stringIn[-1:] in ('\\t', '\\n'):\n\n\t\treturn cleanString(stringIn[:-1])\n\n\telse:\n\n\t\treturn stringIn\n\nclass dataForVariable(object): #NOT IN USE\n\t\"\"\"docstring for dataForVariable\"\"\"\n\tdef __init__(self):\n\t\tself.__name = []\n\t\tself.__xLabel = []\n\t\tself.__staticLoad = []\n\t\tself.__alternateLoad = []\n\t\tself.__maxLoad = []\n\t\tself.__minLoad = []\n\n\tdef set_attr(self, attr_string, value):\n\t\t\n\t\tself.setattr('__'+attr_string, value)\n\n\tdef get_attr(self, attr_string):\n\t\t\n\t\treturn self.getattr('__'+attr_string)\n\t\t\n\ndef loadFileAddressesAndData(fileName, typeData):\n\n\tdef addSectionsInfoActuator(rawLine, section_index, inputDataClass):\n\t\t\n\t\tcleanLine = cleanString(rawLine)\n\t\t\n\t\tif section_index == 1:\n\t\t\tinputDataClass.addSharedAddress(cleanLine)\n\n\t\telif section_index == 2:\n\n\t\t\tinputDataClass.addDataFromTestOrder([float(t) for t in cleanLine.split(',')])\n\n\t\treturn inputDataClass\n\n\tdef addSectionsInfoActuatorMesswerte(rawLine, section_index, inputDataClass):\n\t\t\n\t\tcleanLine = cleanString(rawLine)\n\t\t\n\t\tif section_index == 1:\n\t\t\tinputDataClass.addSharedAddress(cleanLine)\n\n\t\telif section_index == 2:\n\n\t\t\tvariableStringKey = cleanLine.split(':')[0]\n\t\t\tvalueLine2 = cleanLine.split(':')[1]\n\t\t\tvalueLine1 = valueLine2.lstrip()\n\t\t\tvalueLine = valueLine1.rstrip()\n\n\t\t\tdict_temp_fromClass = inputDataClass.get_actuatorDataInfoDict()\n\n\t\t\tif not variableStringKey in dict_temp_fromClass.keys():\n\n\t\t\t\tinputDataClass.updateActuatorDataInfoDict(variableStringKey, valueLine)\n\n\t\treturn inputDataClass\n\n\t\n\tdef addSectionsInfoGauge(rawLine, section_index, inputDataClass, currentVariable):\n\t\t\n\t\tcleanLine = cleanString(rawLine)\n\n\t\tif section_index == 1:\n\t\t\tinputDataClass.addSharedAddress(cleanString(rawLine))\n\n\t\telif section_index > 1:\n\n\t\t\tvariableStringKey = cleanLine.split(':')[0]\n\t\t\tvalueLine2 = cleanLine.split(':')[1]\n\t\t\tvalueLine1 = valueLine2.lstrip()\n\t\t\tvalueLine = valueLine1.rstrip()\n\n\n\t\t\tif 'name:' in cleanLine:\n\n\t\t\t\tcurrentVariable = valueLine\n\t\t\t\tdict_temp_fromClass = inputDataClass.get_variablesInfoDict()\n\n\t\t\t\tdict_temp = {'name' : valueLine}\n\t\t\t\tinputDataClass.updateVariablesInfoDict(valueLine, dict_temp)\n\n\t\t\telse:\n\n\t\t\t\tdict_temp_fromClass = inputDataClass.get_variablesInfoDict()\n\t\t\t\tdict_temp = dict_temp_fromClass[currentVariable]\n\t\t\t\tdict_temp[variableStringKey] = valueLine\n\t\t\t\tinputDataClass.updateVariablesInfoDict(currentVariable, dict_temp)\n\n\n\t\treturn inputDataClass, currentVariable\n\n\tfile = open(fileName, 'r')\n\n\tlines = file.readlines()\n\n\tinputDataClass = inputDataClassDef()\n\n\tnewSectionIdentifier = '->'\n\n\tsection_index, currentVariable = 0, None\n\n\tfor i in range(0, int((len(lines)))):\n\n\t\trawLine = lines[i]\n\n\t\tif cleanString(rawLine) != '': #Filter out blank lines\n\n\n\t\t\tif newSectionIdentifier in rawLine: #Header detected, change to new sections\n\n\t\t\t\tsection_index += 1\n\t\t\t\t\n\t\t\telif typeData == 'actuator':\n\n\t\t\t\tinputDataClass = addSectionsInfoActuator(rawLine, section_index, inputDataClass)\n\n\t\t\telif typeData == 'actuatorMesswerte':\n\n\t\t\t\tinputDataClass = addSectionsInfoActuatorMesswerte(rawLine, section_index, inputDataClass)\n\n\t\t\telif typeData == 'gauges':\n\n\t\t\t\tinputDataClass, currentVariable = addSectionsInfoGauge(rawLine, section_index, inputDataClass, currentVariable)\n\n\tfile.close()\n\n\treturn inputDataClass\n\nclass inputDataClassDef(object):\n\t\"\"\"docstring for inputData\"\"\"\n\tdef __init__(self):\n\t\t\"\"\"\n\t\tInitializes the class with local address and empty directory of shared folders\n\t\t\"\"\"\n\n\t\tself.__setOfAddress_tuple = ()\n\t\tself.__testOrderRange = []\n\t\tself.__variablesInfoDict= {}\n\t\tself.__actuatorDataInfoDict= {}\n\n\tdef addSharedAddress(self, fileAddress):\n\n\t\tif os.path.isfile(fileAddress) or os.path.isdir(fileAddress):\n\n\t\t\tself.__setOfAddress_tuple += (fileAddress,)\n\n\t\telse:\n\n\t\t\traise ValueError('ERROR: Address '+fileAddress+' does not exist or is not a directory, entry skipped')\n\n\n\tdef updateActuatorDataInfoDict(self, variableStringKey, variableDict):\n\n\t\tself.__actuatorDataInfoDict.update({variableStringKey: variableDict})\n\n\tdef get_actuatorDataInfoDict(self):\n\t\treturn self.__actuatorDataInfoDict\n\n\tdef addDataFromTestOrder(self, testOrderRange_in):\n\t\tself.__testOrderRange = testOrderRange_in\n\n\tdef getTupleFiles(self):\n\n\t\treturn self.__setOfAddress_tuple\n\n\tdef get_testOrderRange(self):\n\t\treturn self.__testOrderRange\n\n\tdef updateVariablesInfoDict(self, variableStringKey, variableDict):\n\n\t\tself.__variablesInfoDict.update({variableStringKey: variableDict})\n\n\tdef get_variablesInfoDict(self):\n\t\treturn self.__variablesInfoDict\n\n\ndef importDataActuator(fileName, iFile, CMDoptionsDict, inputDataClass):\n\n\tfile = open(fileName, 'r')\n\tlines = file.readlines()\n\tfileNameShort = fileName.split('\\\\')[-1]\n\n\tif CMDoptionsDict['actuatorFlag']:\n\n\t\tcycleN, maxF, meanF, minF, maxDispl, meanDispl, minDispl = [], [], [], [], [], [], []\n\n\t\tlineN = 0\n\t\tfor line in lines:\n\n\t\t\tcurrentLineSplit = line.split(';')\n\n\t\t\tif lineN > 1:\n\t\t\t\t\n\t\t\t\tcycleN += [returnNumber(currentLineSplit[0])]\n\t\t\t\tmaxDispl += [returnNumber(currentLineSplit[4])]\n\t\t\t\tmeanDispl += [returnNumber(currentLineSplit[5])]\n\t\t\t\tminDispl += [returnNumber(currentLineSplit[6])]\n\t\t\t\tmaxF += [returnNumber(currentLineSplit[20])]\n\t\t\t\tmeanF += [returnNumber(currentLineSplit[21])]\n\t\t\t\tminF += [returnNumber(currentLineSplit[22])]\n\n\t\t\tlineN += 1\n\t\t\t\t\n\n\t\tfile.close()\n\n\t\tprint('\\t'+'-> Last computed data point index (file): ' + str(int(cycleN[-1])/1000.0) + ' thousands')\n\n\t\tdataFromRun = dataFromRunClass(iFile)\n\n\t\tdataFromRun.add_data(cycleN, maxF, meanF, minF, maxDispl, meanDispl, minDispl, int(fileNameShort.split('_')[1]))\n\n\telif CMDoptionsDict['actuatorMesswerte']:\n\n\t\tweg, kraft = [], []\n\n\t\tlineN = 0\n\t\tfor line in lines:\n\n\t\t\tcurrentLineSplit = line.split(';')\n\n\t\t\tif lineN > 1:\n\t\t\t\t\n\t\t\t\tweg += [returnNumber(currentLineSplit[6])]\n\t\t\t\tkraft += [returnNumber(currentLineSplit[9])]\n\n\t\t\tlineN += 1\n\t\t\t\t\n\n\t\tfile.close()\n\n\t\tprint('\\t'+'-> Last computed data point index (file): ' + str(lineN/1000000.0) + ' millions')\n\n\t\tdataFromRun = dataFromRunClassMesswerte(iFile, fileNameShort.split('_')[0]+'_'+fileNameShort.split('_')[1], lineN)\n\n\t\tdataFromRun.add_data(weg, kraft)\n\n\t\t# Artificially create time vector\n\t\tstep_from_freq = 1 / float(inputDataClass.get_actuatorDataInfoDict()['sampling_freq'])\n\t\ttime_from_freq = np.arange(0.0, step_from_freq*(lineN - int(inputDataClass.get_actuatorDataInfoDict()['time_offset'])), step = step_from_freq)\n\t\tdataFromRun.add_time(time_from_freq)\n\t\tassert len(time_from_freq) == len(kraft), 'ERROR: Vector length mismatch. The length of the force vector is '+ str(len(kraft))+' and the length of the time vector is '+str(len(time_from_freq))\n\n\t\t#Filtering\n\t\tlow_pass_force_data = filter(kraft, float(inputDataClass.get_actuatorDataInfoDict()['sampling_freq']), 'low-pass', float(inputDataClass.get_actuatorDataInfoDict()['cut-off_freq'])) #0.1 Hz of cut-off freq\n\t\thigh_pass_force_data = filter(kraft, float(inputDataClass.get_actuatorDataInfoDict()['sampling_freq']), 'high-pass', float(inputDataClass.get_actuatorDataInfoDict()['cut-off_freq'])) #0.1 Hz of cut-off freq\n\t\tlow_pass_displ_data = filter(weg, float(inputDataClass.get_actuatorDataInfoDict()['sampling_freq']), 'low-pass', float(inputDataClass.get_actuatorDataInfoDict()['cut-off_freq'])) #0.1 Hz of cut-off freq\n\t\thigh_pass_displ_data = filter(weg, float(inputDataClass.get_actuatorDataInfoDict()['sampling_freq']), 'high-pass', float(inputDataClass.get_actuatorDataInfoDict()['cut-off_freq'])) #0.1 Hz of cut-off freq\n\n\t\tif CMDoptionsDict['correctionFilterFlag']:\n\t\t\t\tlow_pass_force_data = [t + CMDoptionsDict['correctionFilterNum'] for t in low_pass_force_data]\n\t\t\t\thigh_pass_force_data = [t - CMDoptionsDict['correctionFilterNum'] for t in high_pass_force_data]\n\t\t\n\t\tdataFromRun.add_filteredData(lowpass_displ_in = low_pass_displ_data, highpass_displ_in = high_pass_displ_data, lowpass_force_in = low_pass_force_data, highpass_force_in = high_pass_force_data)\n\n\n\treturn dataFromRun\n\ndef returnNumber(numStr):\n\t\n\tif numStr[-4] == '.':\n\t\tnumStr_ohnePunkt = numStr.replace('.','')\n\t\t# return float(numStr[:-13]+numStr_ohnePunkt[-10:])\n\t\treturn float(numStr_ohnePunkt[:-9]+'.'+numStr_ohnePunkt[-9:])\n\t\t# return float(numStr[:(numStr.index('.')+1)]+numStr[(numStr.index('.')+1):].replace('.',''))\n\telse:\n\n\t\treturn float(numStr)\n\ndef importPlottingOptions():\n\t#### PLOTTING OPTIONS ####\n\n\t#Plotting options\n\taxes_label_x  = {'size' : 14, 'weight' : 'bold', 'verticalalignment' : 'top', 'horizontalalignment' : 'center'} #'verticalalignment' : 'top'\n\taxes_label_y  = {'size' : 14, 'weight' : 'bold', 'verticalalignment' : 'bottom', 'horizontalalignment' : 'center'} #'verticalalignment' : 'bottom'\n\ttext_title_properties = {'weight' : 'bold', 'size' : 14}\n\taxes_ticks = {'labelsize' : 10}\n\tline = {'linewidth' : 1.5, 'markersize' : 2}\n\tscatter = {'linewidths' : 2}\n\tlegend = {'fontsize' : 14, 'loc' : 'best'}\n\tgrid = {'alpha' : 0.7}\n\tcolors = ['k', 'b', 'y', 'm', 'r', 'c', 'g', 'k', 'b', 'y', 'm', 'r', 'c','k', 'b', 'y', 'm', 'r', 'c','k', 'b', 'y', 'm', 'r', 'c']\n\tmarkers = ['o', 'v', '^', 's', '*', '+']\n\tlinestyles = ['-', '--', '-.', ':']\n\taxes_ticks_n = {'x_axis' : 3} #Number of minor labels in between \n\tfigure_settings = {'dpi' : 200}\n\n\tplotSettings = {'axes_x':axes_label_x,'axes_y':axes_label_y, 'title':text_title_properties,\n\t                'axesTicks':axes_ticks, 'line':line, 'legend':legend, 'grid':grid, 'scatter':scatter,\n\t                'colors' : colors, 'markers' : markers, 'linestyles' : linestyles, 'axes_ticks_n' : axes_ticks_n,\n\t                'figure_settings' : figure_settings}\n\n\t# Additional computing data\n\tplotSettings['currentAxis'] = [None, -1] #[Axis object, index]\n\tplotSettings['listMultipleAxes'] = None\n\tplotSettings['currentFigureMultipleAxes'] = None\n\n\n\treturn plotSettings\n\nclass dataFromRunClassMesswerte(object):\n\t\"\"\"docstring for dataFromRunClassMesswerte\"\"\"\n\tdef __init__(self, id_in, testName_in, lastDataPointCounter_in):\n\t\t# super(dataFromRun, self).__init__()\n\n\t\tself.id = id_in\n\t\tself.__name = testName_in\n\t\tself.__lastDataPointCounter = lastDataPointCounter_in\n\n\tdef get_attr(self, attr_string):\n\t\t\n\t\treturn getattr(self, attr_string)\n\n\tdef add_time(self,time_in):\n\t\tself.__time = time_in\n\n\tdef add_data(self, weg_in, kraft_in):\n\t\t\n\t\tself.weg = weg_in\n\t\tself.kraft = kraft_in\n\n\tdef add_filteredData(self, lowpass_force_in, highpass_force_in, lowpass_displ_in, highpass_displ_in):\n\t\t\n\t\tself.lowpass_force = lowpass_force_in\n\t\tself.highpass_force = highpass_force_in\n\t\tself.lowpass_displ = lowpass_displ_in\n\t\tself.highpass_displ = highpass_displ_in\n\n\tdef get_name(self):\n\t\treturn self.__name\n\tdef get_weg(self):\n\t\treturn self.weg\n\tdef get_kraft(self):\n\t\treturn self.kraft\n\tdef get_time(self):\n\t\treturn self.__time\n\tdef get_lastDataPointCounter(self):\n\t\treturn self.__lastDataPointCounter\n\nclass dataFromRunClass(object):\n\t\"\"\"\n\tdocstring for dataFromRun\n\n\tClass contaiting data from a certain run\n\t\"\"\"\n\tdef __init__(self, id_in):\n\t\t# super(dataFromRun, self).__init__()\n\n\t\tself.__id = id_in\n\n\tdef add_data(self, cycleN_in, maxF_in, meanF_in, minF_in, maxDispl_in, meanDispl_in, minDispl_in, stepID_in):\n\n\t\tself.__cycleN = cycleN_in\n\t\tself.__cycleN_mill = [d/1000000 for d in cycleN_in]\n\t\tself.__maxF = maxF_in \n\t\tself.__meanF = meanF_in \n\t\tself.__minF = minF_in\n\t\tself.__maxDispl = maxDispl_in \n\t\tself.__meanDispl = meanDispl_in \n\t\tself.__minDispl = minDispl_in\n\t\tself.__stepID = stepID_in \n\n\tdef setAbsoluteNCycles(self, previousNCycles_in):\n\t\t\n\t\tself.__absoluteNCycles = [d + previousNCycles_in for d in self.__cycleN]\n\t\tself.__absoluteNCycles_mill = [(d + previousNCycles_in)/1000000 for d in self.__cycleN]\n\n\tdef get_id(self):\n\t\treturn self.__id\n\tdef get_absoluteNCycles(self):\n\t\treturn self.__absoluteNCycles\n\tdef get_absoluteNCycles_mill(self):\n\t\treturn self.__absoluteNCycles_mill\n\tdef get_cycleN(self):\n\t\treturn self.__cycleN\n\tdef get_cycleN_mill(self):\n\t\treturn self.__cycleN_mill\n\tdef get_maxF(self):\n\t\treturn self.__maxF\n\tdef get_meanF(self):\n\t\treturn self.__meanF\n\tdef get_minF(self):\n\t\treturn self.__minF\n\tdef get_maxDispl(self):\n\t\treturn self.__maxDispl\n\tdef get_meanDispl(self):\n\t\treturn self.__meanDispl\n\tdef get_minDispl(self):\n\t\treturn self.__minDispl\n\tdef get_stepID(self):\n\t\treturn self.__stepID\n\n\n\tdef plotSingleRun(self, plotSettings):\n\n\n\t\t### Plot force applied by the actuator\n\t\tfigure, ax = plt.subplots(1, 1)\n\t\tfigure.set_size_inches(10, 6, forward=True)\n\n\t\tax.plot(self.__cycleN, self.__maxF, linestyle = '-', marker = '', c = plotSettings['colors'][0], label = 'Max force', **plotSettings['line'])\n\t\tax.plot(self.__cycleN, self.__meanF, linestyle = '-', marker = '', c = plotSettings['colors'][1], label = 'Mean force', **plotSettings['line'])\n\t\tax.plot(self.__cycleN, self.__minF, linestyle = '-', marker = '', c = plotSettings['colors'][2], label = 'Min force', **plotSettings['line'])\n\n\t\tax.set_xlabel('Number of cycles [Millions]', **plotSettings['axes_x'])\n\t\tax.set_ylabel('Force [kN]', **plotSettings['axes_y'])\n\n\t\tax.legend(**plotSettings['legend'])\n\t\tax.set_title('Results from Run #'+str(self.__id), **plotSettings['title'])\n\n\t\t#Figure settings\n\t\tax.grid(which='both', **plotSettings['grid'])\n\t\tax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])\n\t\tax.minorticks_on()\n\n\t\t#Double y-axis \n\t\taxdouble_in_y = ax.twinx()\n\t\taxdouble_in_y.minorticks_on()\n\t\taxdouble_in_y.set_ylim(ax.get_ylim())\n\n\n\t\t### Plot displacement of actuator\n\t\tfigure, ax = plt.subplots(1, 1)\n\t\tfigure.set_size_inches(10, 6, forward=True)\n\n\t\tax.plot(self.__cycleN, self.__maxDispl, linestyle = '-', marker = '', c = plotSettings['colors'][0], label = 'Max displacement', **plotSettings['line'])\n\t\tax.plot(self.__cycleN, self.__meanDispl, linestyle = '-', marker = '', c = plotSettings['colors'][1], label = 'Mean displacement', **plotSettings['line'])\n\t\tax.plot(self.__cycleN, self.__minDispl, linestyle = '-', marker = '', c = plotSettings['colors'][2], label = 'Min displacement', **plotSettings['line'])\n\n\t\tax.set_xlabel('Number of cycles [Millions]', **plotSettings['axes_x'])\n\t\tax.set_ylabel('Displacement [mm]', **plotSettings['axes_y'])\n\n\t\tax.legend(**plotSettings['legend'])\n\t\tax.set_title('Results from Run #'+str(self.__id), **plotSettings['title'])\n\n\t\t#Figure settings\n\t\tax.grid(which='both', **plotSettings['grid'])\n\t\tax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])\n\t\tax.minorticks_on()\n\n\t\t#Double y-axis \n\t\taxdouble_in_y = ax.twinx()\n\t\taxdouble_in_y.minorticks_on()\n\t\taxdouble_in_y.set_ylim(ax.get_ylim())\n\nclass dataFromGaugesSingleMagnitudeClass(object):\n\t\"\"\"\n\tdocstring for dataFromGaugesSingleMagnitudeClass\n\n\tClass contaiting data from a certain run\n\t\"\"\"\n\tdef __init__(self, description_in, testFactor_in, orderDeriv_in):\n\t\t# super(dataFromGaugesSingleMagnitudeClass, self).__init__()\n\n\t\tself.__description = description_in\n\t\tself.__testFactor = testFactor_in\n\t\tself.__orderDeriv = orderDeriv_in\n\n\t\tself.__max = []\n\t\tself.__mean = []\n\t\tself.__min = []\n\t\tself.__rs = []\n\n\t\tself.__MinMax = []\n\n\t\tself.__maxPicks = []\n\t\tself.__meanPicks = []\n\t\tself.__minPicks = []\n\n\t\tself.__timeMax = []\n\t\tself.__timeMean = []\n\t\tself.__timeMin = []\n\t\tself.__timeRs = []\n\t\tself.__timePicks = []\n\n\t\tself.__timeSecNewRunMax = []\n\t\tself.__timeSecNewRunMean = []\n\t\tself.__timeSecNewRunMin = []\n\t\tself.__timeSecNewRunRs = []\n\t\tself.__timeSecNewRunPicks = []\n\n\t\tself.__lastID = 0\n\t\tself.__lastIDPick = 0\n\t\tself.__freqData = []\n\t\tself.__filterData = []\n\t\tself.__xValues = []\n\t\tself.__xValuesNewRun = []\n\t\tself.__stepID = []\n\n\n\tdef reStartXvaluesAndLastID(self):\n\t\tself.__lastID = 0\n\t\tself.__xValues = []\n\t\tself.__xValuesNewRun = []\n\n\tdef set_magData(self, nameField, data):\n\n\t\tif nameField in ('rs','lp','hp'):\n\t\t\tself.__rs += data\n\t\telif nameField == 'mean':\n\t\t\tself.__mean += data\n\t\telif nameField == 'max':\n\t\t\tself.__max += data\n\t\telif nameField == 'min':\n\t\t\tself.__min += data\n\t\telse:\n\t\t\traise ValueError('Error in identifying data field: ' + nameField)\n\tdef getTimeList(self, nameField):\n\t\t\n\t\ttimeSec = np.linspace(0, float(len(self.__xValues)/self.__testFactor), len(self.__xValues), endpoint=True)\n\t\ttimeSecNewRun = [float(t/self.__testFactor) for t in self.__xValuesNewRun]\n\n\t\tprint('\\n'+'----> Last computed time point for test: ' + str(timeSec[-1]/1000000) + ' millions / '+calculateDaysHoursMinutes_string(timeSec[-1], self.__freqData[-1]))\n\n\t\tif nameField == 'rs':\n\t\t\tself.__timeRs = timeSec\n\t\t\tself.__timeSecNewRunRs = timeSecNewRun\n\t\telif nameField == 'mean':\n\t\t\tself.__timeMean = timeSec\n\t\t\tself.__timeSecNewRunMean = timeSecNewRun\n\t\telif nameField == 'max':\n\t\t\tself.__timeMax = timeSec\n\t\t\tself.__timeSecNewRunMax = timeSecNewRun\n\t\telif nameField == 'min':\n\t\t\tself.__timeMin = timeSec\n\t\t\tself.__timeSecNewRunMin = timeSecNewRun\n\n\t\telse:\n\t\t\traise ValueError('Error in identifying data field: ' + nameField)\n\n\tdef importDataForClass(self, fileName, fieldOfFile, CMDoptionsDict):\n\n\t\tfile = open(fileName, 'r')\n\t\tlines = file.readlines()\n\n\t\tskipLines, dataID, data, counter = 0, [], [], 0\n\n\t\tfor line in lines[(skipLines+1):]:\n\n\t\t\tif CMDoptionsDict['correctionFilterFlag'] and fieldOfFile in ('lp'):\n\t\t\t\tdata += [float(cleanString(line)) + CMDoptionsDict['correctionFilterNum']]\n\t\t\telif CMDoptionsDict['correctionFilterFlag'] and fieldOfFile in ('hp'):\n\t\t\t\tdata += [float(cleanString(line)) - CMDoptionsDict['correctionFilterNum']]\n\t\t\telse:\n\t\t\t\tdata += [float(cleanString(line))]\n\n\t\t\tif counter == 0: #First iteration\n\t\t\t\tdataID += [self.__lastID+1]\n\t\t\telse:\n\t\t\t\tdataID += [dataID[-1]+1]\n\n\t\t\tcounter += 1\n\t\t\n\t\tfile.close()\n\n\t\tif CMDoptionsDict['correctionFilterFlag'] and fieldOfFile in ('lp', 'hp'):\n\t\t\tprint('\\t'+'-> Correction applied to each imported data point, value: '+str(CMDoptionsDict['correctionFilterNum']))\n\n\t\tself.set_magData(fieldOfFile, data)\n\n\t\t# Remove outliers and calculate max and min\n\t\tflagOutliers = False\n\t\tif flagOutliers and fieldOfFile in ('lp', 'hp'):\n\n\t\t\t# split in ranges\n\t\t\trange_spacing = 10000\n\t\t\tsize_vector = len(data)\n\t\t\tintervals = int(np.floor(size_vector/range_spacing))\n\t\t\tx_range_interest, y_range_interest, x_range_interest_2, y_range_interest_2 = [], [], [], []\n\n\t\t\tfor i in range(intervals):\n\n\t\t\t\tx_range = data[int(i*range_spacing):int((i+1)*range_spacing)]\n\n\t\t\t\tx_range_interest += [max(x_range)]\n\t\t\t\ty_range_interest += [x_range.index(max(x_range)) + 1] #Index of the vector starts with 0, the first y value is 1\n\t\t\t\t\n\t\t\t\tx_range_interest_2 += [min(x_range)]\n\t\t\t\ty_range_interest_2 += [x_range.index(min(x_range)) + 1] #Index of the vector starts with 0, the first y value is 1\n\t\t\t\t# print(str(i))\n\n\n\t\t\tx_range_woOutliers, y_range_woOutliers = getNewVectorWithoutOutliers(x_range_interest, y_range_interest)\n\t\t\tx_range_woOutliers_2, y_range_woOutliers_2 = getNewVectorWithoutOutliers(x_range_interest_2, y_range_interest_2)\n\n\t\t\tif fieldOfFile in ('hp'):\n\t\t\t\tself.__MinMax += [[max(min(x_range_woOutliers), abs(max(x_range_woOutliers_2))), min(max(x_range_woOutliers), abs(min(x_range_woOutliers_2)))]]\n\t\t\telif fieldOfFile in ('lp'):\n\t\t\t\tself.__MinMax += [[min(x_range_woOutliers), max(x_range_woOutliers)]] #This is not the way this should work, SOMETHING IS WRONG- Removal of outliers does not work\n\n\t\telse:\n\t\t\t# Min and max\n\t\t\tself.__MinMax += [[min(data), max(data)]]\n\t\t\n\t\tself.__lastID = dataID[-1]\n\n\t\tself.__xValuesNewRun += [dataID[-1],]\n\n\t\tself.__xValues += dataID\n\t\t\n\t\t# Obtain step index\n\t\tfileName_0 = fileName.split('.csv')[0]\n\t\tself.__stepID += [int(fileName_0.split('__')[-1])]\n\n\t\t#Obtain frequency for recorded data\n\t\tif fieldOfFile in ('lp', 'hp'):\n\t\t\tself.__filterData += [float(fileName_0.split('__')[-2][:-2])]\n\t\t\tself.__freqData += [float(fileName_0.split('__')[-3][:-2])]\n\t\telse:\n\t\t\tself.__freqData += [float(fileName_0.split('__')[-2][:-2])]\n\n\t\t# Last computed point stats\n\t\tprint('\\t'+'-> Last computed data point index (file): ' + str(counter/1000000.0) + ' millions / '+calculateDaysHoursMinutes_string(counter, self.__freqData[-1]))\n\t\tprint('\\t'+'-> Max and min values read (file), max: ' + str(max(data)) + ', min: '+str(min(data)))\n\n\t\tif flagOutliers and fieldOfFile in ('lp', 'hp'):\n\t\t\tprint('\\t'+'-> Max and min values without outliers (file), max: ' + str(round(self.__MinMax[-1][1], 2)) + ', min: '+str(round(self.__MinMax[-1][0], 2)))\n\t\t\n\t\tif fieldOfFile in ('rs', 'lp', 'hp'):\n\t\t\tprint('\\t'+'-> Last computed data point index (accumulated): ' + str(dataID[-1]/1000000.0) + ' millions / '+calculateDaysHoursMinutes_string(dataID[-1], self.__freqData[-1]))\n\n\tdef computePicks(self):\n\t\t\"\"\"\n\t\tInputs: \n\t\tself.__rs -> All the data points\n\t\tself.__timeRs -> List of data indexes\n\t\tself.__orderDeriv -> order of points to be taken into account, min: 1, max: infty  \n\t\t\"\"\"\n\t\tiPickMax = 0\n\t\tiPickMin = 0\n\t\tpicksMax = []\n\t\tpicksMin = []\n\t\tdataIDmax = []\n\t\tdataIDmin = []\n\t\tiPoint = self.__orderDeriv\n\t\tfor point in self.__rs[self.__orderDeriv:(len(self.__rs)+1-self.__orderDeriv)]:\n\n\t\t\tassert self.__rs[iPoint] == point\n\n\t\t\t#Check if point is max, min\n\n\t\t\tresultID = self.chechMinMaxFn(self.__orderDeriv, self.__rs[iPoint - self.__orderDeriv : iPoint + self.__orderDeriv + 1])\n\t\t\t#Result is return like this: result = resultID\n\n\t\t\tif resultID == 2:\n\n\t\t\t\t#Max function\n\t\t\t\tif iPickMax == 0: #To do only in the first time the loop is entered\n\t\t\t\t\tdataIDmax += [self.__lastIDPick+1]\n\t\t\t\telse:\n\t\t\t\t\tdataIDmax += [dataIDmax[-1]+1]\n\n\t\t\t\tpicksMax += [point]\n\t\t\t\tiPickMax += 1\n\n\t\t\telif resultID == 1:\n\n\t\t\t\t#Min function\n\t\t\t\tif iPickMin == 0: #To do only in the first time the loop is entered\n\t\t\t\t\tdataIDmin += [self.__lastIDPick+1]\n\t\t\t\telse:\n\t\t\t\t\tdataIDmin += [dataIDmin[-1]+1]\n\n\t\t\t\tpicksMin += [point]\n\t\t\t\tiPickMin += 1\n\n\t\t\tiPoint += 1\n\n\n\t\t#Now all the points in the series have been analysed\n\t\tprint('\\t'+'-> Number of max picks found :'+str(iPickMax))\n\t\tprint('\\t'+'-> Number of min picks found :'+str(iPickMin))\n\n\t\tdiff = iPickMax - iPickMin\n\n\t\tassert iPickMax == len(picksMax), str(iPickMax)+', '+str(len(picksMax))\n\t\tassert iPickMax == len(dataIDmax), str(iPickMax)+', '+str(len(dataIDmax))\n\t\tassert iPickMin == len(picksMin), str(iPickMin)+', '+str(len(picksMin))\n\t\tassert iPickMin == len(dataIDmin), str(iPickMin)+', '+str(len(dataIDmin))\n\n\t\tif diff > 100:\n\t\t\traise ValueError('Too much difference between number of picked max picks and min picks: ' + str(diff))\n\n\t\tminIndex = int(min(iPickMin, iPickMax))\n\n\n\t\tassert dataIDmax[minIndex-1] == dataIDmin[minIndex-1]\n\n\n\t\t# self.__maxPicks += newPicksMax\n\t\t# self.__minPicks += newPicksMin\n\t\tnewPicksMax = picksMax[:minIndex]\n\t\tnewPicksMin = picksMin[:minIndex]\n\n\t\t# self.__timeMaxPicks += timeMaxPicks\n\t\ttimeMaxPicks = [float(t/self.__testFactor) for t in dataIDmax[:minIndex]]\n\t\ttimeMinPicks = [float(t/self.__testFactor) for t in dataIDmin[:minIndex]]\n\n\t\t#Get mean values\n\t\tnewPicksMean = []\n\t\ttimeMeanPicks = []\n\t\tfor maxValue, minValue in zip(newPicksMax, newPicksMin):\n\n\t\t\tnewPicksMean += [np.mean([maxValue, minValue]),]\n\n\t\tfor maxValueTime, minValueTime in zip(timeMaxPicks, timeMinPicks):\n\n\t\t\ttimeMeanPicks += [np.mean([maxValueTime, minValueTime]),]\n\n\t\t#Final\n\t\tself.__timeSecNewRunPicks += [dataIDmin[minIndex]/self.__testFactor,]\n\n\t\tself.__lastIDPick = dataIDmin[minIndex]\n\n\t\treturn newPicksMax, newPicksMean, newPicksMin, timeMaxPicks\n\n\tdef chechMinMaxFn(self, order, vect):\n\t\t\n\t\toffsetMax = min(vect)\n\t\toffsetMin = max(vect)\n\n\n\t\tnewVectMax = [t - offsetMax for t in vect]\n\t\tnewVectMin = [t - offsetMin for t in vect]\n\n\t\tactualPointMax = newVectMax[order]\n\t\tactualPointMin = newVectMin[order]\n\n\t\tif max(newVectMax) == actualPointMax:\n\n\t\t\treturn 2 #Max\n\n\t\telif min(newVectMin) == actualPointMin:\n\n\t\t\treturn 1\n\n\t\telse:\n\n\t\t\treturn -1\n\n\tdef updatePicksData(self, newPicksMax_in, newPicksMean_in, newPicksMin_in, timePicks_in):\n\t\t\n\t\tself.__maxPicks += newPicksMax_in\n\t\tself.__meanPicks += newPicksMean_in\n\t\tself.__minPicks += newPicksMin_in\n\t\tself.__timePicks += timePicks_in\n\n\n\tdef get_description(self):\n\t\treturn self.__description\n\tdef get_freqData(self):\n\t\treturn self.__freqData\n\tdef get_timeRs(self):\n\t\treturn self.__timeRs\n\tdef get_rs(self):\n\t\treturn self.__rs\n\tdef get_timeSecNewRunRs(self):\n\t\treturn self.__timeSecNewRunRs\n\tdef get_stepID(self):\n\t\treturn self.__stepID\n\n\tdef addDataManual1(self, dataClasses):\n\t\t\"\"\"\n\t\tCustomized function to calculate the fighting force\n\t\t\"\"\"\n\t\tforceHP1 = []\n\t\tforceHP2 = []\n\t\tresult = []\n\n\t\tfor dataClass in dataClasses:\n\n\t\t\tif dataClass.get_description() in ('ForcePistonEyeHP1'):\n\t\t\t\tforceHP1 = dataClass.get_rs()\n\t\t\t\toneClass = dataClass\n\n\t\t\telif dataClass.get_description() in ('ForcePistonEyeHP2'):\n\t\t\t\tforceHP2 = dataClass.get_rs()\n\n\t\tfor f1, f2 in zip(forceHP1, forceHP2):\n\n\t\t\tresult += [f1-f2]\n\n\t\tself.__rs = result\n\t\tself.__freqData = oneClass.get_freqData()\n\t\tself.__timeRs = oneClass.get_timeRs()\n\t\tself.__timeSecNewRunRs = oneClass.get_timeSecNewRunRs()\n\t\tself.__stepID = oneClass.get_stepID()\n\n\tdef addDataManual2(self, dataClasses):\n\t\t\"\"\"\n\t\tCustomized function to calculate the fighting force\n\t\t\"\"\"\n\t\tforceHP1 = []\n\t\tforceHP2 = []\n\t\tresult = []\n\n\t\tfor dataClass in dataClasses:\n\n\t\t\tif dataClass.get_description() in ('ForcePistonEyeHP1'):\n\t\t\t\tforceHP1 = dataClass.get_rs()\n\t\t\t\toneClass = dataClass\n\n\t\t\telif dataClass.get_description() in ('ForcePistonEyeHP2'):\n\t\t\t\tforceHP2 = dataClass.get_rs()\n\n\t\tfor f1, f2 in zip(forceHP1, forceHP2):\n\n\t\t\tresult += [f1+f2]\n\n\t\tself.__rs = result\n\t\tself.__freqData = oneClass.get_freqData()\n\t\tself.__timeRs = oneClass.get_timeRs()\n\t\tself.__timeSecNewRunRs = oneClass.get_timeSecNewRunRs()\n\t\tself.__stepID = oneClass.get_stepID()\n\n\tdef plotMaxMinMean_fromDIAdem(self, plotSettings):\n\n\t\tfigure, ax = plt.subplots(1, 1)\n\t\tfigure.set_size_inches(10, 6, forward=True)\n\n\t\tax.plot(self.__timeMax, self.__max, linestyle = '', marker = '+', c = plotSettings['colors'][0], label = 'Max force', **plotSettings['line'])\n\t\tax.plot(self.__timeMean, self.__mean, linestyle = '', marker = '+', c = plotSettings['colors'][1], label = 'Mean force', **plotSettings['line'])\n\t\tax.plot(self.__timeMin, self.__min, linestyle = '', marker = '+', c = plotSettings['colors'][2], label = 'Min force', **plotSettings['line'])\n\n\t\t#Division line for runs\n\t\tmaxPlot = self.__max[-1]*1.2\n\t\tminPlot = self.__min[-1]*1.2\n\t\tax.plot(2*[0.0], [minPlot, maxPlot], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])\n\t\tfor div in self.__timeSecNewRunMean:\n\t\t\tax.plot(2*[div], [minPlot, maxPlot], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])\n\n\t\tax.set_xlabel('Number of cycles [Millions]', **plotSettings['axes_x'])\n\t\tax.set_ylabel('Force [N]', **plotSettings['axes_y'])\n\t\t\n\t\tax.legend(**plotSettings['legend'])\n\t\tax.set_title(self.__description, **plotSettings['title'])\n\n\t\t#Double y-axis \n\t\taxdouble_in_y = ax.twinx()\n\t\taxdouble_in_y.minorticks_on()\n\t\taxdouble_in_y.set_ylim(ax.get_ylim())\n\n\t\t#Figure settings\n\t\tax.grid(which='both', **plotSettings['grid'])\n\t\tax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])\n\t\tax.minorticks_on()\n\n\tdef plotResampled(self, plotSettings, CMDoptionsDict, magnitude, additionalInput, inputDataClass):\n\n\t\tif CMDoptionsDict['multipleYaxisInSameFigure'] and CMDoptionsDict['numberMultipleYaxisInSameFigure'] != 1 and plotSettings['currentAxis'][1] == -1:\n\t\t\tfigure, axesList = plt.subplots(CMDoptionsDict['numberMultipleYaxisInSameFigure'], 1, sharex='col')\n\t\t\tfigure.set_size_inches(12, 8, forward=True)\n\t\t\tplotSettings.update({'listMultipleAxes': axesList})\n\t\t\tplotSettings.update({'currentFigureMultipleAxes': figure})\n\n\t\t\tax = axesList[0]\n\t\t\tplotSettings.update({'currentAxis': [ax, 0]})\n\n\t\telif CMDoptionsDict['multipleYaxisInSameFigure'] and CMDoptionsDict['numberMultipleYaxisInSameFigure'] != 1 and plotSettings['currentAxis'][1] != -1:\n\t\t\t\n\t\t\tnew_ax_id = plotSettings['currentAxis'][1]+1\n\t\t\tax = plotSettings['listMultipleAxes'][new_ax_id]\n\t\t\tplotSettings.update({'currentAxis': [ax, new_ax_id]})\n\t\telse:\n\t\t\t# Normal operation, one single plot\n\t\t\tfigure, ax = plt.subplots(1, 1)\n\t\t\tfigure.set_size_inches(10, 6, forward=True)\n\n\t\tax.plot( [t/self.__freqData[0] for t in self.__timeRs], self.__rs, linestyle = '-', marker = '', c = plotSettings['colors'][0], label = self.__description, **plotSettings['line'])\n\n\t\t# Mean based on max and min\n\t\tmean_min = np.mean([setOne[0] for setOne in self.__MinMax])\n\t\tmean_max = np.mean([setOne[1] for setOne in self.__MinMax])\n\n\t\tmean_fromMinMax = ((mean_max - mean_min)/2) + mean_min\n\n\t\tprint('mean record data :'+str(mean_fromMinMax))\n\n\t\tif additionalInput[0]:\n\t\t\tdataClasses = additionalInput[1]\n\t\t\tfor dataClass in dataClasses:\n\t\t\t\tif dataClass.get_description() in (additionalInput[2]):\n\t\t\t\t\toneClass = dataClass\n\t\t\n\t\t\tax.plot( [t/oneClass.get_freqData()[0] for t in oneClass.get_timeRs()], oneClass.get_rs(), linestyle = '-', marker = '', c = plotSettings['colors'][1], label = oneClass.get_description(), **plotSettings['line'])\n\t\t\n\t\t#Division line for runs\n\t\tvaluesMaxRs = ax.get_ylim()[1]\n\t\tvaluesMinRs = ax.get_ylim()[0]\n\t\tmaxPlot_y = valuesMaxRs*1.2 if valuesMaxRs > 0.0 else valuesMaxRs*0.8\n\t\tminPlot_y = valuesMinRs*0.8 if valuesMinRs > 0.0 else valuesMinRs*1.2\n\t\tpreviousDiv = 0.0\n\t\ti = 0\n\t\tax.plot(2*[0.0], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])\n\t\tfor div in [t/self.__freqData[0] for t in self.__timeSecNewRunRs]:\n\t\t\tax.plot(2*[div], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])\n\n\t\t\t#Add text with step number\n\t\t\tax.text(previousDiv + ((div - previousDiv)/2), minPlot_y, 'Step '+str(self.__stepID[i]), bbox=dict(facecolor='black', alpha=0.2), horizontalalignment = 'center')\n\t\t\t\n\t\t\tpreviousDiv = div\n\t\t\ti += 1\n\n\t\t# Test Order plots \n\t\tif CMDoptionsDict['testOrderFlagFromCMD'] and ( (inputDataClass.get_variablesInfoDict()[self.__description]['TO spec'] in ('yes', 'y') and magnitude == 'rs') or (inputDataClass.get_variablesInfoDict()[self.__description]['Fatigue load spec'] in ('yes', 'y') and magnitude in ('lp', 'hp')) ):\n\t\t\tmaxPlot_x = 0.0\n\t\t\tminPlot_x = max(self.__timeSecNewRunRs)/self.__freqData[0]\n\n\t\t\tlimitsLoadsBoundaries = []\n\t\t\tif magnitude == 'rs':\n\t\t\t\tlimitLoads = [float(t) for t in [inputDataClass.get_variablesInfoDict()[self.__description]['max load'], inputDataClass.get_variablesInfoDict()[self.__description]['min load']]]\n\t\t\telif magnitude == 'lp' and inputDataClass.get_variablesInfoDict()[self.__description]['Fatigue load spec'] in ('yes', 'y'):\n\t\t\t\tlimitLoads = [float(inputDataClass.get_variablesInfoDict()[self.__description]['static load'])]\n\t\t\t\tmargin = float(inputDataClass.get_variablesInfoDict()[self.__description]['margin static load (%)'])\n\t\t\t\tlimitsLoadsBoundaries = [1 + (margin/100), 1 - (margin/100)]\n\t\t\telif magnitude == 'hp' and inputDataClass.get_variablesInfoDict()[self.__description]['Fatigue load spec'] in ('yes', 'y'):\n\t\t\t\tlimitLoads = [float(inputDataClass.get_variablesInfoDict()[self.__description]['alternate load']), -float(inputDataClass.get_variablesInfoDict()[self.__description]['alternate load'])]\n\t\t\t\tmargin = float(inputDataClass.get_variablesInfoDict()[self.__description]['margin alternate load (%)'])\n\t\t\t\tlimitsLoadsBoundaries = [1 + (margin/100), 1 - (margin/100)]\n\n\t\t\tfor limitLoad in limitLoads:\n\t\t\t\tax.plot([minPlot_x, maxPlot_x], 2*[limitLoad], linestyle = '--', marker = '', c = plotSettings['colors'][5], **plotSettings['line'])\n\t\t\t\tif limitsLoadsBoundaries:\n\t\t\t\t\tfor limitLoadBoundary in limitsLoadsBoundaries:\n\t\t\t\t\t\tax.plot([minPlot_x, maxPlot_x], 2*[limitLoad*limitLoadBoundary], linestyle = '-.', marker = '', c = plotSettings['colors'][6], **plotSettings['line'])\n\n\t\t# ax.set_xlabel('Number of points [Millions]', **plotSettings['axes_x'])\n\t\t# ax.set_xlabel('Time elapsed [Million seconds]', **plotSettings['axes_x'])\n\t\tif not CMDoptionsDict['multipleYaxisInSameFigure'] or CMDoptionsDict['numberMultipleYaxisInSameFigure'] == 1:\n\t\t\tax.set_xlabel('Time elapsed [Seconds]', **plotSettings['axes_x'])\n\t\telif CMDoptionsDict['numberMultipleYaxisInSameFigure']==(plotSettings['currentAxis'][1]+1):\n\t\t\tax.set_xlabel('Time elapsed [Seconds]', **plotSettings['axes_x'])\n\n\t\tif True:\n\t\t\tax.set_ylabel(inputDataClass.get_variablesInfoDict()[self.__description]['y-label'], **plotSettings['axes_y'])\n\n\t\telif self.__description in ('STG1', 'STG2'):\n\t\t\tax.set_ylabel('Strain [mm\\m]', **plotSettings['axes_y'])\n\n\t\t# Magnitudes from the performance test\n\t\telif self.__description in ('DruckHP1', 'DruckHP2'):\n\t\t\tax.set_ylabel('Pressure [bar]', **plotSettings['axes_y'])\n\n\t\telif self.__description in ('DurchflussHP1', 'DurchflussHP2'):\n\t\t\tax.set_ylabel('Volume flow [l/min]', **plotSettings['axes_y'])\n\n\t\telif self.__description in ('LaserPiston', 'LaserSteuerventilhebel'):\n\t\t\tax.set_ylabel('Displacement [mm]', **plotSettings['axes_y'])\n\n\t\telif self.__description in ('TemperaturHP1', 'TemperaturHP2'):\n\t\t\tax.set_ylabel('Temperature [°C]', **plotSettings['axes_y'])\n\n\t\telse:\n\t\t\tax.set_ylabel('Force [N]', **plotSettings['axes_y'])\n\n\t\t#Legend and title\n\t\tif additionalInput[0]:\n\t\t\tax.legend(**plotSettings['legend'])\n\t\telse:\n\t\t\tif magnitude == 'rs':\n\t\t\t\tax.set_title(self.__description+', re-sampled data to '+str(int(self.__freqData[0]))+' Hz', **plotSettings['title'])\n\t\t\telif magnitude == 'lp':\n\t\t\t\ta = self.__filterData[0]\n\t\t\t\tax.set_title(self.__description+', low-pass filtered with '+str(float(self.__filterData[0]))+' Hz cut-off freq.', **plotSettings['title'])\n\t\t\telif magnitude == 'hp':\n\t\t\t\tax.set_title(self.__description+', high-pass filtered with '+str(float(self.__filterData[0]))+' Hz cut-off freq.', **plotSettings['title'])\n\t\t\telse:\n\t\t\t\tax.set_title(self.__description, **plotSettings['title'])\n\n\t\t#Figure settings\n\t\tax.grid(which='both', **plotSettings['grid'])\n\t\tax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])\n\t\tax.minorticks_on()\n\n\t\t#Double y-axis \n\t\taxdouble_in_y = ax.twinx()\n\t\taxdouble_in_y.minorticks_on()\n\t\taxdouble_in_y.set_ylim(ax.get_ylim())\n\n\t\t#Save figure\n\t\tif CMDoptionsDict['saveFigure'] and not CMDoptionsDict['multipleYaxisInSameFigure']:\n\n\t\t\tif additionalInput[0]:\n\t\t\t\tfigure.savefig(os.path.join(CMDoptionsDict['cwd'], magnitude+'_'+','.join([str(i) for i in CMDoptionsDict['rangeFileIDs']])+'_'+self.__description+'&'+additionalInput[2]+'.png'), dpi = plotSettings['figure_settings']['dpi'])\n\t\t\telse: \n\t\t\t\tfigure.savefig(os.path.join(CMDoptionsDict['cwd'], magnitude+'_'+','.join([str(i) for i in CMDoptionsDict['rangeFileIDs']])+'_'+self.__description+'.png'), dpi = plotSettings['figure_settings']['dpi'])\n\t\telif CMDoptionsDict['saveFigure'] and CMDoptionsDict['numberMultipleYaxisInSameFigure']==(plotSettings['currentAxis'][1]+1): #CMDoptionsDict['multipleYaxisInSameFigure'] is True\n\n\t\t\tfigure = plotSettings['currentFigureMultipleAxes']\n\t\t\tif len(CMDoptionsDict['rangeFileIDs']) < 8:\n\t\t\t\tfigure.savefig(os.path.join(CMDoptionsDict['cwd'], ','.join([str(i) for i in CMDoptionsDict['magnitudes']])+'_'+','.join([str(i) for i in CMDoptionsDict['rangeFileIDs']])+'_'+','.join([str(i) for i in CMDoptionsDict['variables']])+'.png'), dpi = plotSettings['figure_settings']['dpi'])\n\t\t\telse:\n\t\t\t\tfigure.savefig(os.path.join(CMDoptionsDict['cwd'], ','.join([str(i) for i in CMDoptionsDict['magnitudes']])+'_'+str(CMDoptionsDict['rangeFileIDs'][0])+'...'+str(CMDoptionsDict['rangeFileIDs'][-1])+'_'+','.join([str(i) for i in CMDoptionsDict['variables']])+'.png'), dpi = plotSettings['figure_settings']['dpi'])\n\n\t\treturn plotSettings\n\n\tdef plotMinMeanMax(self, plotSettings):\n\n\t\tfigure, ax = plt.subplots(1, 1)\n\t\tfigure.set_size_inches(10, 6, forward=True)\n\n\t\tax.plot(self.__timePicks, self.__maxPicks, linestyle = '-', marker = '', c = plotSettings['colors'][0], label = 'Max force', **plotSettings['line'])\n\t\tax.plot(self.__timePicks, self.__meanPicks, linestyle = '-', marker = '', c = plotSettings['colors'][1], label = 'Mean force', **plotSettings['line'])\n\t\tax.plot(self.__timePicks, self.__minPicks, linestyle = '-', marker = '', c = plotSettings['colors'][2], label = 'Min force', **plotSettings['line'])\n\n\t\t#Division line for runs\n\t\tmaxPlot = max(self.__maxPicks)*1.2\n\t\tminPlot = min(self.__minPicks)*1.2\n\t\tax.plot(2*[0.0], [minPlot, maxPlot], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])\n\t\tfor div in self.__timeSecNewRunPicks:\n\t\t\tax.plot(2*[div], [minPlot, maxPlot], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])\n\n\t\tax.set_xlabel('Number of cycles [Millions]', **plotSettings['axes_x'])\n\t\tax.set_ylabel('Force [N]', **plotSettings['axes_y'])\n\n\t\t#Legend and title\n\t\tax.legend(**plotSettings['legend'])\n\t\tax.set_title(self.__description, **plotSettings['title'])\n\n\t\t#Figure settings\n\t\tax.grid(which='both', **plotSettings['grid'])\n\t\tax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])\n\t\tax.minorticks_on()\n\n\t\t#Double y-axis \n\t\taxdouble_in_y = ax.twinx()\n\t\taxdouble_in_y.minorticks_on()\n\t\taxdouble_in_y.set_ylim(ax.get_ylim())\n\n\t\tprint('\\n')\n\t\tprint('--> Maximum force applied in complete test (mean value):'+str(round(np.mean(self.__maxPicks), 3))+' N')\n\t\tprint('--> Mean force applied in complete test (mean value):'+str(round(np.mean(self.__meanPicks), 3))+' N')\n\t\tprint('--> Minimum force applied in complete test (mean value):'+str(round(np.mean(self.__minPicks), 3))+' N')\n\ndef plotAllRuns_force(dataFromRuns, plotSettings, CMDoptionsDict, inputDataClass):\n\n\tdef threePlotForRun(dataFromRun, plotSettings, ax):\n\t\t\n\t\tax.plot(dataFromRun.get_absoluteNCycles_mill(), dataFromRun.get_maxF(), linestyle = '-', marker = '', c = plotSettings['colors'][0], **plotSettings['line'])\n\t\tax.plot(dataFromRun.get_absoluteNCycles_mill(), dataFromRun.get_meanF(), linestyle = '-', marker = '', c = plotSettings['colors'][1], **plotSettings['line'])\n\t\tax.plot(dataFromRun.get_absoluteNCycles_mill(), dataFromRun.get_minF(), linestyle = '-', marker = '', c = plotSettings['colors'][2], **plotSettings['line'])\t\n\t\n\tfigure, ax = plt.subplots(1, 1)\n\tfigure.set_size_inches(10, 6, forward=True)\n\n\t# Plot all the data\n\tfor data in dataFromRuns:\n\n\t\tthreePlotForRun(data, plotSettings, ax)\n\n\t#Plot first division line\n\tvaluesMaxRs = ax.get_ylim()[1]\n\tvaluesMinRs = ax.get_ylim()[0]\n\tmaxPlot_y = valuesMaxRs*1.2 if valuesMaxRs > 0.0 else valuesMaxRs*0.8\n\tminPlot_y = valuesMinRs*0.8 if valuesMinRs > 0.0 else valuesMinRs*1.2\n\tpreviousDiv = 0.0\n\tax.plot(2*[0.0], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])\n\tfor data in dataFromRuns:\n\t\t\n\t\tdiv = data.get_absoluteNCycles_mill()[-1]\n\t\t#Plot division lines\n\t\tax.plot(2*[div], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])\n\n\t\t# Plot text with step index\n\t\tax.text(previousDiv + ((div - previousDiv)/2), minPlot_y, 'Step '+str(data.get_stepID()), bbox=dict(facecolor='black', alpha=0.2), horizontalalignment = 'center')\n\n\t\tpreviousDiv = div\n\t\n\t#Plot prescribed loads from the T\n\tif CMDoptionsDict['testOrderFlagFromCMD']:\n\t\tax.plot([0.0, dataFromRuns[-1].get_absoluteNCycles_mill()[-1]], 2*[inputDataClass.get_testOrderRange()[0]], linestyle = '--', marker = '', c = plotSettings['colors'][5], **plotSettings['line'])\n\t\tax.plot([0.0, dataFromRuns[-1].get_absoluteNCycles_mill()[-1]], 2*[inputDataClass.get_testOrderRange()[-1]], linestyle = '--', marker = '', c = plotSettings['colors'][5], **plotSettings['line'])\n\n\tax.set_xlabel('Number of cycles [Millions]', **plotSettings['axes_x'])\n\tax.set_ylabel('Force [kN]', **plotSettings['axes_y'])\n\n\t# Legends\n\tlegendHandles = []\n\thandle0 = plt.Line2D([],[], color=plotSettings['colors'][0], marker='+', linestyle='', label='Max force')\n\thandle1 = plt.Line2D([],[], color=plotSettings['colors'][1], marker='+', linestyle='', label='Mean force')\n\thandle2 = plt.Line2D([],[], color=plotSettings['colors'][2], marker='+', linestyle='', label='Min force')\n\tlegendHandles = legendHandles + [handle0, handle1, handle2]\n\tax.legend(handles = legendHandles, **plotSettings['legend'])\n\n\t#Title\n\tax.set_title('Results fatigue test, data from actuator', **plotSettings['title'])\n\n\t#Figure plotSettings\n\tax.grid(which='both', **plotSettings['grid'])\n\n\t#Tick parameters\n\tax.minorticks_on()\n\tax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])\n\t####\n\n\t#Double y-axis \n\taxdouble_in_y = ax.twinx()\n\taxdouble_in_y.minorticks_on()\n\taxdouble_in_y.set_ylim(ax.get_ylim())\n\t\n\t#Tick parametersget_xticks\n\t# majorTicks = ax.get_xmajorticklabels()\n\t# ax.minorticks_on()\n\t# ax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])\n\t####\n\t\n\t#Save figure\n\tif CMDoptionsDict['saveFigure']:\n\n\t\tfigure.savefig(os.path.join(CMDoptionsDict['cwd'], 'ActuatorLoadsMaxMinMean.png'), dpi = plotSettings['figure_settings']['dpi'])\n\n\ndef plotAllRuns_force_Messwerte(dataFromRuns, plotSettings, CMDoptionsDict, inputDataClass):\n\n\tdef cumputeDiffFnNotContinous(x, y):\n\t\t\n\t\tassert len(x)==len(y), 'ERROR: Not equal length for vectors'\n\n\t\tn = len(x)\n\n\t\tdiff, pointsID = [], [1]\n\t\tfor i in range(1,n-1):\n\n\t\t\t# delta = abs( abs(x[i+1]) - abs(x[i-1]) )\n\t\t\tdelta = abs( x[i+1] - x[i-1] )\n\n\t\t\tf = y[i+1] - y[i-1]\n\n\t\t\tdiff += [f/(2.0*delta)]\n\n\t\t\tif i > 1:\n\t\t\t\tpointsID += [pointsID[-1]+1]\n\n\t\treturn diff, pointsID\n\n\tfigure, ax = plt.subplots(1, 1)\n\tfigure.set_size_inches(10, 6, forward=True)\n\n\tcounterPlots = 0\n\tfor data in dataFromRuns:\n\n\t\tax.plot(data.get_weg(), data.get_kraft(), linestyle = '-', marker = '', c = plotSettings['colors'][counterPlots], label = data.get_name(), **plotSettings['line'])\n\n\t\tcounterPlots += 1\n\n\tax.set_xlabel('Displacement [mm]', **plotSettings['axes_x'])\n\tax.set_ylabel('Force [kN]', **plotSettings['axes_y'])\n\n\t#Legend and title\n\tax.legend(**plotSettings['legend'])\n\tax.set_title('Results fatigue test, data from actuator', **plotSettings['title'])\n\n\t#Figure settings\n\tax.grid(which='both', **plotSettings['grid'])\n\tax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])\n\tax.minorticks_on()\n\n\t#Save figure\n\tif CMDoptionsDict['saveFigure']:\n\n\t\tfigure.savefig(os.path.join(CMDoptionsDict['cwd'], 'ActuatorForceDisplacementTotalStaticAlternate.png'), dpi = plotSettings['figure_settings']['dpi'])\n\n\t#Central differences plot\n\tfigure, ax = plt.subplots(1, 1)\n\tfigure.set_size_inches(10, 6, forward=True)\n\n\tcounter, dataIdAbs, diffAbs = 0, [], []\n\tax.plot(2*[0.0], [-500000, 500000], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])\n\tfor data in dataFromRuns:\n\n\t\tdiff_temp, pointsID_temp = cumputeDiffFnNotContinous(data.get_weg(), data.get_kraft())\n\n\t\tif counter == 0:\n\t\t\tdataIdAbs += pointsID_temp\n\t\telse:\n\t\t\tdataIdAbs += [dataIdAbs[-1]+t for t in pointsID_temp]\n\t\t\n\t\t# Plot division line\n\t\tax.plot(2*[dataIdAbs[-1]/1000000.0], [-500000, 500000], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])\n\t\t\n\t\tdiffAbs += diff_temp\n\t\tcounter += 1\n\n\tax.plot([t/1000000.0 for t in dataIdAbs], diffAbs, linestyle = '-', marker = '', c = plotSettings['colors'][0], **plotSettings['line'])\n\n\tax.set_xlabel('Number of points [Millions]', **plotSettings['axes_x'])\n\tax.set_ylabel('Stiffness [mm/kN]', **plotSettings['axes_y'])\n\n\t#Legend and title\n\tax.set_title('Results fatigue test, data from actuator', **plotSettings['title'])\n\n\t#Figure settings\n\tax.grid(which='both', **plotSettings['grid'])\n\tax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])\n\tax.minorticks_on()\n\n\t#Double y-axis \n\taxdouble_in_y = ax.twinx()\n\taxdouble_in_y.set_ylim(ax.get_ylim())\n\n\t#Save figure\n\tif CMDoptionsDict['saveFigure']:\n\n\t\tfigure.savefig(os.path.join(CMDoptionsDict['cwd'], 'ActuatorForceDisplacement.png'), dpi = plotSettings['figure_settings']['dpi'])\n\n\ndef plotAllRuns_displacement(dataFromRuns, plotSettings, CMDoptionsDict, inputDataClass):\n\n\tdef threePlotForRun(dataFromRun, plotSettings, ax):\n\t\t\n\t\tax.plot(dataFromRun.get_absoluteNCycles_mill(), dataFromRun.get_maxDispl(), linestyle = '-', marker = '', c = plotSettings['colors'][0], **plotSettings['line'])\n\t\tax.plot(dataFromRun.get_absoluteNCycles_mill(), dataFromRun.get_meanDispl(), linestyle = '-', marker = '', c = plotSettings['colors'][1], **plotSettings['line'])\n\t\tax.plot(dataFromRun.get_absoluteNCycles_mill(), dataFromRun.get_minDispl(), linestyle = '-', marker = '', c = plotSettings['colors'][2], **plotSettings['line'])\t\n\t\n\tfigure, ax = plt.subplots(1, 1)\n\tfigure.set_size_inches(10, 6, forward=True)\n\n\t# Plot all the data\n\tfor data in dataFromRuns:\n\n\t\tthreePlotForRun(data, plotSettings, ax)\n\n\t#Plot first division line\n\tvaluesMaxRs = ax.get_ylim()[1]\n\tvaluesMinRs = ax.get_ylim()[0]\n\tmaxPlot_y = valuesMaxRs*1.2 if valuesMaxRs > 0.0 else valuesMaxRs*0.8\n\tminPlot_y = valuesMinRs*0.8 if valuesMinRs > 0.0 else valuesMinRs*1.2\n\tpreviousDiv = 0.0\n\tax.plot(2*[0.0], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])\n\tfor data in dataFromRuns:\n\n\t\t# threePlotForRun(data, plotSettings, ax)\n\t\t\n\t\tdiv = data.get_absoluteNCycles_mill()[-1]\n\t\t#Plot division lines\n\t\tax.plot(2*[div], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])\n\n\t\t# Plot text with step index\n\t\tax.text(previousDiv + ((div - previousDiv)/2), minPlot_y, 'Step '+str(data.get_stepID()), bbox=dict(facecolor='black', alpha=0.2), horizontalalignment = 'center')\n\n\t\tpreviousDiv = div\n\t\n\tax.set_xlabel('Number of cycles [Millions]', **plotSettings['axes_x'])\n\tax.set_ylabel('Displacement [mm]', **plotSettings['axes_y'])\n\n\t# Legends\n\tlegendHandles = []\n\thandle0 = plt.Line2D([],[], color=plotSettings['colors'][0], marker='+', linestyle='', label='Max displacement')\n\thandle1 = plt.Line2D([],[], color=plotSettings['colors'][1], marker='+', linestyle='', label='Mean displacement')\n\thandle2 = plt.Line2D([],[], color=plotSettings['colors'][2], marker='+', linestyle='', label='Min displacement')\n\tlegendHandles = legendHandles + [handle0, handle1, handle2]\n\tax.legend(handles = legendHandles, **plotSettings['legend'])\n\n\t#Title\n\tax.set_title('Results fatigue test, data from actuator', **plotSettings['title'])\n\n\t#Figure settings\n\tax.grid(which='both', **plotSettings['grid'])\n\n\t#Tick parameters\n\tax.minorticks_on()\n\tax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])\n\t####\n\n\t#Double y-axis \n\taxdouble_in_y = ax.twinx()\n\taxdouble_in_y.minorticks_on()\n\taxdouble_in_y.set_ylim(ax.get_ylim())\n\n\t#Save figure\n\tif CMDoptionsDict['saveFigure']:\n\n\t\tfigure.savefig(os.path.join(CMDoptionsDict['cwd'], 'ActuatorDisplacementMaxMinMean.png'), dpi = plotSettings['figure_settings']['dpi'])\n\ndef calculate_stats(dataFromRuns):\n\n\tdef roundToOneSignificant(x):\n\n\t\treturn round(x, -int(math.floor(math.log10(abs(x)))))\n\n\tdef truncateToSignificantOfOtherNum(num, numRef):\n\n\t\ti, i_out, flagPositive = 0, 0, True\n\n\t\tif num < 0.0:\n\t\t\tflagPositive = False\n\t\t\tnum = num *-1.0\n\n\t\tfor n in str(float(abs(numRef))):\n\n\t\t\tif not n in ('.','0'):\n\n\t\t\t\ti_out = i\n\t\t\t\tbreak\n\n\t\t\ti += 1\n\n\t\tif i == 0: #Number bigger than 0\n\t\t\tif flagPositive:\n\t\t\t\treturn float(str(num)[:-(len(str(abs(numRef)))-2)]+((len(str(abs(numRef)))-2)*'0'))\n\t\t\telse:\n\t\t\t\tprint('hole')\n\t\t\t\treturn -1.0*float(str(num)[:-(len(str(abs(numRef)))-2)]+((len(str(abs(numRef)))-2)*'0'))\n\n\t\telse:\n\n\t\t\tif flagPositive:\n\t\t\t\treturn float(str(num)[:i_out+1])\n\t\t\telse:\n\t\t\t\treturn -1.0*float(str(num)[:i_out+1])\n\n\n\tmaxs = []\n\tmins = []\n\tmeans = []\n\n\tnormalDistributionFlag = True\n\tconfidenceIntervalForTstudent = 95 #in %\n\n\tfor dataFromRun in dataFromRuns:\n\n\t\tmaxs += dataFromRun.get_maxF()\n\t\tmeans += dataFromRun.get_meanF()\n\t\tmins += dataFromRun.get_minF()\n\t\t\n\t\n\t#Calculate stats using t-Student distribution\n\tmean_max = np.mean(maxs)\n\tmean_mean = np.mean(means)\n\tmean_min = np.mean(mins)\n\n\tstd_max = np.std(maxs)\n\tstd_mean = np.std(means)\n\tstd_min = np.std(mins)\n\n\tintervals_max = st.t.interval(confidenceIntervalForTstudent/100.0, len(maxs)-1, loc=mean_max, scale=st.sem(maxs))\n\tintervals_mean = st.t.interval(confidenceIntervalForTstudent/100.0, len(means)-1, loc=mean_mean, scale=st.sem(means))\n\tintervals_min = st.t.interval(confidenceIntervalForTstudent/100.0, len(mins)-1, loc=mean_min, scale=st.sem(mins))\n\n\t#Intervals\n\tif normalDistributionFlag:\n\t\tinterval_max = roundToOneSignificant(1.96 * std_max)\n\t\tinterval_mean = roundToOneSignificant(1.96 * std_mean)\n\t\tinterval_min = roundToOneSignificant(1.96 * std_min)\n\telse:\n\t\tinterval_max = roundToOneSignificant(abs(intervals_max[1] - intervals_max[0]))\n\t\tinterval_mean = roundToOneSignificant(abs(intervals_mean[1] - intervals_mean[0]))\n\t\tinterval_min = roundToOneSignificant(abs(intervals_min[1] - intervals_min[0]))\n\n\tprint('\\n'+'-> Range for max values: '+str(truncateToSignificantOfOtherNum(mean_max, interval_max)) + '+-'+ str(interval_max)+' KN (for 95% confidence interval)')\n\tprint('-> Range for mean values: '+str(truncateToSignificantOfOtherNum(mean_mean, interval_mean)) + '+-'+ str(interval_mean)+' KN (for 95% confidence interval)')\n\tprint('-> Range for min values: '+str(truncateToSignificantOfOtherNum(mean_min, interval_min)) + '+-'+ str(interval_min)+' KN (for 95% confidence interval)')\n\ndef calculateDaysHoursMinutes_string(N, freq):\n\t\n\tseconds = N/freq\n\n\tn_days = int(np.floor(seconds/(24*3600)))\n\tremainingSeconds = seconds - (24*3600*n_days)\n\tn_hours = int(np.floor(remainingSeconds/(3600)))\n\tremainingSeconds = remainingSeconds - (3600*n_hours)\n\tn_minutes = int(np.floor(remainingSeconds/(60)))\n\tremainingSeconds = remainingSeconds - (60*n_minutes)\n\n\ttotalTimeString = str(n_days)+' days, '+str(n_hours)+' hours, '+str(n_minutes)+' minutes, '+str(round(remainingSeconds, 2))+' seconds ('+str(freq)+' Hz)'\n\n\treturn totalTimeString\n\ndef getNewVectorWithoutOutliers(x_list, y_list):\n\t######### Enter, x_list and y_list values\n\n\t# Error vector\n\tdef errorVectorFunction(x_list, y_list, regre):\n\n\t\t# Error vector\n\t\te = []\n\t\tfor x,y in zip(x_list, y_list):\n\t\t\te += [y - ( regre[1] + (regre[0]*x) )] \n\t\tvari = stat.variance(e)\n\n\t\treturn e, vari\n\n\t# Remove outliers\n\tdef removeOutliers(x_list, y_list, e_list, vari_error, lim):\n\t\t\n\t\t# New vectors\n\t\tx_out, y_out, outliers = [], [], []\n\n\t\tfor x,y,e in zip(x_list, y_list, e_list):\n\n\t\t\tfactor = abs(e) / np.sqrt(vari_error)\n\n\t\t\tif factor > lim:\n\t\t\t\toutliers += [[x, y],]\n\n\t\t\telse:\n\t\t\t\tx_out += [x]\n\t\t\t\ty_out += [y]\n\n\t\treturn x_out, y_out, outliers\n\n\t# split in ranges\n\trange_spacing = 100\n\tinit_range = 0\n\tsize_vector = len(x_list)\n\n\tassert len(x_list) == len(y_list), 'ERROR: Mismatch between the sizes of x, y'\n\n\t# Linear fit\n\t# f(x) = regre[0]*x_list + regre[1]\n\n\tregre = np.polyfit(x_list, y_list, 1)\n\n\terror_list, vari = errorVectorFunction(x_list, y_list, regre)\n\n\tx_list_woOutliers, y_list_woOutliers, outliers = removeOutliers(x_list, y_list, error_list, vari, 1.960) #2.576\n\n\treturn x_list_woOutliers, y_list_woOutliers\n\ndef plotAllRuns_filtered_Messwerte(dataFromRuns, timesDict, plotSettings, CMDoptionsDict, inputDataClass):\n\t\n\tattrs_to_plot_list = [['kraft', 'lowpass_force', 'highpass_force'], ['weg', 'lowpass_displ', 'highpass_displ']]\n\t# attrs_to_plot_list = [['kraft']]\n\ttitles = {'kraft': 'Force measured by the actuator, total, static and alternate',\n\t\t\t\t'weg' : 'Displacement imposed by the actuator, total, static and alternate',\n\t\t\t\t'lowpass_force': 'Force low-pass filtered with '+inputDataClass.get_actuatorDataInfoDict()['cut-off_freq']+' Hz cut-off freq.', \n\t\t\t\t'highpass_force': 'Force high-pass filtered with '+inputDataClass.get_actuatorDataInfoDict()['cut-off_freq']+' Hz cut-off freq.',\n\t\t\t\t'lowpass_displ': 'Displacement low-pass filtered with '+inputDataClass.get_actuatorDataInfoDict()['cut-off_freq']+' Hz cut-off freq.', \n\t\t\t\t'highpass_displ': 'Displacement high-pass filtered with '+inputDataClass.get_actuatorDataInfoDict()['cut-off_freq']+' Hz cut-off freq.'}\n\n\tfor attrs_to_plot in attrs_to_plot_list:\n\t\tfigure, axesList = plt.subplots(len(attrs_to_plot), 1, sharex='col')\n\t\tfigure.set_size_inches(12, 8, forward=True)\n\n\t\t# if True:\n\t\tfor ax, attr in zip(axesList, attrs_to_plot):\n\t\t\t# ax = axesList\n\t\t\t# attr = 'kraft'\n\n\t\t\tLastData, lastPoint = None, 0.0\n\n\t\t\tfor data in dataFromRuns:\n\n\t\t\t\tif not LastData:\n\t\t\t\t\tax.plot( data.get_time().tolist(), data.get_attr(attr), linestyle = '-', marker = '', c = plotSettings['colors'][0], label = data.get_name(), **plotSettings['line'])\n\t\t\t\telse:\n\t\t\t\t\tlastPoint += LastData.get_time().tolist()[-1]\n\t\t\t\t\tax.plot( [t+lastPoint for t in data.get_time().tolist()] , data.get_attr(attr), linestyle = '-', marker = '', c = plotSettings['colors'][0], label = data.get_name(), **plotSettings['line'])\n\n\t\t\t\t\t#Give mean high-pass\n\t\t\t\t\tif attr == 'highpass_force':\n\t\t\t\t\t\tprint('Mean value: ' + str(np.mean(data.get_attr(attr))))\n\n\t\t\t\tLastData = data\n\n\n\n\t\t\t#Division line for runs\n\t\t\tvaluesMaxRs = ax.get_ylim()[1]\n\t\t\tvaluesMinRs = ax.get_ylim()[0]\n\t\t\tmaxPlot_y = valuesMaxRs*1.2 if valuesMaxRs > 0.0 else valuesMaxRs*0.8\n\t\t\tminPlot_y = valuesMinRs*0.8 if valuesMinRs > 0.0 else valuesMinRs*1.2\n\t\t\tpreviousDiv = 0.0\n\t\t\ti = 0\n\t\t\tax.plot(2*[0.0], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])\n\t\t\tfor div in timesDict['lastTimeList']:\n\t\t\t\tax.plot(2*[div], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])\n\n\t\t\t\t#Add text with step number\n\t\t\t\tax.text(previousDiv + ((div - previousDiv)/2), minPlot_y, 'Step '+str(CMDoptionsDict['rangeFileIDs'][i]), bbox=dict(facecolor='black', alpha=0.2), horizontalalignment = 'center')\n\t\t\t\t\n\t\t\t\tpreviousDiv = div\n\t\t\t\ti += 1\n\n\t\t\tif CMDoptionsDict['testOrderFlagFromCMD'] and inputDataClass.get_actuatorDataInfoDict()['TO spec'] in ('yes', 'y') and ('force' in attr or 'kraft' in attr):\n\t\t\t\tmaxPlot_x = 0.0\n\t\t\t\tminPlot_x = timesDict['lastTimeList'][-1]\n\t\t\t\tlimitsLoadsBoundaries = []\n\t\t\t\tif attr == 'kraft':\n\t\t\t\t\tlimitLoads = [float(t) for t in [inputDataClass.get_actuatorDataInfoDict()['max load'], inputDataClass.get_actuatorDataInfoDict()['min load']]]\n\t\t\t\telif attr == 'lowpass_force' and inputDataClass.get_actuatorDataInfoDict()['Fatigue load spec'] in ('yes', 'y'):\n\t\t\t\t\tlimitLoads = [float(inputDataClass.get_actuatorDataInfoDict()['static load'])]\n\t\t\t\t\tmargin = float(inputDataClass.get_actuatorDataInfoDict()['margin static load (%)'])\n\t\t\t\t\tlimitsLoadsBoundaries = [1 + (margin/100), 1 - (margin/100)]\n\t\t\t\telif attr == 'highpass_force' and inputDataClass.get_actuatorDataInfoDict()['Fatigue load spec'] in ('yes', 'y'):\n\t\t\t\t\tlimitLoads = [float(inputDataClass.get_actuatorDataInfoDict()['alternate load']), -float(inputDataClass.get_actuatorDataInfoDict()['alternate load'])]\n\t\t\t\t\tmargin = float(inputDataClass.get_actuatorDataInfoDict()['margin alternate load (%)'])\n\t\t\t\t\tlimitsLoadsBoundaries = [1 + (margin/100), 1 - (margin/100)]\n\n\t\t\t\tfor limitLoad in limitLoads:\n\t\t\t\t\tax.plot([minPlot_x, maxPlot_x], 2*[limitLoad], linestyle = '--', marker = '', c = plotSettings['colors'][5], **plotSettings['line'])\n\t\t\t\t\tif limitsLoadsBoundaries:\n\t\t\t\t\t\tfor limitLoadBoundary in limitsLoadsBoundaries:\n\t\t\t\t\t\t\tax.plot([minPlot_x, maxPlot_x], 2*[limitLoad*limitLoadBoundary], linestyle = '-.', marker = '', c = plotSettings['colors'][6], **plotSettings['line'])\n\n\t\t\tif 'force' in attr or 'kraft' in attr:\n\t\t\t\tax.set_ylabel('Force [KN]', **plotSettings['axes_y'])\n\t\t\telif 'weg' in attr or 'displ' in attr:\n\t\t\t\tax.set_ylabel('Displ. [mm]', **plotSettings['axes_y'])\n\n\t\t\tax.set_title(titles[attr], **plotSettings['title'])\n\n\t\t\t#Figure settings\n\t\t\tax.grid(which='both', **plotSettings['grid'])\n\t\t\tax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])\n\t\t\tax.minorticks_on()\n\n\t\t\t#Double y-axis \n\t\t\taxdouble_in_y = ax.twinx()\n\t\t\taxdouble_in_y.minorticks_on()\n\t\t\taxdouble_in_y.set_ylim(ax.get_ylim())\n\n\t\t#Only last ax\n\t\tax.set_xlabel('Time [s]', **plotSettings['axes_x'])\n\n\t\t#Save figure\n\t\tif CMDoptionsDict['saveFigure']:\n\n\t\t\tfigure.savefig(os.path.join(CMDoptionsDict['cwd'], titles[attrs_to_plot[0]]+'.png'), dpi = plotSettings['figure_settings']['dpi'])\n\n\ndef filter(data, fs, typeFilter, cutoff):\n\n\tfrom scipy.signal import butter, lfilter, freqz\n\n\tdef butter_filter(data, cutoff, fs, typeFilter_in, order_in=5):\n\t\tif 'low' in typeFilter_in:\n\t\t\ttypeFilter = 'low'\n\t\telif 'high' in typeFilter_in:\n\t\t\ttypeFilter = 'high'\n\t\t# nyq = 0.5 * fs\n\t\t# normal_cutoff = cutoff / nyq\n\t\tb, a = butter(order, cutoff, btype=typeFilter, analog=False)\n\t\ty = lfilter(b, a, data)\n\t\treturn y\n\n\t# Filter requirements.\n\torder = 6\n\t# fs = 30.0       # sample rate, Hz\n\t# cutoff = 3.667  # desired cutoff frequency of the filter, Hz\n\n\ty = butter_filter(data, cutoff, fs, typeFilter,order_in = order)\n\t# y = butter_filter(y, cutoff, fs, typeFilter,order_in = order)\n\n\treturn y",
+			"file": "/D/kopter/fatigueData/moduleFunctions.py",
+			"file_size": 62112,
+			"file_write_time": 131733112840000000,
+			"settings":
+			{
+				"buffer_size": 60419,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "moduleFunctions.py",
+			"settings":
+			{
+				"buffer_size": 4807,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/D/kopter/fti/getFlightTestData.vbs",
+			"settings":
+			{
+				"buffer_size": 1718,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "flightTestData/P2-J17-01-FT0038/data/CNT_DST_COL.csv",
+			"settings":
+			{
+				"buffer_size": 64734542,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "flightTestData/P2-J17-01-FT0038/data/Sampletime.csv",
+			"settings":
+			{
+				"buffer_size": 3220531,
+				"line_ending": "Windows"
 			}
 		}
 	],
@@ -187,10 +307,17 @@
 	},
 	"expanded_folders":
 	[
-		"/home/alejandro/Documents/kopter/SH09_s_id"
+		"/D/kopter/SH09_s_id",
+		"/D/kopter/SH09_s_id/flightTestData",
+		"/D/kopter/SH09_s_id/flightTestData/P2-J17-01-FT0038",
+		"/D/kopter/SH09_s_id/flightTestData/P2-J17-01-FT0038/data",
+		"/D/kopter/SH09_s_id/old_code"
 	],
 	"file_history":
 	[
+		"/D/kopter/SH09_s_id/flightTestData/fti_variables_info.txt",
+		"/D/kopter/SH09_s_id/flightTestData/P2-J17-01-FT0038/data/VRU_ACC_X.csv",
+		"/D/kopter/SH09_s_id/functions/FsClass.m",
 		"/home/alejandro/Documents/kopter/SH09_s_id/functions/main_SH09.m",
 		"/D/kopter/SH09_s_id/functions/SIDPAC_startup.m",
 		"/D/kopter/SH09_s_id/SIDPAC_startup.m",
@@ -299,6 +426,13 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"dataID",
+			"valueLine",
+			"Signal",
+			"data",
+			"dataID",
+			"data",
+			"\\",
 			"ParentDir",
 			"currentColl",
 			"states",
@@ -369,7 +503,7 @@
 						"translation.y": 4224.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 10,
 					"type": "text"
 				},
 				{
@@ -396,50 +530,105 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 624.0,
+						"translation.y": 431.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 9,
 					"type": "text"
 				},
 				{
-					"buffer": 0,
-					"file": "functions/FsClass.m",
+					"buffer": 2,
+					"file": "SH09_ft.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 22518,
+						"buffer_size": 809,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								18494,
-								18494
+								469,
+								469
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Matlab/Matlab.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
+							"auto_name": "SH09_fti",
+							"syntax": "Packages/Python/Python.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 5953.0,
+						"translation.y": 115.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 3,
 					"type": "text"
 				}
 			]
 		},
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
-					"buffer": 2,
+					"buffer": 3,
+					"file": "flightTestData/P2-J17-01-FT0038/data/fti_variables_info.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 161,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								100,
+								100
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "flightTestData/P2-J17-01-FT0038/data/VRU_ACC_X.csv",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3420936,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3420876,
+								3420876
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 2489018.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
 					"file": "functions/postSim_callback_F16.m",
 					"semi_transient": false,
 					"settings":
@@ -463,11 +652,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 11,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 6,
 					"file": "main_SH09.m",
 					"semi_transient": false,
 					"settings":
@@ -491,7 +680,160 @@
 						"translation.y": 78.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "/D/kopter/fatigueData/moduleFunctions.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 60419,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1082,
+								1082
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 37.0,
+						"translation.y": 268.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 8,
+					"file": "moduleFunctions.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4807,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2690,
+								2690
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax"
+						},
+						"translation.x": 170.0,
+						"translation.y": 563.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 9,
+					"file": "/D/kopter/fti/getFlightTestData.vbs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1718,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/VBScript/VBScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 141.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "flightTestData/P2-J17-01-FT0038/data/CNT_DST_COL.csv",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 64734542,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 49786620.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "flightTestData/P2-J17-01-FT0038/data/Sampletime.csv",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3220531,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								90,
+								90
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
 					"type": "text"
 				}
 			]
@@ -499,7 +841,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 21.0
+		"height": 22.0
 	},
 	"input":
 	{
@@ -516,21 +858,34 @@
 				1
 			],
 			[
+				1,
+				0,
+				2,
+				1
+			],
+			[
 				0,
 				1,
 				1,
+				2
+			],
+			[
+				1,
+				1,
+				2,
 				2
 			]
 		],
 		"cols":
 		[
 			0.0,
+			0.5,
 			1.0
 		],
 		"rows":
 		[
 			0.0,
-			0.52262443439,
+			0.5,
 			1.0
 		]
 	},
@@ -577,11 +932,11 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 0,
+	"selected_group": 1,
 	"settings":
 	{
 	},
-	"show_minimap": true,
+	"show_minimap": false,
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,

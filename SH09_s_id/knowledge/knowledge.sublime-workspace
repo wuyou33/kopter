@@ -93,22 +93,12 @@
 			}
 		},
 		{
-			"file": "sections/TheoryOfHelicopters.tex",
-			"settings":
-			{
-				"buffer_size": 3672,
-				"encoding": "UTF-8",
-				"line_ending": "Windows",
-				"name": "\\section{}"
-			}
-		},
-		{
 			"file": "sections/Model_description.tex",
 			"settings":
 			{
 				"buffer_size": 8825,
 				"encoding": "UTF-8",
-				"line_ending": "Unix"
+				"line_ending": "Windows"
 			}
 		}
 	],
@@ -148,13 +138,11 @@
 	},
 	"expanded_folders":
 	[
-		"/P/kopter/SH09_s_id/knowledge",
-		"/P/kopter/SH09_s_id/knowledge/sections",
-		"/P/kopter/SH09_s_id/knowledge/settings"
+		"/D/kopter/SH09_s_id/knowledge"
 	],
 	"file_history":
 	[
-		"/P/kopter/SH09_s_id/knowledge/sections/Model_description.tex",
+		"/D/kopter/SH09_s_id/knowledge/sections/TeoryOfHelicopters.tex",
 		"/D/kopter/SH09_s_id/knowledge/MyBib.bib",
 		"/C/Users/aleja/Downloads/My Collection.bib",
 		"/home/alejandro/Documents/kopter/SH09_s_id/knowledge/sections/Introduction.tex",
@@ -216,39 +204,6 @@
 		"case_sensitive": true,
 		"find_history":
 		[
-			"lon",
-			"col",
-			"u \\\\ w \\\\ q \\\\ \\theta",
-			"=",
-			"equation",
-			"\\mat{",
-			"&",
-			"ped",
-			"\\\\",
-			"} \\\\",
-			"m {",
-			"{",
-			"ped",
-			"col",
-			"=",
-			"L",
-			"lon",
-			"u",
-			"v",
-			"lat",
-			"v",
-			"X",
-			"lat",
-			"coll",
-			"circ",
-			"circle",
-			"\\\\",
-			"m (",
-			"=",
-			"delta",
-			"eqnarray",
-			"eqarray",
-			"eqnarray",
 			"theta",
 			"=",
 			"C",
@@ -359,7 +314,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -375,8 +330,8 @@
 						"selection":
 						[
 							[
-								932,
-								932
+								0,
+								0
 							]
 						],
 						"settings":
@@ -384,52 +339,14 @@
 							"syntax": "Packages/LaTeXing/support/LaTeX.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 208.0,
+						"translation.y": 273.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
-					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 0,
-			"sheets":
-			[
-				{
-					"buffer": 1,
-					"file": "sections/TheoryOfHelicopters.tex",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3672,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2013,
-								2013
-							]
-						],
-						"settings":
-						{
-							"auto_name": "\\section{}",
-							"spell_check": true,
-							"syntax": "Packages/LaTeXing/support/LaTeX.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 418.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
+					"buffer": 1,
 					"file": "sections/Model_description.tex",
 					"semi_transient": false,
 					"settings":
@@ -441,8 +358,8 @@
 						"selection":
 						[
 							[
-								8083,
-								8083
+								0,
+								0
 							]
 						],
 						"settings":
@@ -452,12 +369,17 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 591.0,
+						"translation.y": 92.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 0,
 					"type": "text"
 				}
+			]
+		},
+		{
+			"sheets":
+			[
 			]
 		}
 	],
@@ -494,7 +416,7 @@
 		"rows":
 		[
 			0.0,
-			0.184868304057,
+			0.29185520362,
 			1.0
 		]
 	},
@@ -527,7 +449,7 @@
 		[
 			[
 				"",
-				"P:\\kopter\\kopterDevelopment.sublime-project"
+				"D:\\kopter\\SH09_s_id\\s_id.sublime-project"
 			]
 		],
 		"width": 380.0
@@ -545,7 +467,7 @@
 	"settings":
 	{
 	},
-	"show_minimap": false,
+	"show_minimap": true,
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
