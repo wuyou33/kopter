@@ -1,0 +1,30 @@
+-> Folders to load:
+P:\11_J67\09_Fatigue\steeringRods
+
+-> Variable info
+name: UCRForce
+y-label: Force [N]
+TO spec: yes
+Fatigue load spec: yes
+max load: 10000
+min load: 1000
+Fatigue load spec: yes
+static load: 5500
+margin static load (%): 5
+alternate load: 4500
+margin alternate load (%): 3
+
+-> Variable info
+name: UCRStrain
+y-label: Strain [mm/m]
+TO spec: no
+Fatigue load spec: no
+max load: 75
+min load: -65.6
+Fatigue load spec: no
+static load: -6
+margin static load (%): 5
+alternate load: 37.5
+margin alternate load (%): 3
+
+

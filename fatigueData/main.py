@@ -65,12 +65,14 @@ if gaugesFlag:
 
 			listOfFilesSortedInFolder = sortFilesInFolderByLastNumberInName(listOfFilesInFolderMathingVar, CMDoptionsDict)
 
+			# pdb.set_trace()
 			for dataClass in dataClasses: #For each class variable
 				print('\n'+'---> Importing data for variable: ' + dataClass.get_description() + ', '+mag+ ' values')
 					
 				for fileName in listOfFilesSortedInFolder: #For each file matching the criteria
 
-					if dataClass.get_description() in fileName: #Restring to only file matching type of variable of class
+					# pdb.set_trace()
+					if dataClass.get_description() in fileName.split('__')[1] and fileName.split('__')[1] in dataClass.get_description(): #Restring to only file matching type of variable of class
 
 						print('\n'+'-> Reading: ' + fileName)
 						dataClass.importDataForClass(fileName, mag, CMDoptionsDict)
@@ -96,7 +98,7 @@ if gaugesFlag:
 			# dataClass.plotMaxMinMean_fromDIAdem(plotSettings)
 
 			#Plotting resampled total data
-			if CMDoptionsDict['showFigures'] or CMDoptionsDict['saveFigure']:
+			if (CMDoptionsDict['showFigures'] or CMDoptionsDict['saveFigure']) and not CMDoptionsDict['additionalCalsFlag']:
 				dataClass.plotResampled(plotSettings, CMDoptionsDict, mag, (False, [], []), inputDataClass)
 
 			# dataClass.plotMinMeanMax(plotSettings)
@@ -116,6 +118,10 @@ if gaugesFlag:
 				dataAdditional = dataFromGaugesSingleMagnitudeClass('forceSumEyes(HP1+HP2)', testFactor, orderDeriv)
 				dataAdditional.addDataManual2(dataClasses)
 				dataAdditional.plotResampled(plotSettings, CMDoptionsDict, mag, (True, dataClasses, 'OutputForce'))
+			elif CMDoptionsDict['additionalCalsOpt'] == 3:
+				# dataAdditional = dataFromGaugesSingleMagnitudeClass('forceSumEyes(HP1+HP2)', testFactor, orderDeriv)
+				# dataAdditional.addDataManual2(dataClasses)
+				dataClass.plotResampled(plotSettings, CMDoptionsDict, mag, (True, dataClasses, ('BoosterLinklong','BoosterLinklat','BoosterLinkcol')), inputDataClass)
 
 	os.chdir(cwd)
 
