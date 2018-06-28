@@ -44,7 +44,8 @@ fileNamesBigArrayFolders = Array( _
 ' The variable iterators is used to load and operate only selected steps from above
 ' iterators = Array("1312")
 ' iterators = Array("01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28")
-iterators = Array("01")
+iterators = Array("08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28")
+' iterators = Array("08")
 
 ' variable names inside DIAdem -> variable names for the files to be saved
 ' This dictionary contains the original variable names as keys. For each key, a corresponding simplified name is assign and this will be used
@@ -62,18 +63,18 @@ iterators = Array("01")
 ' dictVaDiadem.Add "Booster Link long", "BoosterLinklong"
 ' dictVaDiadem.Add "Booster Link col", "BoosterLinkcol"
 ' dictVaDiadem.Add "Booster Link lat", "BoosterLinklat"
-' dictVaDiadem.Add "Holder right", "HolderRight"
+dictVaDiadem.Add "Holder right", "HolderRight"
 ' dictVaDiadem.Add "COLL_Position", "COLLPosition"
 ' dictVaDiadem.Add "LONG_Position", "LONGPosition"
 ' dictVaDiadem.Add "LAT_Position", "LATPosition"
-dictVaDiadem.Add "Zykluszaehler Fatigue (MU)", "NumberCycles"
+' dictVaDiadem.Add "Zykluszaehler Fatigue (MU)", "NumberCycles"
 
 newFreq = 200 'Hz'
 
 loadScript_resampleFlag = True
 loadScript_saveFlagResampledDataCSV = True 'possible values: True or False
 loadScript_saveAllDataFlagPerStep = False 'possible values: True or False
-loadScript_saveFlagResampledDataTDM = True 'possible values: True or False
+loadScript_saveFlagResampledDataTDM = False 'possible values: True or False
 
 ' Post-processing
 fileNameWithoutIterator_pre = "resampled"

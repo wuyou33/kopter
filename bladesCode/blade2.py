@@ -57,29 +57,65 @@ values = np.vstack(valuesLines)
 # # Using linspace so that the endpoint of 360 is included...
 azimuthsRad = np.radians(azimuths)
 
-x, y = [], []
-for theta_i in azimuthsRad:
+x1 = []
+y1 = []
+x2 = []
+y2 = []
+x3 = []
+y3 = []
+x4 = []
+y4 = []
+
+for theta_i in azimuthsRad[:90]:
 
     for r_i in zeniths:
 
-        x += [r_i * np.cos(theta_i)]
+        x1 += [r_i * np.cos(theta_i)]
 
-        y += [r_i * np.sin(theta_i)]
+        y1 += [r_i * np.sin(theta_i)]
+
+for theta_i in azimuthsRad[90:180]:
+
+    for r_i in zeniths:
+
+        x2 += [r_i * np.cos(theta_i)]
+
+        y2 += [r_i * np.sin(theta_i)]
+
+for theta_i in azimuthsRad[180:270]:
+
+    for r_i in zeniths:
+
+        x3 += [r_i * np.cos(theta_i)]
+
+        y3 += [r_i * np.sin(theta_i)]
 
 
-r, theta = np.meshgrid(zeniths, azimuthsRad)
-x_mesh, y_mesh = np.meshgrid(x, y)
+values1 = values[:90,:]
+values2 = values[90:180,:]
+values3 = values[180:270,:]
+values4 = values[270:,:]
+values4 = np.vstack((values4,np.full((10,len(zeniths)), np.nan)))
 
-mat_op = np.eye(x_mesh.shape[0])
+values1Mat = np.diag(values1.flatten())
+values1Mat = values1Mat + np.tril(np.full_like(values1Mat, np.nan), -1) + np.triu(np.full_like(values1Mat, np.nan), 1)
+values2Mat = np.diag(values2.flatten())
+values2Mat = values2Mat + np.tril(np.full_like(values2Mat, np.nan), -1) + np.triu(np.full_like(values2Mat, np.nan), 1)
+values3Mat = np.diag(values3.flatten())
+values3Mat = values3Mat + np.tril(np.full_like(values3Mat, np.nan), -1) + np.triu(np.full_like(values3Mat, np.nan), 1)
+values4Mat = np.diag(values4.flatten())
+values4Mat = values4Mat + np.tril(np.full_like(values4Mat, np.nan), -1) + np.triu(np.full_like(values4Mat, np.nan), 1)
 
+valuesTotal1 = np.hstack((values1Mat, values2Mat))
+valuesTotal2 = np.hstack((values4Mat, values3Mat))
 
-valuesMat = np.diag(values.flatten())
-# for i in np.nditer(valuesMat, op_flags=['readwrite']):
+valuesTotal = np.vstack((valuesTotal1, valuesTotal2))
 
-#     if i == 0:
-#         i[...] = np.nan
+xtotal = x1 + x2 
+ytotal = y1 + y3 
+x_mesh, y_mesh = np.meshgrid(xtotal, ytotal)
 
-valuesMat = valuesMat + np.tril(np.full_like(valuesMat, np.nan), -1) + np.triu(np.full_like(valuesMat, np.nan), 1)
+x_mesh_short, y_mesh_short = np.meshgrid(x1, y1)
 
 #-- Plot... ------------------------------------------------
 # fig, ax = plt.subplots(subplot_kw=dict(projection='polar'))
@@ -96,8 +132,8 @@ valuesMat = valuesMat + np.tril(np.full_like(valuesMat, np.nan), -1) + np.triu(n
 
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
-ax.plot_surface(x_mesh, y_mesh, valuesMat, rstride=1, cstride=1,
-                cmap='seismic', edgecolor='none')
+# ax.plot_surface(x_mesh, y_mesh, valuesTotal, rstride=1, cstride=1, cmap='seismic', edgecolor='none')
+ax.plot_surface(x_mesh_short, y_mesh_short, values1Mat, rstride=1, cstride=1, cmap='seismic', edgecolor='none')
 
 ax.set_title('Blade flapping moment')
 

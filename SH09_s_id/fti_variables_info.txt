@@ -1,0 +1,48 @@
+-> Signal: VRU_ACC_X
+samplingFreq: 10
+
+-> Signal: VRU_ACC_Y
+samplingFreq: 10
+
+-> Signal: VRU_ACC_Z
+samplingFreq: 10
+
+-> Signal: CNT_DST_COL
+units: Percentage of input (%) 
+samplingFreq: 2000
+
+-> Signal: CNT_DST_LAT
+units: Percentage of input (%) 
+samplingFreq: 2000
+
+-> Signal: CNT_DST_LNG
+units: Percentage of input (%) 
+samplingFreq: 2000
+
+-> Signal: CNT_DST_PED
+units: Percentage of input (%) 
+samplingFreq: 2000
+
+-> Signal: CNT_DST_BST_LNG
+units: Distance (mm) 
+samplingFreq: 2000
+
+-> Signal: CNT_DST_BST_COL
+units: Distance (mm) 
+samplingFreq: 2000
+
+-> Signal: CNT_DST_BST_LAT
+units: Distance (mm) 
+samplingFreq: 2000
+
+-> Signal: CNT_FRC_BST_LNG
+units: Force (N) 
+samplingFreq: 2000
+
+-> Signal: CNT_FRC_BST_COL
+units: Force (N) 
+samplingFreq: 2000
+
+-> Signal: CNT_FRC_BST_LAT
+units: Force (N) 
+samplingFreq: 2000

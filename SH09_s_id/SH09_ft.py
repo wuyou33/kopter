@@ -9,14 +9,14 @@ from moduleFunctions import *
 CMDoptionsDict = {}
 
 #Hard code input data
-CMDoptionsDict['folderFTdata'] = 'flightTestData\\P2-J17-01-FT0038\\data'
+CMDoptionsDict['folderFTdata'] = 'P:\\12_flightTestData\P2-J17-01-FT0102\data_rs'
 
 #Get working directory
 cwd = os.getcwd()
 CMDoptionsDict['cwd'] = cwd
 
 #Import FTI variables definitions
-CMDoptionsDict = importFTIdefFile('fti_variables_info.txt', CMDoptionsDict) 
+CMDoptionsDict = importFTIdefFile('fti_variables_info.txt', CMDoptionsDict)
 
 # Plot settings
 plotSettings = importPlottingOptions()
@@ -33,6 +33,6 @@ for var in CMDoptionsDict['variables']:
 
 	varClasses += (varClass, )
 
-plotSignals(plotSettings, varClasses)
+plotSignals(plotSettings, varClasses, CMDoptionsDict)
 
 plt.show(block = True)

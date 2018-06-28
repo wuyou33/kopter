@@ -66,19 +66,24 @@ class ClassVariableDef(object):
 
 	def importData(self, CMDoptionsDict):
 
-		fileName = os.path.join(os.path.join(CMDoptionsDict['cwd'], CMDoptionsDict['folderFTdata']), self.name+'.csv')
+		fileName = os.path.join(CMDoptionsDict['folderFTdata'], self.name+'.csv')
 
 		file = open(fileName, 'r')
 		lines = file.readlines()
 
-		skipLines, time_proc, data_proc, counter = 0, [1], [], 0
+		skipLines, time_proc, data_proc, counter = 1, [], [], 0
 
-		for line in lines[(skipLines+1):]:
+		for line in lines[skipLines:]:
 
-			data_proc += [float(cleanString(line))]
+			cleanLine = cleanString(line)
 
-			if counter != 0: #First iteration is already counted
-				time_proc += [time_proc[-1]+(1/float(CMDoptionsDict['variablesInfo'][self.name]['samplingFreq']))]
+			data_proc += [float(cleanLine.split('\t')[0])]
+
+			if counter == 0: #First iteration is already counted
+				time_proc += [0.0]
+				firstTimeAbsolute = float(cleanLine.split('\t')[1])
+			else:
+				time_proc += [float(cleanLine.split('\t')[1]) - firstTimeAbsolute]
 
 			counter += 1
 
@@ -87,7 +92,7 @@ class ClassVariableDef(object):
 
 def importFTIdefFile(fileName_in, CMDoptionsDict):
 
-	fileName = os.path.join(os.path.join(CMDoptionsDict['cwd'], CMDoptionsDict['folderFTdata']), fileName_in)
+	fileName = os.path.join(CMDoptionsDict['cwd'], fileName_in)
 
 	file = open(fileName, 'r')
 
@@ -118,7 +123,11 @@ def importFTIdefFile(fileName_in, CMDoptionsDict):
 				valueLine1 = valueLine2.lstrip()
 				valueLine = valueLine1.rstrip()
 
-				temp_dict = {variableStringKey : valueLine}
+				if currentVariable in dict_proc.keys():
+					temp_dict = dict_proc[currentVariable]
+					temp_dict[variableStringKey] = valueLine
+				else:
+					temp_dict = {variableStringKey : valueLine}
 				dict_proc[currentVariable] = temp_dict
 
 
@@ -126,7 +135,7 @@ def importFTIdefFile(fileName_in, CMDoptionsDict):
 
 	return CMDoptionsDict
 
-def plotSignals(plotSettings, varClasses):
+def plotSignals(plotSettings, varClasses, CMDoptionsDict):
 
 	figure, axesList = plt.subplots(len(varClasses), 1, sharex='col')
 	figure.set_size_inches(12, 6, forward=True)
@@ -138,7 +147,9 @@ def plotSignals(plotSettings, varClasses):
 		if ax == axesList[-1]:
 			ax.set_xlabel('Time elapsed [Seconds]', **plotSettings['axes_x'])
 
-		ax.set_ylabel(varClass.get_attr('name'), **plotSettings['axes_y'])
+		ax.set_ylabel(CMDoptionsDict['variablesInfo'][varClass.get_attr('name')]['units'], **plotSettings['axes_y'])
+
+		ax.set_title(varClass.get_attr('name'), **plotSettings['axes_y'])
 
 		ax.grid(which='both', **plotSettings['grid'])
 		ax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])
