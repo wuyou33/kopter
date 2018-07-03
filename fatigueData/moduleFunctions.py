@@ -1047,7 +1047,7 @@ class dataFromGaugesSingleMagnitudeClass(object):
 			ax.plot(2*[div], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
 
 			#Add text with step number
-			ax.text(previousDiv + ((div - previousDiv)/2), minPlot_y, 'Step '+str(self.__stepID[i]), bbox=dict(facecolor='black', alpha=0.2), horizontalalignment = 'center')
+			ax.text(previousDiv + ((div - previousDiv)/2), minPlot_y, 'Run '+str(self.__stepID[i]), bbox=dict(facecolor='black', alpha=0.2), horizontalalignment = 'center')
 			
 			previousDiv = div
 			i += 1
@@ -1213,7 +1213,7 @@ def plotAllRuns_force(dataFromRuns, plotSettings, CMDoptionsDict, inputDataClass
 		ax.plot(2*[div], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
 
 		# Plot text with step index
-		ax.text(previousDiv + ((div - previousDiv)/2), minPlot_y, 'Step '+str(data.get_stepID()), bbox=dict(facecolor='black', alpha=0.2), horizontalalignment = 'center')
+		ax.text(previousDiv + ((div - previousDiv)/2), minPlot_y, 'Run '+str(data.get_stepID()), bbox=dict(facecolor='black', alpha=0.2), horizontalalignment = 'center')
 
 		previousDiv = div
 	
@@ -1258,7 +1258,7 @@ def plotAllRuns_force(dataFromRuns, plotSettings, CMDoptionsDict, inputDataClass
 	#Save figure
 	if CMDoptionsDict['saveFigure']:
 
-		figure.savefig(os.path.join(CMDoptionsDict['cwd'], 'ActuatorLoadsMaxMinMean.png'), dpi = plotSettings['figure_settings']['dpi'])
+		figure.savefig(os.path.join(CMDoptionsDict['cwd'], ','.join([str(i) for i in CMDoptionsDict['rangeFileIDs']])+'ActuatorLoadsMaxMinMean.png'), dpi = plotSettings['figure_settings']['dpi'])
 
 
 def plotAllRuns_force_Messwerte(dataFromRuns, plotSettings, CMDoptionsDict, inputDataClass):
@@ -1309,7 +1309,7 @@ def plotAllRuns_force_Messwerte(dataFromRuns, plotSettings, CMDoptionsDict, inpu
 	#Save figure
 	if CMDoptionsDict['saveFigure']:
 
-		figure.savefig(os.path.join(CMDoptionsDict['cwd'], 'ActuatorForceDisplacementTotalStaticAlternate.png'), dpi = plotSettings['figure_settings']['dpi'])
+		figure.savefig(os.path.join(CMDoptionsDict['cwd'], ','.join([str(i) for i in CMDoptionsDict['rangeFileIDs']])+'ActuatorForceDisplacementTotalStaticAlternate.png'), dpi = plotSettings['figure_settings']['dpi'])
 
 	#Central differences plot
 	figure, ax = plt.subplots(1, 1)
@@ -1352,7 +1352,7 @@ def plotAllRuns_force_Messwerte(dataFromRuns, plotSettings, CMDoptionsDict, inpu
 	#Save figure
 	if CMDoptionsDict['saveFigure']:
 
-		figure.savefig(os.path.join(CMDoptionsDict['cwd'], 'ActuatorForceDisplacement.png'), dpi = plotSettings['figure_settings']['dpi'])
+		figure.savefig(os.path.join(CMDoptionsDict['cwd'], ','.join([str(i) for i in CMDoptionsDict['rangeFileIDs']])+'ActuatorForceDisplacement.png'), dpi = plotSettings['figure_settings']['dpi'])
 
 
 def plotAllRuns_displacement(dataFromRuns, plotSettings, CMDoptionsDict, inputDataClass):
@@ -1387,7 +1387,7 @@ def plotAllRuns_displacement(dataFromRuns, plotSettings, CMDoptionsDict, inputDa
 		ax.plot(2*[div], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
 
 		# Plot text with step index
-		ax.text(previousDiv + ((div - previousDiv)/2), minPlot_y, 'Step '+str(data.get_stepID()), bbox=dict(facecolor='black', alpha=0.2), horizontalalignment = 'center')
+		ax.text(previousDiv + ((div - previousDiv)/2), minPlot_y, 'Run '+str(data.get_stepID()), bbox=dict(facecolor='black', alpha=0.2), horizontalalignment = 'center')
 
 		previousDiv = div
 	
@@ -1421,7 +1421,7 @@ def plotAllRuns_displacement(dataFromRuns, plotSettings, CMDoptionsDict, inputDa
 	#Save figure
 	if CMDoptionsDict['saveFigure']:
 
-		figure.savefig(os.path.join(CMDoptionsDict['cwd'], 'ActuatorDisplacementMaxMinMean.png'), dpi = plotSettings['figure_settings']['dpi'])
+		figure.savefig(os.path.join(CMDoptionsDict['cwd'], ','.join([str(i) for i in CMDoptionsDict['rangeFileIDs']])+'ActuatorDisplacementMaxMinMean.png'), dpi = plotSettings['figure_settings']['dpi'])
 
 def calculate_stats(dataFromRuns):
 
@@ -1618,7 +1618,7 @@ def plotAllRuns_filtered_Messwerte(dataFromRuns, timesDict, plotSettings, CMDopt
 				ax.plot(2*[div], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
 
 				#Add text with step number
-				ax.text(previousDiv + ((div - previousDiv)/2), minPlot_y, 'Step '+str(CMDoptionsDict['rangeFileIDs'][i]), bbox=dict(facecolor='black', alpha=0.2), horizontalalignment = 'center')
+				ax.text(previousDiv + ((div - previousDiv)/2), minPlot_y, 'Run '+str(CMDoptionsDict['rangeFileIDs'][i]), bbox=dict(facecolor='black', alpha=0.2), horizontalalignment = 'center')
 				
 				previousDiv = div
 				i += 1
@@ -1667,7 +1667,7 @@ def plotAllRuns_filtered_Messwerte(dataFromRuns, timesDict, plotSettings, CMDopt
 		#Save figure
 		if CMDoptionsDict['saveFigure']:
 
-			figure.savefig(os.path.join(CMDoptionsDict['cwd'], titles[attrs_to_plot[0]]+'.png'), dpi = plotSettings['figure_settings']['dpi'])
+			figure.savefig(os.path.join(CMDoptionsDict['cwd'], ','.join([str(i) for i in CMDoptionsDict['rangeFileIDs']])+titles[attrs_to_plot[0]]+'.png'), dpi = plotSettings['figure_settings']['dpi'])
 
 
 def filter(data, fs, typeFilter, cutoff):
