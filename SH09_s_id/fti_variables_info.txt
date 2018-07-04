@@ -1,48 +1,65 @@
+-> flightTestInfo:
+folderFTdata:: P:\12_flightTestData\P2-J17-01-FT0102\data\
+variablesToImport:: CNT_DST_LNG,CNT_DST_BST_LNG,DIF_CNT_DST_BST_LNG
+segment:: 1738.31,1738.94;1738.97,1739.56
+
 -> Signal: VRU_ACC_X
-samplingFreq: 10
+samplingFreq:: 10
 
 -> Signal: VRU_ACC_Y
-samplingFreq: 10
+samplingFreq:: 10
 
 -> Signal: VRU_ACC_Z
-samplingFreq: 10
+samplingFreq:: 10
 
 -> Signal: CNT_DST_COL
-units: Percentage of input (%) 
-samplingFreq: 2000
+units:: Percentage of input (%) 
+samplingFreq:: 2000
 
 -> Signal: CNT_DST_LAT
-units: Percentage of input (%) 
-samplingFreq: 2000
+units:: Percentage of input (%) 
+samplingFreq:: 2000
 
 -> Signal: CNT_DST_LNG
-units: Percentage of input (%) 
-samplingFreq: 2000
+units:: Percentage of input (%) 
+samplingFreq:: 2000
 
 -> Signal: CNT_DST_PED
-units: Percentage of input (%) 
-samplingFreq: 2000
+units:: Percentage of input (%) 
+samplingFreq:: 2000
 
 -> Signal: CNT_DST_BST_LNG
-units: Distance (mm) 
-samplingFreq: 2000
+units:: Distance (mm) 
+samplingFreq:: 2000
 
 -> Signal: CNT_DST_BST_COL
-units: Distance (mm) 
-samplingFreq: 2000
+units:: Distance (mm) 
+samplingFreq:: 2000
 
 -> Signal: CNT_DST_BST_LAT
-units: Distance (mm) 
-samplingFreq: 2000
+units:: Distance (mm) 
+samplingFreq:: 2000
+
+-> Signal: DIF_CNT_DST_BST_LNG
+units:: Velocity (mm/s) 
+samplingFreq:: 2000
+
+-> Signal: DIF_CNT_DST_BST_COL
+units:: Velocity (mm/s) 
+samplingFreq:: 2000
+
+-> Signal: DIF_CNT_DST_BST_LAT
+units:: Velocity (mm/s) 
+samplingFreq:: 2000
 
 -> Signal: CNT_FRC_BST_LNG
-units: Force (N) 
-samplingFreq: 2000
+units:: Force (N) 
+samplingFreq:: 2000
 
 -> Signal: CNT_FRC_BST_COL
-units: Force (N) 
-samplingFreq: 2000
+units:: Force (N) 
+samplingFreq:: 2000
 
 -> Signal: CNT_FRC_BST_LAT
-units: Force (N) 
-samplingFreq: 2000
+units:: Force (N) 
+samplingFreq:: 2000

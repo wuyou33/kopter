@@ -17,7 +17,7 @@
 -> Signal characteristics actuator
 sampling_freq: 3
 time_offset: 2
-cut-off_freq: 0.01
+cut-off_freq: 0.005
 TO spec: yes
 max load: 2.5
 min load: 0.5

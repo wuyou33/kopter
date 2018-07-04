@@ -7,15 +7,11 @@ import getopt
 from moduleFunctions import *
 
 CMDoptionsDict = {}
-
-#Hard code input data
-CMDoptionsDict['folderFTdata'] = 'P:\\12_flightTestData\P2-J17-01-FT0102\data_rs'
-
 #Get working directory
 cwd = os.getcwd()
 CMDoptionsDict['cwd'] = cwd
 
-#Import FTI variables definitions
+#Import FTI variables definitions, hard code input data
 CMDoptionsDict = importFTIdefFile('fti_variables_info.txt', CMDoptionsDict)
 
 # Plot settings
@@ -24,15 +20,25 @@ plotSettings = importPlottingOptions()
 #Read postProc folder name from CMD
 CMDoptionsDict = readCMDoptionsMainAbaqusParametric(sys.argv[1:], CMDoptionsDict)
 
-varClasses = ()
-for var in CMDoptionsDict['variables']:
+typeImport = 'segment'
+varClassesDict = {}
+for var in CMDoptionsDict['flightTestInfo']['variablesToImport'].split(','):
 
 	varClass = ClassVariableDef(var)
 
-	varClass.importData(CMDoptionsDict)
+	varClass.importData(CMDoptionsDict, typeImport)
 
-	varClasses += (varClass, )
+	varClassesDict.update({var : varClass})
 
-plotSignals(plotSettings, varClasses, CMDoptionsDict)
+plotSignals(plotSettings, varClassesDict, CMDoptionsDict)
+
+for var in ('CNT_DST_LNG', 'CNT_DST_BST_LNG'):
+
+	tempClass = varClassesDict[var]
+	tempClass.convertToIncrement()
+	varClassesDict.update({var : tempClass})
+
+plotSignals(plotSettings, varClassesDict, CMDoptionsDict)
+
 
 plt.show(block = True)

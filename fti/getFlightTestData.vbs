@@ -13,15 +13,19 @@ Call Data.Root.Clear()
 ' enter test name for file naming
 
 ' Where to save the csv files exported
-dirSave="P:\12_flightTestData\P2-J17-01-FT0102\data_rs\" 'TR blade holder'
+dirSave="P:\12_flightTestData\P2-J17-01-FT0102\data\" 'TR blade holder'
 fileLoad = "E:\FTI\ProcData\SKYeSH09\P2\J17-01-Flight Tests\P2-J17-01-FT0102\FTI\fti_2018-01-25_084649\fti_2018-01-25_084649_pp.tdms"
-newFreq = 200
-ResampleFlag = False
+newFreqNonSIDsignal = 1000
+newFreqSIDsignal = 500
 Call DataFileLoad(fileLoad,"")
+Set dictOfData = CreateObject("Scripting.Dictionary")
 
 ' Enter range of groups to be re-sampled
 
-Set dictOfData = CreateObject("Scripting.Dictionary")
+signalsForSID = Array("CNT_DST_LNG", "CNT_DST_BST_LNG", "CNT_DST_LAT", "CNT_DST_BST_LAT", "CNT_DST_COL", "CNT_DST_BST_COL", "CNT_DST_PED", "CNT_DST_BST_PED")
+
+signalsForSIDdiff = Array("CNT_DST_BST_LNG", "CNT_DST_BST_LAT", "CNT_DST_BST_COL")
+
 ' dictOfData.Add GroupIndexGet("Signals"), Array(_
 '                         "CNT_DST_LAT", "CNT_DST_LNG", "CNT_DST_COL", "CNT_DST_PED",_
 '                         "CNT_DST_BST_LNG", "CNT_DST_BST_COL", "CNT_DST_BST_LAT",_
@@ -29,7 +33,7 @@ Set dictOfData = CreateObject("Scripting.Dictionary")
 '                         "CNT_FRC_STRD_BLU", "CNT_FRC_STRD_GRN", "CNT_FRC_STRD_RED"_
 '                         )
                         
-dictOfData.Add GroupIndexGet("Signals"), Array("CNT_FRC_STRD_BLU", "CNT_FRC_STRD_GRN", "CNT_FRC_STRD_RED")
+dictOfData.Add GroupIndexGet("Signals"), Array("CNT_DST_BST_LNG", "CNT_DST_BST_LAT", "CNT_DST_BST_COL")
 
 ' dictOfData.Add GroupIndexGet("ARINC"), Array("ENG_ARI_FAD_ARR_NR", "ENG_ARI_FAD_DST_CP") 'Variables ARINC'
 
@@ -38,34 +42,51 @@ dictOfData.Add GroupIndexGet("Signals"), Array("CNT_FRC_STRD_BLU", "CNT_FRC_STRD
 '                         "VRU_ARR_P", "VRU_ARR_Q", "VRU_ARR_R",_
 '                         "VRU_ANG_PHI", "VRU_ANG_THETA", "VRU_ANG_PSI") 'variables VRU
 
+' OFFSET CORRECTIOn
+Call ChnOffset("[" & GroupIndexGet("Signals") &"]/"&"CNT_DST_BST_LNG","[" & GroupIndexGet("Signals") &"]/"&"CNT_DST_BST_LNG",-100,"free offset")
+Call ChnOffset("[" & GroupIndexGet("Signals") &"]/"&"CNT_DST_BST_LAT","[" & GroupIndexGet("Signals") &"]/"&"CNT_DST_BST_LAT",-100,"free offset")
+Call ChnOffset("[" & GroupIndexGet("Signals") &"]/"&"CNT_DST_BST_COL","[" & GroupIndexGet("Signals") &"]/"&"CNT_DST_BST_COL",-100,"free offset")
+
 For Each id_group in dictOfData.Keys
 
   For Each var in dictOfData.Item(id_group)
 
-    variableToSave = "[" & id_group &"]/"&var
-    variableToSaveRS = "[" & id_group &"]/"&var&"__"&newFreq&"Hz"
-    timeVariableToSave = "[" & id_group &"]/"&var&"_time"
-    fileName = var&".csv"
+        variableToSave = "[" & id_group &"]/"&var
+        timeVariableToSave = "[" & id_group &"]/"&var&"_time"
+        fileName = var&".csv"
 
-    IF ResampleFlag Then
+    If Ubound(Filter(signalsForSID, var)) > -1 Then
 
-        Call ChnResampleFreqBased("",variableToSave, variableToSaveRS,newFreq,"Automatic",0,0)
+        ' For the SID signals
+        variableToSaveRS = "[" & id_group &"]/"&var&"__"&newFreqSIDsignal&"Hz"
+        variableToSaveRSSmooth = "[" & id_group &"]/"&var&"__smoothAfterRS"
 
-        Call WfChnToChn(variableToSaveRS,0,"WfXAbsolute")
-        
-        Data.Root.ChannelGroups(id_group).Channels("xSamplingChn").Properties("displaytype").Value = "numeric"
-        
-        Data.Root.ChannelGroups(id_group).Channels("xSamplingChn").Name = var&"_time"
+        Call ChnResampleFreqBased("",variableToSave, variableToSaveRS,newFreqSIDsignal,"Automatic",0,0)
+        Call ChnSmooth(variableToSaveRS,variableToSaveRSSmooth,12,"maxNumber","byMeanValue")
 
-        Call DataFileSaveSel(dirSave & fileName,"CSV","'"&variableToSaveRS&"', '"&timeVariableToSave&"'")
+        If Ubound(Filter(signalsForSIDdiff, var)) > -1 Then
+            variableToSaveRSSmoothDiff = variableToSaveRSSmooth&"__diff"
+            variableToSaveRSSmoothDiffSmooth = variableToSaveRSSmooth&"__diff__smooth"
+            Call ChnDeriveCalc("",variableToSaveRSSmooth,variableToSaveRSSmoothDiff)
+            Call ChnSmooth(variableToSaveRSSmoothDiff,variableToSaveRSSmoothDiffSmooth,12,"maxNumber","byMeanValue")
+            Call WfChnToChn(variableToSaveRSSmoothDiffSmooth,0,"WfXAbsolute")
+            Data.Root.ChannelGroups(id_group).Channels("xSamplingChn").Properties("displaytype").Value = "numeric"
+            Data.Root.ChannelGroups(id_group).Channels("xSamplingChn").Name = var&"_time"&"_dif"
+            Call DataFileSaveSel(dirSave & "DIF_"&fileName,"CSV","'"&variableToSaveRSSmoothDiffSmooth&"', '"&timeVariableToSave&"_dif"&"'")
+        End If
 
     Else
-        Call WfChnToChn(variableToSave,0,"WfXAbsolute")
-        Data.Root.ChannelGroups(id_group).Channels("NoName").Properties("displaytype").Value = "numeric"
-        Data.Root.ChannelGroups(id_group).Channels("NoName").Name = var&"_time"
-        Call DataFileSaveSel(dirSave & fileName,"CSV","'"&variableToSave&"', '"&timeVariableToSave&"'")
+
+        variableToSaveRSSmooth = "[" & id_group &"]/"&var&"__"&newFreqNonSIDsignal&"Hz"
+
+        Call ChnResampleFreqBased("",variableToSave, variableToSaveRSSmooth,newFreqNonSIDsignal,"Automatic",0,0)
 
     End If
+
+        Call WfChnToChn(variableToSaveRSSmooth,0,"WfXAbsolute")
+        Data.Root.ChannelGroups(id_group).Channels("xSamplingChn").Properties("displaytype").Value = "numeric"
+        Data.Root.ChannelGroups(id_group).Channels("xSamplingChn").Name = var&"_time"
+        Call DataFileSaveSel(dirSave & fileName,"CSV","'"&variableToSaveRSSmooth&"', '"&timeVariableToSave&"'")
 
   Next
 

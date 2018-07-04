@@ -5,6 +5,7 @@ import sys
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy.stats as st
+import scipy.linalg as lalg
 import statistics as stat
 import math
 import getopt
@@ -1691,6 +1692,6 @@ def filter(data, fs, typeFilter, cutoff):
 	# cutoff = 3.667  # desired cutoff frequency of the filter, Hz
 
 	y = butter_filter(data, cutoff, fs, typeFilter,order_in = order)
-	# y = butter_filter(y, cutoff, fs, typeFilter,order_in = order)
+	# y = butter_filter(y, cutoff, fs, typeFilter,order_in = order) #Add
 
 	return y
