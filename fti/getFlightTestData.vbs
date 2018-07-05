@@ -24,7 +24,7 @@ Set dictOfData = CreateObject("Scripting.Dictionary")
 
 signalsForSID = Array("CNT_DST_LNG", "CNT_DST_BST_LNG", "CNT_DST_LAT", "CNT_DST_BST_LAT", "CNT_DST_COL", "CNT_DST_BST_COL", "CNT_DST_PED", "CNT_DST_BST_PED")
 
-signalsForSIDdiff = Array("CNT_DST_BST_LNG", "CNT_DST_BST_LAT", "CNT_DST_BST_COL")
+signalsForSIDdiff = Array("CNT_DST_BST_LNG", "CNT_DST_BST_LAT", "CNT_DST_BST_COL", "CNT_DST_LNG", "CNT_DST_LAT", "CNT_DST_COL")
 
 ' dictOfData.Add GroupIndexGet("Signals"), Array(_
 '                         "CNT_DST_LAT", "CNT_DST_LNG", "CNT_DST_COL", "CNT_DST_PED",_
@@ -33,7 +33,8 @@ signalsForSIDdiff = Array("CNT_DST_BST_LNG", "CNT_DST_BST_LAT", "CNT_DST_BST_COL
 '                         "CNT_FRC_STRD_BLU", "CNT_FRC_STRD_GRN", "CNT_FRC_STRD_RED"_
 '                         )
                         
-dictOfData.Add GroupIndexGet("Signals"), Array("CNT_DST_BST_LNG", "CNT_DST_BST_LAT", "CNT_DST_BST_COL")
+' dictOfData.Add GroupIndexGet("Signals"), Array("CNT_DST_BST_LNG", "CNT_DST_BST_LAT", "CNT_DST_BST_COL")
+dictOfData.Add GroupIndexGet("Signals"), Array("CNT_DST_LNG", "CNT_DST_LAT", "CNT_DST_COL")
 
 ' dictOfData.Add GroupIndexGet("ARINC"), Array("ENG_ARI_FAD_ARR_NR", "ENG_ARI_FAD_DST_CP") 'Variables ARINC'
 
