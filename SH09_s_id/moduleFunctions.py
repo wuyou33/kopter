@@ -290,6 +290,7 @@ class ClassVariableDef(object):
 			else:
 				raise ValueError('ERROR: Variable is not linked to any degree of freedom')
 
+
 		fileName = os.path.join(CMDoptionsDict['flightTestInfo']['folderFTdata'], self.name+'.csv')
 
 		file = open(fileName, 'r')
@@ -482,11 +483,6 @@ def plotSignals(plotSettings, varClassesDict, CMDoptionsDict):
 				axdouble_in_y.plot( varClassesDict[var].get_attr('timeSegments')[segmentID], diffData, linestyle = '-', marker = '', c = plotSettings['colors'][1], label = varClassesDict[var].get_attr('name')+'_diff', **plotSettings['line'])
 				ax.legend(**plotSettings['legend'])
 				axdouble_in_y.legend(**plotSettings['legend'])
-
-
-	
-
-
 
 def cleanString(stringIn):
 	
