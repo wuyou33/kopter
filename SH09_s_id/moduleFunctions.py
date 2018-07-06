@@ -153,7 +153,7 @@ class testClassDef(object):
 			return np.vstack(stdRegre), float(sxx)
 
 
-		def regressionMethodIdentification2regresors(regre1, regre2, z, standardRegressorsFlag, biasFlag):
+		def regressionMethodIdentification(regre1, regre2, z, standardRegressorsFlag, biasFlag):
 			
 			################ OPER #########################
 
@@ -259,7 +259,7 @@ class testClassDef(object):
 			# eq: dot_x1 = delta_u * k_l/lambda_a - delta_x1 * k_a/lambda_a
 
 			################ OPER #########################
-			theta_est, y_est, res, sigmaSQRT, interval_theta = regressionMethodIdentification2regresors(delta_u, delta_x1, dot_x1, standardRegressorsFlag, biasFlag) #regre1, regre2, z
+			theta_est, y_est, res, sigmaSQRT, interval_theta = regressionMethodIdentification(delta_u, delta_x1, dot_x1, standardRegressorsFlag, biasFlag) #regre1, regre2, z
 			
 			################ RESULTS #########################
 			if biasFlag:
@@ -359,12 +359,12 @@ class testClassDef(object):
 		self.TSegmentsInterval = TSegmentsInterval
 
 
-	def showInfluenceParameters(self, marginDict, plotSettings, CMDoptionsDict):
+	def showInfluenceParameters(self, plotSettings, CMDoptionsDict):
 
-		def checkDeviation(self, i):
+		def checkDeviation(self, i, CMDoptionsDict):
 
 			list_bools = []
-			accuraccy = 10 #%
+			accuraccy = float(CMDoptionsDict['flightTestInfo']['deviation_accuracy']) #%
 			list_bools += [abs(float(self.kSegmentsInterval[i] / self.kSegments[i]) * 100) < accuraccy ]			
 			list_bools += [abs(float(self.TSegmentsInterval[i] / self.TSegments[i]) * 100) < accuraccy ]
 
@@ -383,7 +383,7 @@ class testClassDef(object):
 		indexSegmentsChosen, indexCurrentSegment, characteristicForceSegmentChosen = [], 0, []
 		for characteristicForceSegment in self.characteristicForceSegments:
 
-			if abs(characteristicForceSegment-self.characteristicForceSegmentsMaxWeight) < ((marginDict['margin_force']/100)*self.characteristicForceSegmentsMaxWeight) and all(checkDeviation(self, indexCurrentSegment)):
+			if abs(characteristicForceSegment-self.characteristicForceSegmentsMaxWeight) < ((float(CMDoptionsDict['flightTestInfo']['margin_force'])/100)*self.characteristicForceSegmentsMaxWeight) and all(checkDeviation(self, indexCurrentSegment, CMDoptionsDict)):
 				indexSegmentsChosen += [indexCurrentSegment]
 				characteristicForceSegmentChosen += [characteristicForceSegment]
 
@@ -416,7 +416,7 @@ class testClassDef(object):
 		indexSegmentsChosen, indexCurrentSegment, characteristicFreqSegmentChosen = [], 0, []
 		for freqSegment in self.freqSegments:
 
-			if abs(freqSegment-self.freqSegmentsMaxWeight) < ((marginDict['margin_freq']/100)*self.freqSegmentsMaxWeight) and all(checkDeviation(self, indexCurrentSegment)):
+			if abs(freqSegment-self.freqSegmentsMaxWeight) < ((float(CMDoptionsDict['flightTestInfo']['margin_freq'])/100)*self.freqSegmentsMaxWeight) and all(checkDeviation(self, indexCurrentSegment, CMDoptionsDict)):
 				indexSegmentsChosen += [indexCurrentSegment]
 				characteristicFreqSegmentChosen += [freqSegment]
 
@@ -519,12 +519,12 @@ class ClassVariableDef(object):
 			dataChosen = data_proc[indexStartTime:indexEndTime]
 
 			timeSegmentsLimits, firstPointFlag, nPoint, nPreviousPoint = [], False, 0, 0
-			delta_t = 0.1 #seconds
-			freq = 500 #Hz
-			threashole = 1E-2
-			delta_t_forward = 0.1
-			vel_forward = 2
-			pilotFreqThreadshole = 4.0 #Hz
+			freq = 500.0 #Hz
+			delta_t = float(CMDoptionsDict['flightTestInfo']['segmentSelection_delta_t']) #seconds
+			threashole = float(CMDoptionsDict['flightTestInfo']['segmentSelection_zeroThreashole'])
+			delta_t_forward = float(CMDoptionsDict['flightTestInfo']['segmentSelection_delta_t_forward'])
+			vel_forward = float(CMDoptionsDict['flightTestInfo']['segmentSelection_vel_forward'])
+			pilotFreqThreadshole = float(CMDoptionsDict['flightTestInfo']['segmentSelection_pilotFreqThreadshole']) #Hz
 			for data in dataChosen:
 
 				if abs(data) < threashole:

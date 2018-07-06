@@ -331,7 +331,7 @@
 			"file": "SH09_ft.py",
 			"settings":
 			{
-				"buffer_size": 3074,
+				"buffer_size": 3033,
 				"encoding": "UTF-8",
 				"line_ending": "Windows",
 				"name": "SH09_fti"
@@ -341,7 +341,7 @@
 			"file": "fti_variables_info.txt",
 			"settings":
 			{
-				"buffer_size": 1601,
+				"buffer_size": 1850,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -350,7 +350,7 @@
 			"file": "moduleFunctions.py",
 			"settings":
 			{
-				"buffer_size": 27632,
+				"buffer_size": 28120,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -393,6 +393,7 @@
 	"expanded_folders":
 	[
 		"/P/kopter",
+		"/P/kopter/SH09_s_id",
 		"/P/kopter/tolerances",
 		"/P/08_reference/Cranfield",
 		"/P/08_reference/Cranfield/11.Aircraft System Identification",
@@ -532,6 +533,10 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"marginDict",
+			"checkDeviation",
+			"regressionMethodIdentification2regresors",
+			"CMDoptionsDict",
 			"variables",
 			"(float",
 			"((self",
@@ -655,11 +660,7 @@
 			"pow",
 			"getT()",
 			"dataIncrementSegments",
-			"Segments",
-			"+=",
-			"=",
-			"Input",
-			"In"
+			"Segments"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -688,19 +689,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3074,
+						"buffer_size": 3033,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								333,
-								333
-							],
-							[
-								739,
-								739
+								2916,
+								2916
 							]
 						],
 						"settings":
@@ -710,7 +707,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 507.0,
+						"translation.y": 780.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
@@ -728,15 +725,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1601,
+						"buffer_size": 1850,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								647,
-								647
+								705,
+								705
 							]
 						],
 						"settings":
@@ -762,15 +759,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 27632,
+						"buffer_size": 28120,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								457,
-								457
+								21571,
+								21504
 							]
 						],
 						"settings":
@@ -779,7 +776,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 6553.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,
@@ -797,15 +794,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 27632,
+						"buffer_size": 28120,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								21257,
-								21257
+								14460,
+								14460
 							]
 						],
 						"settings":
@@ -815,7 +812,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 6582.0,
+						"translation.y": 3579.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
@@ -864,7 +861,7 @@
 		"cols":
 		[
 			0.0,
-			0.351961950059,
+			0.410225921522,
 			1.0
 		],
 		"rows":
@@ -917,7 +914,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 1,
+	"selected_group": 3,
 	"settings":
 	{
 	},

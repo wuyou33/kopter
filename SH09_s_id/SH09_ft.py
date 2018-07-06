@@ -84,7 +84,7 @@ for dof in CMDoptionsDict['flightTestInfo']['dofs'].split(','): #('LNG', 'COL', 
 	
 	testClass.identifyFirstOrder(tempClassInput, tempClassOutput, tempClassOutputVel, plotSettings, CMDoptionsDict) #standardRegressorsFlag
 
-	testClass.showInfluenceParameters({'margin_freq': 10, 'margin_force': 15}, plotSettings, CMDoptionsDict) #10%, 5% of margin
+	testClass.showInfluenceParameters(plotSettings, CMDoptionsDict) #10%, 5% of margin
 	varClassesDict.update({dof : testClass})
 
 # plt.show(block = False)

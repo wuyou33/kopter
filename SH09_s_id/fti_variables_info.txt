@@ -9,8 +9,18 @@ dofs:: LNG
 
 segment_LNG:: 1738.31,1738.94;1738.97,1739.56;1740.34,1741.18;1746.78,1747.52;1747.62,1748.06;1748.52,1748.72
 
-rangeCalculationSegments_LNG:: 800,2300
-rangeCalculationSegments_LNG_old:: 1650,1760
+rangeCalculationSegments_LNG_old:: 800,2300
+rangeCalculationSegments_LNG:: 1650,1760
+
+segmentSelection_delta_t:: 0.1
+segmentSelection_zeroThreashole:: 1E-2
+segmentSelection_delta_t_forward:: 0.1
+segmentSelection_vel_forward:: 2.0
+segmentSelection_pilotFreqThreadshole:: 4.0
+
+margin_force:: 10
+margin_freq:: 20
+deviation_accuracy:: 15
 
 standardRegressorsFlag:: true
 biasFlag:: true
