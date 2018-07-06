@@ -928,8 +928,8 @@
 						"selection":
 						[
 							[
-								1660,
-								1660
+								1460,
+								1405
 							]
 						],
 						"settings":
@@ -1072,7 +1072,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 18716.0,
+						"translation.y": 2642.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
@@ -1118,7 +1118,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 27.0
+		"height": 38.0
 	},
 	"input":
 	{
@@ -1156,7 +1156,7 @@
 		"cols":
 		[
 			0.0,
-			0.490797861941,
+			0.606182477326,
 			1.0
 		],
 		"rows":

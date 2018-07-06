@@ -3,6 +3,7 @@ import os
 import sys
 import pdb #pdb.set_trace()
 import getopt
+import shutil
 
 from moduleFunctions import *
 
@@ -11,21 +12,26 @@ CMDoptionsDict = {}
 cwd = os.getcwd()
 CMDoptionsDict['cwd'] = cwd
 
-#Import FTI variables definitions, hard code input data
-CMDoptionsDict = importFTIdefFile('fti_variables_info.txt', CMDoptionsDict)
+#Read postProc folder name from CMD
+CMDoptionsDict = readCMDoptionsMainAbaqusParametric(sys.argv[1:], CMDoptionsDict)
 
-if not os.path.isdir(CMDoptionsDict['flightTestInfo']['folderResults']):
-	os.mkdir(CMDoptionsDict['flightTestInfo']['folderResults'])
+#Import FTI variables definitions, hard code input data
+CMDoptionsDict = importFTIdefFile(CMDoptionsDict['inputFile'], CMDoptionsDict)
+
+if os.path.isdir(CMDoptionsDict['flightTestInfo']['folderResults']):
+	print('-> Folder with previous results removed')
+	shutil.rmtree(CMDoptionsDict['flightTestInfo']['folderResults'], ignore_errors=True)
+
+os.mkdir(CMDoptionsDict['flightTestInfo']['folderResults'])
 
 # Plot settings
 plotSettings = importPlottingOptions()
 
-#Read postProc folder name from CMD
-CMDoptionsDict = readCMDoptionsMainAbaqusParametric(sys.argv[1:], CMDoptionsDict)
 
 #Interpol segments
 typeImport = 'getSegment'
 varClassesGetSegmentsDict = {}
+print('\n'+'* Data partioning...')
 for var in CMDoptionsDict['flightTestInfo']['variablesToGetSegments'].split(','):
 
 	varClass = ClassVariableDef(var)
@@ -62,7 +68,7 @@ for dof in CMDoptionsDict['flightTestInfo']['dofs'].split(','): #('LNG', 'COL', 
 testClassesDict = {}
 for dof in CMDoptionsDict['flightTestInfo']['dofs'].split(','): #('LNG', 'COL', 'LAT')
 
-	print('\n'+'* Analysing '+dof+' degree of freedom')
+	print('\n\n'+'** Analysing '+dof+' degree of freedom')
 
 	if not os.path.isdir(os.path.join(CMDoptionsDict['flightTestInfo']['folderResults'], dof+'\\')):
 		os.mkdir(os.path.join(CMDoptionsDict['flightTestInfo']['folderResults'], dof+'\\'))
@@ -72,11 +78,13 @@ for dof in CMDoptionsDict['flightTestInfo']['dofs'].split(','): #('LNG', 'COL', 
 	tempClassOutputVel = varClassesDict['DIF_CNT_DST_BST_'+dof]
 	
 	testClass = testClassDef(dof)
-	testClass.includeTimeSegmentsFreq(tempClassInput) #Any class intrucced here would be valid
-	testClass.getSegmentParameters(varClassesDict, dof) #Any class intrucced here would be valid
-	testClass.identifyFirstOrder(tempClassInput, tempClassOutput, tempClassOutputVel, plotSettings, CMDoptionsDict)
+	testClass.includeTimeSegmentsFreq(tempClassInput, plotSettings, CMDoptionsDict) #Any class intrucced here would be valid
+	print('\n'+'* Segments info')
+	testClass.getSegmentParameters(varClassesDict, dof, plotSettings, CMDoptionsDict) #Any class intrucced here would be valid
+	
+	testClass.identifyFirstOrder(tempClassInput, tempClassOutput, tempClassOutputVel, plotSettings, CMDoptionsDict) #standardRegressorsFlag
 
-	testClass.showInfluenceParameters(10, plotSettings, CMDoptionsDict) #5% of margin
+	testClass.showInfluenceParameters({'margin_freq': 10, 'margin_force': 15}, plotSettings, CMDoptionsDict) #10%, 5% of margin
 	varClassesDict.update({dof : testClass})
 
-plt.show(block = False)
+# plt.show(block = False)

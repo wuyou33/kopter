@@ -4,12 +4,200 @@
 		"selected_items":
 		[
 			[
-				"value",
-				"valueLine"
+				"thet",
+				"theta_est"
+			],
+			[
+				"inter",
+				"interval_T"
+			],
+			[
+				"theta_2_",
+				"theta_2_min"
+			],
+			[
+				"the",
+				"theta_2_max"
+			],
+			[
+				"std",
+				"std_regre1"
+			],
+			[
+				"theta",
+				"theta_est"
+			],
+			[
+				"re",
+				"regre1"
+			],
+			[
+				"mea",
+				"mean_v"
+			],
+			[
+				"def",
+				"def\tFunction"
+			],
+			[
+				"el",
+				"else"
+			],
+			[
+				"delt",
+				"delta_x1"
+			],
+			[
+				"out",
+				"output"
+			],
+			[
+				"Segme",
+				"segmentID"
+			],
+			[
+				"list",
+				"listToPrint"
+			],
+			[
+				"vel",
+				"vel_forward"
+			],
+			[
+				"delta",
+				"delta_t_forward"
+			],
+			[
+				"del",
+				"delta_t"
+			],
+			[
+				"second",
+				"secondPoint"
+			],
+			[
+				"plot",
+				"plotSettings"
+			],
+			[
+				"T",
+				"T_plot"
+			],
+			[
+				"freq",
+				"freqSegments"
+			],
+			[
+				"chr",
+				"characteristicForceSegment"
+			],
+			[
+				"inde",
+				"indexCurrentSegment"
+			],
+			[
+				"ind",
+				"indexCurrentSegment"
+			],
+			[
+				"force",
+				"forceSegment"
+			],
+			[
+				"we",
+				"weightVector"
+			],
+			[
+				"for",
+				"forceSegment"
+			],
+			[
+				"fr",
+				"freqSegments"
+			],
+			[
+				"ti",
+				"timeSegments"
+			],
+			[
+				"clas",
+				"classExample"
+			],
+			[
+				"si",
+				"sigmaSQRT"
+			],
+			[
+				"par",
+				"paraNames"
+			],
+			[
+				"para",
+				"paraResults"
+			],
+			[
+				"th",
+				"theta_2"
+			],
+			[
+				"input",
+				"inputClass"
+			],
+			[
+				"time",
+				"timeSegmentList"
+			],
+			[
+				"new",
+				"newDataSegments"
+			],
+			[
+				"data",
+				"dataSegments"
+			],
+			[
+				"da",
+				"dataSegment"
 			],
 			[
 				"var",
-				"variableStringKey"
+				"varClass"
+			],
+			[
+				"segm",
+				"segmentID"
+			],
+			[
+				"varCla",
+				"varClasses"
+			],
+			[
+				"varClas",
+				"varClassIn"
+			],
+			[
+				"tim",
+				"timeSegment"
+			],
+			[
+				"in",
+				"indexStartTime"
+			],
+			[
+				"segme",
+				"segmentList"
+			],
+			[
+				"dict",
+				"dict_proc"
+			],
+			[
+				"sec",
+				"sectionIndex"
+			],
+			[
+				"value",
+				"valueLine"
 			],
 			[
 				"dat",
@@ -60,14 +248,6 @@
 				"vector"
 			],
 			[
-				"th",
-				"thl"
-			],
-			[
-				"in",
-				"inputs"
-			],
-			[
 				"p",
 				"p_dot"
 			],
@@ -84,19 +264,7 @@
 				"statesToConvertUnits"
 			],
 			[
-				"out",
-				"outFromSimCol"
-			],
-			[
-				"the",
-				"theta"
-			],
-			[
 				"forc",
-				"forces"
-			],
-			[
-				"for",
 				"forces"
 			],
 			[
@@ -114,10 +282,6 @@
 			[
 				"path",
 				"path_local"
-			],
-			[
-				"def",
-				"def\tFunction"
 			],
 			[
 				"det",
@@ -182,6 +346,24 @@
 			}
 		},
 		{
+			"file": "SH09_ft.py",
+			"settings":
+			{
+				"buffer_size": 3070,
+				"encoding": "UTF-8",
+				"line_ending": "Windows",
+				"name": "SH09_fti"
+			}
+		},
+		{
+			"file": "/P/08_reference/Cranfield/11.Aircraft System Identification/labs - System Identification/lab1/script.m",
+			"settings":
+			{
+				"buffer_size": 1857,
+				"line_ending": "Windows"
+			}
+		},
+		{
 			"file": "functions/postSim_callback_F16.m",
 			"settings":
 			{
@@ -190,28 +372,28 @@
 			}
 		},
 		{
-			"file": "main_SH09.m",
+			"file": "fti_variables_info.txt",
 			"settings":
 			{
-				"buffer_size": 515,
+				"buffer_size": 1595,
 				"encoding": "UTF-8",
-				"line_ending": "Unix"
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/P/kopter/tolerances/dampingUncer.py",
+			"settings":
+			{
+				"buffer_size": 2434,
+				"line_ending": "Windows"
 			}
 		},
 		{
 			"file": "moduleFunctions.py",
 			"settings":
 			{
-				"buffer_size": 17996,
+				"buffer_size": 26085,
 				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/D/kopter/fti/getFlightTestData.vbs",
-			"settings":
-			{
-				"buffer_size": 4935,
 				"line_ending": "Windows"
 			}
 		}
@@ -252,17 +434,31 @@
 	},
 	"expanded_folders":
 	[
-		"/D/kopter"
+		"/P/kopter",
+		"/P/kopter/tolerances",
+		"/P/08_reference/Cranfield",
+		"/P/08_reference/Cranfield/11.Aircraft System Identification",
+		"/P/08_reference/Cranfield/11.Aircraft System Identification/labs - System Identification",
+		"/P/08_reference/Cranfield/11.Aircraft System Identification/labs - System Identification/lab1",
+		"/P/08_reference/Cranfield/11.Aircraft System Identification/labs - System Identification/lab2"
 	],
 	"file_history":
 	[
+		"/P/12_flightTestData/P2-J17-01-FT0102/data/DIF_CNT_DST_LNG.csv",
+		"/P/kopter/SH09_s_id/main_SH09.m",
+		"/P/kopter/SH09_s_id/fti_variables_info.txt",
+		"/P/12_flightTestData/P2-J17-01-FT0102/data_rs/CNT_DST_BST_COL.csv",
+		"/P/12_flightTestData/P2-J17-01-FT0102/data_rs/CNT_DST_COL.csv",
+		"/P/kopter/SH09_s_id/flightTestData/P2-J17-01-FT0038/data/VRU_ACC_X.csv",
+		"/P/kopter/SH09_s_id/flightTestData/P2-J17-01-FT0038/data/fti_variables_info.txt",
+		"/P/12_flightTestData/P2-J17-01-FT0038/data/CNT_DST_COL.csv",
+		"/P/kopter/SH09_s_id/flightTestData/P2-J17-01-FT0038/data/CNT_DST_PED.csv",
+		"/P/kopter/SH09_s_id/flightTestData/P2-J17-01-FT0038/data/Sampletime.csv",
+		"/P/kopter/SH09_s_id/flightTestData/P2-J17-01-FT0038/data/CNT_DST_COL.csv",
+		"/D/kopter/fti/getFlightTestData.vbs",
 		"/D/kopter/fatigueData/moduleFunctions.py",
-		"/D/kopter/SH09_s_id/SH09_ft.py",
-		"/D/kopter/SH09_s_id/flightTestData/P2-J17-01-FT0038/data/Sampletime.csv",
-		"/D/kopter/SH09_s_id/flightTestData/P2-J17-01-FT0038/data/VRU_ACC_X.csv",
-		"/D/kopter/SH09_s_id/flightTestData/P2-J17-01-FT0038/data/fti_variables_info.txt",
-		"/D/kopter/SH09_s_id/flightTestData/P2-J17-01-FT0038/data/CNT_DST_COL.csv",
 		"/D/kopter/SH09_s_id/flightTestData/fti_variables_info.txt",
+		"/D/kopter/SH09_s_id/flightTestData/P2-J17-01-FT0038/data/VRU_ACC_X.csv",
 		"/D/kopter/SH09_s_id/functions/FsClass.m",
 		"/home/alejandro/Documents/kopter/SH09_s_id/functions/main_SH09.m",
 		"/D/kopter/SH09_s_id/functions/SIDPAC_startup.m",
@@ -358,13 +554,14 @@
 	],
 	"find":
 	{
-		"height": 38.0
+		"height": 40.0
 	},
 	"find_in_files":
 	{
 		"height": 104.0,
 		"where_history":
 		[
+			"P:\\08_reference\\Cranfield"
 		]
 	},
 	"find_state":
@@ -372,36 +569,134 @@
 		"case_sensitive": true,
 		"find_history":
 		[
-			"dataID",
-			"valueLine",
-			"Signal",
-			"data",
-			"dataID",
-			"data",
-			"\\",
-			"ParentDir",
-			"currentColl",
-			"states",
-			"Deg",
-			"-deg",
-			"_deg",
-			"_",
-			"_deg",
-			"functions",
-			"Data",
-			"inputs.",
-			"states",
-			"outFromSimCol.states",
-			"actualColl",
-			"outFromSimCol.states",
-			"outFromSimCol.states.(vars",
-			"outFromSimCol.states",
-			"k",
-			"accelerations",
-			"ylabel",
-			"C1",
-			"tsc",
-			","
+			"standardRegressorsFlag",
+			"res_yout = yout - delta_x1",
+			"1",
+			"0",
+			"Identification results per segment",
+			"set_size_inches",
+			"[2]",
+			"[1].",
+			"[1]",
+			"axs",
+			"[3]",
+			"res",
+			"interval",
+			"/",
+			"0",
+			"1",
+			"2*np.sqrt(sigmaSQRT *",
+			"2*np.sqrt(sigmaSQRT * D[0,0])",
+			"0",
+			"std_theta_est",
+			"D",
+			"X",
+			",",
+			"z",
+			"regre",
+			"=",
+			"1",
+			"sxx",
+			"displacement",
+			"velocity",
+			"piston",
+			"Displacement",
+			"[2]",
+			"calculateBarWidth",
+			"0.2",
+			"calculateBarWidth",
+			"characteristicForceSegments",
+			"x",
+			"freqSegments",
+			"in range",
+			"axs",
+			"savefig",
+			"margin",
+			"2))",
+			"N",
+			"characteristicForceSegmentChosen",
+			"freq.",
+			"freq",
+			"freq_plot",
+			"freqSegments",
+			"characteristicForceSegmentChosen",
+			"freq_plot",
+			"characteristicForceSegmentsMaxWeight",
+			"characteristicForceSegment",
+			"freq",
+			"Segments",
+			"timeSegments",
+			"varClassesDict",
+			"varClassesDict)",
+			"importData",
+			"indexEndTime",
+			"Segments",
+			"+",
+			"round(t",
+			"dofs",
+			"str(segmentID+1)",
+			"()",
+			"subplots",
+			"figure",
+			"'\\\\'+",
+			"str(segmentID",
+			"variablesToImport",
+			"ax",
+			"CMDoptionsDict['variablesInfo'][varClassesDict[var].get_attr('name')]['units']",
+			"f_plot",
+			"self",
+			"freqSegments",
+			"plot",
+			"forceSegment",
+			"abs(v[i]/v[j])",
+			"freq",
+			"index",
+			"freq",
+			"freqWeight",
+			"COL",
+			"'segment'",
+			"segment",
+			"freqSegments",
+			"timeSegmentList",
+			"timeSegments",
+			"timeSegmentList",
+			"'title'",
+			"title",
+			"suptitle",
+			"title",
+			"axs[1]",
+			"[1]",
+			"varClassesDict[var].get_attr('",
+			"float",
+			"int",
+			".tolist()",
+			", dtype=object)",
+			"np.array",
+			"tolist",
+			"delta",
+			"delta_u",
+			"ax.",
+			"ax",
+			"displacement",
+			"delta_x1_time",
+			"outputClass.timeSegments[segmentID]",
+			"self.__cycleN",
+			"self.",
+			"('LNG',)",
+			"pow",
+			"getT()",
+			"dataIncrementSegments",
+			"Segments",
+			"+=",
+			"=",
+			"Input",
+			"In",
+			"CNT_DST_",
+			"tempClass",
+			"dataSegments",
+			"segmentList",
+			"dataSegments",
+			"varClasses"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -409,6 +704,8 @@
 		"regex": true,
 		"replace_history":
 		[
+			"Signal:",
+			"::"
 		],
 		"reverse": false,
 		"show_context": true,
@@ -419,7 +716,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -449,7 +746,7 @@
 						"translation.y": 4224.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
@@ -479,7 +776,67 @@
 						"translation.y": 431.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "SH09_ft.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3070,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3070,
+								3070
+							]
+						],
+						"settings":
+						{
+							"auto_name": "SH09_fti",
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 923.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/P/08_reference/Cranfield/11.Aircraft System Identification/labs - System Identification/lab1/script.m",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1857,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								981,
+								981
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Matlab/Matlab.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 663.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
 					"type": "text"
 				}
 			]
@@ -489,7 +846,7 @@
 			"sheets":
 			[
 				{
-					"buffer": 2,
+					"buffer": 4,
 					"file": "functions/postSim_callback_F16.m",
 					"semi_transient": false,
 					"settings":
@@ -513,35 +870,64 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "main_SH09.m",
+					"buffer": 5,
+					"file": "fti_variables_info.txt",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 515,
+						"buffer_size": 1595,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								486,
-								486
+								419,
+								419
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Matlab/Matlab.sublime-syntax"
+							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "/P/kopter/tolerances/dampingUncer.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2434,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								117,
+								90
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 195.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
 					"type": "text"
 				}
 			]
@@ -551,20 +937,20 @@
 			"sheets":
 			[
 				{
-					"buffer": 4,
+					"buffer": 7,
 					"file": "moduleFunctions.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 17996,
+						"buffer_size": 26085,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								10532,
-								10532
+								148,
+								148
 							]
 						],
 						"settings":
@@ -573,7 +959,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 3609.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
@@ -586,60 +972,33 @@
 			"sheets":
 			[
 				{
-					"buffer": 4,
+					"buffer": 7,
 					"file": "moduleFunctions.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 17996,
+						"buffer_size": 26085,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								12484,
-								12419
+								7284,
+								7284
 							]
 						],
 						"settings":
 						{
+							"spell_check": true,
 							"syntax": "Packages/Python/Python.sublime-syntax",
 							"translate_tabs_to_spaces": false
 						},
-						"translation.x": 200.0,
-						"translation.y": 4411.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "/D/kopter/fti/getFlightTestData.vbs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4935,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/VBScript/VBScript.tmLanguage"
-						},
 						"translation.x": 0.0,
-						"translation.y": 141.0,
+						"translation.y": 2149.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 3,
 					"type": "text"
 				}
 			]
@@ -647,7 +1006,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 22.0
+		"height": 38.0
 	},
 	"input":
 	{
@@ -685,13 +1044,13 @@
 		"cols":
 		[
 			0.0,
-			0.523692810458,
+			0.376337693222,
 			1.0
 		],
 		"rows":
 		[
 			0.0,
-			0.300904977376,
+			0.5,
 			1.0
 		]
 	},
@@ -704,7 +1063,7 @@
 	"project": "s_id.sublime-project",
 	"replace":
 	{
-		"height": 42.0
+		"height": 72.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -724,7 +1083,7 @@
 		[
 			[
 				"",
-				"D:\\kopter\\SH09_s_id\\s_id.sublime-project"
+				"P:\\kopter\\kopterDevelopment.sublime-project"
 			]
 		],
 		"width": 380.0
@@ -738,7 +1097,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 3,
+	"selected_group": 1,
 	"settings":
 	{
 	},
@@ -746,7 +1105,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 142.0,
+	"side_bar_width": 238.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
