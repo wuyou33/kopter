@@ -1,6 +1,6 @@
 -> flightTestInfo:
 folderFTdata:: P:\12_flightTestData\P2-J17-01-FT0102\data\
-folderResults:: P:\12_flightTestData\P2-J17-01-FT0102\results-auto-thr0.1\
+folderResults:: P:\12_flightTestData\P2-J17-01-FT0102\results-auto-thr0.01\
 
 variablesToGetSegments:: DIF_CNT_DST_LNG
 variablesToImport:: CNT_DST_LNG,CNT_DST_BST_LNG,DIF_CNT_DST_BST_LNG,CNT_FRC_BST_LNG
@@ -14,7 +14,7 @@ rangeCalculationSegments_LNG:: 800,2400
 rangeCalculationSegments_LNG_old:: 1650,1760
 
 segmentSelection_delta_t:: 0.1
-segmentSelection_zeroThreashole:: 1E-1
+segmentSelection_zeroThreashole:: 1E-2
 segmentSelection_delta_t_forward:: 0.1
 segmentSelection_vel_forward:: 4.0
 segmentSelection_pilotFreqThreadshole:: 4.0

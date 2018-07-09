@@ -68,7 +68,6 @@ class testClassDef(object):
 
 	def includeTimeSegmentsFreq(self, classExample, plotSettings, CMDoptionsDict):
 
-		
 		self.timeSegments = classExample.timeSegments
 
 		freqSegments = []
@@ -496,13 +495,24 @@ class ClassVariableDef(object):
 			timeSegments = []
 			dataSegments = []
 
-			for timeSegmentList in varClassesGetSegmentsDict['DIF_CNT_DST_'+dofImporting(self.name)].timeSegmentsLimits: #CMDoptionsDict['flightTestInfo']['segment_'+dofImporting(self.name)].split(';'):
+			if CMDoptionsDict['flightTestInfo']['segment_calculationMode'].lower() == 'auto':
 
+				timeSegmentsList = varClassesGetSegmentsDict['DIF_CNT_DST_'+dofImporting(self.name)].timeSegmentsLimits
+			
+			else:
+				
+				timeSegmentsList0 = CMDoptionsDict['flightTestInfo']['segment_'+dofImporting(self.name)].split(';')
+				timeSegmentsList = []
+				for t in timeSegmentsList0:
+					timeSegmentsList += [[float(i) for i in t.split(',')]]
+			
+			for timeSegmentList in timeSegmentsList:
 				indexStartTime = time_proc.index(timeSegmentList[0])
 				indexEndTime = time_proc.index(timeSegmentList[1])
 
 				timeSegments += [time_proc[indexStartTime:indexEndTime]]
 				dataSegments += [data_proc[indexStartTime:indexEndTime]]
+
 
 			self.timeSegments = timeSegments
 			self.dataSegments = dataSegments
@@ -513,7 +523,7 @@ class ClassVariableDef(object):
 			timeSegmentList = [float(t) for t in CMDoptionsDict['flightTestInfo']['rangeCalculationSegments_'+dofImporting(self.name)].split(',')]
 
 			indexStartTime = time_proc.index(timeSegmentList[0])
-			indexEndTime = time_proc.index(timeSegmentList[1])
+			indexEndTime = time_proc.index(timeSegmentList[1]+1)
 
 			timeChosen = time_proc[indexStartTime:indexEndTime]
 			dataChosen = data_proc[indexStartTime:indexEndTime]
@@ -525,7 +535,7 @@ class ClassVariableDef(object):
 			delta_t_forward = float(CMDoptionsDict['flightTestInfo']['segmentSelection_delta_t_forward'])
 			vel_forward = float(CMDoptionsDict['flightTestInfo']['segmentSelection_vel_forward'])
 			pilotFreqThreadshole = float(CMDoptionsDict['flightTestInfo']['segmentSelection_pilotFreqThreadshole']) #Hz
-			for data in dataChosen:
+			for data in dataChosen[:int(0.95*len(dataChosen))]:
 
 				if abs(data) < threashole:
 
@@ -534,7 +544,7 @@ class ClassVariableDef(object):
 						firstPointFlag = True
 					elif firstPointFlag:
 						secondPoint = timeChosen[dataChosen.index(data)]
-						if (secondPoint - firstPoint) > (np.power(pilotFreqThreadshole, -1)/2):
+						if (secondPoint - firstPoint) > np.power(pilotFreqThreadshole, -1)/2:
 							timeSegmentsLimits += [[firstPoint, secondPoint]]
 						firstPointFlag = False
 						nPreviousPoint = nPoint
@@ -726,3 +736,11 @@ def printRowTable(listToPrint, widthCellUnits):
 def calculateBarWidth(xValues, gapFactor):
 	spaces = [abs(xValues[i+1]-xValues[i]) for i in range(len(xValues)-2)]
 	return min(spaces) - (gapFactor*np.mean(xValues))
+
+def reviewInputParameters(CMDoptionsDict):
+
+	print('\n'+'* Input parameters :')
+	
+	for key, value in CMDoptionsDict['flightTestInfo'].items():
+
+		print(key, ': ',value)

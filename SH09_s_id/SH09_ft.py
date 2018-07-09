@@ -17,9 +17,10 @@ CMDoptionsDict = readCMDoptionsMainAbaqusParametric(sys.argv[1:], CMDoptionsDict
 
 #Import FTI variables definitions, hard code input data
 CMDoptionsDict = importFTIdefFile(CMDoptionsDict['inputFile'], CMDoptionsDict)
+reviewInputParameters(CMDoptionsDict)
 
 if os.path.isdir(CMDoptionsDict['flightTestInfo']['folderResults']):
-	print('-> Folder with previous results removed')
+	print('\n'+'-> Folder with previous results removed')
 	shutil.rmtree(CMDoptionsDict['flightTestInfo']['folderResults'], ignore_errors=True)
 
 os.mkdir(CMDoptionsDict['flightTestInfo']['folderResults'])
@@ -29,16 +30,17 @@ plotSettings = importPlottingOptions()
 
 
 #Interpol segments
-typeImport = 'getSegment'
 varClassesGetSegmentsDict = {}
-print('\n'+'* Data partioning...')
-for var in CMDoptionsDict['flightTestInfo']['variablesToGetSegments'].split(','):
+if CMDoptionsDict['flightTestInfo']['segment_calculationMode'].lower() == 'auto':
+	typeImport = 'getSegment'
+	print('\n'+'* Data partioning...')
+	for var in CMDoptionsDict['flightTestInfo']['variablesToGetSegments'].split(','):
 
-	varClass = ClassVariableDef(var)
+		varClass = ClassVariableDef(var)
 
-	varClass.importData(CMDoptionsDict, typeImport, varClassesGetSegmentsDict)
+		varClass.importData(CMDoptionsDict, typeImport, varClassesGetSegmentsDict)
 
-	varClassesGetSegmentsDict.update({var : varClass})
+		varClassesGetSegmentsDict.update({var : varClass})
 
 # Import data
 typeImport = 'segment'

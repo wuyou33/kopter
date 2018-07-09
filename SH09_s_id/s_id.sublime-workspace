@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"time",
+				"timeSegmentList"
+			],
+			[
+				"ti",
+				"timeSegmentList"
+			],
+			[
 				"list",
 				"list_bools"
 			],
@@ -116,10 +124,6 @@
 				"freqSegments"
 			],
 			[
-				"ti",
-				"timeSegments"
-			],
-			[
 				"clas",
 				"classExample"
 			],
@@ -142,10 +146,6 @@
 			[
 				"input",
 				"inputClass"
-			],
-			[
-				"time",
-				"timeSegmentList"
 			],
 			[
 				"new",
@@ -331,17 +331,25 @@
 			"file": "SH09_ft.py",
 			"settings":
 			{
-				"buffer_size": 3033,
+				"buffer_size": 3164,
 				"encoding": "UTF-8",
 				"line_ending": "Windows",
 				"name": "SH09_fti"
 			}
 		},
 		{
-			"file": "fti_variables_info.txt",
+			"file": "/P/12_flightTestData/P2-J17-01-FT0102/data/DIF_CNT_DST_BST_LNG.csv",
 			"settings":
 			{
-				"buffer_size": 1850,
+				"buffer_size": 35840969,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "fti_variables_info-thr0.1.txt",
+			"settings":
+			{
+				"buffer_size": 1920,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -350,7 +358,7 @@
 			"file": "moduleFunctions.py",
 			"settings":
 			{
-				"buffer_size": 28120,
+				"buffer_size": 28603,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -533,6 +541,12 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"50",
+			"1",
+			"20",
+			"10",
+			"set_trace",
+			"timeSegments",
 			"marginDict",
 			"checkDeviation",
 			"regressionMethodIdentification2regresors",
@@ -654,13 +668,7 @@
 			"displacement",
 			"delta_x1_time",
 			"outputClass.timeSegments[segmentID]",
-			"self.__cycleN",
-			"self.",
-			"('LNG',)",
-			"pow",
-			"getT()",
-			"dataIncrementSegments",
-			"Segments"
+			"self.__cycleN"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -689,15 +697,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3033,
+						"buffer_size": 3164,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2916,
-								2916
+								1533,
+								1533
 							]
 						],
 						"settings":
@@ -707,33 +715,27 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 780.0,
+						"translation.y": 429.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 0,
 					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 0,
-			"sheets":
-			[
+				},
 				{
 					"buffer": 1,
-					"file": "fti_variables_info.txt",
+					"file": "/P/12_flightTestData/P2-J17-01-FT0102/data/DIF_CNT_DST_BST_LNG.csv",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1850,
+						"buffer_size": 35840969,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								705,
-								705
+								27864759,
+								27864759
 							]
 						],
 						"settings":
@@ -741,42 +743,7 @@
 							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 0,
-			"sheets":
-			[
-				{
-					"buffer": 2,
-					"file": "moduleFunctions.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 28120,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								21571,
-								21504
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 6553.0,
+						"translation.y": 13706218.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,
@@ -790,19 +757,88 @@
 			[
 				{
 					"buffer": 2,
-					"file": "moduleFunctions.py",
+					"file": "fti_variables_info-thr0.1.txt",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 28120,
+						"buffer_size": 1920,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								14460,
-								14460
+								740,
+								740
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 3,
+					"file": "moduleFunctions.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 28603,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2570,
+								2570
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 719.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 3,
+					"file": "moduleFunctions.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 28603,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								16786,
+								16786
 							]
 						],
 						"settings":
@@ -812,10 +848,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 3579.0,
+						"translation.y": 5100.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 2,
 					"type": "text"
 				}
 			]
@@ -861,7 +897,7 @@
 		"cols":
 		[
 			0.0,
-			0.410225921522,
+			0.404280618312,
 			1.0
 		],
 		"rows":
@@ -914,7 +950,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 3,
+	"selected_group": 0,
 	"settings":
 	{
 	},

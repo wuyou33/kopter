@@ -19,8 +19,8 @@ segmentSelection_delta_t_forward:: 0.1
 segmentSelection_vel_forward:: 4.0
 segmentSelection_pilotFreqThreadshole:: 4.0
 
-margin_force:: 50
-margin_freq:: 50
+margin_force:: 20
+margin_freq:: 20
 deviation_accuracy:: 20
 
 standardRegressorsFlag:: true
