@@ -4,24 +4,108 @@
 		"selected_items":
 		[
 			[
+				"indexMi",
+				"indexMinError_k"
+			],
+			[
+				"t",
+				"tolist"
+			],
+			[
+				"timeDe",
+				"timeDelaysLowVector"
+			],
+			[
+				"seg",
+				"segmentID"
+			],
+			[
+				"cur",
+				"currentTimeDelaysLowVector"
+			],
+			[
+				"tem",
+				"tempCMDDict"
+			],
+			[
 				"time",
-				"timeSegmentList"
+				"timeDelay"
+			],
+			[
+				"op",
+				"optimizeTimeDelayLow"
+			],
+			[
+				"inter",
+				"interval_T"
+			],
+			[
+				"key",
+				"keys"
+			],
+			[
+				"delta_u_",
+				"delta_u_delay"
+			],
+			[
+				"del",
+				"delayFlag"
+			],
+			[
+				"ke",
+				"key"
+			],
+			[
+				"dataIn",
+				"dataInitialValues"
+			],
+			[
+				"axs",
+				"axsDictSettings"
+			],
+			[
+				"in",
+				"indexSegmentsChosen"
+			],
+			[
+				"def",
+				"defs\tMethod"
+			],
+			[
+				"inte",
+				"interval_k"
+			],
+			[
+				"force",
+				"forceClass"
+			],
+			[
+				"list",
+				"listToPrint"
+			],
+			[
+				"han",
+				"handle_neg"
+			],
+			[
+				"out",
+				"outputClass"
+			],
+			[
+				"dif",
+				"differenceFirstAndLastValues"
+			],
+			[
+				"data",
+				"dataSegment"
 			],
 			[
 				"ti",
 				"timeSegmentList"
 			],
 			[
-				"list",
-				"list_bools"
-			],
-			[
 				"thet",
 				"theta_est"
-			],
-			[
-				"inter",
-				"interval_T"
 			],
 			[
 				"theta_2_",
@@ -48,20 +132,12 @@
 				"mean_v"
 			],
 			[
-				"def",
-				"def\tFunction"
-			],
-			[
 				"el",
 				"else"
 			],
 			[
 				"delt",
 				"delta_x1"
-			],
-			[
-				"out",
-				"output"
 			],
 			[
 				"Segme",
@@ -74,10 +150,6 @@
 			[
 				"delta",
 				"delta_t_forward"
-			],
-			[
-				"del",
-				"delta_t"
 			],
 			[
 				"second",
@@ -106,10 +178,6 @@
 			[
 				"ind",
 				"indexCurrentSegment"
-			],
-			[
-				"force",
-				"forceSegment"
 			],
 			[
 				"we",
@@ -152,10 +220,6 @@
 				"newDataSegments"
 			],
 			[
-				"data",
-				"dataSegments"
-			],
-			[
 				"da",
 				"dataSegment"
 			],
@@ -178,10 +242,6 @@
 			[
 				"tim",
 				"timeSegment"
-			],
-			[
-				"in",
-				"indexStartTime"
 			],
 			[
 				"segme",
@@ -304,10 +364,6 @@
 				"tols"
 			],
 			[
-				"ke",
-				"key"
-			],
-			[
 				"dist",
 				"dist_flight"
 			],
@@ -331,7 +387,7 @@
 			"file": "SH09_ft.py",
 			"settings":
 			{
-				"buffer_size": 3164,
+				"buffer_size": 3201,
 				"encoding": "UTF-8",
 				"line_ending": "Windows",
 				"name": "SH09_fti"
@@ -346,19 +402,27 @@
 			}
 		},
 		{
-			"file": "fti_variables_info-thr0.1.txt",
+			"file": "moduleFunctions.py",
 			"settings":
 			{
-				"buffer_size": 1920,
+				"buffer_size": 48927,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "moduleFunctions.py",
+			"file": "fti_variables_info-delay0.01.txt",
 			"settings":
 			{
-				"buffer_size": 28603,
+				"buffer_size": 1847,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "fti_variables_info-delay-optDeltaT.txt",
+			"settings":
+			{
+				"buffer_size": 1888,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -371,16 +435,20 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 392.0,
-		"last_filter": "",
+		"height": 104.0,
+		"last_filter": "from",
 		"selected_items":
 		[
+			[
+				"from",
+				"Text Pastry: From 1 To X"
+			],
 			[
 				"pa",
 				"Package Control: Install Package"
 			]
 		],
-		"width": 412.0
+		"width": 444.0
 	},
 	"console":
 	{
@@ -403,14 +471,14 @@
 		"/P/kopter",
 		"/P/kopter/SH09_s_id",
 		"/P/kopter/tolerances",
-		"/P/08_reference/Cranfield",
-		"/P/08_reference/Cranfield/11.Aircraft System Identification",
-		"/P/08_reference/Cranfield/11.Aircraft System Identification/labs - System Identification",
-		"/P/08_reference/Cranfield/11.Aircraft System Identification/labs - System Identification/lab1",
-		"/P/08_reference/Cranfield/11.Aircraft System Identification/labs - System Identification/lab2"
+		"/P/10_code/abaqus-master/abaqus-master"
 	],
 	"file_history":
 	[
+		"/P/kopter/SH09_s_id/fti_variables_info-delay-0.1.txt",
+		"/P/kopter/SH09_s_id/fti_variables_info-noDelay.txt",
+		"/P/10_code/abaqus-master/abaqus-master/setUpParametricStudy.py",
+		"/P/10_code/abaqus-master/abaqus-master/moduleParametricStudy.py",
 		"/P/08_reference/Cranfield/11.Aircraft System Identification/labs - System Identification/lab1/script.m",
 		"/P/kopter/SH09_s_id/functions/FsClass.m",
 		"/P/kopter/SH09_s_id/SIDPAC_startup.m",
@@ -521,8 +589,7 @@
 		"/P/10_code/labs - System Identification/lab3/main_script.m",
 		"/Y/00_Scripts/AA_Eng_Vib_Analysis/FFT_STDEV_4.VBS",
 		"/Y/00_Scripts/AA_Eng_Vib_Analysis/dataplot.VBS",
-		"/Y/00_Scripts/plot_test/fti_2016-03-17_094251/test_HYD1_Oil_Temp.EMF",
-		"/P/10_code/abaqus-master/abaqus-master/setUpParametricStudy.py"
+		"/Y/00_Scripts/plot_test/fti_2016-03-17_094251/test_HYD1_Oil_Temp.EMF"
 	],
 	"find":
 	{
@@ -533,6 +600,7 @@
 		"height": 104.0,
 		"where_history":
 		[
+			"P:\\kopter\\SH09_s_id",
 			"P:\\08_reference\\Cranfield"
 		]
 	},
@@ -541,134 +609,134 @@
 		"case_sensitive": true,
 		"find_history":
 		[
-			"50",
-			"1",
-			"20",
-			"10",
-			"set_trace",
-			"timeSegments",
-			"marginDict",
-			"checkDeviation",
-			"regressionMethodIdentification2regresors",
-			"CMDoptionsDict",
-			"variables",
-			"(float",
-			"((self",
+			"label = ",
+			"label = 'T', ",
+			"handle_",
+			"handle",
+			"**",
 			"k",
-			"Segments",
-			"segmentID",
-			"standardRegressorsFlag",
-			"res_yout = yout - delta_x1",
-			"1",
-			"0",
-			"Identification results per segment",
-			"set_size_inches",
-			"[2]",
-			"[1].",
-			"[1]",
-			"axs",
-			"[3]",
+			"T",
+			"TSegments",
+			"_",
+			"[1",
+			"regresionVectorsDict",
+			"interval_k",
+			"dot_x1",
 			"res",
-			"interval",
-			"/",
-			"0",
-			"1",
-			"2*np.sqrt(sigmaSQRT *",
-			"2*np.sqrt(sigmaSQRT * D[0,0])",
-			"0",
-			"std_theta_est",
-			"D",
-			"X",
-			",",
-			"z",
-			"regre",
-			"=",
-			"1",
-			"sxx",
-			"displacement",
-			"velocity",
-			"piston",
-			"Displacement",
-			"[2]",
-			"calculateBarWidth",
-			"0.2",
-			"calculateBarWidth",
-			"characteristicForceSegments",
-			"x",
-			"freqSegments",
-			"in range",
-			"axs",
-			"savefig",
-			"margin",
-			"2))",
-			"N",
-			"characteristicForceSegmentChosen",
-			"freq.",
-			"freq",
-			"freq_plot",
-			"freqSegments",
-			"characteristicForceSegmentChosen",
-			"freq_plot",
-			"characteristicForceSegmentsMaxWeight",
-			"characteristicForceSegment",
-			"freq",
-			"Segments",
-			"timeSegments",
-			"varClassesDict",
-			"varClassesDict)",
-			"importData",
-			"indexEndTime",
-			"Segments",
-			"+",
-			"round(t",
-			"dofs",
-			"str(segmentID+1)",
-			"()",
-			"subplots",
-			"figure",
-			"'\\\\'+",
-			"str(segmentID",
-			"variablesToImport",
-			"ax",
-			"CMDoptionsDict['variablesInfo'][varClassesDict[var].get_attr('name')]['units']",
-			"f_plot",
-			"self",
-			"freqSegments",
-			"plot",
-			"forceSegment",
-			"abs(v[i]/v[j])",
-			"freq",
-			"index",
-			"freq",
-			"freqWeight",
-			"COL",
-			"'segment'",
-			"segment",
-			"freqSegments",
-			"timeSegmentList",
-			"timeSegments",
-			"timeSegmentList",
-			"'title'",
-			"title",
-			"suptitle",
-			"title",
-			"axs[1]",
-			"[1]",
-			"varClassesDict[var].get_attr('",
-			"float",
-			"int",
-			".tolist()",
-			", dtype=object)",
-			"np.array",
-			"tolist",
+			"identifyOuterLoop",
+			"delta_u_time_delay",
 			"delta",
-			"delta_u",
+			",",
+			"k",
+			"index",
+			"  ",
+			"printRowTable",
+			"header1",
+			"CMDoptionsDict",
+			"axs",
+			"'Measured force'",
+			"''",
+			"forceClass.dataSegments[segmentID]",
+			"forceClass.timeSegments[segmentID]",
+			"axs[0]",
+			"interval_",
+			"k",
+			"optimizeTimeDelayLow",
+			"TimeDelayLowSegments",
+			"17",
+			"'Mean force (N)'",
+			"Mean force (N)",
+			"Pilot freq.",
+			"0.05",
+			".txt",
+			"0.06",
+			"06",
+			"folderResults:: P:\\12_flightTestData\\P2-J17-01-FT0102\\results",
+			"P:\\12_flightTestData\\P2-J17-01-FT0102\\results",
+			"write",
+			"0.06",
+			"6",
+			"3",
+			"=",
+			"Segments",
+			"delta",
+			"k",
+			"delta_T",
+			"delta_k",
+			"2",
+			"timeSegmentList",
+			"segment_calculationMode",
+			"%",
+			"error",
+			"biasFlag",
+			"=",
+			"dataSegments",
+			"=",
+			"Segments",
+			"+=",
+			"timeSegments",
+			"indexEndTime",
+			"indexStartTime",
+			"[i]",
+			"abs(",
+			"for ",
 			"ax.",
 			"ax",
-			"displacement",
-			"delta_x1_time",
-			"outputClass.timeSegments[segmentID]",
-			"self.__cycleN"
+			"(self.",
+			"checkDeviation",
+			"inputInitialValues",
+			"dataInitialValues",
+			"differenceFirstAndLastValues",
+			"inputDifferenceFirstAndLastValues",
+			"[i]",
+			"i",
+			"surrentSegmentID",
+			"]",
+			"],",
+			"kSegments",
+			"k_",
+			"influenceParameters",
+			"keys",
+			"ax_T_freq",
+			"T_",
+			"'_",
+			"],",
+			"k_",
+			"axs",
+			"checkDeviation",
+			"''",
+			"axs",
+			"],",
+			"axs",
+			".plot",
+			"plot",
+			"\\delta",
+			"pdb.set_trace()",
+			"inputVelClass",
+			".legend",
+			"legend",
+			"round",
+			"varClassesDict",
+			"variablesToImport",
+			"printRowTable",
+			"2",
+			"handles",
+			"figure",
+			"[4]",
+			"axs[4]",
+			"1",
+			"[5]",
+			"[3]",
+			"ax.",
+			"ax",
+			"LNG",
+			"CNT",
+			"timeSegment",
+			"localClassInput",
+			"axs[2].plot(delta_x1_time, res, linestyle = '', marker = 'o', c = plotSettings['colors'][0], label = 'Residuals",
+			"usualSettingsAX",
+			"axs[4]",
+			"axs[3]"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -676,6 +744,8 @@
 		"regex": true,
 		"replace_history":
 		[
+			"15",
+			"Pilot f.",
 			"Signal:",
 			"::"
 		],
@@ -697,15 +767,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3164,
+						"buffer_size": 3201,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1533,
-								1533
+								1612,
+								1612
 							]
 						],
 						"settings":
@@ -715,10 +785,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 429.0,
+						"translation.y": 275.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -743,33 +813,66 @@
 							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 13706218.0,
+						"translation.y": 563387.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 5,
 					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 0,
-			"sheets":
-			[
+				},
 				{
 					"buffer": 2,
-					"file": "fti_variables_info-thr0.1.txt",
+					"file": "moduleFunctions.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1920,
+						"buffer_size": 48927,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								740,
-								740
+								10568,
+								10568
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2673.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 3,
+					"file": "fti_variables_info-delay0.01.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1847,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								145,
+								145
+							],
+							[
+								769,
+								769
 							]
 						],
 						"settings":
@@ -780,30 +883,52 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 6,
 					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 0,
-			"sheets":
-			[
+				},
 				{
-					"buffer": 3,
-					"file": "moduleFunctions.py",
+					"buffer": 4,
+					"file": "fti_variables_info-delay-optDeltaT.txt",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 28603,
+						"buffer_size": 1888,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2570,
-								2570
+								156,
+								156
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "moduleFunctions.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 48927,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								41535,
+								41535
 							]
 						],
 						"settings":
@@ -812,7 +937,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 719.0,
+						"translation.y": 4382.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 4,
@@ -825,20 +950,55 @@
 			"sheets":
 			[
 				{
-					"buffer": 3,
+					"buffer": 2,
 					"file": "moduleFunctions.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 28603,
+						"buffer_size": 48927,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								16786,
-								16786
+								25981,
+								26094
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 246.0,
+						"translation.y": 5707.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 2,
+					"file": "moduleFunctions.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 48927,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								36624,
+								36624
 							]
 						],
 						"settings":
@@ -848,10 +1008,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 5100.0,
+						"translation.y": 7548.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 0,
 					"type": "text"
 				}
 			]
@@ -897,13 +1057,13 @@
 		"cols":
 		[
 			0.0,
-			0.404280618312,
+			0.215659814854,
 			1.0
 		],
 		"rows":
 		[
 			0.0,
-			0.5,
+			0.546575342465,
 			1.0
 		]
 	},
@@ -950,7 +1110,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 0,
+	"selected_group": 3,
 	"settings":
 	{
 	},
@@ -958,7 +1118,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 238.0,
+	"side_bar_width": 143.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

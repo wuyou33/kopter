@@ -1,0 +1,87 @@
+-> flightTestInfo:
+folderFTdata:: P:\12_flightTestData\P2-J17-01-FT0102\data\
+folderResults:: P:\12_flightTestData\P2-J17-01-FT0102\results-noDelay\
+
+dofs:: LNG
+
+segment_calculationMode:: auto
+segment_LNG:: 1712.19,1712.79;1712.84,1713.45;1738.31,1738.94;1738.97,1739.56;1740.34,1741.18;1746.78,1747.52;1747.62,1748.06;1748.52,1748.72
+
+rangeCalculationSegments_LNG_old:: 800,2400
+rangeCalculationSegments_LNG:: 1650,1760
+
+segmentSelection_delta_t:: 0.05
+segmentSelection_zeroThreashole:: 1E-1
+segmentSelection_delta_t_forward:: 0.1
+segmentSelection_vel_forward:: 4.0
+segmentSelection_pilotFreqThreadshole:: 4.0
+
+margin_force:: 20
+margin_freq:: 20
+max_allowed_k_interval:: 0.01
+max_allowed_T_interval:: 0.01
+
+standardRegressorsFlag:: true
+delayFlag:: true
+timeDelay:: 0.0
+
+-> Signal: VRU_ACC_X
+samplingFreq:: 10
+
+-> Signal: VRU_ACC_Y
+samplingFreq:: 10
+
+-> Signal: VRU_ACC_Z
+samplingFreq:: 10
+
+-> Signal: CNT_DST_COL
+units:: Percentage of input (%) 
+samplingFreq:: 2000
+
+-> Signal: CNT_DST_LAT
+units:: Percentage of input (%) 
+samplingFreq:: 2000
+
+-> Signal: CNT_DST_LNG
+units:: Percentage of input (%) 
+samplingFreq:: 2000
+
+-> Signal: CNT_DST_PED
+units:: Percentage of input (%) 
+samplingFreq:: 2000
+
+-> Signal: CNT_DST_BST_LNG
+units:: Distance (mm) 
+samplingFreq:: 2000
+
+-> Signal: CNT_DST_BST_COL
+units:: Distance (mm) 
+samplingFreq:: 2000
+
+-> Signal: CNT_DST_BST_LAT
+units:: Distance (mm) 
+samplingFreq:: 2000
+
+-> Signal: DIF_CNT_DST_BST_LNG
+units:: Velocity (mm/s) 
+samplingFreq:: 2000
+
+-> Signal: DIF_CNT_DST_BST_COL
+units:: Velocity (mm/s) 
+samplingFreq:: 2000
+
+-> Signal: DIF_CNT_DST_BST_LAT
+units:: Velocity (mm/s) 
+samplingFreq:: 2000
+
+-> Signal: CNT_FRC_BST_LNG
+units:: Force (N) 
+samplingFreq:: 2000
+
+-> Signal: CNT_FRC_BST_COL
+units:: Force (N) 
+samplingFreq:: 2000
+
+-> Signal: CNT_FRC_BST_LAT
+units:: Force (N) 
+samplingFreq:: 2000
