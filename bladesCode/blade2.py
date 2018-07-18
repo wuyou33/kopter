@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
+from scipy import interpolate
 import matplotlib as mpl
 
 import pdb #pdb.set_trace()
@@ -30,7 +31,31 @@ class SqueezedNorm(mpl.colors.Normalize):
         r = self.g(value, self.mid,self.vmin,self.vmax, self.s1,self.s2)
         return np.ma.masked_array(r)
 
-file = open('P:\\kopter\\bladesCode\\blade.csv', 'r')
+def getRandAngle(x, y):
+
+    r = np.sqrt( np.power(x, 2) + np.power(y, 2) )
+
+    if y >= 0:
+        ySignFlag = True
+    else:
+        ySignFlag = False
+
+    if x >= 0:
+        xSignFlag = True
+    else:
+        xSignFlag = False
+    aTanDeg = np.arctan(abs(y) / abs(x)) * 180/np.pi
+
+    if xSignFlag and ySignFlag:
+        return r, aTanDeg
+    if not xSignFlag and ySignFlag:
+        return r, 90 + (90 -aTanDeg)
+    if not xSignFlag and not ySignFlag:
+        return r, 180 + aTanDeg
+    if xSignFlag and not ySignFlag:
+        return r, 270 + (90 - aTanDeg)
+
+file = open('blade.csv', 'r')
 lines = file.readlines()
 
 skipLines, azimuths, valuesLines, zeniths = 4, [], [], []
@@ -114,8 +139,28 @@ valuesTotal = np.vstack((valuesTotal1, valuesTotal2))
 xtotal = x1 + x2 
 ytotal = y1 + y3 
 x_mesh, y_mesh = np.meshgrid(xtotal, ytotal)
+# x_mesh_short, y_mesh_short = np.meshgrid(x1, y1) #short version
 
-x_mesh_short, y_mesh_short = np.meshgrid(x1, y1)
+# Interpolate
+f_interpolate = interpolate.interp2d(zeniths, azimuths, valuesLines, kind = 'cubic', copy = True, bounds_error = False, fill_value = np.nan)
+
+# iterate x and y matrix
+it = np.nditer(x_mesh, flags = ['multi_index'])
+while not it.finished:
+    #it[0] is value 
+    #it.multi_index is tuple, rows and columns
+
+    if it.multi_index[1] != it.multi_index[0]: #off-diagonal values
+        x_current = float(it[0])
+        y_current = y_mesh[it.multi_index[0], it.multi_index[1]]
+
+        get_r, get_angle = getRandAngle(x_current, y_current)
+
+        interpolatedValue = f_interpolate(get_r, get_angle)
+        valuesTotal[it.multi_index[0], it.multi_index[1]] = interpolatedValue
+    
+    it.iternext()
+
 
 #-- Plot... ------------------------------------------------
 # fig, ax = plt.subplots(subplot_kw=dict(projection='polar'))
@@ -132,8 +177,8 @@ x_mesh_short, y_mesh_short = np.meshgrid(x1, y1)
 
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
-# ax.plot_surface(x_mesh, y_mesh, valuesTotal, rstride=1, cstride=1, cmap='seismic', edgecolor='none')
-ax.plot_surface(x_mesh_short, y_mesh_short, values1Mat, rstride=1, cstride=1, cmap='seismic', edgecolor='none')
+ax.plot_surface(x_mesh, y_mesh, valuesTotal, rstride=1, cstride=1, cmap='seismic', edgecolor='none')
+# ax.plot_surface(x_mesh_short, y_mesh_short, values1Mat, rstride=1, cstride=1, cmap='seismic', edgecolor='none')
 
 ax.set_title('Blade flapping moment')
 
