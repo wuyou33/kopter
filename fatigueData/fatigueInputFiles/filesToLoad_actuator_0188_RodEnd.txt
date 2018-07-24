@@ -1,0 +1,7 @@
+-> Files to load:
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0188\01_TDMS_data_Set-complete\01_RAW\Zwick data\Run_1_Zyklische Ergebnisse.csv
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0188\01_TDMS_data_Set-complete\01_RAW\Zwick data\Run_3_Zyklische Ergebnisse.csv
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0188\01_TDMS_data_Set-complete\01_RAW\Zwick data\Run_4_Zyklische Ergebnisse.csv
+
+-> Loads upper and lower limits:
+1.0,10.0

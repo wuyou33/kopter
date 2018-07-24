@@ -4,6 +4,26 @@
 		"selected_items":
 		[
 			[
+				"norm",
+				"normalizeFn"
+			],
+			[
+				"def",
+				"def\tFunction"
+			],
+			[
+				"midd",
+				"middlePoint"
+			],
+			[
+				"min",
+				"minCurrent"
+			],
+			[
+				"max",
+				"maxCurrent"
+			],
+			[
 				"inter",
 				"interpolatedValue"
 			],
@@ -74,10 +94,6 @@
 			[
 				"ste",
 				"step_from_freq"
-			],
-			[
-				"def",
-				"defs\tMethod"
 			],
 			[
 				"low",
@@ -495,7 +511,7 @@
 			"file": "fatigueData/moduleFunctions.py",
 			"settings":
 			{
-				"buffer_size": 61158,
+				"buffer_size": 61159,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -513,7 +529,7 @@
 			"file": "bladesCode/blade2.py",
 			"settings":
 			{
-				"buffer_size": 5795,
+				"buffer_size": 7485,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -597,12 +613,16 @@
 	},
 	"expanded_folders":
 	[
-		"/D/kopter",
-		"/D/kopter/SH09_s_id",
+		"/P/kopter",
+		"/P/kopter/fatigueData",
+		"/P/kopter/fatigueData/fatigueInputFiles",
 		"/P/08_reference/ETH"
 	],
 	"file_history":
 	[
+		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_actuatorMesswerte_0188_RodEnd.txt",
+		"/P/kopter/fatigueData/fatigueInputFiles/FilesToLoad_gauges_0188_RodEnd.txt",
+		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_actuator_0188_RodEnd.txt",
 		"/D/kopter/bladesCode/test.py",
 		"/P/08_reference/ETH/abaqus/moduleCommon.py",
 		"/P/kopter/fti/testToImport.vbs",
@@ -626,7 +646,6 @@
 		"/L/MSH-Project Management Files/Functional Engineering/Test Division/Test_Daten/J17-03-Bench Tests/P3-J17-03-BT0188/05_Data_Analysis/CSV_Data/rs__UCRForce__150Hz__1501.csv",
 		"/L/MSH-Project Management Files/Functional Engineering/Test Division/Test_Daten/J17-03-Bench Tests/P3-J17-03-BT0188/05_Data_Analysis/CSV_Data/rs__UCRStrain__150Hz__1501.csv",
 		"/L/MSH-Project Management Files/Functional Engineering/Test Division/Test_Daten/J17-03-Bench Tests/P3-J17-03-BT0168/01_TDMS_data_Set-complete/02_STEPS/csv_data/rs__Bending__100Hz__13.csv",
-		"/P/kopter/fatigueData/fatigueInputFiles/FilesToLoad_gauges_0188_RodEnd.txt",
 		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_actuator_TRAretainer.txt",
 		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_actuatorMesswerte_TRAretainer.txt",
 		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_gauges_TRbladeholderLoad3.txt",
@@ -728,9 +747,7 @@
 		"/home/alejandro/Documents/kopter/SH09_s_id/f16_global",
 		"/home/alejandro/Documents/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/f16_aero_setup.m",
 		"/home/alejandro/Documents/kopter/SH09_s_id/fromFlightPhysics/FL_LTI_models/read_LTI_matrix_from_FL_3.m",
-		"/P/10_code/abaqus-master/abaqus-master/mainAbaqusParametricStudy.py",
-		"/P/10_code/labs - System Identification/lab1/script.m",
-		"/P/10_code/abaqus-master/abaqus-master/mainBuildAndExecuteWingBox.py"
+		"/P/10_code/abaqus-master/abaqus-master/mainAbaqusParametricStudy.py"
 	],
 	"find":
 	{
@@ -748,6 +765,22 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"'Run",
+			"Run",
+			"Step",
+			"-100",
+			"\t",
+			"=",
+			"Current",
+			"        ",
+			"       ",
+			"      ",
+			"     ",
+			"    ",
+			"1",
+			"rstride",
+			"figure",
+			"mesh",
 			"set_trace",
 			"return",
 			">",
@@ -859,23 +892,7 @@
 			"loadScript_saveFlagResampledDataCSV",
 			"P3-J17-03-BT0188\\01_TDMS_data_Set-complete\\01_RAW\\Zwick data",
 			"01_TDMS_data_Set-complete\\01_RAW\\Zwick data",
-			"Run_1_Messwerte",
-			"yes",
-			"set_trace",
-			"round",
-			"fileName",
-			"var",
-			"fileName2",
-			"ValueError",
-			"csvFolder",
-			"'possible values: True or False",
-			"pass",
-			"& \"\\\"",
-			"Messwerte",
-			"load:",
-			"load",
-			"time_offset",
-			"\"01\""
+			"Run_1_Messwerte"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -895,7 +912,7 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -904,15 +921,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 61158,
+						"buffer_size": 61159,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								37314,
-								37314
+								57128,
+								57128
 							]
 						],
 						"settings":
@@ -923,10 +940,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 14125.0,
+						"translation.y": 20625.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -942,8 +959,8 @@
 						"selection":
 						[
 							[
-								157,
-								157
+								2755,
+								2321
 							]
 						],
 						"settings":
@@ -953,7 +970,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 39.0,
+						"translation.y": 78.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 4,
@@ -965,15 +982,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5795,
+						"buffer_size": 7485,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4509,
-								4509
+								6189,
+								6189
 							]
 						],
 						"settings":
@@ -983,16 +1000,16 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2379.0,
+						"translation.y": 2002.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 5,
 					"type": "text"
 				}
 			]
 		},
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -1001,15 +1018,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5795,
+						"buffer_size": 7485,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1361,
-								1361
+								1482,
+								1482
 							]
 						],
 						"settings":
@@ -1022,7 +1039,7 @@
 						"translation.y": 429.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -1038,8 +1055,8 @@
 						"selection":
 						[
 							[
-								14187,
-								14187
+								22565,
+								22565
 							]
 						],
 						"settings":
@@ -1048,10 +1065,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 5031.0,
+						"translation.y": 5974.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
@@ -1126,15 +1143,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 61158,
+						"buffer_size": 61159,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								224,
-								58
+								3477,
+								3477
 							]
 						],
 						"settings":
@@ -1145,10 +1162,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 702.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 3,
 					"type": "text"
 				}
 			]
@@ -1199,7 +1216,7 @@
 		"cols":
 		[
 			0.0,
-			0.606182477326,
+			0.419152946347,
 			1.0
 		],
 		"rows":
@@ -1252,7 +1269,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 3,
+	"selected_group": 1,
 	"settings":
 	{
 	},
@@ -1260,7 +1277,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 193.0,
+	"side_bar_width": 455.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

@@ -3,6 +3,8 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from scipy import interpolate
 import matplotlib as mpl
+from matplotlib import cm
+from matplotlib.ticker import LinearLocator, FormatStrFormatter
 
 import pdb #pdb.set_trace()
 
@@ -55,10 +57,14 @@ def getRandAngle(x, y):
     if xSignFlag and not ySignFlag:
         return r, 270 + (90 - aTanDeg)
 
+def normalizeFn(interpolatedValue, rangeValues, middlePoint):
+    
+    return (2.0 * (interpolatedValue - middlePoint)) / rangeValues
+
 file = open('blade.csv', 'r')
 lines = file.readlines()
 
-skipLines, azimuths, valuesLines, zeniths = 4, [], [], []
+skipLines, azimuths, valuesLines, zeniths, maxCurrent, minCurrent = 4, [], [], [], 0.0, 0.0
 
 for r in lines[1].split(';'):
 	if cleanString(r) != '':
@@ -66,13 +72,18 @@ for r in lines[1].split(';'):
 
 for line in lines[skipLines:]:
 
-	line0 = line.split(';')
+    line0 = line.split(';')
 
-	valuesLine = [float(cleanString(t)) for t in line0[:-1]]
+    valuesLine = [float(cleanString(t)) for t in line0[:-1]]
 
-	azimuths += [float(cleanString(line0[-1]))]
+    azimuths += [float(cleanString(line0[-1]))]
 
-	valuesLines += [valuesLine]
+    if max(valuesLine) > maxCurrent:
+        maxCurrent = max(valuesLine)
+    elif min(valuesLine) < minCurrent:
+        minCurrent = min(valuesLine)
+
+    valuesLines += [valuesLine]
 
 file.close()
 
@@ -134,16 +145,29 @@ values4Mat = values4Mat + np.tril(np.full_like(values4Mat, np.nan), -1) + np.tri
 valuesTotal1 = np.hstack((values1Mat, values2Mat))
 valuesTotal2 = np.hstack((values4Mat, values3Mat))
 
-valuesTotal = np.vstack((valuesTotal1, valuesTotal2))
+valuesTotalBig = np.vstack((valuesTotal1, valuesTotal2))
 
 xtotal = x1 + x2 
 ytotal = y1 + y3 
-x_mesh, y_mesh = np.meshgrid(xtotal, ytotal)
-# x_mesh_short, y_mesh_short = np.meshgrid(x1, y1) #short version
+x_mesh_big, y_mesh_big = np.meshgrid(xtotal, ytotal)
+x_mesh_short, y_mesh_short = np.meshgrid(x1, y1) #short version
 
+
+
+# Results
+
+# x_mesh, y_mesh = x_mesh_big, y_mesh_big
+x_mesh, y_mesh = x_mesh_short, y_mesh_short
+# valuesTotal = valuesTotalBig
+valuesTotal = values1Mat
 # Interpolate
 f_interpolate = interpolate.interp2d(zeniths, azimuths, valuesLines, kind = 'cubic', copy = True, bounds_error = False, fill_value = np.nan)
 
+#Normalize
+rangeValues = maxCurrent - minCurrent
+middlePoint = minCurrent + (rangeValues/2.0)
+
+# pdb.set_trace()
 # iterate x and y matrix
 it = np.nditer(x_mesh, flags = ['multi_index'])
 while not it.finished:
@@ -151,13 +175,15 @@ while not it.finished:
     #it.multi_index is tuple, rows and columns
 
     if it.multi_index[1] != it.multi_index[0]: #off-diagonal values
+        print('{}, {}'.format(it.multi_index[0], it.multi_index[1]))
         x_current = float(it[0])
         y_current = y_mesh[it.multi_index[0], it.multi_index[1]]
 
         get_r, get_angle = getRandAngle(x_current, y_current)
 
         interpolatedValue = f_interpolate(get_r, get_angle)
-        valuesTotal[it.multi_index[0], it.multi_index[1]] = interpolatedValue
+        # valuesTotal[it.multi_index[0], it.multi_index[1]] = interpolatedValue
+        valuesTotal[it.multi_index[0], it.multi_index[1]] = normalizeFn(interpolatedValue, rangeValues, middlePoint)
     
     it.iternext()
 
@@ -167,7 +193,6 @@ while not it.finished:
 # plt.register_cmap(cmap='seismic')
 # cmap_current = mpl.colors.Colormap('seismic', N=256)
 # cont = ax.contourf(theta, r, values, cmap=cmap_current
-# norm=SqueezedNorm(vmin=-800, vmax=600, mid=0, s1=1.7, s2=4)
 # cont = ax.contourf(theta, r, values, cmap="Spectral_r", norm=norm, aspect="auto")
 # pene = plt.get_cmap('seismic')
 # cont = ax.contourf(theta, r, values, cmap=plt.get_cmap('seismic'), interpolation='nearest', alpha = 1)
@@ -176,9 +201,28 @@ while not it.finished:
 # plt.colorbar(cont)
 
 fig = plt.figure()
+fig.set_size_inches(16, 10, forward=True)
 ax = fig.add_subplot(111, projection='3d')
-ax.plot_surface(x_mesh, y_mesh, valuesTotal, rstride=1, cstride=1, cmap='seismic', edgecolor='none')
+# ax.plot_surface(x_mesh, y_mesh, valuesTotal, rstride=1, cstride=1, cmap='seismic', edgecolor='none')
+# customNorm=SqueezedNorm(vmin=-800, vmax=600, mid=0, s1=1.7, s2=4)
+# surf = ax.plot_surface(x_mesh, y_mesh, valuesTotal, 
+#                 rstride=10, cstride=10, norm = customNorm, 
+#                 cmap=cm.coolwarm, linewidth=0, antialiased=False, aspect="auto")#'seismic'
+                # aspect="auto",#norm=norm, 
+                # antialiased=False, edgecolor='none')
 # ax.plot_surface(x_mesh_short, y_mesh_short, values1Mat, rstride=1, cstride=1, cmap='seismic', edgecolor='none')
+
+# normCustom=SqueezedNorm(vmin=-800, vmax=600, mid=0, s1=1.7, s2=4)
+# Plot the surface.
+surf = ax.plot_surface(x_mesh, y_mesh, valuesTotal, cmap=cm.coolwarm, rstride=1, cstride=1,
+                       linewidth=0, antialiased=False)
+
+# Customize the z axis.
+ax.set_zlim(minCurrent, maxCurrent)
+ax.zaxis.set_major_locator(LinearLocator(10))
+ax.zaxis.set_major_formatter(FormatStrFormatter('%.02f'))
+
+fig.colorbar(surf, shrink=0.5, aspect=5)
 
 ax.set_title('Blade flapping moment')
 

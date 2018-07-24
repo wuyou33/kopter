@@ -1048,7 +1048,7 @@ class dataFromGaugesSingleMagnitudeClass(object):
 			ax.plot(2*[div], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
 
 			#Add text with step number
-			ax.text(previousDiv + ((div - previousDiv)/2), minPlot_y, 'Run '+str(self.__stepID[i]), bbox=dict(facecolor='black', alpha=0.2), horizontalalignment = 'center')
+			ax.text(previousDiv + ((div - previousDiv)/2), minPlot_y, 'Step '+str(self.__stepID[i]), bbox=dict(facecolor='black', alpha=0.2), horizontalalignment = 'center')
 			
 			previousDiv = div
 			i += 1
