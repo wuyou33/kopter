@@ -1,5 +1,8 @@
--> Folders to load:
-L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0159\06_Dat_Analysis
+-> Folders to load
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0159\06_Dat_Analysis\1000Hz
+
+-> Test info
+test freq: 2
 
 -> Variable info
 name: BoosterLinklong
@@ -98,20 +101,38 @@ TO spec: no
 Fatigue load spec: no
 
 -> Variable info
+name: ConnRodblue
+y-label: Force [N]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: ConnRodgold
+y-label: Force [N]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: ConnRodblack
+y-label: Force [N]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
 name: COLLPosition
-y-label: UnkownDimension
+y-label: Displacement [m]
 TO spec: no
 Fatigue load spec: no
 
 -> Variable info
 name: LONGPosition
-y-label: UnkownDimension
+y-label: Displacement [m]
 TO spec: no
 Fatigue load spec: no
 
 -> Variable info
 name: LATPosition
-y-label: UnkownDimension
+y-label: Displacement [m]
 TO spec: no
 Fatigue load spec: no
 

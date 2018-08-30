@@ -13,8 +13,9 @@ Call Data.Root.Clear()
 ' enter test name for file naming
 
 ' Where to save the csv files exported
-dirSave="P:\12_flightTestData\P2-J17-01-FT0102\data\" 'TR blade holder'
-fileLoad = "E:\FTI\ProcData\SKYeSH09\P2\J17-01-Flight Tests\P2-J17-01-FT0102\FTI\fti_2018-01-25_084649\fti_2018-01-25_084649_pp.tdms"
+dirSave="P:\12_flightTestData\P2-J17-01-FT0106\data\" 'TR blade holder'
+' fileLoad = "E:\FTI\ProcData\SKYeSH09\P2\J17-01-Flight Tests\P2-J17-01-FT0102\FTI\fti_2018-01-25_084649\fti_2018-01-25_084649_pp.tdms"
+fileLoad = "E:\FTI\ProcData\SKYeSH09\P2\J17-01-Flight Tests\P2-J17-01-FT0106\FTI\fti_2018-01-30_084242\fti_2018-01-30_084242_pp.tdms"
 newFreqNonSIDsignal = 1000
 newFreqSIDsignal = 500
 Call DataFileLoad(fileLoad,"")
@@ -34,7 +35,8 @@ signalsForSIDdiff = Array("CNT_DST_BST_LNG", "CNT_DST_BST_LAT", "CNT_DST_BST_COL
 '                         )
                         
 ' dictOfData.Add GroupIndexGet("Signals"), Array("CNT_DST_BST_LNG", "CNT_DST_BST_LAT", "CNT_DST_BST_COL")
-dictOfData.Add GroupIndexGet("Signals"), Array("CNT_DST_LNG", "CNT_DST_LAT", "CNT_DST_COL")
+' dictOfData.Add GroupIndexGet("Signals"), Array("CNT_DST_LNG", "CNT_DST_LAT", "CNT_DST_COL")
+dictOfData.Add GroupIndexGet("Signals"), Array("CNT_FRC_BST_LNG", "CNT_FRC_BST_COL", "CNT_FRC_BST_LAT")
 
 ' dictOfData.Add GroupIndexGet("ARINC"), Array("ENG_ARI_FAD_ARR_NR", "ENG_ARI_FAD_DST_CP") 'Variables ARINC'
 
@@ -44,9 +46,9 @@ dictOfData.Add GroupIndexGet("Signals"), Array("CNT_DST_LNG", "CNT_DST_LAT", "CN
 '                         "VRU_ANG_PHI", "VRU_ANG_THETA", "VRU_ANG_PSI") 'variables VRU
 
 ' OFFSET CORRECTIOn
-Call ChnOffset("[" & GroupIndexGet("Signals") &"]/"&"CNT_DST_BST_LNG","[" & GroupIndexGet("Signals") &"]/"&"CNT_DST_BST_LNG",-100,"free offset")
-Call ChnOffset("[" & GroupIndexGet("Signals") &"]/"&"CNT_DST_BST_LAT","[" & GroupIndexGet("Signals") &"]/"&"CNT_DST_BST_LAT",-100,"free offset")
-Call ChnOffset("[" & GroupIndexGet("Signals") &"]/"&"CNT_DST_BST_COL","[" & GroupIndexGet("Signals") &"]/"&"CNT_DST_BST_COL",-100,"free offset")
+Call ChnOffset("[" & GroupIndexGet("Signals") &"]/"&"CNT_DST_BST_LNG","[" & GroupIndexGet("Signals") &"]/"&"CNT_DST_BST_LNG",-101.875,"free offset")
+Call ChnOffset("[" & GroupIndexGet("Signals") &"]/"&"CNT_DST_BST_LAT","[" & GroupIndexGet("Signals") &"]/"&"CNT_DST_BST_LAT",-87.385,"free offset")
+Call ChnOffset("[" & GroupIndexGet("Signals") &"]/"&"CNT_DST_BST_COL","[" & GroupIndexGet("Signals") &"]/"&"CNT_DST_BST_COL",-106.725,"free offset")
 
 For Each id_group in dictOfData.Keys
 

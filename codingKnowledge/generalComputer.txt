@@ -1,0 +1,2 @@
+Modify path
+setx /M PATH "C:\Program Files\ffmpeg\bin;%PATH%"

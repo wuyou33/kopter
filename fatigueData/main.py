@@ -2,6 +2,7 @@ import os
 import sys
 import pdb #pdb.set_trace()
 import getopt
+import shutil
 
 from moduleFunctions import *
 
@@ -23,6 +24,12 @@ CMDoptionsDict['cwd'] = cwd
 
 #Read postProc folder name from CMD
 CMDoptionsDict = readCMDoptionsMainAbaqusParametric(sys.argv[1:], CMDoptionsDict)
+
+#Write output data
+if CMDoptionsDict['writeStepResultsToFileFlag']:
+	CMDoptionsDict['stepsSummaryResultsFolder'] = os.path.join(CMDoptionsDict['cwd'],'stepsSummaryResults')
+	if not os.path.isdir(CMDoptionsDict['stepsSummaryResultsFolder']):
+		os.mkdir(CMDoptionsDict['stepsSummaryResultsFolder'])
 
 # What to do?
 gaugesFlag = CMDoptionsDict['dmsFlag']
@@ -56,29 +63,42 @@ if gaugesFlag:
 			os.chdir(folderName)
 			listOfFilesInFolderMathingVar = []
 			for fileName2 in os.listdir(folderName):
-				if magComplex[2:]:
-					if fileName2.startswith(mag) and float(fileName2.split('.csv')[0].split('__')[-1]) in CMDoptionsDict['rangeFileIDs'] and fileName2.split('__')[-2][:-2] == additionalMag:
-						listOfFilesInFolderMathingVar += [fileName2]
-				else:
-					if fileName2.startswith(mag) and float(fileName2.split('.csv')[0].split('__')[-1]) in CMDoptionsDict['rangeFileIDs']:
-						listOfFilesInFolderMathingVar += [fileName2]
+				if fileName2.endswith('.csv'): #Take only .csv files
+					if magComplex[2:]:
+						if fileName2.startswith(mag) and float(fileName2.split('.csv')[0].split('__')[-1]) in CMDoptionsDict['rangeFileIDs'] and fileName2.split('__')[-2][:-2] == additionalMag:
+							listOfFilesInFolderMathingVar += [fileName2]
+					else:
+						if fileName2.startswith(mag) and float(fileName2.split('.csv')[0].split('__')[-1]) in CMDoptionsDict['rangeFileIDs']:
+							listOfFilesInFolderMathingVar += [fileName2]
 
 			listOfFilesSortedInFolder = sortFilesInFolderByLastNumberInName(listOfFilesInFolderMathingVar, CMDoptionsDict)
 
-			# pdb.set_trace()
 			for dataClass in dataClasses: #For each class variable
+
+				#Create summmary file
+				if CMDoptionsDict['writeStepResultsToFileFlag']:
+					# pdb.set_trace()
+					fileOutComeSummaryForVarAndMag = open(os.path.join(CMDoptionsDict['stepsSummaryResultsFolder'], mag+'__'+var+'.csv'), 'w')
+				else:
+					fileOutComeSummaryForVarAndMag = []
+
+				#Main inner loop
 				print('\n'+'---> Importing data for variable: ' + dataClass.get_description() + ', '+mag+ ' values')
 					
 				for fileName in listOfFilesSortedInFolder: #For each file matching the criteria
 
-					# pdb.set_trace()
 					if dataClass.get_description() in fileName.split('__')[1] and fileName.split('__')[1] in dataClass.get_description(): #Restring to only file matching type of variable of class
 
 						print('\n'+'-> Reading: ' + fileName)
-						dataClass.importDataForClass(fileName, mag, CMDoptionsDict)
-
+						dataClass.importDataForClass(fileName, mag, CMDoptionsDict, fileOutComeSummaryForVarAndMag)
 
 				#Here dataClass has collected the full data for a variable and magnitude
+				
+				#Clsoe  data summary to file
+				if CMDoptionsDict['writeStepResultsToFileFlag']:
+					fileOutComeSummaryForVarAndMag.close()
+				
+				#Time operations				
 				if mag in ('hp', 'lp'):
 					dataClass.getTimeList('rs')
 				else:

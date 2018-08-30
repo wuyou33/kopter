@@ -13,7 +13,7 @@ cwd = os.getcwd()
 CMDoptionsDict['cwd'] = cwd
 
 #Read postProc folder name from CMD
-CMDoptionsDict = readCMDoptionsMainAbaqusParametric(sys.argv[1:], CMDoptionsDict)
+CMDoptionsDict = readCMDoptions(sys.argv[1:], CMDoptionsDict)
 
 #Import FTI variables definitions, hard code input data
 CMDoptionsDict = importFTIdefFile(CMDoptionsDict['inputFile'], CMDoptionsDict)

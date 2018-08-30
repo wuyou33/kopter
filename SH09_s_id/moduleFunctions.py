@@ -39,7 +39,7 @@ def importPlottingOptions():
 
 	return plotSettings
 
-def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
+def readCMDoptions(argv, CMDoptionsDict):
 
 	short_opts = "f:" #"o:f:"
 	long_opts = ["inputFile="] #["option=","fileName="]
@@ -313,7 +313,7 @@ class testClassDef(object):
 				k, interval_k, T, interval_T, timeDelayLow = identifyOuterLoop(inputClass, outputClass, segmentID, standardRegressorsFlag, delayFlag)
 
 			else: #Time delay optimization
-				timeDelaysLowVector = np.arange(-0.08, 0.0, 0.01)
+				timeDelaysLowVector = np.arange(-0.08, 0.0, 0.006)
 				intervals_T, intervals_k = [], []
 
 				for currentTimeDelaysLowVector in timeDelaysLowVector:
@@ -336,8 +336,7 @@ class testClassDef(object):
 				# Optimization plot
 				figure, ax = plt.subplots(1, 1)
 				figure.set_size_inches(10, 8, forward=True)
-				figure.suptitle(str(segmentID+1)+' sub-set, '+str(inputClass.timeSegments[segmentID][0])+'s to '+str(inputClass.timeSegments[segmentID][-1])+'s  /  k :'+str(round(float(k),2))+'$\pm$'+str(round(float(interval_k),3))+', T :'+str(round(float(T),2))+'$\pm$'+str(round(float(interval_T),3))+'s', **plotSettings['figure_title'])
-				ax.plot(timeDelaysLowVector, intervals_k, linestyle = '-', marker = 'o', c = plotSettings['colors'][0], label = '$\pm \Delta k/2$', **plotSettings['line'])
+				figure.suptitle(str(segmentID+1)+' sub-set, '+str(inputClass.timeSegments[segmentID][0])+'s to '+str(inputClass.timeSegments[segmentID][-1])+' s', **plotSettings['figure_title']) #  /  k :'+str(round(float(k),2))+'$\pm$'+str(round(float(interval_k),3))+', T :'+str(round(float(T),2))+'$\pm$'+str(round(float(interval_T),3))+'s'
 				ax.plot(timeDelaysLowVector, intervals_T, linestyle = '-', marker = 'o', c = plotSettings['colors'][1], label = '$\pm \Delta T/2$', **plotSettings['line'])
 				ax.set_ylabel('$\pm \Delta/2$', **plotSettings['axes_y'])
 				ax.set_xlabel('Time delay $\\tau_{input} $ [seconds]', **plotSettings['axes_x'])
@@ -349,7 +348,7 @@ class testClassDef(object):
 				indexMinError_k = intervals_k.index(min(intervals_k))
 				indexMinError_T = intervals_T.index(min(intervals_T))
 				if not indexMinError_k == indexMinError_T:
-					indexMinError = int(min([indexMinError_k, indexMinError_T]) + abs(indexMinError_k - indexMinError_T)/2)
+					indexMinError = int(min([indexMinError_k, indexMinError_T]) + (abs(indexMinError_k - indexMinError_T)/2))
 				else:
 					indexMinError = indexMinError_k
 				finalTimeDelay = timeDelaysLowVector[indexMinError]
@@ -624,8 +623,8 @@ class testClassDef(object):
 							'_x10' : ['$x_{1,t=0}$ [mm]', 'Initial value piston displ.'],
 							'_fInput' : ['$f_{pilot}$ [Hz]', 'Pilot input freq.'],
 							'_force' : ['$\\bar{F}$ [N]', 'Mean booster link force'],
-							'_delta' : ['$\pm \Delta/2$', 'Parameter estimation 95\% conf. interval'],
-							'_deltaU' : ['$\Delta u$ [mm]', 'Increment of pilot input']}
+							'_delta' : ['$\pm \Delta/2$', 'Parameter est. 95\% conf. interval'],
+							'_deltaU' : ['$\Delta u$ [%]', 'Increment of pilot input']}
 
 		axsDict['T_u0'].set_ylabel('Time constant, $T$ [s]', **plotSettings['axes_y'])
 		axsDict['k_u0'].set_ylabel('Gain, $k$', **plotSettings['axes_y'])

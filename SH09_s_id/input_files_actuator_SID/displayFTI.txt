@@ -1,0 +1,11 @@
+-> flightTestInfo:
+folderFTdata:: P:\12_flightTestData\P2-J17-01-FT0106\data\
+data_samplingFreq:: 1000
+nFrames:: 50
+startTime:: 0.0
+lat_limits_2sys:: -1400,1400
+lng_limits_2sys:: -1400,1400
+col_limits_2sys:: -2474,3078
+lat_limits_1sys:: -700,700
+lng_limits_1sys:: -700,700
+col_limits_1sys:: -1237,1539

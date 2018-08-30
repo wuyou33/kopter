@@ -2,10 +2,10 @@ Set oFSO = CreateObject("Scripting.FileSystemObject")
 Set dictVaDiadem = CreateObject("Scripting.Dictionary")
 
 ' Where the raw data will be saved in "TMD" format
-workingFolder = "L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0159\06_Dat_Analysis\"
+workingFolder = "L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0159\06_Dat_Analysis\1000Hz\"
 
 ' Where the data will be saved in csv format
-csvFolder = "L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0159\06_Dat_Analysis\"
+csvFolder = "L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0159\06_Dat_Analysis\1000Hz\"
 
 
 ' These are the folders where the data that wants to be imported is contained. Each folder correspond to a differt time step
@@ -43,8 +43,8 @@ fileNamesBigArrayFolders = Array( _
 
 ' The variable iterators is used to load and operate only selected steps from above
 ' iterators = Array("1312")
-' iterators = Array("01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28")
-iterators = Array("08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28")
+iterators = Array("01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28")
+' iterators = Array("08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28")
 ' iterators = Array("08")
 
 ' variable names inside DIAdem -> variable names for the files to be saved
@@ -57,24 +57,24 @@ iterators = Array("08","09","10","11","12","13","14","15","16","17","18","19","2
 ' dictVaDiadem.Add "Mischh_Kollektiv", "LeverColl"
 ' dictVaDiadem.Add "Mischh_Laengs", "LeverLong"
 ' dictVaDiadem.Add "Mischh_seitlich", "LeverLat"
-' dictVaDiadem.Add "Steer_Rod blue", "SteerRodblue"
-' dictVaDiadem.Add "Steer_Rod gold", "SteerRodgold"
-' dictVaDiadem.Add "Steer_Rod black", "SteerRodblack"
-' dictVaDiadem.Add "Booster Link long", "BoosterLinklong"
-' dictVaDiadem.Add "Booster Link col", "BoosterLinkcol"
-' dictVaDiadem.Add "Booster Link lat", "BoosterLinklat"
-dictVaDiadem.Add "Holder right", "HolderRight"
+' dictVaDiadem.Add "Steer_Rod blue", "ConnRodblue"
+' dictVaDiadem.Add "Steer_Rod gold", "ConnRodgold"
+' dictVaDiadem.Add "Steer_Rod black", "ConnRodblack"
+dictVaDiadem.Add "Booster Link long", "BoosterLinklong"
+dictVaDiadem.Add "Booster Link col", "BoosterLinkcol"
+dictVaDiadem.Add "Booster Link lat", "BoosterLinklat"
+' dictVaDiadem.Add "Holder right", "HolderRight"
 ' dictVaDiadem.Add "COLL_Position", "COLLPosition"
 ' dictVaDiadem.Add "LONG_Position", "LONGPosition"
 ' dictVaDiadem.Add "LAT_Position", "LATPosition"
 ' dictVaDiadem.Add "Zykluszaehler Fatigue (MU)", "NumberCycles"
 
-newFreq = 200 'Hz'
+newFreq = 1000 'Hz'
 
 loadScript_resampleFlag = True
 loadScript_saveFlagResampledDataCSV = True 'possible values: True or False
 loadScript_saveAllDataFlagPerStep = False 'possible values: True or False
-loadScript_saveFlagResampledDataTDM = False 'possible values: True or False
+loadScript_saveFlagResampledDataTDM = True 'possible values: True or False
 
 ' Post-processing
 fileNameWithoutIterator_pre = "resampled"
@@ -89,7 +89,7 @@ importDataFlag = True
 FlagFTTData = False
 
 FlagFilteredData = True
-FlagHighPass = True 'False if low pass'
+FlagHighPass = False 'False if low pass'
 
 FlagMaxMinMeanData = False
 
