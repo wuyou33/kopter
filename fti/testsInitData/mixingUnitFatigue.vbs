@@ -59,10 +59,10 @@ iterators = Array("01","02","03","04","05","06","07","08","09","10","11","12","1
 ' dictVaDiadem.Add "Mischh_seitlich", "LeverLat"
 ' dictVaDiadem.Add "Steer_Rod blue", "ConnRodblue"
 ' dictVaDiadem.Add "Steer_Rod gold", "ConnRodgold"
-' dictVaDiadem.Add "Steer_Rod black", "ConnRodblack"
-dictVaDiadem.Add "Booster Link long", "BoosterLinklong"
-dictVaDiadem.Add "Booster Link col", "BoosterLinkcol"
-dictVaDiadem.Add "Booster Link lat", "BoosterLinklat"
+dictVaDiadem.Add "Steer_Rod black", "ConnRodblack"
+' dictVaDiadem.Add "Booster Link long", "BoosterLinklong"
+' dictVaDiadem.Add "Booster Link col", "BoosterLinkcol"
+' dictVaDiadem.Add "Booster Link lat", "BoosterLinklat"
 ' dictVaDiadem.Add "Holder right", "HolderRight"
 ' dictVaDiadem.Add "COLL_Position", "COLLPosition"
 ' dictVaDiadem.Add "LONG_Position", "LONGPosition"
@@ -89,7 +89,7 @@ importDataFlag = True
 FlagFTTData = False
 
 FlagFilteredData = True
-FlagHighPass = False 'False if low pass'
+FlagHighPass = True 'False if low pass'
 
 FlagMaxMinMeanData = False
 
