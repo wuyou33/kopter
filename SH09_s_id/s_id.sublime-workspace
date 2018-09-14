@@ -4,6 +4,78 @@
 		"selected_items":
 		[
 			[
+				"dis",
+				"distanceVar"
+			],
+			[
+				"el",
+				"elif"
+			],
+			[
+				"he",
+				"headersDict"
+			],
+			[
+				"time",
+				"times_min"
+			],
+			[
+				"min",
+				"times_min"
+			],
+			[
+				"bools",
+				"boolsMin"
+			],
+			[
+				"value",
+				"value"
+			],
+			[
+				"all",
+				"all_range"
+			],
+			[
+				"vec",
+				"vector_of_index"
+			],
+			[
+				"chec",
+				"checkPick"
+			],
+			[
+				"valu",
+				"value"
+			],
+			[
+				"list_",
+				"list_min_pairs"
+			],
+			[
+				"index_",
+				"index_max_cycle"
+			],
+			[
+				"number",
+				"numberPointsCycle"
+			],
+			[
+				"index_ma",
+				"index_max_pick"
+			],
+			[
+				"data",
+				"data_fn"
+			],
+			[
+				"var",
+				"var"
+			],
+			[
+				"varCla",
+				"varClassesDict"
+			],
+			[
 				"anima",
 				"animation"
 			],
@@ -30,10 +102,6 @@
 			[
 				"tem",
 				"tempCMDDict"
-			],
-			[
-				"time",
-				"timeDelay"
 			],
 			[
 				"op",
@@ -100,10 +168,6 @@
 				"differenceFirstAndLastValues"
 			],
 			[
-				"data",
-				"dataSegment"
-			],
-			[
 				"ti",
 				"timeSegmentList"
 			],
@@ -134,10 +198,6 @@
 			[
 				"mea",
 				"mean_v"
-			],
-			[
-				"el",
-				"else"
 			],
 			[
 				"delt",
@@ -228,16 +288,8 @@
 				"dataSegment"
 			],
 			[
-				"var",
-				"varClass"
-			],
-			[
 				"segm",
 				"segmentID"
-			],
-			[
-				"varCla",
-				"varClasses"
 			],
 			[
 				"varClas",
@@ -258,10 +310,6 @@
 			[
 				"sec",
 				"sectionIndex"
-			],
-			[
-				"value",
-				"valueLine"
 			],
 			[
 				"dat",
@@ -372,10 +420,6 @@
 				"dist_flight"
 			],
 			[
-				"dis",
-				"dist_ground"
-			],
-			[
 				"tra",
 				"track_B_3"
 			],
@@ -401,7 +445,7 @@
 			"file": "moduleFunctions.py",
 			"settings":
 			{
-				"buffer_size": 48747,
+				"buffer_size": 56970,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -416,28 +460,29 @@
 			}
 		},
 		{
-			"file": "input_files_actuator_SID/fti_variables_info-delay-optDeltaT.txt",
+			"file": "dynamicActuatorScript.py",
 			"settings":
 			{
-				"buffer_size": 1880,
+				"buffer_size": 1456,
+				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "input_files_actuator_SID/displayFTI.txt",
+			"file": "input_files_flightTestAnalysis/analysisActuatorCavitation_32star.txt",
 			"settings":
 			{
-				"buffer_size": 302,
+				"buffer_size": 201,
 				"encoding": "UTF-8",
-				"line_ending": "Windows",
-				"name": "-> flightTestInfo:"
+				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/P/12_flightTestData/P2-J17-01-FT0106/data/CNT_FRC_BST_COL.csv",
+			"file": "input_files_flightTestAnalysis/analysisActuatorCavitation_32.txt",
 			"settings":
 			{
-				"buffer_size": 0,
+				"buffer_size": 229,
+				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		}
@@ -485,11 +530,15 @@
 		"/P/kopter",
 		"/P/kopter/codingKnowledge",
 		"/P/kopter/fatigueData",
+		"/P/kopter/SH09_s_id",
 		"/P/kopter/tolerances",
 		"/P/10_code/abaqus-master/abaqus-master"
 	],
 	"file_history":
 	[
+		"/P/12_flightTestData/P2-J17-01-FT0106/data/CNT_FRC_BST_COL.csv",
+		"/P/kopter/SH09_s_id/input_files_actuator_SID/fti_variables_info-delay-optDeltaT.txt",
+		"/P/kopter/SH09_s_id/input_files_actuator_SID/displayFTI.txt",
 		"/P/12_flightTestData/P2-J17-01-FT0102/data/CNT_FRC_BST_COL.csv",
 		"/P/kopter/codingKnowledge/generalComputer.txt",
 		"/P/kopter/SH09_s_id/moduleFunctions.py",
@@ -631,6 +680,88 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"colors",
+			"if '",
+			"Copy",
+			"var_press",
+			"10",
+			"14",
+			"8",
+			"sg",
+			"CMDrowsCounter)",
+			"CMDrowsCounter",
+			"printRowTable",
+			"8, CMDrowsCounter",
+			"'header1'",
+			"= [",
+			" [",
+			"=",
+			"Dict",
+			"pressure",
+			"traveel",
+			"printRowTable",
+			"4, CMDrowsCounter",
+			"0)",
+			"max",
+			"printRow",
+			"write",
+			"'header1'",
+			"printRowTable",
+			"'HYD_PRES_2_section'",
+			"'CNT_DST_BST_LNG_section'",
+			"sg",
+			"section",
+			"n_points",
+			"legend",
+			"[i]",
+			"i",
+			"Displacement instant",
+			"[0]",
+			"abs(times",
+			"abs(",
+			"varClassesDict",
+			"varClassesDict[var].list_max_pairs",
+			"times_",
+			"[0]",
+			"max",
+			"pairs",
+			"[1]",
+			"min",
+			"max",
+			"Max",
+			"int(0.25*numberPointsCycle)",
+			"[i]",
+			"data_fn",
+			"str",
+			"0",
+			"[0",
+			"list_max_pairs_index",
+			"max",
+			"min",
+			"max",
+			"print",
+			"set_size_inches",
+			"usualSettingsAX",
+			"dataSegment",
+			"a + ",
+			"dataSegment",
+			"index_max_pick",
+			"numberPointsCycle/2",
+			"round(",
+			"float",
+			"varClassesGetSegmentsDict",
+			"a +",
+			"time_fn",
+			"indexStartTime",
+			"numberPointsCycle",
+			"* (",
+			"self",
+			"+=",
+			"max",
+			"time",
+			"flightTestInfo",
+			"data",
+			"'",
 			"self",
 			"counterFrames",
 			"1400",
@@ -676,89 +807,7 @@
 			"axs[0]",
 			"interval_",
 			"k",
-			"optimizeTimeDelayLow",
-			"TimeDelayLowSegments",
-			"17",
-			"'Mean force (N)'",
-			"Mean force (N)",
-			"Pilot freq.",
-			"0.05",
-			".txt",
-			"0.06",
-			"06",
-			"folderResults:: P:\\12_flightTestData\\P2-J17-01-FT0102\\results",
-			"P:\\12_flightTestData\\P2-J17-01-FT0102\\results",
-			"write",
-			"0.06",
-			"6",
-			"3",
-			"=",
-			"Segments",
-			"delta",
-			"k",
-			"delta_T",
-			"delta_k",
-			"2",
-			"timeSegmentList",
-			"segment_calculationMode",
-			"%",
-			"error",
-			"biasFlag",
-			"=",
-			"dataSegments",
-			"=",
-			"Segments",
-			"+=",
-			"timeSegments",
-			"indexEndTime",
-			"indexStartTime",
-			"[i]",
-			"abs(",
-			"for ",
-			"ax.",
-			"ax",
-			"(self.",
-			"checkDeviation",
-			"inputInitialValues",
-			"dataInitialValues",
-			"differenceFirstAndLastValues",
-			"inputDifferenceFirstAndLastValues",
-			"[i]",
-			"i",
-			"surrentSegmentID",
-			"]",
-			"],",
-			"kSegments",
-			"k_",
-			"influenceParameters",
-			"keys",
-			"ax_T_freq",
-			"T_",
-			"'_",
-			"],",
-			"k_",
-			"axs",
-			"checkDeviation",
-			"''",
-			"axs",
-			"],",
-			"axs",
-			".plot",
-			"plot",
-			"\\delta",
-			"pdb.set_trace()",
-			"inputVelClass",
-			".legend",
-			"legend",
-			"round",
-			"varClassesDict",
-			"variablesToImport",
-			"printRowTable",
-			"2",
-			"handles",
-			"figure",
-			"[4]",
-			"axs[4]"
+			"optimizeTimeDelayLow"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -766,6 +815,7 @@
 		"regex": true,
 		"replace_history":
 		[
+			"'headerSID'",
 			"15",
 			"Pilot f.",
 			"Signal:",
@@ -796,8 +846,8 @@
 						"selection":
 						[
 							[
-								1141,
-								1141
+								1102,
+								1102
 							]
 						],
 						"settings":
@@ -807,10 +857,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 255.0,
+						"translation.y": 152.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
@@ -819,15 +869,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 48747,
+						"buffer_size": 56970,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								42092,
-								42092
+								51342,
+								51023
 							]
 						],
 						"settings":
@@ -836,10 +886,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 10390.0,
+						"translation.y": 13841.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -855,20 +905,56 @@
 						"selection":
 						[
 							[
-								1333,
-								1333
+								2457,
+								2457
 							]
 						],
 						"settings":
 						{
 							"spell_check": true,
-							"syntax": "Packages/Python/Python.sublime-syntax"
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 271.0,
+						"translation.y": 468.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 6,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 3,
+					"file": "dynamicActuatorScript.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1456,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								149,
+								149
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
 					"type": "text"
 				}
 			]
@@ -878,53 +964,53 @@
 			"sheets":
 			[
 				{
-					"buffer": 3,
-					"file": "input_files_actuator_SID/fti_variables_info-delay-optDeltaT.txt",
+					"buffer": 1,
+					"file": "moduleFunctions.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1880,
+						"buffer_size": 56970,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								927,
-								927
+								51568,
+								51568
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 49.0,
+						"translation.y": 14625.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
 					"buffer": 4,
-					"file": "input_files_actuator_SID/displayFTI.txt",
+					"file": "input_files_flightTestAnalysis/analysisActuatorCavitation_32star.txt",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 302,
+						"buffer_size": 201,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								272,
-								272
+								63,
+								76
 							]
 						],
 						"settings":
 						{
-							"auto_name": "-> flightTestInfo:",
 							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
@@ -936,19 +1022,19 @@
 				},
 				{
 					"buffer": 5,
-					"file": "/P/12_flightTestData/P2-J17-01-FT0106/data/CNT_FRC_BST_COL.csv",
+					"file": "input_files_flightTestAnalysis/analysisActuatorCavitation_32.txt",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 0,
+						"buffer_size": 229,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								211,
+								211
 							]
 						],
 						"settings":
@@ -959,7 +1045,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 5,
 					"type": "text"
 				}
 			]
@@ -974,50 +1060,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 48747,
+						"buffer_size": 56970,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4112,
-								4112
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1815.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 0,
-			"sheets":
-			[
-				{
-					"buffer": 1,
-					"file": "moduleFunctions.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 48747,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								5785,
-								5785
+								53175,
+								53175
 							]
 						],
 						"settings":
@@ -1027,10 +1078,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1774.0,
+						"translation.y": 14914.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 0,
 					"type": "text"
 				}
 			]
@@ -1076,13 +1127,13 @@
 		"cols":
 		[
 			0.0,
-			0.571779245182,
+			0.434723407619,
 			1.0
 		],
 		"rows":
 		[
 			0.0,
-			0.832420091323,
+			0.396803652966,
 			1.0
 		]
 	},
@@ -1129,7 +1180,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 0,
+	"selected_group": 3,
 	"settings":
 	{
 	},

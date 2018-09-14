@@ -22,7 +22,7 @@ def importPlottingOptions():
 	figure_text_title_properties = {'weight' : 'bold', 'size' : 14}
 	ax_text_title_properties = {'weight' : 'regular', 'size' : 12}
 	axes_ticks = {'labelsize' : 10}
-	line = {'linewidth' : 1.5, 'markersize' : 2}
+	line = {'linewidth' : 1.5, 'markersize' : 4}
 	scatter = {'linewidths' : 1.0}
 	legend = {'fontsize' : 10, 'loc' : 'best'}
 	grid = {'alpha' : 0.7}
@@ -58,6 +58,7 @@ def readCMDoptions(argv, CMDoptionsDict):
 			# postProcFolderName = arg
 
 			CMDoptionsDict['inputFile'] = arg
+
 
 	return CMDoptionsDict
 
@@ -298,7 +299,7 @@ class testClassDef(object):
 		else:
 			print('\n'+'* Identification results per segment (non-standardized regressors)')
 		
-		rowCounter = printRowTable('header1', 15, 1)
+		rowCounter = printRowTable('headerSID', 15, 1)
 
 		kSegments = []
 		TSegments = []
@@ -487,7 +488,7 @@ class testClassDef(object):
 		ax_T_freq = axs[1,0]
 
 		print('\n'+'* Influence of pilot input freq. for "constant" measured mean force, identification results')
-		rowCounter = printRowTable('header1', 15, 1)
+		rowCounter = printRowTable('headerSID', 15, 1)
 		
 		margin = float(CMDoptionsDict['flightTestInfo']['margin_force'])
 		characteristicForceSegmentChosen = []
@@ -538,7 +539,7 @@ class testClassDef(object):
 		doubl_y_ax_k_freq = usualSettingsAX(ax_k_freq, plotSettings)
 		#####################################
 		print('\n'+'* Influence of measured mean force for "constant" pilot input freq., identification results')
-		rowCounter = printRowTable('header1', 15, 1)
+		rowCounter = printRowTable('headerSID', 15, 1)
 		ax_k_force = axs[0,1]
 		ax_T_force = axs[1,1]
 
@@ -595,7 +596,7 @@ class testClassDef(object):
 
 		# CMD output
 		print('\n'+'* Parameter study, valid time segments:')
-		rowCounter = printRowTable('header1', 15, 1)
+		rowCounter = printRowTable('headerSID', 15, 1)
 
 		figure, axs = plt.subplots(3, 6, sharey='row', sharex='col')
 		figure.set_size_inches(18, 10, forward=True)
@@ -691,6 +692,36 @@ class ClassVariableDef(object):
 	def get_attr(self, attr_string):
 		
 		return getattr(self, attr_string)
+
+	def importDataWithTime(self, CMDoptionsDict):
+		"""
+		Method needed for "dynamicActuatorScript.py".
+		Load variables that contain time in the second row
+		"""
+		fileName = os.path.join(CMDoptionsDict['flightTestInfo']['folderFTdata'], self.name+'.csv')
+
+		file = open(fileName, 'r')
+		lines = file.readlines()
+
+		skipLines, data_proc, time_proc, n = 1, [], [], 0
+
+		for line in lines[skipLines:]:
+
+			cleanLine = cleanString(line)
+
+			try:
+				data_proc += [float(cleanLine.split('\t')[0])]
+				time_proc += [round(float(cleanLine.split('\t')[1]), 3)]
+			except ValueError as e:
+				print ('Error line: '+cleanLine+' in line '+str(n))
+				raise e
+
+			n += 1
+
+		self.data = data_proc
+		self.time = time_proc
+
+		file.close()
 
 	def importData(self, CMDoptionsDict, typeImport, varClassesGetSegmentsDict):
 
@@ -806,6 +837,8 @@ class ClassVariableDef(object):
 			self.time = time_proc
 			self.data = data_proc
 
+		file.close()
+
 	def convertToIncrement(self):
 
 		newDataSegments, initialValues, differenceFirstAndLastValues = [], [], []
@@ -845,7 +878,98 @@ class ClassVariableDef(object):
 		self.dataInitialValues_delay = initialValues
 		self.differenceFirstAndLastValues_delay = differenceFirstAndLastValues
 
+	def get_picks_and_travel(self, CMDoptionsDict):
+		"""
+		Method needed for "dynamicActuatorScript.py".
+		This function creates two new fields for the class which contains picks max and minimum and the their occurrence time
+
+		-> What to improve?
+		* The rounding in the import is not so nice, reduce precision
+		* To be able to work when the first pick is a maximum or a minimum
+		"""
+		def checkPick(index, vector_of_index, all_range):
+
+			value = all_range[index]
+			vector = []
+			for i in vector_of_index:
+				vector += [all_range[index+i], all_range[index-i]]
+
+			boolsMax = ()
+			for v in vector:
+				boolsMax += (value >= v, )
+
+			boolsMin = ()
+			for v in vector:
+				boolsMin += (value <= v, )
+
+			return boolsMax, boolsMin
+		
+		# Input parameters
+		freqPicks = float(CMDoptionsDict['flightTestInfo']['freqPicks']) #seconds-1
+		startTime = float(CMDoptionsDict['flightTestInfo']['startTimeSlope']) 
+		data_xStep = self.time[1] - self.time[0] #Seconds
+		numberPointsCycle = int(1 / (freqPicks * data_xStep))
+		time_fn = self.time
+		data_fn = self.data
+		indexStartTime = time_fn.index(startTime)
+
+		#Automatic search
+		CMDrowsCounter = printRowTable('headerPicks', 12, 1, 'headerPicks')
+		maxs, mins, index, skipN = [], [], indexStartTime, 0.0
+		list_max_pairs, list_min_pairs = [], []
+		for point in data_fn[indexStartTime:len(data_fn)-int(0.25*numberPointsCycle)]:
+			if skipN == 0.0:
+				boolsCheckMax, boolsCheckMin = checkPick(index, range(1 ,100), data_fn) #[1, 2, 5, 7, 10, 12, 15, 20, 30, 40, 50]
+				if all(boolsCheckMax):
+					list_max_pairs += [[time_fn[index], point]]
+					skipN = int(0.1 * numberPointsCycle)
+					CMDrowsCounter = printRowTable([len(list_max_pairs)+len(list_min_pairs), 'max', list_max_pairs[-1][0], list_max_pairs[-1][1]], 12, CMDrowsCounter, 'headerPicks')
+				elif all(boolsCheckMin):
+					list_min_pairs += [[time_fn[index], point]]
+					skipN = int(0.1 * numberPointsCycle)
+					CMDrowsCounter = printRowTable([len(list_max_pairs)+len(list_min_pairs), 'min', list_min_pairs[-1][0], list_min_pairs[-1][1]], 12, CMDrowsCounter, 'headerPicks')
+
+			index += 1
+
+			# Skip after pick found
+			if skipN != 0.0:
+				skipN -= 1.0
+
+		self.list_max_pairs = list_max_pairs
+		self.list_min_pairs = list_min_pairs
+
+		# Get travel
+		i = 0
+		travel = []
+		times_max = [t[0] for t in list_max_pairs]
+		times_min = [t[0] for t in list_min_pairs]
+		maxs = [t[1] for t in list_max_pairs]
+		mins = [t[1] for t in list_min_pairs]
+
+		if times_max[0] > times_max[0]: #If first point is a maximum
+			firstPickFlag = True
+		else:
+			firstPickFlag = False
+		
+		CMDrowsCounter = printRowTable('headerValuesBetweenPicks', 23, 1, 'headerValuesBetweenPicks')
+		for max_i, min_i in zip(maxs, mins):
+			if not i == 0 and firstPickFlag:
+				travel += [[abs(max_i-mins[i-1]), 1/abs(times_max[i]-times_min[i-1]), (times_max[i] + times_min[i-1])/2]]
+				CMDrowsCounter = printRowTable([tavel[-1][2], travel[-1][0], travel[-1][1]], 23, CMDrowsCounter, 'headerValuesBetweenPicks')
+			travel += [[abs(max_i-min_i), 1/abs(times_max[i]-times_min[i]), (times_max[i] + times_min[i])/2]]
+			CMDrowsCounter = printRowTable([travel[-1][2], travel[-1][0], travel[-1][1]], 23, CMDrowsCounter, 'headerValuesBetweenPicks')
+
+			i += 1
+
+		if len(maxs) != len(mins) and firstPickFlag: #Last point
+			travel += [[abs(maxs[-1]-mins[-1]), 1/abs(times_max[-1]-times_min[-1]), (times_max[-1] + times_min[-1])/2]]
+
+		self.travel = travel
+
 def importFTIdefFile(fileName_in, CMDoptionsDict):
+	"""
+	This function is used by displayFightTest script
+	"""
 
 	fileName = os.path.join(CMDoptionsDict['cwd'], fileName_in)
 
@@ -995,13 +1119,14 @@ def calculateSelfWeight(v):
 
 	return weightVector
 
-def printRowTable(listToPrint, widthCellUnits, rowCounter):
+def printRowTable(listToPrint, widthCellUnits, rowCounter, headerKey):
 
-	header1 = ['Segment', 't1 (s)', 't2 (s)', 'delta_t (s)', 'tau_input (s)','Mean F (N)', 'Pilot f. (Hz)', 'k', '+- delta_k','T (s)', '+- delta_T','u (t=0)','delta_u','x1 (t=0)']
-	
+	headersDict = {'headerSID' : ['Segment', 't1 (s)', 't2 (s)', 'delta_t (s)', 'tau_input (s)','Mean F (N)', 'Pilot f. (Hz)', 'k', '+- delta_k','T (s)', '+- delta_T','u (t=0)','delta_u','x1 (t=0)'], 
+					'headerPicks' : ['Pick number', 'Type', 'time', 'value'], 
+					'headerValuesBetweenPicks' : ['Time stamp', 'Travel pick to pick', 'Instant frequency (Hz)']}
+
 	if isinstance(listToPrint, str):
-		if listToPrint == 'header1':
-			listToPrint = header1
+		listToPrint = headersDict[listToPrint] 
 
 	for item in listToPrint:
 		if isinstance(item, float) or isinstance(item, int):
@@ -1011,7 +1136,7 @@ def printRowTable(listToPrint, widthCellUnits, rowCounter):
 	print('\n')
 
 	if rowCounter%10 == 0:
-		for item in header1:
+		for item in headersDict[headerKey]:
 			print(item.rjust(widthCellUnits), end="")
 		print('\n')
 
@@ -1042,3 +1167,58 @@ def writeIdentificationResults():
 		frame_i += 1
 
 	file.close()
+
+def plot_fti_measurements_cavitation(var_main, var_press, var_vel, varClassesDict, plotSettings):
+
+	figure, axs = plt.subplots(4, 1, sharex='col')
+	figure.set_size_inches(14, 10, forward=True)
+	ax = axs[0]
+	ax.plot(varClassesDict[var_main].time, varClassesDict[var_main].data, linestyle = '-', marker = '', c = plotSettings['colors'][0], label = var_main, **plotSettings['line'])
+	ax.plot([t[0] for t in varClassesDict[var_main].list_max_pairs], [t[1] for t in varClassesDict[var_main].list_max_pairs], linestyle = '-.', marker = 'o', c = plotSettings['colors'][1], label = 'Max', **plotSettings['line'])
+	ax.plot([t[0] for t in varClassesDict[var_main].list_min_pairs], [t[1] for t in varClassesDict[var_main].list_min_pairs], linestyle = '-.', marker = 'o', c = plotSettings['colors'][2], label = 'Min', **plotSettings['line'])
+	ax.set_ylabel('Piston displacement [mm]', **plotSettings['axes_y'])
+
+	ax.grid(which='both', **plotSettings['grid'])
+	ax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])
+	ax.minorticks_on()
+	#Double y-axis 
+	axdouble_in_y = ax.twinx()
+	axdouble_in_y.minorticks_on()
+	axdouble_in_y.plot([t[2] for t in varClassesDict[var_main].travel], [t[1] for t in varClassesDict[var_main].travel], linestyle = '-', marker = 'o', c = plotSettings['colors'][3], label = 'Freq.', **plotSettings['line'])
+	axdouble_in_y.set_ylabel('Displ. instant freq. [Hz]', **plotSettings['axes_x'])
+	handles_doubleAx_y = axdouble_in_y.get_legend_handles_labels()[0]
+	handles = ax.get_legend_handles_labels()[0]
+	ax.legend(handles = handles+handles_doubleAx_y, **plotSettings['legend'])
+
+
+	ax = axs[1]
+	ax.plot(varClassesDict[var_main].time, varClassesDict[var_main].data, linestyle = '-', marker = '', c = plotSettings['colors'][0], label = var_main, **plotSettings['line'])
+	ax.plot([t[0] for t in varClassesDict[var_main].list_max_pairs], [t[1] for t in varClassesDict[var_main].list_max_pairs], linestyle = '-.', marker = 'o', c = plotSettings['colors'][1], label = 'Max', **plotSettings['line'])
+	ax.plot([t[0] for t in varClassesDict[var_main].list_min_pairs], [t[1] for t in varClassesDict[var_main].list_min_pairs], linestyle = '-.', marker = 'o', c = plotSettings['colors'][2], label = 'Min', **plotSettings['line'])
+	ax.set_ylabel('Piston displacement [mm]', **plotSettings['axes_y'])
+
+	ax.grid(which='both', **plotSettings['grid'])
+	ax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])
+	ax.minorticks_on()
+	#Double y-axis 
+	axdouble_in_y = ax.twinx()
+	axdouble_in_y.minorticks_on()
+	axdouble_in_y.plot([t[2] for t in varClassesDict[var_main].travel], [t[0] for t in varClassesDict[var_main].travel], linestyle = '-', marker = 'o', c = plotSettings['colors'][3], label = 'Travel', **plotSettings['line'])
+	axdouble_in_y.set_ylabel('Displ. instant amplitude [mm]', **plotSettings['axes_x'])
+	handles_doubleAx_y = axdouble_in_y.get_legend_handles_labels()[0]
+	handles = ax.get_legend_handles_labels()[0]
+	ax.legend(handles = handles+handles_doubleAx_y, **plotSettings['legend'])
+
+	ax = axs[2]
+	ax.plot(varClassesDict[var_vel].time, varClassesDict[var_vel].data, linestyle = '-', marker = '', c = plotSettings['colors'][0], label = var_vel, **plotSettings['line'])
+	ax.set_ylabel('Piston velocity [mm/s]', **plotSettings['axes_y'])
+	ax.set_xlabel('Time [s]', **plotSettings['axes_x'])
+	ax.legend(**plotSettings['legend'])
+	usualSettingsAX(ax, plotSettings)
+
+	ax = axs[-1]
+	ax.plot(varClassesDict[var_press].time, varClassesDict[var_press].data, linestyle = '-', marker = '', c = plotSettings['colors'][0], label = var_press, **plotSettings['line'])
+	ax.set_ylabel('Hydraulic pressure HYD2 [bar]', **plotSettings['axes_y'])
+	ax.set_xlabel('Time [s]', **plotSettings['axes_x'])
+	ax.legend(**plotSettings['legend'])
+	usualSettingsAX(ax, plotSettings)

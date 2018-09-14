@@ -83,7 +83,8 @@ def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 
 		elif opt in ("-r", "--rangeFileIDs"):
 
-			CMDoptionsDict['rangeFileIDs'] = [int(t) for t in arg.split(',')]
+			# CMDoptionsDict['rangeFileIDs'] = [int(t) for t in arg.split(',')]
+			CMDoptionsDict['rangeFileIDs'] = arg.split(',')
 
 		elif opt in ("-a", "--additionalCals"):
 
@@ -127,8 +128,9 @@ def sortFilesInFolderByLastNumberInName(listOfFiles, CMDoptionsDict):
 	a = []
 	for file in listOfFiles:
 		if file.endswith('.csv'):
-			fileID_0 = file.split('.csv')[0]
-			fileID_int = int(fileID_0.split('__')[-1])
+			file_0 = file.split('.csv')[0]
+			fileID0_int = file_0.split('__')[-1]
+			fileID_int = int(fileID0_int.split('-')[0])
 			a += [(file, fileID_int),]
 
 	a_sorted = sorted(a, key=lambda x: x[1])
@@ -617,6 +619,7 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		self.__mean = []
 		self.__min = []
 		self.__rs = []
+		self.__rs_split = []
 
 		self.__MinMax = []
 
@@ -650,10 +653,26 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		self.__xValues = []
 		self.__xValuesNewRun = []
 
+	def get_description(self):
+		return self.__description
+	def get_freqData(self):
+		return self.__freqData
+	def get_timeRs(self):
+		return self.__timeRs
+	def get_rs(self):
+		return self.__rs
+	def get_rs_split(self):
+		return self.__rs_split
+	def get_timeSecNewRunRs(self):
+		return self.__timeSecNewRunRs
+	def get_stepID(self):
+		return self.__stepID
+
 	def set_magData(self, nameField, data):
 
 		if nameField in ('rs','lp','hp'):
 			self.__rs += data
+			self.__rs_split += [data]
 		elif nameField == 'mean':
 			self.__mean += data
 		elif nameField == 'max':
@@ -770,7 +789,7 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		
 		# Obtain step index
 		fileName_0 = fileName.split('.csv')[0]
-		file_stepID = int(fileName_0.split('__')[-1])
+		file_stepID = fileName_0.split('__')[-1]
 		self.__stepID += [file_stepID]
 
 		#Obtain frequency for recorded data
@@ -921,20 +940,6 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		self.__minPicks += newPicksMin_in
 		self.__timePicks += timePicks_in
 
-
-	def get_description(self):
-		return self.__description
-	def get_freqData(self):
-		return self.__freqData
-	def get_timeRs(self):
-		return self.__timeRs
-	def get_rs(self):
-		return self.__rs
-	def get_timeSecNewRunRs(self):
-		return self.__timeSecNewRunRs
-	def get_stepID(self):
-		return self.__stepID
-
 	def addDataManual1(self, dataClasses):
 		"""
 		Customized function to calculate the fighting force
@@ -1078,7 +1083,7 @@ class dataFromGaugesSingleMagnitudeClass(object):
 			ax.plot(2*[div], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
 
 			#Add text with step number
-			ax.text(previousDiv + ((div - previousDiv)/2), minPlot_y, str(self.__stepID[i]), bbox=dict(facecolor='black', alpha=0.2), horizontalalignment = 'center')
+			ax.text(previousDiv + ((div - previousDiv)/2), minPlot_y, 'Step '+self.__stepID[i], bbox=dict(facecolor='black', alpha=0.2), horizontalalignment = 'center')
 			
 			previousDiv = div
 			i += 1
@@ -1113,27 +1118,7 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		elif CMDoptionsDict['numberMultipleYaxisInSameFigure']==(plotSettings['currentAxis'][1]+1):
 			ax.set_xlabel('Time elapsed [Seconds]', **plotSettings['axes_x'])
 
-		if True:
-			ax.set_ylabel(inputDataClass.get_variablesInfoDict()[self.__description]['y-label'], **plotSettings['axes_y'])
-
-		elif self.__description in ('STG1', 'STG2'):
-			ax.set_ylabel('Strain [mm\m]', **plotSettings['axes_y'])
-
-		# Magnitudes from the performance test
-		elif self.__description in ('DruckHP1', 'DruckHP2'):
-			ax.set_ylabel('Pressure [bar]', **plotSettings['axes_y'])
-
-		elif self.__description in ('DurchflussHP1', 'DurchflussHP2'):
-			ax.set_ylabel('Volume flow [l/min]', **plotSettings['axes_y'])
-
-		elif self.__description in ('LaserPiston', 'LaserSteuerventilhebel'):
-			ax.set_ylabel('Displacement [mm]', **plotSettings['axes_y'])
-
-		elif self.__description in ('TemperaturHP1', 'TemperaturHP2'):
-			ax.set_ylabel('Temperature [°C]', **plotSettings['axes_y'])
-
-		else:
-			ax.set_ylabel('Force [N]', **plotSettings['axes_y'])
+		ax.set_ylabel(inputDataClass.get_variablesInfoDict()[self.__description]['y-label'], **plotSettings['axes_y'])
 
 		#Legend and title
 		if additionalInput[0]:
@@ -1727,3 +1712,15 @@ def filter(data, fs, typeFilter, cutoff):
 	# y = butter_filter(y, cutoff, fs, typeFilter,order_in = order) #Add
 
 	return y
+
+def usualSettingsAX(ax, plotSettings):
+	
+	ax.grid(which='both', **plotSettings['grid'])
+	ax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])
+	ax.minorticks_on()
+	#Double y-axis 
+	axdouble_in_y = ax.twinx()
+	axdouble_in_y.minorticks_on()
+	axdouble_in_y.set_ylim(ax.get_ylim())
+
+	return axdouble_in_y

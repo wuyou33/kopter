@@ -4,272 +4,28 @@
 		"selected_items":
 		[
 			[
-				"true",
-				"True"
+				"label",
+				"labelsDict"
 			],
 			[
-				"test",
-				"testData"
+				"datas",
+				"datasVolFlows"
 			],
 			[
-				"dic",
-				"dict_temp_fromClass"
+				"data",
+				"dataTemp"
 			],
 			[
-				"secti",
-				"sectionName"
+				"vol",
+				"VolFlow2"
 			],
 			[
-				"ran",
-				"rangeIDstring"
-			],
-			[
-				"range",
-				"rangeIDstring"
-			],
-			[
-				"norm",
-				"normalizeFn"
-			],
-			[
-				"def",
-				"def\tFunction"
-			],
-			[
-				"midd",
-				"middlePoint"
-			],
-			[
-				"min",
-				"minCurrent"
-			],
-			[
-				"max",
-				"maxCurrent"
-			],
-			[
-				"inter",
-				"interpolatedValue"
-			],
-			[
-				"get",
-				"get_angle"
-			],
-			[
-				"x",
-				"x_current"
-			],
-			[
-				"az",
-				"azimuthsRad"
-			],
-			[
-				"int",
-				"interpolate"
-			],
-			[
-				"var",
-				"variableToSaveRS"
-			],
-			[
-				"IF",
-				"If"
-			],
-			[
-				"CN",
-				"CNT_DST_BST_LNG"
-			],
-			[
-				"CNT",
-				"CNT_DST_LNG"
-			],
-			[
-				"addit",
-				"additionalInputString"
-			],
-			[
-				"cma",
-				"cmap_current"
-			],
-			[
-				"try",
-				"try\tTry/Except"
-			],
-			[
-				"ra",
-				"raise"
-			],
-			[
-				"fil",
-				"fileNamesBigArrayFolders"
-			],
-			[
-				"figu",
-				"figure_settings"
-			],
-			[
-				"value",
-				"valueLine"
-			],
-			[
-				"ti",
-				"time_from_freq"
-			],
-			[
-				"ste",
-				"step_from_freq"
-			],
-			[
-				"low",
-				"low_pass_data"
-			],
-			[
-				"dict_temp_",
-				"dict_temp_fromClass"
-			],
-			[
-				"a",
-				"actuator"
-			],
-			[
-				"mag",
-				"magnitude"
-			],
-			[
-				"val",
-				"valueLine"
-			],
-			[
-				"vla",
-				"valueLine"
-			],
-			[
-				"inp",
-				"inputDataClass"
-			],
-			[
-				"el",
-				"elif"
-			],
-			[
-				"sec",
-				"section_index"
-			],
-			[
-				"iden",
-				"newSectionIdentifier"
-			],
-			[
-				"skip",
-				"skipLines"
+				"mar",
+				"markersDict"
 			],
 			[
 				"file",
-				"fileFoundFlag"
-			],
-			[
-				"ar",
-				"arg"
-			],
-			[
-				"vara",
-				"variables"
-			],
-			[
-				"rou",
-				"round"
-			],
-			[
-				"dat",
-				"data"
-			],
-			[
-				"rang",
-				"range_spacing"
-			],
-			[
-				"siz",
-				"size_vector"
-			],
-			[
-				"mean",
-				"mean_min"
-			],
-			[
-				"mea",
-				"mean_min"
-			],
-			[
-				"set",
-				"setOne"
-			],
-			[
-				"da",
-				"data"
-			],
-			[
-				"filter",
-				"filterFreqs"
-			],
-			[
-				"ite",
-				"iterator"
-			],
-			[
-				"va",
-				"var"
-			],
-			[
-				"gor",
-				"groups"
-			],
-			[
-				"Tem",
-				"TemperaturHP1"
-			],
-			[
-				"chan",
-				"channel"
-			],
-			[
-				"chn",
-				"channel"
-			],
-			[
-				"c",
-				"count_folders"
-			],
-			[
-				"i",
-				"iterator"
-			],
-			[
-				"itera",
-				"iterators"
-			],
-			[
-				"iterat",
-				"iterator"
-			],
-			[
-				"new",
-				"newFreq"
-			],
-			[
-				"add",
-				"additionalInput"
-			],
-			[
-				"re",
-				"result"
-			],
-			[
-				"force",
-				"forceHP2"
-			],
-			[
-				"resul",
-				"result"
+				"fileName"
 			],
 			[
 				"fol",
@@ -320,6 +76,18 @@
 				"self"
 			],
 			[
+				"va",
+				"var"
+			],
+			[
+				"get",
+				"get_description"
+			],
+			[
+				"da",
+				"dataClass"
+			],
+			[
 				"num",
 				"numRef"
 			],
@@ -336,6 +104,10 @@
 				"confidenceInterval"
 			],
 			[
+				"mea",
+				"mean_max"
+			],
+			[
 				"dataFr",
 				"dataFromRuns"
 			],
@@ -344,8 +116,20 @@
 				"ERROR"
 			],
 			[
-				"data",
-				"dataClasses"
+				"dat",
+				"dataVar"
+			],
+			[
+				"var",
+				"variables"
+			],
+			[
+				"new",
+				"newPicksMin"
+			],
+			[
+				"el",
+				"elif"
 			],
 			[
 				"ac",
@@ -376,6 +160,10 @@
 				"iPickMax"
 			],
 			[
+				"resul",
+				"resultID"
+			],
+			[
 				"orde",
 				"orderDeriv"
 			],
@@ -402,6 +190,10 @@
 			[
 				"gettim",
 				"get_timeSecNewRunMean"
+			],
+			[
+				"def",
+				"defs\tMethod"
 			],
 			[
 				"p",
@@ -448,12 +240,20 @@
 				"plotSettings"
 			],
 			[
+				"re",
+				"return"
+			],
+			[
 				"por",
 				"previousNCycles_in"
 			],
 			[
 				"pr",
 				"PreviousNCycles_in"
+			],
+			[
+				"fil",
+				"fileName"
 			],
 			[
 				"Add",
@@ -514,6 +314,10 @@
 			[
 				"tra",
 				"track_B_3"
+			],
+			[
+				"_",
+				"__id"
 			]
 		]
 	},
@@ -523,33 +327,16 @@
 			"file": "fatigueData/moduleFunctions.py",
 			"settings":
 			{
-				"buffer_size": 62165,
+				"buffer_size": 61936,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "fti/loadMultipleVariablesFromFoldersAndDeleteGroups.vbs",
+			"file": "fti/testsInitData/actuatorPerformanceV2.vbs",
 			"settings":
 			{
-				"buffer_size": 3705,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "fti/testsInitData/mixingUnitFatigue.vbs",
-			"settings":
-			{
-				"buffer_size": 5842,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "fatigueData/fatigueInputFiles/filesToLoad_gauges_mixingUnit.txt",
-			"settings":
-			{
-				"buffer_size": 2391,
+				"buffer_size": 5101,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -558,8 +345,26 @@
 			"file": "fatigueData/main.py",
 			"settings":
 			{
-				"buffer_size": 9152,
+				"buffer_size": 11116,
 				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "fatigueData/fatigueInputFiles/filesToLoad_gauges_actuatorPerformanceV2.txt",
+			"settings":
+			{
+				"buffer_size": 1391,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "fti/PostProc_CompTesting_Alejandro.VBS",
+			"settings":
+			{
+				"buffer_size": 12249,
+				"encoding": "UTF-16 LE with BOM",
 				"line_ending": "Windows"
 			}
 		}
@@ -571,21 +376,13 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 330.0,
+		"height": 392.0,
 		"last_filter": "",
 		"selected_items":
 		[
 			[
-				"fro",
+				"pas",
 				"Text Pastry: From 1 To X"
-			],
-			[
-				"from",
-				"Text Pastry: From 1 To X"
-			],
-			[
-				"past",
-				"Text Pastry: Generate a list of numbers from 1 to 100"
 			],
 			[
 				"pac",
@@ -596,7 +393,7 @@
 				"Package Control: Install Package"
 			]
 		],
-		"width": 444.0
+		"width": 428.0
 	},
 	"console":
 	{
@@ -617,83 +414,32 @@
 	"expanded_folders":
 	[
 		"/P/kopter",
-		"/P/kopter/bladesCode",
+		"/P/kopter/codingKnowledge",
+		"/P/kopter/fatigueData",
 		"/P/kopter/fti",
-		"/P/08_reference/ETH"
+		"/P/kopter/fti/testsInitData",
+		"/P/kopter/s_id",
+		"/P/kopter/tolerances",
+		"/P/kopter/versionsBackup",
+		"/P/08_reference/ETH",
+		"/P/08_reference/ETH/abaqus"
 	],
 	"file_history":
 	[
-		"/P/kopter/fti/PostProc_CompTesting_Alejandro.VBS",
-		"/P/kopter/SH09_s_id/moduleFunctions.py",
-		"/P/kopter/fatigueData/main.py",
-		"/P/kopter/fti/loadMultipleVariablesFromFoldersAndDeleteGroups.vbs",
-		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_actuatorMesswerte_outerBearing.txt",
-		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_actuator_outerBearing.txt",
-		"/P/kopter/fti/testsInitData/bladeTest.vbs",
-		"/P/kopter/bladesCode/blade2.py",
 		"/P/kopter/fti/getFlightTestData.vbs",
-		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_actuatorMesswerte_0188_RodEnd.txt",
-		"/P/kopter/fatigueData/fatigueInputFiles/FilesToLoad_gauges_0188_RodEnd.txt",
-		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_actuator_0188_RodEnd.txt",
-		"/D/kopter/bladesCode/test.py",
-		"/P/08_reference/ETH/abaqus/moduleCommon.py",
 		"/P/kopter/fti/testToImport.vbs",
-		"/P/kopter/fti/testsInitData/0188SteeringRodFatigue.vbs",
-		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_gauges_mixingUnit.txt",
-		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_actuatorMesswerte_pistonBendingLoad1.txt",
-		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_actuatorMesswerte_pistonBendingLoad2.txt",
-		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_actuatorMesswerte_pistonBendingLoad3.txt",
-		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_actuator_pistonBendingLoad3.txt",
-		"/P/kopter/fatigueData/moduleFunctions.py",
-		"/P/kopter/SH09_s_id/flightTestData/P2-J17-01-FT0038/data/fti_variables_info.txt",
-		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_gauges_MRAretainer.txt",
-		"/P/kopter/bladesCode/blade.py",
-		"/P/kopter/fatigueData/fatigueInputFiles/FilesToLoad_gauges_0188_RodEnd_local.txt",
-		"//mshzhstg/MSHData/MSH-Project Management Files/Functional Engineering/Test Division/Test_Daten/J17-03-Bench Tests/Q_ANALYSIS/compTestingScripts/DIAdem/testsInitData/0188SteeringRodFatigue.vbs",
-		"//mshzhstg/MSHData/MSH-Project Management Files/Functional Engineering/Test Division/Test_Daten/J17-03-Bench Tests/Q_ANALYSIS/compTestingScripts/python/fatigueInputFiles/FilesToLoad_gauges_0188_RodEnd.txt",
-		"/P/kopter/fti/testsInitData/newHousingP3.vbs",
-		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_actuatorMesswerte_steeringRodsCalib.txt",
-		"/L/MSH-Project Management Files/Functional Engineering/Test Division/Test_Daten/J17-03-Bench Tests/P3-J17-03-BT0188/05_Data_Analysis/CSV_Data/rs__UCRForce__150Hz__1501.csv",
-		"/L/MSH-Project Management Files/Functional Engineering/Test Division/Test_Daten/J17-03-Bench Tests/P3-J17-03-BT0188/05_Data_Analysis/CSV_Data/rs__UCRStrain__150Hz__1501.csv",
-		"/L/MSH-Project Management Files/Functional Engineering/Test Division/Test_Daten/J17-03-Bench Tests/P3-J17-03-BT0168/01_TDMS_data_Set-complete/02_STEPS/csv_data/rs__Bending__100Hz__13.csv",
-		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_actuator_TRAretainer.txt",
-		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_actuatorMesswerte_TRAretainer.txt",
-		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_gauges_TRbladeholderLoad3.txt",
-		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_gauges_TRbladeholderLoad1.txt",
-		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_gauges_TRbladeholderLoad2.txt",
-		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_actuatorMesswerte_spider.txt",
-		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_actuator_spider.txt",
-		"/P/kopter/fti/testsInitData/TRbladeholderFatigue.vbs",
-		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_actuator_pistonBending.txt",
-		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_actuatorMesswerte_MRAretainer.txt",
-		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_actuator_MRAretainer.txt",
-		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_gauges_steelLinks.txt",
-		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_actuatorMesswerte_OCLoad1.txt",
-		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_actuatorMesswerte_OCLoad2.txt",
-		"/P/kopter/fti/testsInitData/OCFatigue.vbs",
-		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_gauges_OCLoad2.txt",
-		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_gauges_spider.txt",
-		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_gauges_TRAretainer.txt",
-		"/P/kopter/fti/testsInitData/spiderFatigue.vbs",
-		"/P/kopter/fti/shortScripts.vbs",
+		"/P/kopter/codingKnowledge/python.py",
 		"/P/kopter/fti/testsInitData/HousingP2.vbs",
-		"/P/kopter/fti/testsInitData/oldHousingP3.vbs",
-		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_gauges_enduranceActuatorP2.txt",
-		"/P/kopter/fti/testsInitData/steelLinksFatigue.vbs",
+		"/P/kopter/fti/testsInitData/mixingUnitFatigue.vbs",
+		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_gauges_mixingUnit.txt",
 		"/P/kopter/versionsBackup/main_versionsBackup.py",
-		"/P/kopter/fti/Operational and Never-Exceed Limit investigation v2.8.VBS",
-		"/P/kopter/fatigueData/filesToLoad_actuator_spider.txt",
-		"/P/kopter/fatigueData/filesToLoad_gauges_enduranceActuatorFirstBearing.txt",
+		"/P/kopter/fti/loadMultipleVariablesFromFolders.vbs",
+		"/P/kopter/codingKnowledge/visualBasicScript.VBS",
 		"/P/kopter/fatigueData/filesToLoad_actuator_steelLinks.txt",
 		"/P/kopter/fatigueData/filesToLoad_actuator_TRAretainer.txt",
-		"/P/kopter/codingKnowledge/visualBasicScript.VBS",
+		"/P/kopter/fatigueData/filesToLoad_gauges_TRAretainer.txt",
 		"/P/kopter/fti/ResamplingAndExportToCSV_Alejandro.VBS",
-		"/P/kopter/fti/Analysis tool v1.1.VBS",
-		"/P/kopter/fti/DIADEM.tlb",
-		"/P/kopter/codingKnowledge/python.py",
-		"/L/MSH-Project Management Files/Functional Engineering/Test Division/Test_Daten/J17-03-Bench Tests/P3-J17-03-BT0169/01_TDMS_data_Set-complete/02_STEPS/csv_data/rs_BendingMoment_100Hz_1.csv",
-		"/L/MSH-Project Management Files/Functional Engineering/Test Division/Test_Daten/J17-03-Bench Tests/P3-J17-03-BT0115 Booster P3/1200-1031112-AE SN2/Step 3.1 (New housing)/time_csv.csv",
-		"/L/MSH/02_Development/SKYe S09/05_Flight Systems/50_Engineering/J29/J29-00 General/40_Testing/44_Flight Testing/Script Data Analysis.VBS",
+		"/P/kopter/fatigueData/main.py",
 		"/P/kopter/tolerances/toleranceChain.py",
 		"/P/kopter/tolerances/configClassModule.py",
 		"/P/kopter/fatigueData/test.py",
@@ -750,7 +496,59 @@
 		"/home/alejandro/Documents/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/f16_engine.m",
 		"/home/alejandro/Documents/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/f16_trm_mod.m",
 		"/home/alejandro/Documents/kopter/SH09_s_id/f16_global.mat",
-		"/home/alejandro/Documents/kopter/SH09_s_id/f16_global"
+		"/home/alejandro/Documents/kopter/SH09_s_id/f16_global",
+		"/home/alejandro/Documents/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/f16_aero_setup.m",
+		"/home/alejandro/Documents/kopter/SH09_s_id/fromFlightPhysics/FL_LTI_models/read_LTI_matrix_from_FL_3.m",
+		"/P/10_code/abaqus-master/abaqus-master/mainAbaqusParametricStudy.py",
+		"/P/10_code/labs - System Identification/lab1/script.m",
+		"/P/10_code/abaqus-master/abaqus-master/mainBuildAndExecuteWingBox.py",
+		"/P/10_code/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/f16_trm.m",
+		"/P/10_code/kopter/SH09_s_id/SIDPAC_V2.0/F16_NLS_V1.1/f16_aero.m",
+		"/P/10_code/abaqus-master/abaqus-master/mainParametricStudy.py",
+		"/P/10_code/latex/Cranfield_project.tex",
+		"/P/10_code/abaqus-master/abaqus-master/moduleCommon.py",
+		"/P/10_code/kopter/tolerances/dampingUncer.py",
+		"/P/10_code/versionsBackup/cleanDirs.py",
+		"/P/10_code/latex/settings/settingsProject_Personal.tex",
+		"/P/10_code/latex/settings/settingsProject_Cranfield.tex",
+		"/P/10_code/kopter/SH09_s_id/knowledge/sections/Introduction.tex",
+		"/P/10_code/kopter/SH09_s_id/knowledge/main.tex",
+		"/P/10_code/kopter/SH09_s_id/knowledge/settings/doc_settings.tex",
+		"/P/10_code/kopter/SH09_s_id/knowledge/sections/0.Nomenclature.tex",
+		"/P/10_code/kopter/SH09_s_id/knowledge/sections/Model_description.tex",
+		"/P/10_code/latex/chapters/0.Nomenclature.tex",
+		"/P/10_code/kopter/s_id/docs/latex/main.pdf",
+		"/P/10_code/kopter/versionsBackup/inputDirectories.txt",
+		"/P/10_code/kopter/SH09_s_id/fromFlightPhysics/A_mat_from_FL_v1.txt",
+		"//mshzhstg/mshdata/MSH/02_Development/SKYe S09/06_Avionic/J00 Testing and FTI/SKYe test Benches/0c - Various Information/Simulator/Flight Physics/Flightlab_controller_design/yaw_manouver/FL_LTI_models/read_LTI_matrix_from_FL_3.m",
+		"/P/10_code/kopter/SH09_s_id/configClassModule.py",
+		"//mshzhstg/mshdata/MSH/02_Development/SKYe S09/06_Avionic/J00 Testing and FTI/SKYe test Benches/0c - Various Information/Simulator/Flight Physics/Flightlab_controller_design/read_LTI_matrix_from_FL.m",
+		"//mshzhstg/mshdata/MSH/02_Development/SKYe S09/06_Avionic/J00 Testing and FTI/SKYe test Benches/0c - Various Information/Simulator/Flight Physics/Flightlab_controller_design/read_LTI_matrix_from_FL_2.m",
+		"/P/10_code/kopter/SH09_s_id/C_mat_from_FL_v1.txt",
+		"/P/10_code/kopter/SH09_s_id/A_mat_from_FL_v1.txt",
+		"//mshzhstg/mshdata/MSH/02_Development/SKYe S09/06_Avionic/J00 Testing and FTI/SKYe test Benches/0c - Various Information/Simulator/Flight Physics/Flightlab_controller_design/FCS_tuning.m",
+		"/L/TEMP/michal/flap_stop/configClassModule.py",
+		"/P/10_code/kopter/SH09_s_id/main_versionsBackup.py",
+		"//mshzhstg/mshdata/MSH/02_Development/SKYe S09/06_Avionic/J00 Testing and FTI/SKYe test Benches/0c - Various Information/Simulator/Flight Physics/Flightlab_controller_design/A_mat_from_FL_v2.txt",
+		"//mshzhstg/mshdata/MSH/02_Development/SKYe S09/06_Avionic/J00 Testing and FTI/SKYe test Benches/0c - Various Information/Simulator/Flight Physics/Flightlab_controller_design/A_mat_from_FL_v1.txt",
+		"/P/10_code/kopter/SH09_s_id/C_mat_from_FL_v2.txt",
+		"/P/10_code/kopter/SH09_s_id/B_mat_from_FL_v1.txt",
+		"/P/10_code/kopter/versionsBackup/main_versionsBackup.py",
+		"/P/10_code/kopter/s_id/sidpac/startup.m",
+		"/L/TEMP/michal/flap_stop/toleranceChain.py",
+		"/L/TEMP/michal/flap_stop/dampingUncer.py",
+		"/P/10_code/kopter/main_versionsBackup.py",
+		"/P/10_code/kopter/inputDirectories.txt",
+		"/L/MSH/02_Development/SKYe S09/05_Flight Systems/50_Engineering/J62/J62-00 General/40_Testing/41_FTI/22_DATA ANALYSIS P2/MFST_postprocessing_CalculationScript_v01.VBS",
+		"/P/10_code/kopter/improvements.py",
+		"/P/10_code/kopter/PythonNotes.sublime-project",
+		"/P/10_code/labs - System Identification/lab2/script.m",
+		"/P/10_code/labs - System Identification/lab4/script.m",
+		"/P/10_code/labs - System Identification/lab3/main_script.m",
+		"/Y/00_Scripts/AA_Eng_Vib_Analysis/FFT_STDEV_4.VBS",
+		"/Y/00_Scripts/AA_Eng_Vib_Analysis/dataplot.VBS",
+		"/Y/00_Scripts/plot_test/fti_2016-03-17_094251/test_HYD1_Oil_Temp.EMF",
+		"/P/10_code/abaqus-master/abaqus-master/setUpParametricStudy.py"
 	],
 	"find":
 	{
@@ -768,144 +566,141 @@
 		"case_sensitive": true,
 		"find_history":
 		[
-			"if True",
-			"True",
-			"testOrderFlagFromCMD",
-			"\\\"",
-			"CMDoptionsDict['flightTestInfo']['folderResults']",
-			"fileName",
-			"min",
-			"max",
-			"importDataForClass",
-			"fileOutComeSummary",
-			"print",
-			"&",
-			"Steer",
-			"SteerR",
-			"Steer",
-			"Displacement",
-			"UnkownDimension",
-			"2018",
-			"/",
-			"fti_",
-			"section_index",
-			"rawLine",
-			"cleanLine",
-			"->",
-			"fileNameOfFileToLoadFiles",
-			"testFactor",
-			"-n f",
-			"\t\t\t\tfigure.savefig(os.path.join(CMDoptionsDict['cwd'], ','.join([str(i) for i in CMDoptionsDict['magnitudes']])+'_'+rangeIDstring+'_'+','.join([str(i) for i in CMDoptionsDict['variables']])+'.png'), dpi = plotSettings['figure_settings']['dpi'])",
-			"','.join([str(i) for i in CMDoptionsDict['rangeFileIDs']])",
-			"f,t",
-			"Step",
-			"figure.set_size_inches(14, 10",
-			"set_size_inches(12",
-			"set_size_inches(10",
-			"set_size_inches",
-			"set_size_inches(10, 6",
-			"set_size_inches",
-			"figure",
-			",",
-			"L:\\MSH-Project Management Files\\Functional Engineering\\Test Division\\Test_Daten\\J17-03-Bench Tests\\P3-J17-03-BT0182\\01_TDMS_data_Set-complete\\01_RAW\\Fatigue test\\csv_data",
-			"1",
-			"'Run",
-			"Run",
-			"Step",
-			"-100",
-			"\t",
+			"set_trace()",
+			".-",
+			"markersDict",
+			"marker",
+			"datasVolFlow2",
+			"datasVolFlow1",
+			"datasTemp2",
+			"datasTemp1",
+			"]",
+			"and",
+			"get_stepID",
+			"rs",
+			"ax[i]",
+			"VolFlow1",
+			" ",
+			"\"",
+			"ax",
+			"ax.",
+			"ax",
+			"2",
+			"Temp",
+			"inputDataClass",
+			"ax.set_xlabel('Time elapsed [Seconds]', **plotSettings['axes_x'])",
+			"4:",
+			"4",
+			"3:",
 			"=",
-			"Current",
-			"        ",
-			"       ",
-			"      ",
-			"     ",
-			"    ",
+			"2:",
+			"2",
 			"1",
-			"rstride",
-			"figure",
-			"mesh",
-			"set_trace",
-			"return",
-			">",
-			"aTan",
-			"Pos",
-			"x",
-			"_BST",
-			"print",
-			"subplots",
-			"CNT_DST_BST_LNG",
-			"var",
-			"id_group",
-			"\"[1]/TBS_TMP_AIR\"",
-			"variableToSaveRSSmoothDiff",
-			"timeVariableToSave",
-			"variableToSaveRSSmooth",
-			"variableToSaveRSSmooth&\"__diff\"",
-			"title",
-			"LNG",
-			"variableToSaveRS",
-			"variableToSave",
-			"ResampleFlag",
-			"newFreq",
-			"Channels(\"xSamplingChn\").Properties(\"displaytype\").Value = \"numeric\"",
-			"find",
-			"index(",
-			"Step",
-			"Force measured by the actuator, total, static and alternate",
-			"main.py",
-			"filesToLoad_actuator",
-			"savefig",
-			"f,t",
-			"BST",
-			"DST",
-			"NoName",
-			"variableToSave",
-			"Data.Root.ChannelGroups",
-			"100",
-			"Mischh_Kollektiv",
-			"Rohr C",
-			"Booster",
-			"additionalInput",
+			"2",
+			":",
+			"-",
+			":",
+			"'-'",
+			"self",
 			"dataFromGaugesSingleMagnitudeClass",
+			"tdms",
+			"°",
+			"[°C]",
+			"°",
+			"_\"&",
+			"HYD",
+			"CNT",
+			"signalsForDivideInSegments",
+			"CopyY",
+			"-00",
+			"00",
+			"__stepID",
+			"7",
+			"filesNames",
+			"Housing",
+			"002",
+			"\"002",
+			"002",
+			"float(fileName2",
+			"set_trace()",
+			"freqData",
+			"'rangeFileIDs'",
+			"['rangeFileIDs']",
+			"CMDoptionsDict['rangeFileIDs']",
+			"+",
+			"L:\\MSH-Project Management Files\\Functional Engineering\\Test Division\\Test_Daten\\J17-03-Bench Tests\\P3-J17-03-BT0159\\06_Dat_Analysis\\1000Hz",
+			"\"Step",
+			"Druck HP_1 [bar]",
+			"\"PresHP",
+			"HP",
+			"Rohr C\", \"RossC\"\n' dictVaDiadem.Add \"Rohr B\", \"RossB\"\n' dictVaDiadem.Add \"Rohr A\", \"RossA\"\n' dictVaDiadem.Add \"Mischh_Kollektiv\", \"LeverColl\"\n' dictVaDiadem.Add \"Mischh_Laengs\", \"LeverLong\"\n' dictVaDiadem.Add \"Mischh_seitlich\", \"LeverLat\"\n' dictVaDiadem.Add \"Steer_Rod blue\", \"ConnRodblue\"\n' dictVaDiadem.Add \"Steer_Rod gold\", \"ConnRodgold\"\n' dictVaDiadem.Add \"Booster Link long\", \"BoosterLinklong\"\n' dictVaDiadem.Add \"Booster Link col\", \"BoosterLinkcol\"\n' dictVaDiadem.Add \"Booster Link lat\", \"BoosterLinklat\"\n' dictVaDiadem.Add \"Holder right\", \"HolderRight\"\n' dictVaDiadem.Add \"COLL_Position\", \"COLLPosition\"\n' dictVaDiadem.Add \"LONG_Position\", \"LONGPosition\"\n' dictVaDiadem.Add \"LAT_Position\", \"LATPosition\"\n' dictVaDiadem.Add \"Zykluszaehler Fatigue (MU)\", \"NumberCycles\"",
+			"float",
+			"split('.')",
+			"split",
+			"var",
+			"Diadem",
+			"dictVar",
+			"dictVar.Add \"Druck_HP_1_[bar]\", \"DruckHP1\"\ndictVar.Add \"Druck_HP_2_[bar]\", \"DruckHP2\"\ndictVar.Add \"Durchfluss_HP_1_[l_min]\", \"DurchflussHP1\"\ndictVar.Add \"Durchfluss_HP_2_[l_min]_\", \"DurchflussHP2\"\ndictVar.Add \"Force_Piston_Eye_HP1_[N]\", \"ForcePistonEyeHP1\"\ndictVar.Add \"Force_Piston_Eye_HP2_[N]\", \"ForcePistonEyeHP2\"\ndictVar.Add \"Input_force_[N]\", \"InputForce\"\ndictVar.Add \"Laser_Piston_[mm]\", \"LaserPiston\"\ndictVar.Add \"Laser_Steuerventilhebel_[mm]\", \"LaserSteuerventilhebel\"\ndictVar.Add \"Output_force_[N]\", \"OutputForce\"\ndictVar.Add \"Temperatur_HP_1_[°C]\", \"TemperaturHP1\"\ndictVar.Add \"Temperatur_HP_2_[°C]\", \"TemperaturHP2\"\n",
+			"&",
+			"variableNames",
+			"&",
+			"Add",
+			"saveFlagResampledData",
+			"Add",
+			"Temperatur_HP_",
 			",",
-			"Force",
-			"Strain",
-			"2300",
-			"1250",
-			"no",
-			"Force",
-			"Strain",
-			"RossA",
-			"1250",
-			"2300",
-			"()\n",
-			"matplotlib",
-			"                                             ",
-			"                                            ",
-			"                                           ",
-			"                                          ",
-			"                                         ",
-			"                                        ",
-			"                                       ",
-			"                                      ",
-			"                                     ",
-			"                                    ",
-			"                                   ",
-			"                                  ",
-			"                                 ",
-			"                                ",
-			"                               "
+			"\"D",
+			",",
+			"counter_",
+			"counter_b",
+			"fileName",
+			"fileNames",
+			"fileName",
+			"\\\\mshzhstg\\MSHData",
+			"1000000",
+			"split",
+			"int(fileName.split('_')[-1])",
+			"open",
+			"split",
+			"dataFromGaugesSingleMagnitudeClass",
+			"description_in",
+			"testname",
+			"axdouble",
+			"_x",
+			"ax2",
+			"axis",
+			"MRA",
+			"BT0179",
+			"L:\\MSH-Project Management Files\\Functional Engineering\\Test Division\\Test_Daten\\J17-03-Bench Tests\\P3-J17-03-BT0179\\01_TDMS_data_Set-complete\\01_RAW\\cycles",
+			"Messwerte",
+			"cycles",
+			"87",
+			"diff",
+			"fileName.split('\\\\')",
+			"fileName",
+			"kraft",
+			"Zyklische Ergebnisse",
+			"weg",
+			"importDataActuator",
+			"testOrderFlag",
+			"testOrderFlagFromCMD",
+			"save",
+			"configClass",
+			",",
+			"CNT",
+			"VEL",
+			"ACC",
+			"var_id",
+			"var",
+			"\t",
+			"obj_datadict"
 		],
 		"highlight": true,
 		"in_selection": false,
 		"preserve_case": false,
-		"regex": false,
+		"regex": true,
 		"replace_history":
 		[
-			"figure.set_size_inches(16, 10",
-			"set_size_inches(14, 10",
-			"Run",
 			"self.__"
 		],
 		"reverse": false,
@@ -917,7 +712,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -926,86 +721,25 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 62165,
+						"buffer_size": 61936,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								24860,
-								24860
+								1294,
+								1294
 							]
 						],
 						"settings":
 						{
-							"history_list_is_closing": true,
 							"spell_check": true,
 							"syntax": "Packages/Python/Python.sublime-syntax",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 9094.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "fti/loadMultipleVariablesFromFoldersAndDeleteGroups.vbs",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 3705,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2982,
-								2982
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/VBScript/VBScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 390.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "fti/testsInitData/mixingUnitFatigue.vbs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 5842,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								5674,
-								5674
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/VBScript/VBScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 546.0,
+						"translation.y": 156.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
@@ -1018,28 +752,60 @@
 			"sheets":
 			[
 				{
-					"buffer": 3,
-					"file": "fatigueData/fatigueInputFiles/filesToLoad_gauges_mixingUnit.txt",
+					"buffer": 1,
+					"file": "fti/testsInitData/actuatorPerformanceV2.vbs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2391,
+						"buffer_size": 5101,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								474,
-								474
+								3263,
+								3263
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
+							"syntax": "Packages/VBScript/VBScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 39.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 0,
+					"file": "fatigueData/moduleFunctions.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 61936,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								31524,
+								31530
+							]
+						],
+						"settings":
+						{
+							"spell_check": true,
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 12364.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 4,
@@ -1052,20 +818,20 @@
 			"sheets":
 			[
 				{
-					"buffer": 4,
+					"buffer": 2,
 					"file": "fatigueData/main.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 9152,
+						"buffer_size": 11116,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4160,
-								4160
+								6964,
+								6964
 							]
 						],
 						"settings":
@@ -1074,39 +840,36 @@
 							"syntax": "Packages/Python/Python.sublime-syntax",
 							"translate_tabs_to_spaces": false
 						},
-						"translation.x": 0.0,
-						"translation.y": 936.0,
+						"translation.x": 50.0,
+						"translation.y": 924.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 0,
-					"file": "fatigueData/moduleFunctions.py",
+					"buffer": 3,
+					"file": "fatigueData/fatigueInputFiles/filesToLoad_gauges_actuatorPerformanceV2.txt",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 62165,
+						"buffer_size": 1391,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								39417,
-								39417
+								528,
+								528
 							]
 						],
 						"settings":
 						{
-							"history_list_is_closing": true,
-							"spell_check": true,
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 14925.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 5,
@@ -1115,8 +878,69 @@
 			]
 		},
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "fatigueData/moduleFunctions.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 61936,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								32222,
+								32165
+							]
+						],
+						"settings":
+						{
+							"spell_check": true,
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 7555.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "fti/PostProc_CompTesting_Alejandro.VBS",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 12249,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6369,
+								6369
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/VBScript/VBScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1170.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -1160,13 +984,13 @@
 		"cols":
 		[
 			0.0,
-			0.641161997501,
+			0.526494565217,
 			1.0
 		],
 		"rows":
 		[
 			0.0,
-			0.613242009133,
+			0.624664026487,
 			1.0
 		]
 	},
@@ -1199,7 +1023,7 @@
 		[
 			[
 				"",
-				"P:\\kopter\\kopterDevelopment.sublime-project"
+				"P:\\kopter\\SH09_s_id\\s_id.sublime-project"
 			]
 		],
 		"width": 380.0
@@ -1213,7 +1037,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 0,
+	"selected_group": 2,
 	"settings":
 	{
 	},
@@ -1221,7 +1045,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 246.0,
+	"side_bar_width": 304.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

@@ -62,13 +62,14 @@ if gaugesFlag:
 		for folderName in inputDataClass.getTupleFiles(): #For each folder with min, max or mean values
 			os.chdir(folderName)
 			listOfFilesInFolderMathingVar = []
+
 			for fileName2 in os.listdir(folderName):
 				if fileName2.endswith('.csv'): #Take only .csv files
 					if magComplex[2:]:
-						if fileName2.startswith(mag) and float(fileName2.split('.csv')[0].split('__')[-1]) in CMDoptionsDict['rangeFileIDs'] and fileName2.split('__')[-2][:-2] == additionalMag:
+						if fileName2.startswith(mag) and fileName2.split('.csv')[0].split('__')[-1] in CMDoptionsDict['rangeFileIDs'] and fileName2.split('__')[-2][:-2] == additionalMag:
 							listOfFilesInFolderMathingVar += [fileName2]
 					else:
-						if fileName2.startswith(mag) and float(fileName2.split('.csv')[0].split('__')[-1]) in CMDoptionsDict['rangeFileIDs']:
+						if fileName2.startswith(mag) and fileName2.split('.csv')[0].split('__')[-1] in CMDoptionsDict['rangeFileIDs']:
 							listOfFilesInFolderMathingVar += [fileName2]
 
 			listOfFilesSortedInFolder = sortFilesInFolderByLastNumberInName(listOfFilesInFolderMathingVar, CMDoptionsDict)
@@ -110,6 +111,8 @@ if gaugesFlag:
 
 					newPicksMax, newPicksMean, newPicksMin, timePicks = dataClass.computePicks() ###STRANGE ERROR, PYTHON BUG?
 					dataClass.updatePicksData(newPicksMax, newPicksMean, newPicksMin, timePicks)
+		
+		# Up to here all the data for a single variable has bee imported 
 
 		# Plotting
 		for dataClass in dataClasses: #For each class variable
@@ -124,24 +127,49 @@ if gaugesFlag:
 			# dataClass.plotMinMeanMax(plotSettings)
 			# pass
 
-		# Additional calculations
-		if CMDoptionsDict['additionalCalsFlag']:
+	# Additional calculations
+	if CMDoptionsDict['additionalCalsFlag']:
 
-			print('\n\n'+'-> Additional calculations in progress...')
+		print('\n\n'+'-> Additional calculations in progress...')
 
-			# dataAdditional = dataFromGaugesSingleMagnitudeClass('forceFighting', testFactor, orderDeriv)
-			if CMDoptionsDict['additionalCalsOpt'] == 1:
-				dataAdditional = dataFromGaugesSingleMagnitudeClass('forceFightingEyes(HP1-HP2)', testFactor, orderDeriv)
-				dataAdditional.addDataManual1(dataClasses)
-				dataAdditional.plotResampled(plotSettings, CMDoptionsDict, mag, (False, [], []))
-			elif CMDoptionsDict['additionalCalsOpt'] == 2:
-				dataAdditional = dataFromGaugesSingleMagnitudeClass('forceSumEyes(HP1+HP2)', testFactor, orderDeriv)
-				dataAdditional.addDataManual2(dataClasses)
-				dataAdditional.plotResampled(plotSettings, CMDoptionsDict, mag, (True, dataClasses, 'OutputForce'))
-			elif CMDoptionsDict['additionalCalsOpt'] == 3:
-				# dataAdditional = dataFromGaugesSingleMagnitudeClass('forceSumEyes(HP1+HP2)', testFactor, orderDeriv)
-				# dataAdditional.addDataManual2(dataClasses)
-				dataClass.plotResampled(plotSettings, CMDoptionsDict, mag, (True, dataClasses, ('BoosterLinklong','BoosterLinklat','BoosterLinkcol')), inputDataClass)
+		# dataAdditional = dataFromGaugesSingleMagnitudeClass('forceFighting', testFactor, orderDeriv)
+		if CMDoptionsDict['additionalCalsOpt'] == 1:
+			dataAdditional = dataFromGaugesSingleMagnitudeClass('forceFightingEyes(HP1-HP2)', testFactor, orderDeriv)
+			dataAdditional.addDataManual1(dataClasses)
+			dataAdditional.plotResampled(plotSettings, CMDoptionsDict, mag, (False, [], []))
+		elif CMDoptionsDict['additionalCalsOpt'] == 2:
+			dataAdditional = dataFromGaugesSingleMagnitudeClass('forceSumEyes(HP1+HP2)', testFactor, orderDeriv)
+			dataAdditional.addDataManual2(dataClasses)
+			dataAdditional.plotResampled(plotSettings, CMDoptionsDict, mag, (True, dataClasses, 'OutputForce'))
+		elif CMDoptionsDict['additionalCalsOpt'] == 3:
+			# dataAdditional = dataFromGaugesSingleMagnitudeClass('forceSumEyes(HP1+HP2)', testFactor, orderDeriv)
+			# dataAdditional.addDataManual2(dataClasses)
+			dataClass.plotResampled(plotSettings, CMDoptionsDict, mag, (True, dataClasses, ('BoosterLinklong','BoosterLinklat','BoosterLinkcol')), inputDataClass)
+
+		elif CMDoptionsDict['additionalCalsOpt'] == 4:
+
+			dataTemp1 = [temp for temp in dataClasses if temp.get_description() == 'Temp1'][0]
+			dataTemp2 = [temp for temp in dataClasses if temp.get_description() == 'Temp2'][0]
+			dataVolFlow1 = [temp for temp in dataClasses if temp.get_description() == 'VolFlow1'][0]
+			dataVolFlow2 = [temp for temp in dataClasses if temp.get_description() == 'VolFlow2'][0]
+
+			figure, axs = plt.subplots(2, 1)
+			figure.set_size_inches(16, 10, forward=True)
+			linestyleDict = {'3-SN002-1.3':'-',	'8-SN002-2.4':'-',	'10-SN0012-1.3':'-.',	'13-SN0012-2.4':'-.'}
+			colorsDict = {'3-SN002-1.3':plotSettings['colors'][0],	'8-SN002-2.4':plotSettings['colors'][1],	'10-SN0012-1.3':plotSettings['colors'][2],	'13-SN0012-2.4':plotSettings['colors'][3]}
+			labelsDict = {'3-SN002-1.3':'Old housing/Counterforce ON',	'8-SN002-2.4':'Old housing/Counterforce OFF',	'10-SN0012-1.3':'New housing/Counterforce ON',	'13-SN0012-2.4':'New housing/Counterforce OFF'}
+			titlesDict = {0 : 'System 1', 1: 'System 2'}
+			i=0
+			for dataTemp,dataVolFlow in zip([dataTemp1,dataTemp2],[dataVolFlow1,dataVolFlow2]):
+				assert dataVolFlow.get_stepID() == dataTemp.get_stepID(), 'Error'
+				for j in range(len(dataVolFlow.get_stepID())):
+					axs[i].plot( dataTemp.get_rs_split()[j], dataVolFlow.get_rs_split()[j], linestyle = linestyleDict[dataVolFlow.get_stepID()[j]], marker = '', c = colorsDict[dataVolFlow.get_stepID()[j]], label = labelsDict[dataVolFlow.get_stepID()[j]], **plotSettings['line'])
+				axs[i].set_ylabel(inputDataClass.get_variablesInfoDict()[dataVolFlow.get_description()]['y-label'], **plotSettings['axes_y'])
+				axs[i].set_title(titlesDict[i], **plotSettings['title'])
+				axs[i].legend(**plotSettings['legend'])
+				usualSettingsAX(axs[i], plotSettings)
+				i+=1
+			axs[-1].set_xlabel(inputDataClass.get_variablesInfoDict()[dataTemp.get_description()]['y-label'], **plotSettings['axes_x'])
 
 	os.chdir(cwd)
 

@@ -1,0 +1,5 @@
+-> flightTestInfo:
+folderFTdata:: P:\12_flightTestData\P3-FT04\Freq_actuator\32star\
+varsToImport:: sg_CopyYCNT_DST_BST_LNG,sg_CopyYCNT_DST_LNG,sg_CopyYHYD_PRS_2
+startTimeSlope:: 3264
+freqPicks:: 0.67

@@ -7,38 +7,18 @@ workingFolder = "L:\MSH-Project Management Files\Functional Engineering\Test Div
 ' Where the data will be saved in csv format
 csvFolder = "L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0159\06_Dat_Analysis\1000Hz\"
 
+filesNames = Array("Druck_HP_1_[bar].tdms", "Druck_HP_2_[bar].tdms","Durchfluss_HP_1_[l_min].tdms", _ 
+                  "Durchfluss_HP_2_[l_min]_.tdms", "Force_Piston_Eye_HP1_[N].tdms", _
+                  "Force_Piston_Eye_HP2_[N].tdms", "Input_force_[N].tdms", "Laser_Piston_[mm].tdms", _
+                  "Laser_Steuerventilhebel_[mm].tdms", "Output_force_[N].tdms", "Temperatur_HP_1_[°C].tdms", "Temperatur_HP_2_[°C].tdms")
 
 ' These are the folders where the data that wants to be imported is contained. Each folder correspond to a differt time step
-commonAddress = "L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0159\Recorded Data\Fatigue Test\"
+commonAddress = "L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0214\01_Data_set-complete\01_RAW\Housing SN 002\"
 fileNamesBigArrayFolders = Array( _
-    Array(commonAddress +"fti_2018-03-01_115223\", "01", Array("fti_2018-03-01_115223.tdms")) _
-  , Array(commonAddress +"fti_2018-03-01_151305\", "02", Array("fti_2018-03-01_151305.tdms")) _
-  , Array(commonAddress +"fti_2018-03-01_164524\", "03", Array("fti_2018-03-01_164524.tdms")) _
-  , Array(commonAddress +"fti_2018-03-02_082047\", "04", Array("fti_2018-03-02_082047.tdms")) _
-  , Array(commonAddress +"fti_2018-03-02_102428\", "05", Array("fti_2018-03-02_102428.tdms")) _
-  , Array(commonAddress +"fti_2018-03-02_131228\", "06", Array("fti_2018-03-02_131228.tdms")) _
-  , Array(commonAddress +"fti_2018-03-02_150017\", "07", Array("fti_2018-03-02_150017.tdms")) _
-  , Array(commonAddress +"fti_2018-03-02_155825\", "08", Array("fti_2018-03-02_155825.tdms")) _
-  , Array(commonAddress +"fti_2018-03-05_081439\", "09", Array("fti_2018-03-05_081439.tdms")) _
-  , Array(commonAddress +"fti_2018-03-05_100103\", "10", Array("fti_2018-03-05_100103.tdms")) _
-  , Array(commonAddress +"fti_2018-03-05_121259\", "11", Array("fti_2018-03-05_121259.tdms")) _
-  , Array(commonAddress +"fti_2018-03-05_150751\", "12", Array("fti_2018-03-05_150751.tdms")) _
-  , Array(commonAddress +"fti_2018-03-06_084300\", "13", Array("fti_2018-03-06_084300.tdms")) _
-  , Array(commonAddress +"fti_2018-03-06_102802\", "14", Array("fti_2018-03-06_102802.tdms")) _
-  , Array(commonAddress +"fti_2018-03-07_100109\", "15", Array("fti_2018-03-07_100109.tdms")) _
-  , Array(commonAddress +"fti_2018-03-07_115628\", "16", Array("fti_2018-03-07_115628.tdms")) _
-  , Array(commonAddress +"fti_2018-03-07_135950\", "17", Array("fti_2018-03-07_135950.tdms")) _
-  , Array(commonAddress +"fti_2018-03-07_165039\", "18", Array("fti_2018-03-07_165039.tdms")) _
-  , Array(commonAddress +"fti_2018-03-08_080650\", "19", Array("fti_2018-03-08_080650.tdms")) _
-  , Array(commonAddress +"fti_2018-03-08_110047\", "20", Array("fti_2018-03-08_110047.tdms")) _
-  , Array(commonAddress +"fti_2018-03-08_143940\", "21", Array("fti_2018-03-08_143940.tdms")) _
-  , Array(commonAddress +"fti_2018-03-08_170647\", "22", Array("fti_2018-03-08_170647.tdms")) _
-  , Array(commonAddress +"fti_2018-03-08_184324\", "23", Array("fti_2018-03-08_184324.tdms")) _
-  , Array(commonAddress +"fti_2018-03-09_092304\", "24", Array("fti_2018-03-09_092304.tdms")) _
-  , Array(commonAddress +"fti_2018-03-09_115338\", "25", Array("fti_2018-03-09_115338.tdms")) _
-  , Array(commonAddress +"fti_2018-03-09_143115\", "26", Array("fti_2018-03-09_143115.tdms")) _
-  , Array(commonAddress +"fti_2018-03-12_094552\", "27", Array("fti_2018-03-12_094552.tdms")) _
-  , Array(commonAddress +"fti_2018-03-12_103634\", "28", Array("fti_2018-03-12_103634.tdms")) _
+    Array(commonAddress &"Step 1.1\2018-09-11_134042\", "002-1.1", filesNames) _
+  , Array(commonAddress &"Step 1.2\2018-09-11_171409\", "002-1.2", filesNames) _
+  , Array(commonAddress &"Step 1.3\2018-09-11_134524\", "002-1.3", filesNames) _
+  , Array(commonAddress &"Step 1.3\2018-09-11_134524\", "002-1.3", filesNames) _
   )
 
 ' The variable iterators is used to load and operate only selected steps from above
