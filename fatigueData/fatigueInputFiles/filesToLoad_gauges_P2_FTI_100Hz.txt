@@ -1,0 +1,125 @@
+-> Folders to load
+P:\12_flightTestData\P2_all_100Hz
+
+-> Test info
+test freq: 2
+
+-> Variable info
+name: rs__CNT_FRC_BST_COL
+y-label: Force [N]
+TO spec: yes
+max load: 1539
+min load: -1237
+Fatigue load spec: no
+
+-> Variable info
+name: rs__CNT_FRC_BST_LAT
+y-label: Force [N]
+TO spec: yes
+max load: 700
+min load: -700
+Fatigue load spec: no
+
+-> Variable info
+name: rs__CNT_FRC_BST_LNG
+y-label: Force [N]
+TO spec: yes
+max load: 700
+min load: -700
+Fatigue load spec: no
+
+-> Variable info
+name: rs__CNT_DST_COL
+y-label: Displ. [%]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__CNT_DST_LAT
+y-label: Displ. [%]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__CNT_DST_LNG
+y-label: Displ. [%]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: di__CNT_DST_COL
+y-label: Vel. [%/s]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: di__CNT_DST_LAT
+y-label: Vel. [%/s]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: di__CNT_DST_LNG
+y-label: Vel. [%/s]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__CNT_DST_BST_COL
+y-label: Displ. [mm]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__CNT_DST_BST_LAT
+y-label: Displ. [mm]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__CNT_DST_BST_LNG
+y-label: Displ. [mm]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: di__CNT_DST_BST_COL
+y-label: Displ. [mm]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: di__CNT_DST_BST_LAT
+y-label: Displ. [mm]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: di__CNT_DST_BST_LNG
+y-label: Displ. [mm]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__HYD_PRS_1
+y-label: Pressure [bar]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__HYD_PRS_2
+y-label: Pressure [degC]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__HYD_TMP_1
+y-label: Pressure [degC]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__HYD_TMP_2
+y-label: Pressure [degC]
+TO spec: no
+Fatigue load spec: no

@@ -1,0 +1,7 @@
+-> flightTestInfo:
+folderFTdata:: P:\12_flightTestData\P3-FT04\Freq_actuator\freq\
+varsToImport:: sg__CopyYCNT_DST_BST_LNG,sg__CopyYCNT_DST_LNG
+startTimeSlope:: 3453.24
+endTimeSlope:: 3487.75
+freqPicks:: 0.67
+inputFreqsMinMax:: 0.7,1.3

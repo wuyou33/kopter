@@ -1,0 +1,33 @@
+-> Files to load
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0220\01_Data_set-complete\01_RAW\Run_1_Messwerte.csv
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0220\01_Data_set-complete\01_RAW\Run_2_Messwerte.csv
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0220\01_Data_set-complete\01_RAW\Run_3_Messwerte.csv
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0220\01_Data_set-complete\01_RAW\Run_4_Messwerte.csv
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0220\01_Data_set-complete\01_RAW\Run_5_Messwerte.csv
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0220\01_Data_set-complete\01_RAW\Run_6_Messwerte.csv
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0220\01_Data_set-complete\01_RAW\Run_7_Messwerte.csv
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0220\01_Data_set-complete\01_RAW\Run_8_Messwerte.csv
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0220\01_Data_set-complete\01_RAW\Run_9_Messwerte.csv
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0220\01_Data_set-complete\01_RAW\Run_10_Messwerte.csv
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0220\01_Data_set-complete\01_RAW\Run_11_Messwerte.csv
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0220\01_Data_set-complete\01_RAW\Run_12_Messwerte.csv
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0220\01_Data_set-complete\01_RAW\Run_13_Messwerte.csv
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0220\01_Data_set-complete\01_RAW\Run_14_Messwerte.csv
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0220\01_Data_set-complete\01_RAW\Run_15_Messwerte.csv
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0220\01_Data_set-complete\01_RAW\Run_16_Messwerte.csv
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0220\01_Data_set-complete\01_RAW\Run_17_Messwerte.csv
+
+-> Signal characteristics actuator
+excel_row_weg: 0
+excel_row_kraft: 2
+sampling_freq: 20
+time_offset: 2
+cut-off_freq: 0.005
+TO spec: yes
+max load: 23
+min load: 15.7
+Fatigue load spec: no
+static load: 0.985
+margin static load (%): 5
+alternate load: 5.124
+margin alternate load (%): 3
