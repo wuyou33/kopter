@@ -1,5 +1,6 @@
 -> flightTestInfo:
 folderFTdata:: P:\12_flightTestData\P3-FT04\Freq_actuator\34\
-varsToImport:: sg_CopyYHYD_PRS_2,sg_CopyYCNT_DST_LAT,sg_CopyYCNT_DST_LNG,sg_CopyYCNT_DST_BST_LNG,sg_CopyYCNT_DST_BST_LAT
-startTimeSlope:: 3377
+varsToImport::dif__CopyYCNT_DST_LAT,dif__CopyYCNT_DST_BST_LAT,sg__CopyYCNT_DST_BST_LAT,sg__CopyYCNT_DST_LAT,dif__CopyYCNT_DST_LNG,dif__CopyYCNT_DST_BST_LNG,sg__CopyYCNT_DST_BST_LNG,sg__CopyYCNT_DST_LNG,sg__CopyYHYD_PRS_2
+startTimeSlope:: 3376.7
+endTimeSlope:: 3412.71
 freqPicks:: 0.67

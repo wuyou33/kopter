@@ -26,15 +26,7 @@ For Each fileNameDataInput in filesNamesDataInput
         Next
       Next
 
-      For j = 2 To Data.Root.ChannelGroups.Count Step 1
-        'Collapse all the channels in the newly created groups to an unique group
-        For Each channel in Data.Root.ChannelGroups(2).Channels
-          Call Data.Move(channel,Data.Root.ChannelGroups(1).Channels) 
-        Next
-        Call Data.Root.ChannelGroups.Remove(2) 'Remove the group that have been emptied'
-      Next
-
-      if loadScript_resampleFlag Then
+      If loadScript_resampleFlag Then
         ' Resample magnitudes data and save them in csv format to be post-processed using Python
         id_reSampleGroup = Data.Root.ChannelGroups.Count + 1
 
@@ -42,21 +34,40 @@ For Each fileNameDataInput in filesNamesDataInput
         Call GroupCreate("Re-sampled; "&newFreq&"Hz",id_reSampleGroup)
         Call Data.Root.ChannelGroups(id_reSampleGroup).Activate()
 
-        '  add downsampled channels to this group
-        For Each originalChannel in Data.Root.ChannelGroups(1).Channels
-          ' originalChannel = "[1]/"&dictVaDiadem(var)
-          If Ubound(Filter(dictVaDiadem.Keys, originalChannel.Name)) > -1 Then 'If current variable exists in the choice of variables'
+        For groupID = 1 To Data.Root.ChannelGroups.Count-1 Step 1
+          For Each originalChannel in Data.Root.ChannelGroups(groupID).Channels
+            ' originalChannel = "[1]/"&dictVaDiadem(var)
+            If Ubound(Filter(dictVaDiadem.Keys, originalChannel.Name)) > -1 Then 'If current variable exists in the choice of variables'
 
-            newChannel = "/"&originalChannel.Name&"__"&newFreq&"Hz__"&folderInfo(1)
-            Call ChnResampleFreqBased("",originalChannel, newChannel,newFreq,"Automatic",0,0)
+              newChannel = "/"&originalChannel.Name&"__"&newFreq&"Hz__"&folderInfo(1)
+              Call ChnResampleFreqBased("",originalChannel, newChannel,newFreq,"Automatic",0,0)
 
-            ' export operation to csv
-            If loadScript_saveFlagResampledDataCSV Then
-                nameOfFile = "rs__"&dictVaDiadem(originalChannel.Name)&"__"&newFreq&"Hz__"&folderInfo(1)&".csv"
-                Call DataFileSaveSel(csvFolder & nameOfFile,"CSV",newChannel)
+              ' export operation to csv
+              If loadScript_saveFlagResampledDataCSV Then
+                  nameOfFile = "rs__"&dictVaDiadem(originalChannel.Name)&"__"&newFreq&"Hz__"&folderInfo(1)&".csv"
+                  Call DataFileSaveSel(csvFolder & nameOfFile,"CSV",newChannel)
+              End If
+
+              ' Flight test operations
+              If FlagFTData Then
+
+                If Ubound(Filter(signalsToDif, originalChannel.Name)) > -1 Then
+                  diffVariableToSave = "/"&originalChannel.Name&"__"&newFreq&"Hz__"&folderInfo(1)&"__diff"
+
+                  'Smooth operation'
+                  ' smoothVariableToSave = "/"&originalChannel.Name&"__"&newFreq&"Hz__"&folderInfo(1)&"__smooth"
+                  ' Call ChnSmooth(newChannel,smoothVariableToSave,numberPointsSmoothering,"symmetric","byMeanValue")
+                  ' Call ChnDeriveCalc("",smoothVariableToSave,diffVariableToSave)
+
+                  Call ChnDeriveCalc("",newChannel,diffVariableToSave)
+                  Call DataFileSaveSel(csvFolder & "di__"&dictVaDiadem(originalChannel.Name)&"__"&newFreq&"Hz__"&folderInfo(1)&".csv","CSV",diffVariableToSave)
+                End If
+
+              End If
+
             End If
 
-          End If
+          Next
 
         Next
 
@@ -71,10 +82,10 @@ For Each fileNameDataInput in filesNamesDataInput
       End If
 
       ' Delete both folders for the group, the one that contains resampled data and the one with the original data
-      Call Data.Root.ChannelGroups.Remove(1)
-      if loadScript_resampleFlag Then
+      n_groups = Data.Root.ChannelGroups.Count
+      For groupID = 1 To n_groups Step 1
         Call Data.Root.ChannelGroups.Remove(1)
-      End If
+      Next
 
     End If
   Next

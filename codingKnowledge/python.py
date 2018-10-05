@@ -10,6 +10,18 @@ print('-')
 print('-')
 # majorTicksNum = [float(m.get_text()) for m in majorTicks]
 
+>>> np.where([[True, False], [True, True]],
+...          [[1, 2], [3, 4]],
+...          [[9, 8], [7, 6]])
+array([[1, 8],
+       [3, 4]])
+
+# Find time stamp
+time_fn.index([t for t in time_fn if abs(endTime-t)<0.02][0])
+
+
+#Plotting
+figure.suptitle('LNG', **plotSettings['figure_title'])
 xticksMinorUser = []
 counter = 0
 for tick in xticksMajor[: len(xticksMajor)-2]:
@@ -22,6 +34,17 @@ for tick in xticksMajor[: len(xticksMajor)-2]:
 [print(m) for m in xticksMinorUser]
 xlistOfLabelsMinor = [str(m) for m in xticksMinor]
 ylistOfLabelsMinor = [str(m) for m in yticksMinor]
-
 ax.set_xticklabels(xlistOfLabelsMinor, minor=True)
 ax.set_yticklabels(ylistOfLabelsMinor, minor=True)
+
+# Lin algebra
+a.shape
+
+#I/O with files
+file = open('folderResults.csv', 'w')
+
+for ad in addressTuple_P2:
+	print(ad)
+	file.write(ad+'\n')
+
+file.close()

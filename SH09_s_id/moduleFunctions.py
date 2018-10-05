@@ -7,11 +7,13 @@ import matplotlib.pyplot as plt
 import scipy.stats as st
 import scipy.linalg as lalg
 import statistics as stat
+from scipy import interpolate
 from scipy import signal
 import math
 import copy
 import getopt
 import pdb #pdb.set_trace()
+import cmath
 
 def importPlottingOptions():
 	#### PLOTTING OPTIONS ####
@@ -19,8 +21,8 @@ def importPlottingOptions():
 	#Plotting options
 	axes_label_x  = {'size' : 12, 'weight' : 'medium', 'verticalalignment' : 'top', 'horizontalalignment' : 'center'} #'verticalalignment' : 'top'
 	axes_label_y  = {'size' : 12, 'weight' : 'medium', 'verticalalignment' : 'bottom', 'horizontalalignment' : 'center'} #'verticalalignment' : 'bottom'
-	figure_text_title_properties = {'weight' : 'bold', 'size' : 14}
-	ax_text_title_properties = {'weight' : 'regular', 'size' : 12}
+	figure_text_title_properties = {'weight' : 'bold', 'size' : 16}
+	ax_text_title_properties = {'weight' : 'regular', 'size' : 14}
 	axes_ticks = {'labelsize' : 10}
 	line = {'linewidth' : 1.5, 'markersize' : 4}
 	scatter = {'linewidths' : 1.0}
@@ -41,8 +43,8 @@ def importPlottingOptions():
 
 def readCMDoptions(argv, CMDoptionsDict):
 
-	short_opts = "f:" #"o:f:"
-	long_opts = ["inputFile="] #["option=","fileName="]
+	short_opts = "f:o:p:" #"o:f:"
+	long_opts = ["inputFile=","outputFlag=","executionOption="] #["option=","fileName="]
 	try:
 		opts, args = getopt.getopt(argv,short_opts,long_opts)
 	except getopt.GetoptError:
@@ -58,6 +60,25 @@ def readCMDoptions(argv, CMDoptionsDict):
 			# postProcFolderName = arg
 
 			CMDoptionsDict['inputFile'] = arg
+
+		elif opt in ("-o", "--outputFlag"):
+
+			if arg.lower() in ('true', 't'):
+				CMDoptionsDict['outputFlag'] = True
+			elif arg.lower() in ('false', 'f'):
+				CMDoptionsDict['outputFlag'] = False
+
+		elif opt in ("-p", "--executionOption"):
+
+			if arg.lower() in ('cav', 't'):
+				CMDoptionsDict['cavitationFlag'] = True
+				CMDoptionsDict['FRF'] = False
+			elif arg.lower() in ('frf'):
+				CMDoptionsDict['cavitationFlag'] = False
+				CMDoptionsDict['FRF'] = True
+			else:
+				CMDoptionsDict['cavitationFlag'] = False
+				CMDoptionsDict['FRF'] = False
 
 
 	return CMDoptionsDict
@@ -907,19 +928,25 @@ class ClassVariableDef(object):
 		# Input parameters
 		freqPicks = float(CMDoptionsDict['flightTestInfo']['freqPicks']) #seconds-1
 		startTime = float(CMDoptionsDict['flightTestInfo']['startTimeSlope']) 
+		endTime = float(CMDoptionsDict['flightTestInfo']['endTimeSlope']) 
 		data_xStep = self.time[1] - self.time[0] #Seconds
 		numberPointsCycle = int(1 / (freqPicks * data_xStep))
 		time_fn = self.time
 		data_fn = self.data
-		indexStartTime = time_fn.index(startTime)
+		indexStartTime = time_fn.index([t for t in time_fn if abs(startTime-t)<0.02][0])
+		indexEndTime = time_fn.index([t for t in time_fn if abs(endTime-t)<0.02][0])
 
 		#Automatic search
+		if 'sg__CopyYCNT_DST_BST_L' in self.name:
+			numberOfPointsSearch = 80
+		elif 'sg__CopyYCNT_DST_L' in self.name:
+			numberOfPointsSearch = 20
 		CMDrowsCounter = printRowTable('headerPicks', 12, 1, 'headerPicks')
 		maxs, mins, index, skipN = [], [], indexStartTime, 0.0
 		list_max_pairs, list_min_pairs = [], []
-		for point in data_fn[indexStartTime:len(data_fn)-int(0.25*numberPointsCycle)]:
+		for point in data_fn[indexStartTime:indexEndTime]:
 			if skipN == 0.0:
-				boolsCheckMax, boolsCheckMin = checkPick(index, range(1 ,100), data_fn) #[1, 2, 5, 7, 10, 12, 15, 20, 30, 40, 50]
+				boolsCheckMax, boolsCheckMin = checkPick(index, range(1 ,numberOfPointsSearch), data_fn) #[1, 2, 5, 7, 10, 12, 15, 20, 30, 40, 50]
 				if all(boolsCheckMax):
 					list_max_pairs += [[time_fn[index], point]]
 					skipN = int(0.1 * numberPointsCycle)
@@ -940,31 +967,270 @@ class ClassVariableDef(object):
 
 		# Get travel
 		i = 0
-		travel = []
+		travel, freq_from_picks = [], []
 		times_max = [t[0] for t in list_max_pairs]
 		times_min = [t[0] for t in list_min_pairs]
 		maxs = [t[1] for t in list_max_pairs]
 		mins = [t[1] for t in list_min_pairs]
 
-		if times_max[0] > times_max[0]: #If first point is a maximum
-			firstPickFlag = True
-		else:
+		if times_max[0] > times_min[0]: #If first point is a maximum
 			firstPickFlag = False
+		else:
+			firstPickFlag = True
 		
 		CMDrowsCounter = printRowTable('headerValuesBetweenPicks', 23, 1, 'headerValuesBetweenPicks')
 		for max_i, min_i in zip(maxs, mins):
-			if not i == 0 and firstPickFlag:
-				travel += [[abs(max_i-mins[i-1]), 1/abs(times_max[i]-times_min[i-1]), (times_max[i] + times_min[i-1])/2]]
-				CMDrowsCounter = printRowTable([tavel[-1][2], travel[-1][0], travel[-1][1]], 23, CMDrowsCounter, 'headerValuesBetweenPicks')
-			travel += [[abs(max_i-min_i), 1/abs(times_max[i]-times_min[i]), (times_max[i] + times_min[i])/2]]
-			CMDrowsCounter = printRowTable([travel[-1][2], travel[-1][0], travel[-1][1]], 23, CMDrowsCounter, 'headerValuesBetweenPicks')
+			if not i == 0:
+				travel += [[(times_max[i] + times_min[i-1])/2, abs(max_i-mins[i-1])]]
+
+				if firstPickFlag:
+					freq_from_picks += [[(times_max[i] + times_max[i-1])/2, 1/abs(times_max[i]-times_max[i-1])]] #Measure instant freq from period between consecutive peaks
+					freq_from_picks += [[(times_min[i] + times_min[i-1])/2, 1/abs(times_min[i]-times_min[i-1])]] #Measure instant freq from period between consecutive peaks
+				else:
+					freq_from_picks += [[(times_min[i] + times_min[i-1])/2, 1/abs(times_min[i]-times_min[i-1])]] #Measure instant freq from period between consecutive peaks
+					freq_from_picks += [[(times_max[i] + times_max[i-1])/2, 1/abs(times_max[i]-times_max[i-1])]] #Measure instant freq from period between consecutive peaks
+				CMDrowsCounter = printRowTable([travel[-1][0], travel[-1][1], freq_from_picks[-1][1]], 23, CMDrowsCounter, 'headerValuesBetweenPicks')
+
+			travel += [[(times_max[i] + times_min[i])/2, abs(max_i-min_i)]] #Measure instant freq as pick to pick
+			# freq += [[(times_max[i] + times_min[i])/2, 1/(abs(times_max[i]-times_min[i])*2)]] #Measure instant freq as pick to pick
+			# CMDrowsCounter = printRowTable([travel[-1][0], travel[-1][1], freq_from_picks[-1][1]], 23, CMDrowsCounter, 'headerValuesBetweenPicks')
+			CMDrowsCounter = printRowTable([travel[-1][0], travel[-1][1]], 23, CMDrowsCounter, 'headerValuesBetweenPicks')
 
 			i += 1
 
-		if len(maxs) != len(mins) and firstPickFlag: #Last point
-			travel += [[abs(maxs[-1]-mins[-1]), 1/abs(times_max[-1]-times_min[-1]), (times_max[-1] + times_min[-1])/2]]
+		if len(maxs) != len(mins): #Last point, if the series do not have the same length. They can only differ in length by one unit
+			travel += [[(times_max[-1] + times_min[-1])/2, abs(maxs[-1]-mins[-1])]]
+			if firstPickFlag:
+				freq_from_picks += [[(times_max[-1] + times_max[-2])/2, 1/abs(times_max[-1]-times_max[-2])]]
+				# freq_from_picks += [[(times_min[-1] + times_min[-2])/2, 1/abs(times_min[-1]-times_min[-2])]]
+			else:
+				freq_from_picks += [[(times_min[-1] + times_min[-2])/2, 1/abs(times_min[-1]-times_min[-2])]]
+				# freq_from_picks += [[(times_max[-1] + times_max[-2])/2, 1/abs(times_max[-1]-times_max[-2])]]
 
 		self.travel = travel
+		self.freq_from_picks = freq_from_picks
+
+		#Interpolate freqs for travel
+		interpol_f = interpolate.interp1d([t[0] for t in freq_from_picks], [t[1] for t in freq_from_picks], kind = 'linear', bounds_error = False, fill_value = 'extrapolate', assume_sorted = True)
+		freq_travel = interpol_f([t[0] for t in travel])
+
+		self.freq_from_travel = [[t[0], f] for t,f in zip(travel, freq_travel)]
+
+		#Output
+		if CMDoptionsDict['outputFlag']:
+			file = open('resultsCavitationInvestigation_'+self.name+'.csv', 'w')
+			i = 0
+			file.write(','.join(['time','travel','freq']) + '\n')
+			for travelPair in self.travel:
+				file.write(','.join(map(str, [travelPair[0],travelPair[1],self.freq_from_travel[i][1]])) + '\n')
+				i+=1
+
+			file.close()
+
+def FRF(input_in, output_in, settingsDict_FRF, plotSettings, CMDoptionsDict):
+
+	inputFreqsMinMax = [float(p) for p in CMDoptionsDict['flightTestInfo']['inputFreqsMinMax'].split(',')]
+
+	N = input_in.shape[0]
+
+	#Input and output variables
+	x = input_in[:N,0] - np.mean(input_in[:N,0])
+	y = output_in[:N,0] - np.mean(output_in[:N,0])
+
+	# Time vector
+	time = input_in[:N,1]
+	assert input_in[1,1] == output_in[1,1], 'Error: Dismatch betw time vectors for input and output'
+
+	# Correlation plots
+
+	if settingsDict_FRF['correlationPlotsFlag']:
+
+		R_xx = np.zeros([N-1, 1])
+		R_yy = np.zeros([N-1, 1])
+		R_xy = np.zeros([N-1, 1])
+		R_yx = np.zeros([N-1, 1])
+		lags = np.zeros([N-1, 1])
+
+		for n_tau in range(N-1):
+			for n in range(N-1-abs(n_tau)):
+				R_xx[n_tau] += (x[n] * x[n+n_tau])/(N - n_tau)
+				R_yy[n_tau] += (y[n] * y[n+n_tau])/(N - n_tau)
+				R_xy[n_tau] += (x[n] * y[n+n_tau])/(N - n_tau)
+				R_yx[n_tau] += (y[n] * x[n+n_tau])/(N - n_tau)
+
+			lags[n_tau] = [time[n_tau]-time[0]]
+
+		figure, axs = plt.subplots(3, 1, sharex='col')
+		figure.set_size_inches(14, 10, forward=True)
+		figure.suptitle('Correlation functions', **plotSettings['figure_title'])
+
+		axs[0].plot(np.concatenate((np.flip(lags[1:],0)*-1, lags)), np.concatenate((np.flip(R_xx[1:],0), R_xx)), linestyle = '-', marker = '', c = plotSettings['colors'][0], label = 'R_xx', **plotSettings['line'])
+		axs[1].plot(np.concatenate((np.flip(lags[1:],0)*-1, lags)), np.concatenate((np.flip(R_yy[1:],0), R_yy)), linestyle = '-', marker = '', c = plotSettings['colors'][0], label = 'R_yy', **plotSettings['line'])
+		axs[2].plot(np.concatenate((np.flip(lags[1:],0)*-1, lags)), np.concatenate((np.flip(R_xy[1:],0), R_xy)), linestyle = '-', marker = '', c = plotSettings['colors'][0], label = 'R_xy', **plotSettings['line'])
+
+		axs[0].set_ylabel('R_xx', **plotSettings['axes_y'])
+		axs[1].set_ylabel('R_yy', **plotSettings['axes_y'])
+		axs[2].set_ylabel('R_xy', **plotSettings['axes_y'])
+
+		axs[-1].set_xlabel('Lags [s]', **plotSettings['axes_x'])
+
+		for ax in axs:
+			usualSettingsAX(ax, plotSettings)
+
+	# #######################
+	# Overlapped windowing
+	T_rec = time[-1]
+	T_s = time[1]-time[0]
+	f_s = 1/T_s
+	output_delay = 0.6 #????
+
+	x_frac = settingsDict_FRF['x_frac']
+	K = settingsDict_FRF['K']
+
+	# Window length
+	T_win = T_rec / ( ((K-1)*(1 - x_frac)) + 1)
+
+	#Number of samples in each window
+	N_win = int( N / ( ((K-1)*(1 - x_frac)) + 1) )
+
+	# Power spectral density
+	f_PSD_x, Pxx_den_PSD_x = signal.welch(x, fs=f_s, window='bartlett', nperseg=N_win, noverlap=N_win/2, scaling= 'spectrum')
+	f_PSD_y, Pxx_den_PSD_y = signal.welch(y, fs=f_s, window='bartlett', nperseg=N_win, noverlap=N_win/2, scaling= 'spectrum')
+	
+
+	figure, axs = plt.subplots(2, 1, sharex='col')
+	figure.set_size_inches(14, 10, forward=True)
+	axs[0].semilogy(f_PSD_x, np.sqrt(Pxx_den_PSD_x), linestyle = '-', marker = '', c = plotSettings['colors'][0], label = 'x', **plotSettings['line'])
+	axs[1].semilogy(f_PSD_y, np.sqrt(Pxx_den_PSD_y), linestyle = '-', marker = '', c = plotSettings['colors'][0], label = 'y', **plotSettings['line'])
+
+	axs[0].set_ylabel('Linear spectrum [mm RMS]', **plotSettings['axes_y'])
+	axs[1].set_ylabel('Linear spectrum [% RMS]', **plotSettings['axes_y'])
+	
+	axs[-1].set_xlabel('Frequency [Hz]', **plotSettings['axes_x'])
+
+	for ax in axs:
+		usualSettingsAX(ax, plotSettings)
+
+	# Subdivision in segments
+	x_int, y_int, t_int = K*[None], K*[None], K*[None]
+	
+	for k in range(1,K-1):
+		lower_index = int((1-x_frac)*k*(N_win-1))
+		upper_index = int(((1-x_frac)*k*N_win) + N_win)
+		
+		x_int[k] = x[lower_index:upper_index]
+		y_int[k] = y[lower_index:upper_index]
+		t_int[k] = time[lower_index:upper_index]
+
+	x_int[0] = x[:N_win]
+	y_int[0] = y[:N_win]
+	t_int[0] = time[:N_win]
+
+	x_int[K-1] = x[-N_win:]
+	y_int[K-1] = y[-N_win:]
+	t_int[K-1] = time[-N_win:]
+
+	# Windowing
+	x_window, y_window = K*[None], K*[None]
+
+	for k in range(K):
+
+		x_window[k] = x_int[k] * np.bartlett(x_int[k].shape[0])
+		y_window[k] = y_int[k] * np.bartlett(y_int[k].shape[0])
+
+
+	figure, axs = plt.subplots(4, 1, sharex='col')
+	figure.set_size_inches(14, 10, forward=True)
+	figure.suptitle('Correlation functions', **plotSettings['figure_title'])
+
+	axs[0].plot(time, x, linestyle = '-', marker = '', c = plotSettings['colors'][0], label = 'x', **plotSettings['line'])
+	for seg_id in range(K):
+		axs[1].plot(t_int[seg_id], x_window[seg_id], linestyle = '-', marker = '', c = plotSettings['colors'][0], label = 'x_window', **plotSettings['line'])
+	
+	axs[2].plot(time, y, linestyle = '-', marker = '', c = plotSettings['colors'][0], label = 'y', **plotSettings['line'])
+	for seg_id in range(K):
+		axs[3].plot(t_int[seg_id], y_window[seg_id], linestyle = '-', marker = '', c = plotSettings['colors'][0], label = 'y_window', **plotSettings['line'])
+
+	axs[0].set_ylabel('x', **plotSettings['axes_y'])
+	axs[1].set_ylabel('x_window', **plotSettings['axes_y'])
+	axs[2].set_ylabel('y', **plotSettings['axes_y'])
+	axs[3].set_ylabel('y_window', **plotSettings['axes_y'])
+	
+	axs[-1].set_xlabel('Time [s]', **plotSettings['axes_x'])
+
+	for ax in axs:
+		usualSettingsAX(ax, plotSettings)
+
+	# Discrete Fourier transforms
+	X1, X, Y1, Y, freq = K*[None], K*[None], K*[None], K*[None], K*[None]
+
+	for k in range(K):
+
+		X1[k] = np.fft.fft(x_window[k], n = N)
+		X[k] = X1[k][0:int((N+1)/2-1)]
+		Y1[k] = np.fft.fft(y_window[k], n = N)
+		Y[k] = Y1[k][0:int((N+1)/2-1)]
+
+		# temp = np.fft.fftfreq(x_window[k].shape[-1], d = T_s)
+		# freq[k] = temp[0:int((N+1)/2-1)]
+
+	# Frequency
+	f = [p * (f_s/N) for p in range(0, int((N-1)/2))]
+
+	# Rough estimate
+	G_xx_rough, G_yy_rough, G_xy_rough = K*[None], K*[None], K*[None]
+
+	for k in range(K):
+
+		G_xx_rough[k] = [o*o*(2/T_win) for o in X[k]]
+		G_yy_rough[k] = [o*o*(2/T_win) for o in Y[k]]
+		G_xy_rough[k] = [o*p*(2/T_win) for o,p in zip(X[k], Y[k])]
+
+	G_xx, G_yy, G_xy = min([len(u) for u in G_xx_rough])*[None], min([len(u) for u in G_xx_rough])*[None], min([len(u) for u in G_xx_rough])*[None]
+	for p in range(min([len(u) for u in G_xx_rough])):
+		temp_a, temp_b, temp_c = [], [], []
+		for k in range(K):
+			# print('{}, {}'.format(p, k))
+			temp_a += [G_xx_rough[k][p]]
+			temp_b += [G_yy_rough[k][p]]
+			temp_c += [G_xy_rough[k][p]]
+		# pdb.set_trace()
+		G_xx[p] = np.mean(temp_a)
+		G_yy[p] = np.mean(temp_b)
+		G_xy[p] = np.mean(temp_c)
+
+	# Estimate the FRF H
+	H = [m/n for m,n in zip(G_xy,G_xx)]
+
+	mod = [20*np.log10(cmath.polar(o)[0]) for o in H]
+	phi = [(180/cmath.pi)*cmath.polar(o)[1] for o in H]
+
+	# plt.figure()
+	# plt.semilogx(f, mod)    # Bode magnitude plot
+	# plt.figure()
+	# plt.semilogx(f, phi)  # Bode phase plot
+	# pdb.set_trace()
+
+	figure, axs = plt.subplots(2, 1, sharex='col')
+	figure.set_size_inches(14, 10, forward=True)
+	axs[0].semilogx(f, mod, linestyle = '-', marker = '', c = plotSettings['colors'][0], label = 'x', **plotSettings['line'])
+	axs[1].semilogx(f, phi, linestyle = '-', marker = '', c = plotSettings['colors'][0], label = 'x', **plotSettings['line'])
+
+	for lim in inputFreqsMinMax:
+		axs[0].semilogx(2*[lim], [max(mod), min(mod)], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
+		axs[1].semilogx(2*[lim], [max(phi), min(phi)], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
+
+	axs[0].set_ylabel('|H| [dB]', **plotSettings['axes_y'])
+	axs[1].set_ylabel('$\\varphi$ [deg]', **plotSettings['axes_y'])
+	
+	axs[-1].set_xlabel('Frequency [Hz]', **plotSettings['axes_x'])
+
+	for ax in axs:
+		usualSettingsAX(ax, plotSettings)
+
+	outputDict = {'f':f, 'mod':mod, 'phi':phi}
+
+	return outputDict
 
 def importFTIdefFile(fileName_in, CMDoptionsDict):
 	"""
@@ -1168,57 +1434,102 @@ def writeIdentificationResults():
 
 	file.close()
 
-def plot_fti_measurements_cavitation(var_main, var_press, var_vel, varClassesDict, plotSettings):
+def plot_fti_measurements_cavitation(inputVar, var_pistonDist, var_press, var_vel, varClassesDict, plotSettings):
 
-	figure, axs = plt.subplots(4, 1, sharex='col')
+	figure, axs = plt.subplots(4, 2, sharex='all')
 	figure.set_size_inches(14, 10, forward=True)
-	ax = axs[0]
-	ax.plot(varClassesDict[var_main].time, varClassesDict[var_main].data, linestyle = '-', marker = '', c = plotSettings['colors'][0], label = var_main, **plotSettings['line'])
-	ax.plot([t[0] for t in varClassesDict[var_main].list_max_pairs], [t[1] for t in varClassesDict[var_main].list_max_pairs], linestyle = '-.', marker = 'o', c = plotSettings['colors'][1], label = 'Max', **plotSettings['line'])
-	ax.plot([t[0] for t in varClassesDict[var_main].list_min_pairs], [t[1] for t in varClassesDict[var_main].list_min_pairs], linestyle = '-.', marker = 'o', c = plotSettings['colors'][2], label = 'Min', **plotSettings['line'])
-	ax.set_ylabel('Piston displacement [mm]', **plotSettings['axes_y'])
+	########################################
 
-	ax.grid(which='both', **plotSettings['grid'])
-	ax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])
-	ax.minorticks_on()
-	#Double y-axis 
-	axdouble_in_y = ax.twinx()
-	axdouble_in_y.minorticks_on()
-	axdouble_in_y.plot([t[2] for t in varClassesDict[var_main].travel], [t[1] for t in varClassesDict[var_main].travel], linestyle = '-', marker = 'o', c = plotSettings['colors'][3], label = 'Freq.', **plotSettings['line'])
-	axdouble_in_y.set_ylabel('Displ. instant freq. [Hz]', **plotSettings['axes_x'])
-	handles_doubleAx_y = axdouble_in_y.get_legend_handles_labels()[0]
-	handles = ax.get_legend_handles_labels()[0]
-	ax.legend(handles = handles+handles_doubleAx_y, **plotSettings['legend'])
+	def plotIndividual( varToPlot, varClassesDict, plotSettings, plotCount, plotColumnCount):
+
+		var_vel = 'dif__'+varToPlot.split('__')[1]
+
+		if plotColumnCount == 0:
+			plotLeftFlag = True
+		else:
+			plotLeftFlag = False
+
+		fs = 1/(varClassesDict[varToPlot].time[1] - varClassesDict[varToPlot].time[0])
+
+		ax = axs[plotCount, plotColumnCount]
+		if 'CNT_DST_BST_L' in varToPlot:
+			ax.set_title('Actuator piston displ. [mm]', **plotSettings['ax_title'])
+		elif 'CNT_DST_L' in varToPlot:
+			ax.set_title('Pilot input [%]', **plotSettings['ax_title'])
 
 
-	ax = axs[1]
-	ax.plot(varClassesDict[var_main].time, varClassesDict[var_main].data, linestyle = '-', marker = '', c = plotSettings['colors'][0], label = var_main, **plotSettings['line'])
-	ax.plot([t[0] for t in varClassesDict[var_main].list_max_pairs], [t[1] for t in varClassesDict[var_main].list_max_pairs], linestyle = '-.', marker = 'o', c = plotSettings['colors'][1], label = 'Max', **plotSettings['line'])
-	ax.plot([t[0] for t in varClassesDict[var_main].list_min_pairs], [t[1] for t in varClassesDict[var_main].list_min_pairs], linestyle = '-.', marker = 'o', c = plotSettings['colors'][2], label = 'Min', **plotSettings['line'])
-	ax.set_ylabel('Piston displacement [mm]', **plotSettings['axes_y'])
+		ax.plot(varClassesDict[varToPlot].time, varClassesDict[varToPlot].data, linestyle = '-', marker = '', c = plotSettings['colors'][0], label = varToPlot, **plotSettings['line'])
+		ax.plot([t[0] for t in varClassesDict[varToPlot].list_max_pairs], [t[1] for t in varClassesDict[varToPlot].list_max_pairs], linestyle = '-.', marker = 'o', c = plotSettings['colors'][1], label = 'Max', **plotSettings['line'])
+		ax.plot([t[0] for t in varClassesDict[varToPlot].list_min_pairs], [t[1] for t in varClassesDict[varToPlot].list_min_pairs], linestyle = '-.', marker = 'o', c = plotSettings['colors'][1], label = 'Min', **plotSettings['line'])
+		if plotLeftFlag:
+			ax.set_ylabel('Displ. [mm],[%]', **plotSettings['axes_y'])
 
-	ax.grid(which='both', **plotSettings['grid'])
-	ax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])
-	ax.minorticks_on()
-	#Double y-axis 
-	axdouble_in_y = ax.twinx()
-	axdouble_in_y.minorticks_on()
-	axdouble_in_y.plot([t[2] for t in varClassesDict[var_main].travel], [t[0] for t in varClassesDict[var_main].travel], linestyle = '-', marker = 'o', c = plotSettings['colors'][3], label = 'Travel', **plotSettings['line'])
-	axdouble_in_y.set_ylabel('Displ. instant amplitude [mm]', **plotSettings['axes_x'])
-	handles_doubleAx_y = axdouble_in_y.get_legend_handles_labels()[0]
-	handles = ax.get_legend_handles_labels()[0]
-	ax.legend(handles = handles+handles_doubleAx_y, **plotSettings['legend'])
+		ax.grid(which='both', **plotSettings['grid'])
+		ax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])
+		ax.minorticks_on()
+		#Double y-axis
+		axdouble_in_y = ax.twinx()
+		axdouble_in_y.minorticks_on()
+		axdouble_in_y.plot([t[0] for t in varClassesDict[varToPlot].freq_from_picks], [t[1] for t in varClassesDict[varToPlot].freq_from_picks], linestyle = '-', marker = 'o', c = plotSettings['colors'][2], label = 'Freq.', **plotSettings['line'])
+		if not plotLeftFlag:
+			axdouble_in_y.set_ylabel('Instant freq. [Hz]', **plotSettings['axes_x'])
+		handles_doubleAx_y = axdouble_in_y.get_legend_handles_labels()[0]
+		handles = ax.get_legend_handles_labels()[0]
+		ax.legend(handles = handles_doubleAx_y, **plotSettings['legend'])
 
-	ax = axs[2]
-	ax.plot(varClassesDict[var_vel].time, varClassesDict[var_vel].data, linestyle = '-', marker = '', c = plotSettings['colors'][0], label = var_vel, **plotSettings['line'])
-	ax.set_ylabel('Piston velocity [mm/s]', **plotSettings['axes_y'])
-	ax.set_xlabel('Time [s]', **plotSettings['axes_x'])
-	ax.legend(**plotSettings['legend'])
-	usualSettingsAX(ax, plotSettings)
 
-	ax = axs[-1]
-	ax.plot(varClassesDict[var_press].time, varClassesDict[var_press].data, linestyle = '-', marker = '', c = plotSettings['colors'][0], label = var_press, **plotSettings['line'])
-	ax.set_ylabel('Hydraulic pressure HYD2 [bar]', **plotSettings['axes_y'])
-	ax.set_xlabel('Time [s]', **plotSettings['axes_x'])
-	ax.legend(**plotSettings['legend'])
-	usualSettingsAX(ax, plotSettings)
+		########################################
+		plotCount+=1
+		ax = axs[plotCount, plotColumnCount]
+		ax.plot(varClassesDict[varToPlot].time, varClassesDict[varToPlot].data, linestyle = '-', marker = '', c = plotSettings['colors'][0], label = varToPlot, **plotSettings['line'])
+		ax.plot([t[0] for t in varClassesDict[varToPlot].list_max_pairs], [t[1] for t in varClassesDict[varToPlot].list_max_pairs], linestyle = '-.', marker = 'o', c = plotSettings['colors'][1], label = 'Max', **plotSettings['line'])
+		ax.plot([t[0] for t in varClassesDict[varToPlot].list_min_pairs], [t[1] for t in varClassesDict[varToPlot].list_min_pairs], linestyle = '-.', marker = 'o', c = plotSettings['colors'][1], label = 'Min', **plotSettings['line'])
+		if plotLeftFlag:
+			ax.set_ylabel('Displ. [mm],[%]', **plotSettings['axes_y'])
+
+		ax.grid(which='both', **plotSettings['grid'])
+		ax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])
+		ax.minorticks_on()
+		#Double y-axis 
+		axdouble_in_y = ax.twinx()
+		axdouble_in_y.minorticks_on()
+		axdouble_in_y.plot([t[0] for t in varClassesDict[varToPlot].travel], [t[1] for t in varClassesDict[varToPlot].travel], linestyle = '-', marker = 'o', c = plotSettings['colors'][2], label = 'Travel', **plotSettings['line'])
+		if not plotLeftFlag:
+			axdouble_in_y.set_ylabel('Instant amplitude [mm],[%]', **plotSettings['axes_x'])
+		handles_doubleAx_y = axdouble_in_y.get_legend_handles_labels()[0]
+		handles = ax.get_legend_handles_labels()[0]
+		ax.legend(handles = handles_doubleAx_y, **plotSettings['legend'])
+
+		########################################
+		plotCount+=1
+		ax = axs[plotCount, plotColumnCount]
+		ax.plot(varClassesDict[var_vel].time, varClassesDict[var_vel].data, linestyle = '-', marker = '', c = plotSettings['colors'][0], label = var_vel, **plotSettings['line'])
+		if plotLeftFlag:
+			ax.set_ylabel('Vel. [mm/s],[%/s]', **plotSettings['axes_y'])
+
+		usualSettingsAX(ax, plotSettings)
+
+
+	###################################
+
+	column_n = 0
+
+	if 'LNG' in inputVar:
+		figure.suptitle('LNG', **plotSettings['figure_title'])
+	elif 'LAT' in inputVar:
+		figure.suptitle('LAT', **plotSettings['figure_title'])
+
+
+	for varToPlot in (inputVar, var_pistonDist):
+
+		plotIndividual( varToPlot, varClassesDict, plotSettings, 0, column_n)
+
+		ax = axs[-1, column_n]
+		ax.plot(varClassesDict[var_press].time, varClassesDict[var_press].data, linestyle = '-', marker = '', c = plotSettings['colors'][0], label = var_press, **plotSettings['line'])
+		if column_n == 0:
+			ax.set_ylabel('Hyd. press. [bar]', **plotSettings['axes_y'])
+		ax.set_xlabel('Time [s]', **plotSettings['axes_x'])
+		ax.legend(**plotSettings['legend'])
+		usualSettingsAX(ax, plotSettings)
+
+		column_n += 1

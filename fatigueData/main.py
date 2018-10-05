@@ -3,6 +3,8 @@ import sys
 import pdb #pdb.set_trace()
 import getopt
 import shutil
+from scipy import interpolate
+import numpy as np
 
 from moduleFunctions import *
 
@@ -35,6 +37,7 @@ if CMDoptionsDict['writeStepResultsToFileFlag']:
 gaugesFlag = CMDoptionsDict['dmsFlag']
 actuatorFlag = CMDoptionsDict['actuatorFlag']
 actuatorMesswerteFlag = CMDoptionsDict['actuatorMesswerte']
+CMDoptionsDict['divisionLineForPlotsFlag'] = False
 
 # Gauges data analysis
 if gaugesFlag:
@@ -94,13 +97,13 @@ if gaugesFlag:
 						dataClass.importDataForClass(fileName, mag, CMDoptionsDict, fileOutComeSummaryForVarAndMag)
 
 				#Here dataClass has collected the full data for a variable and magnitude
-				
-				#Clsoe  data summary to file
+
+				#Close data summary to file
 				if CMDoptionsDict['writeStepResultsToFileFlag']:
 					fileOutComeSummaryForVarAndMag.close()
 				
 				#Time operations				
-				if mag in ('hp', 'lp'):
+				if mag in ('hp', 'lp', 'di'):
 					dataClass.getTimeList('rs')
 				else:
 					dataClass.getTimeList(mag)
@@ -136,11 +139,11 @@ if gaugesFlag:
 		if CMDoptionsDict['additionalCalsOpt'] == 1:
 			dataAdditional = dataFromGaugesSingleMagnitudeClass('forceFightingEyes(HP1-HP2)', testFactor, orderDeriv)
 			dataAdditional.addDataManual1(dataClasses)
-			dataAdditional.plotResampled(plotSettings, CMDoptionsDict, mag, (False, [], []))
+			dataAdditional.plotResampled(plotSettings, CMDoptionsDict, mag, (False, [], []), inputDataClass)
 		elif CMDoptionsDict['additionalCalsOpt'] == 2:
 			dataAdditional = dataFromGaugesSingleMagnitudeClass('forceSumEyes(HP1+HP2)', testFactor, orderDeriv)
 			dataAdditional.addDataManual2(dataClasses)
-			dataAdditional.plotResampled(plotSettings, CMDoptionsDict, mag, (True, dataClasses, 'OutputForce'))
+			dataAdditional.plotResampled(plotSettings, CMDoptionsDict, mag, (True, dataClasses, 'OutputForce'), inputDataClass)
 		elif CMDoptionsDict['additionalCalsOpt'] == 3:
 			# dataAdditional = dataFromGaugesSingleMagnitudeClass('forceSumEyes(HP1+HP2)', testFactor, orderDeriv)
 			# dataAdditional.addDataManual2(dataClasses)
@@ -165,11 +168,47 @@ if gaugesFlag:
 				for j in range(len(dataVolFlow.get_stepID())):
 					axs[i].plot( dataTemp.get_rs_split()[j], dataVolFlow.get_rs_split()[j], linestyle = linestyleDict[dataVolFlow.get_stepID()[j]], marker = '', c = colorsDict[dataVolFlow.get_stepID()[j]], label = labelsDict[dataVolFlow.get_stepID()[j]], **plotSettings['line'])
 				axs[i].set_ylabel(inputDataClass.get_variablesInfoDict()[dataVolFlow.get_description()]['y-label'], **plotSettings['axes_y'])
-				axs[i].set_title(titlesDict[i], **plotSettings['title'])
+				axs[i].set_title(titlesDict[i], **plotSettings['ax_title'])
 				axs[i].legend(**plotSettings['legend'])
 				usualSettingsAX(axs[i], plotSettings)
 				i+=1
 			axs[-1].set_xlabel(inputDataClass.get_variablesInfoDict()[dataTemp.get_description()]['y-label'], **plotSettings['axes_x'])
+
+		elif CMDoptionsDict['additionalCalsOpt'] == 5:
+			# Plot flow rate versus force
+			# Test 1.3 contains the relationship between temperature and volume flow for zero force
+			# Remove contribution from the temperature to the volume flow shown in test 1.3
+
+			# Segments from test step 1.3
+			segments13_SN0012 = [ [692.8, 696.8]
+								, [699.2, 703.8]
+								, [714.6, 719.6]
+								, [721.2, 724.0]
+								, [729.5, 731.2]
+								, [733.4, 737.4]
+								, [740.9, 742.8]
+								]
+			segments13_SN002 = [  [3339.2, 3341.8]
+								, [3377.4, 3382]
+								, [3392.5, 3394.75]
+								, [3408.3, 3411.0]
+								]
+			executionFlags_VolflowVSForce_actuators = {	'SN0012':segments13_SN0012, 'SN002':segments13_SN002, 
+														'segmentsFlag' : True, 'singleTempInterpolFlag' : False, 
+														'colorsIDflags' : {'SN0012' : 0, 'SN002' : 1}}
+
+			# Figure initialization 
+			figure_VolflowVSForce_actuators, axs_VolflowVSForce_actuators = plt.subplots(2, 1, sharex='col', sharey='col')
+			figure_VolflowVSForce_actuators.set_size_inches(16, 10, forward=True)
+			figure_VolflowVSForce_actuators.suptitle('Increment of flow volume rate due to output force (effect of temperature removed)', **plotSettings['figure_title'])
+
+			for sn_current in ('SN0012', 'SN002'):
+
+				plotVolflowVSForce_actuators(inputDataClass, plotSettings, axs_VolflowVSForce_actuators, dataClasses, sn_current, executionFlags_VolflowVSForce_actuators)
+				
+			for ax in axs_VolflowVSForce_actuators:
+				ax.legend(**plotSettings['legend'])
+				usualSettingsAX(ax, plotSettings)
 
 	os.chdir(cwd)
 
@@ -229,7 +268,7 @@ elif actuatorMesswerteFlag:
 
 	for file in inputDataClass.getTupleFiles():
 
-		if float(file.split('\\')[-1].split('_')[1]) in CMDoptionsDict['rangeFileIDs']: #Filter out test steps that are not specified 
+		if int(file.split('\\')[-1].split('_')[1]) in [int(o) for o in CMDoptionsDict['rangeFileIDs']]: #Filter out test steps that are not specified 
 
 			print('-> Reading: ' + file.split('\\')[-1])
 			dataFromRun_temp = importDataActuator(file, iFile, CMDoptionsDict, inputDataClass)
@@ -250,7 +289,8 @@ elif actuatorMesswerteFlag:
 	timesDict = {'lastTimeList': lastTimeList}
 
 	# plotAllRuns_force_Messwerte(dataFromRuns, plotSettings, CMDoptionsDict, inputDataClass)
-	plotAllRuns_filtered_Messwerte(dataFromRuns, timesDict, plotSettings, CMDoptionsDict, inputDataClass)
+	# plotAllRuns_filtered_Messwerte(dataFromRuns, timesDict, plotSettings, CMDoptionsDict, inputDataClass)
+	plotStiffnessForChoosenSteps_Messwerte(dataFromRuns, timesDict, plotSettings, CMDoptionsDict, inputDataClass)
 
 
 plt.show(block = CMDoptionsDict['showFigures'])

@@ -13,7 +13,7 @@
 ' enter test name for file naming
 
 ' Where to save the csv files exported
-dirSave="P:\12_flightTestData\P3-FT04\Freq_actuator\32\" 'TR blade holder'
+dirSave="P:\12_flightTestData\P3-FT04\Freq_actuator\freq\" 'TR blade holder'
 ' fileLoad = "E:\FTI\ProcData\SKYeSH09\P2\J17-01-Flight Tests\P2-J17-01-FT0102\FTI\fti_2018-01-25_084649\fti_2018-01-25_084649_pp.tdms"
 fileLoad = "E:\FTI\ProcData\SKYeSH09\P2\J17-01-Flight Tests\P2-J17-01-FT0106\FTI\fti_2018-01-30_084242\fti_2018-01-30_084242_pp.tdms"
 
@@ -26,15 +26,19 @@ If P3importFlag Then 'P3 flight test data'
   ' ------------------------------ P3 import data ------------------------------
 
   signalsForDivideInSegments = Array("CopyYHYD_PRS_1", "CopyYHYD_PRS_2", "CopyYCNT_DST_LAT", "CopyYCNT_DST_LNG", "CopyYCNT_DST_BST_LNG", "CopyYCNT_DST_BST_LAT")
-  signalsToDif = Array("CopyYCNT_DST_BST_LNG", "CopyYCNT_DST_BST_LAT")
+  signalsToDif = Array("CopyYCNT_DST_LNG", "CopyYCNT_DST_LAT","CopyYCNT_DST_BST_LNG", "CopyYCNT_DST_BST_LAT")
 
   ' dictOfData.Add GroupIndexGet("31"), Array("CopyYHYD_PRS_1", "CopyYHYD_PRS_2", "CopyYCNT_DST_LAT", "CopyYCNT_DST_LNG", "CopyYCNT_DST_BST_LNG", "CopyYCNT_DST_BST_LAT") 'Cyclic whirl'
   ' dictOfData.Add GroupIndexGet("30"), Array("CopyYHYD_PRS_1", "CopyYHYD_PRS_2", "CopyYCNT_DST_LAT", "CopyYCNT_DST_BST_LAT") 'LAT sweep'
   ' dictOfData.Add GroupIndexGet("29"), Array("CopyYHYD_PRS_1", "CopyYHYD_PRS_2", "CopyYCNT_DST_LNG", "CopyYCNT_DST_BST_LNG") 'LNG sweep'
   ' dictOfData.Add GroupIndexGet("32star"), Array("CopyYHYD_PRS_2", "CopyYCNT_DST_LNG", "CopyYCNT_DST_BST_LNG") 'LNG sweep'
-  dictOfData.Add GroupIndexGet("32"), Array("CopyYHYD_PRS_2", "CopyYCNT_DST_LNG", "CopyYCNT_DST_BST_LNG") 'LNG sweep'
+  ' dictOfData.Add GroupIndexGet("32"), Array("CopyYHYD_PRS_2", "CopyYCNT_DST_LNG", "CopyYCNT_DST_BST_LNG") 'LNG sweep'
+  ' dictOfData.Add GroupIndexGet("33"), Array("CopyYHYD_PRS_2", "CopyYCNT_DST_LAT", "CopyYCNT_DST_BST_LAT") 'LAT sweep'
+  ' dictOfData.Add GroupIndexGet("35"), Array("CopyYHYD_PRS_1", "CopyYCNT_DST_LNG", "CopyYCNT_DST_BST_LNG") 'LNG sweep'
   ' dictOfData.Add GroupIndexGet("34"), Array("CopyYHYD_PRS_2", "CopyYCNT_DST_LAT", "CopyYCNT_DST_LNG", "CopyYCNT_DST_BST_LNG", "CopyYCNT_DST_BST_LAT") 'Cyclic whirl'
-  ' dictOfData.Add GroupIndexGet("36"), Array("CopyYHYD_PRS_1") 'LAT sweep'
+  ' dictOfData.Add GroupIndexGet("36"), Array("CopyYHYD_PRS_1", "CopyYCNT_DST_LAT", "CopyYCNT_DST_BST_LAT") 'LAT sweep'
+  ' dictOfData.Add GroupIndexGet("37"), Array("CopyYHYD_PRS_1", "CopyYCNT_DST_LAT", "CopyYCNT_DST_LNG", "CopyYCNT_DST_BST_LNG", "CopyYCNT_DST_BST_LAT") 'Cyclic whirl'
+  dictOfData.Add GroupIndexGet("freq"), Array("CopyYCNT_DST_LNG", "CopyYCNT_DST_BST_LNG") 'LNG sweep'
 
   ' Call ChnOffset("[" & GroupIndexGet("67 - Rotors Flight Control") &"]/"&"CNT_DST_BST_LNG","[" & GroupIndexGet("67 - Rotors Flight Control") &"]/"&"CNT_DST_BST_LNG",-94.5,"free offset")
   ' Call ChnOffset("[" & GroupIndexGet("67 - Rotors Flight Control") &"]/"&"CNT_DST_BST_LAT","[" & GroupIndexGet("67 - Rotors Flight Control") &"]/"&"CNT_DST_BST_LAT",-96.2,"free offset")

@@ -50,9 +50,9 @@ class inputDataClassDef(object):
 		Initializes the class with local address and empty directory of shared folders
 		"""
 
-		if localAddress[0] != 'C':
+		if localAddress[0] != 'C' and localAddress[0] != 'Z':
 
-			raise ValueError('ERROR: Local folder has to be located in C: drive')
+			raise ValueError('ERROR: Local folder has to be located in C: drive or Z:')
 
 		self.__localAddress = localAddress
 
@@ -109,6 +109,37 @@ def recursiveFunction(currentHighLevelFolder_path_shared):
 
 			raise ValueError('ERROR: Error handling file')
 
+def recursiveFunction_fightTestData(currentHighLevelFolder_path_shared):
+
+	# 
+	global addressTuple_P2
+	cwd = os.getcwd() #Get working directory
+	print('\n'+'-> Exploring shared drive, folder: '+cwd.split('\\')[-1])
+	for file in os.listdir(cwd):
+
+		# pdb.set_trace()
+
+		if os.path.isdir(file):
+
+			#Go inside the folder and continue searching for files
+			if not 'GS_Backup' in file and not 'GS Backup' in file:
+				os.chdir(cwd + '\\' + file)
+				recursiveFunction_fightTestData(currentHighLevelFolder_path_shared)
+				os.chdir(cwd)
+
+		elif os.path.isfile(file):
+
+			if file.endswith('.tdms'):
+
+				os.chdir(cwd)
+				addressTuple_P2 +=(cwd + '\\'+file,)
+
+		# else:
+
+		# 	raise ValueError('ERROR: Error handling file: ')
+
+	# return addressTuple_P2
+
 
 def checkLocalVersion(fileOrFolder_path_shared_found, currentHighLevelFolder_path_shared):
 
@@ -155,35 +186,57 @@ def checkLocalVersion(fileOrFolder_path_shared_found, currentHighLevelFolder_pat
 
 print('\n'+'------------ Automatic file update --------------------'+'\n')
 
-inputDirectories = loadParameters('inputDirectories.txt') #File loaded from working dir (where the main script is saved)
+cwd_initial = os.getcwd()
+
+# inputDirectories = loadParameters('inputDirectories.txt') #File loaded from working dir (where the main script is saved)
+inputDirectories = loadParameters('inputDirectoriesP2.txt') #File loaded from working dir (where the main script is saved)
 
 path_local = inputDirectories.getLocalDirectory()
 path_shared = inputDirectories.getSharedDirectory_tuple()
 
 cwd = os.chdir(path_local)
 
-for folderChosen in path_shared:
+if False:
 
-	if not os.path.isdir(folderChosen):
+	for folderChosen in path_shared:
 
-		print('\n'+'WARNING: Folder not found in shared drive: '+folderChosen.split('\\')[-1])
+		if not os.path.isdir(folderChosen):
 
-	elif not os.path.isdir(path_local+'\\'+folderChosen.split('\\')[-1]):
+			print('\n'+'WARNING: Folder not found in shared drive: '+folderChosen.split('\\')[-1])
 
-		os.mkdir(path_local+'\\'+folderChosen.split('\\')[-1])
-		print('--> Folder created in local drive: '+folderChosen.split('\\')[-1])
+		elif not os.path.isdir(path_local+'\\'+folderChosen.split('\\')[-1]):
 
-#Main loop
+			os.mkdir(path_local+'\\'+folderChosen.split('\\')[-1])
+			print('--> Folder created in local drive: '+folderChosen.split('\\')[-1])
 
-for folderChosen in path_shared:
+	#Main loop
 
-	if not os.path.isdir(folderChosen):
+	for folderChosen in path_shared:
 
-		print('\n'+'WARNING: Folder not found in shared drive: '+folderChosen.split('\\')[-1])
+		if not os.path.isdir(folderChosen):
 
-	else:
+			print('\n'+'WARNING: Folder not found in shared drive: '+folderChosen.split('\\')[-1])
 
-		os.chdir(folderChosen)
-		recursiveFunction(folderChosen)
+		else:
+
+			os.chdir(folderChosen)
+			recursiveFunction(folderChosen)
+
+
+# For P2 flight test data extraction
+addressTuple_P2 = ()
+if True:
+	recursiveFunction_fightTestData(path_local)
+
+os.chdir(cwd_initial)
+print('\n'+'Addresses found:')
+
+file = open('folderResults.csv', 'w')
+
+for ad in addressTuple_P2:
+	print(ad)
+	file.write(ad+'\n')
+
+file.close()
 
 print('\n'+'\n'+'---> Execution finished')

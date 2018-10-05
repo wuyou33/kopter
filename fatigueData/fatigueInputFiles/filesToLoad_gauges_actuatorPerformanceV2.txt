@@ -1,5 +1,5 @@
 -> Folders to load
-L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0214\01_Data_set-complete\02_STEPS\csv
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0214\01_Data_set-complete\02_STEPS\csv100
 
 -> Test info
 test freq: 5
@@ -42,6 +42,18 @@ Fatigue load spec: no
 
 -> Variable info
 name: ForceEye2
+y-label: Force [N]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: forceFightingEyes(HP1-HP2)
+y-label: Force [N]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: forceSumEyes(HP1+HP2)
 y-label: Force [N]
 TO spec: no
 Fatigue load spec: no

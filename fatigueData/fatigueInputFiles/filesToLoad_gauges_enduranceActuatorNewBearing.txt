@@ -1,2 +1,95 @@
-Folders to load:
+-> Folders to load
 L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0115 Booster P3\1200-1031112-AE SN2\Step 3.1 (New housing)\csv_data
+
+-> Test info
+test freq: 5
+
+-> Variable info
+name: DruckHP1
+y-label: Pressure [bar]
+TO spec: no
+max load: 1250
+min load: -1250
+Fatigue load spec: no
+static load: 0.0
+margin static load (%): 5
+alternate load: 1250
+margin alternate load (%): 3
+
+-> Variable info
+name: DruckHP2
+y-label: Pressure [bar]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: DurchflussHP1
+y-label: Volume flow [l\min]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: DurchflussHP2
+y-label: Volume flow [l\min]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: ForcePistonEyeHP1
+y-label: Force [N]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: ForcePistonEyeHP2
+y-label: Force [N]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: forceFightingEyes(HP1-HP2)
+y-label: Force [N]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: forceSumEyes(HP1+HP2)
+y-label: Force [N]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: InputForce
+y-label: Force [N]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: LaserPiston
+y-label: Displ. [mm]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: LaserSteuerventilhebel
+y-label: Displ. [mm]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: OutputForce
+y-label: Force [N]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: TemperaturHP1
+y-label: Temp. [degC]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: TemperaturHP2
+y-label: Temp. [degC]
+TO spec: no
+Fatigue load spec: no
