@@ -50,9 +50,9 @@ class inputDataClassDef(object):
 		Initializes the class with local address and empty directory of shared folders
 		"""
 
-		if localAddress[0] != 'C' and localAddress[0] != 'Z':
+		# if localAddress[0] != 'C' and localAddress[0] != 'Z':
 
-			raise ValueError('ERROR: Local folder has to be located in C: drive or Z:')
+		# 	raise ValueError('ERROR: Local folder has to be located in C: drive or Z:')
 
 		self.__localAddress = localAddress
 
@@ -122,7 +122,7 @@ def recursiveFunction_fightTestData(currentHighLevelFolder_path_shared):
 		if os.path.isdir(file):
 
 			#Go inside the folder and continue searching for files
-			if not 'GS_Backup' in file and not 'GS Backup' in file:
+			if not 'GS_Backup' in file and not 'GS Backup' in file and not 'Weather' in file and not 'Logs' in file:
 				os.chdir(cwd + '\\' + file)
 				recursiveFunction_fightTestData(currentHighLevelFolder_path_shared)
 				os.chdir(cwd)
@@ -189,7 +189,9 @@ print('\n'+'------------ Automatic file update --------------------'+'\n')
 cwd_initial = os.getcwd()
 
 # inputDirectories = loadParameters('inputDirectories.txt') #File loaded from working dir (where the main script is saved)
-inputDirectories = loadParameters('inputDirectoriesP2.txt') #File loaded from working dir (where the main script is saved)
+# inputDirectories = loadParameters('inputDirectoriesP2.txt') #File loaded from working dir (where the main script is saved)
+# inputDirectories = loadParameters('inputDirectoriesP3.txt') #File loaded from working dir (where the main script is saved)
+inputDirectories = loadParameters('inputDirectoriesActuator.txt') #File loaded from working dir (where the main script is saved)
 
 path_local = inputDirectories.getLocalDirectory()
 path_shared = inputDirectories.getSharedDirectory_tuple()

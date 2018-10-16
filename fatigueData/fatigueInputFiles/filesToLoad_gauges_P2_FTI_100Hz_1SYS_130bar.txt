@@ -1,5 +1,5 @@
 -> Folders to load
-P:\12_flightTestData\P2_all
+P:\12_flightTestData\P2_all_100Hz
 
 -> Test info
 test freq: 2
@@ -8,24 +8,24 @@ test freq: 2
 name: rs__CNT_FRC_BST_COL
 y-label: Force [N]
 TO spec: yes
-max load: 1539
-min load: -1237
+max load: 2000.94
+min load: -1608.1
 Fatigue load spec: no
 
 -> Variable info
 name: rs__CNT_FRC_BST_LAT
 y-label: Force [N]
 TO spec: yes
-max load: 700
-min load: -700
+max load: 909.73
+min load: -909.73
 Fatigue load spec: no
 
 -> Variable info
 name: rs__CNT_FRC_BST_LNG
 y-label: Force [N]
 TO spec: yes
-max load: 700
-min load: -700
+max load: 909.73
+min load: -909.73
 Fatigue load spec: no
 
 -> Variable info
@@ -84,19 +84,19 @@ Fatigue load spec: no
 
 -> Variable info
 name: di__CNT_DST_BST_COL
-y-label: Displ. [mm]
+y-label: Displ. [mm/s]
 TO spec: no
 Fatigue load spec: no
 
 -> Variable info
 name: di__CNT_DST_BST_LAT
-y-label: Displ. [mm]
+y-label: Displ. [mm/s]
 TO spec: no
 Fatigue load spec: no
 
 -> Variable info
 name: di__CNT_DST_BST_LNG
-y-label: Displ. [mm]
+y-label: Displ. [mm/s]
 TO spec: no
 Fatigue load spec: no
 
@@ -108,18 +108,42 @@ Fatigue load spec: no
 
 -> Variable info
 name: rs__HYD_PRS_2
-y-label: Pressure [degC]
+y-label: Pressure [bar]
 TO spec: no
 Fatigue load spec: no
 
 -> Variable info
-name: rs__HYD_TMP_1
-y-label: Pressure [degC]
+name: rs__HYD_ARI_MFD_TMP_1
+y-label: Temperature [degC]
 TO spec: no
 Fatigue load spec: no
 
 -> Variable info
-name: rs__HYD_TMP_2
-y-label: Pressure [degC]
+name: rs__HYD_ARI_MFD_TMP_2
+y-label: Temperature [degC]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__Q_COL
+y-label: Vol. flow [L/min]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__Q_LNG
+y-label: Vol. flow [L/min]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__Q_LAT
+y-label: Vol. flow [L/min]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__Total_Q
+y-label: Vol. flow [L/min]
 TO spec: no
 Fatigue load spec: no

@@ -13,7 +13,7 @@ csvFolder = "P:\12_flightTestData\P2_all_100Hz\"
 '                   , "Laser_Steuerventilhebel_[mm].tdms", "Output_force_[N].tdms", "Temperatur_HP_1_[degC].TDM", "Temperatur_HP_2_[degC].TDM")
 
 ' These are the folders where the data that wants to be imported is contained. Each folder correspond to a differt time step
-commonAddress = "E:\FTI\ProcData\SKYeSH09\P2\J17-01-Flight Tests\"
+commonAddress = "G:\FTI\ProcData\SKYeSH09\P2\J17-01-Flight Tests\"
 fileNamesBigArrayFolders = Array( _
     Array(commonAddress & "P2-J17-01-FT0001\FTI\fti_2016-02-26_161010\", "1-FT0001", Array("fti_2016-02-26_161010_pp.tdms")) _
     , Array(commonAddress & "P2-J17-01-FT0001\FTI\fti_2016-02-26_161621\", "2-FT0001", Array("fti_2016-02-26_161621_pp.tdms")) _
@@ -417,12 +417,12 @@ iterators = Array(_
 ' This dictionary contains the original variable names as keys. For each key, a corresponding simplified name is assign and this will be used
 ' in the "csv" file name.
 ' The variable name has to be written without: spaces , . _ -
-' dictVaDiadem.Add "CNT_FRC_BST_COL", "CNT_FRC_BST_COL"
-' dictVaDiadem.Add "CNT_FRC_BST_LAT", "CNT_FRC_BST_LAT"
-' dictVaDiadem.Add "CNT_FRC_BST_LNG", "CNT_FRC_BST_LNG"
-dictVaDiadem.Add "CNT_DST_BST_COL", "CNT_DST_BST_COL"
-dictVaDiadem.Add "CNT_DST_BST_LAT", "CNT_DST_BST_LAT"
-dictVaDiadem.Add "CNT_DST_BST_LNG", "CNT_DST_BST_LNG"
+dictVaDiadem.Add "CNT_FRC_BST_COL", "CNT_FRC_BST_COL"
+dictVaDiadem.Add "CNT_FRC_BST_LAT", "CNT_FRC_BST_LAT"
+dictVaDiadem.Add "CNT_FRC_BST_LNG", "CNT_FRC_BST_LNG"
+' dictVaDiadem.Add "CNT_DST_BST_COL", "CNT_DST_BST_COL"
+' dictVaDiadem.Add "CNT_DST_BST_LAT", "CNT_DST_BST_LAT"
+' dictVaDiadem.Add "CNT_DST_BST_LNG", "CNT_DST_BST_LNG"
 ' dictVaDiadem.Add "CNT_DST_COL", "CNT_DST_COL"
 ' dictVaDiadem.Add "CNT_DST_LAT", "CNT_DST_LAT"
 ' dictVaDiadem.Add "CNT_DST_LNG", "CNT_DST_LNG"
@@ -432,6 +432,9 @@ dictVaDiadem.Add "CNT_DST_BST_LNG", "CNT_DST_BST_LNG"
 ' dictVaDiadem.Add "HYD_TMP_1", "HYD_TMP_1"
 ' dictVaDiadem.Add "HYD_TMP_2", "HYD_TMP_2"
 
+' Temperatures, FT060 the first one with cooler 
+' dictVaDiadem.Add "HYD_ARI_MFD_TMP_1", "HYD_ARI_MFD_TMP_1"
+' dictVaDiadem.Add "HYD_ARI_MFD_TMP_2", "HYD_ARI_MFD_TMP_2"
 signalsToDif = Array("CNT_DST_COL", "CNT_DST_LNG", "CNT_DST_LAT", "CNT_DST_BST_COL", "CNT_DST_BST_LNG", "CNT_DST_BST_LAT")
 
 FlagFTData = True
@@ -455,7 +458,7 @@ importDataFlag = True
 
 FlagFTTData = False
 
-numberPointsSmoothering= 10 'Number of points to take for the smoothering operation'
+' numberPointsSmoothering= 10 'Number of points to take for the smoothering operation'
 
 FlagFilteredData = True
 FlagHighPass = True 'False if low pass'

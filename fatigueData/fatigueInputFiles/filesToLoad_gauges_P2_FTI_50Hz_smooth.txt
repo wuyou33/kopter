@@ -84,19 +84,19 @@ Fatigue load spec: no
 
 -> Variable info
 name: di__CNT_DST_BST_COL
-y-label: Displ. [mm]
+y-label: Displ. [mm/s]
 TO spec: no
 Fatigue load spec: no
 
 -> Variable info
 name: di__CNT_DST_BST_LAT
-y-label: Displ. [mm]
+y-label: Displ. [mm/s]
 TO spec: no
 Fatigue load spec: no
 
 -> Variable info
 name: di__CNT_DST_BST_LNG
-y-label: Displ. [mm]
+y-label: Displ. [mm/s]
 TO spec: no
 Fatigue load spec: no
 

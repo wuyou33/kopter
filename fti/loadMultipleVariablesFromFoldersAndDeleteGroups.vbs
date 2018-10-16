@@ -34,11 +34,19 @@ For Each fileNameDataInput in filesNamesDataInput
         Call GroupCreate("Re-sampled; "&newFreq&"Hz",id_reSampleGroup)
         Call Data.Root.ChannelGroups(id_reSampleGroup).Activate()
 
-        For groupID = 1 To Data.Root.ChannelGroups.Count-1 Step 1
-          For Each originalChannel in Data.Root.ChannelGroups(groupID).Channels
-            ' originalChannel = "[1]/"&dictVaDiadem(var)
-            If Ubound(Filter(dictVaDiadem.Keys, originalChannel.Name)) > -1 Then 'If current variable exists in the choice of variables'
+        newGroupForResamplingCount = 1
+      Else
+        newGroupForResamplingCount = 0
+      End If
 
+      For groupID = 1 To Data.Root.ChannelGroups.Count-newGroupForResamplingCount Step 1
+        For Each originalChannel in Data.Root.ChannelGroups(groupID).Channels
+          ' originalChannel = "[1]/"&dictVaDiadem(var)
+          If Ubound(Filter(dictVaDiadem.Keys, originalChannel.Name)) > -1 Then 'If current variable exists in the choice of variables'
+
+            If loadScript_resampleFlag Then
+
+              ' If resampled data 
               newChannel = "/"&originalChannel.Name&"__"&newFreq&"Hz__"&folderInfo(1)
               Call ChnResampleFreqBased("",originalChannel, newChannel,newFreq,"Automatic",0,0)
 
@@ -65,13 +73,19 @@ For Each fileNameDataInput in filesNamesDataInput
 
               End If
 
+            Else
+
+              newFreq = 1/originalChannel.Properties("wf_increment").Value
+              nameOfFile = "rs__"&dictVaDiadem(originalChannel.Name)&"__"&newFreq&"Hz__"&folderInfo(1)&".csv"
+              Call DataFileSaveSel(csvFolder & nameOfFile,"CSV",originalChannel)
+
             End If
 
-          Next
+          End If
 
         Next
 
-      End If
+      Next
       
       If loadScript_saveAllDataFlagPerStep Then
         Call DataFileSaveSel(workingFolder&"allData__step"&folderInfo(1)&".TDM","TDM", Data.Root.ChannelGroups(1).Channels)

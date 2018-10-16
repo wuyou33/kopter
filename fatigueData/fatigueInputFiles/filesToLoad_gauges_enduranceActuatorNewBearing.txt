@@ -24,13 +24,13 @@ Fatigue load spec: no
 
 -> Variable info
 name: DurchflussHP1
-y-label: Volume flow [l\min]
+y-label: Volume flow [l/min]
 TO spec: no
 Fatigue load spec: no
 
 -> Variable info
 name: DurchflussHP2
-y-label: Volume flow [l\min]
+y-label: Volume flow [l/min]
 TO spec: no
 Fatigue load spec: no
 

@@ -13,7 +13,7 @@ csvFolder = "P:\12_flightTestData\all\"
 '                   , "Laser_Steuerventilhebel_[mm].tdms", "Output_force_[N].tdms", "Temperatur_HP_1_[degC].TDM", "Temperatur_HP_2_[degC].TDM")
 
 ' These are the folders where the data that wants to be imported is contained. Each folder correspond to a differt time step
-commonAddress = "E:\FTI\ProcData\SKYeSH09\P3\J17-Test Data\"
+commonAddress = "G:\FTI\ProcData\SKYeSH09\P2\J17-Test Data\"
 fileNamesBigArrayFolders = Array( _
     Array(commonAddress&"P3-J17-0000-000-009_Rigging_check\FTI\fti_2018-08-22_120203\", "1-RC", Array("fti_2018-08-22_120203_pp.tdms")) _
     , Array(commonAddress&"P3-J17-0000-000-009_Rigging_check\FTI\fti_2018-08-22_125159\", "2-RC", Array("fti_2018-08-22_125159_pp.tdms")) _
@@ -66,7 +66,46 @@ fileNamesBigArrayFolders = Array( _
     , Array(commonAddress&"P3-J17-0000-010\FTI\Run1\", "49-FT10", Array("fti_20180919114150_pp.tdms")) _
     , Array(commonAddress&"P3-J17-0000-010\FTI\Run2\", "50-FT10", Array("fti_20180919135017_pp.tdms")) _
     , Array(commonAddress&"P3-J17-0000-010\FTI\Run3\", "51-FT10", Array("fti_20180919144847_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0000-010-001_Blade_sanity_check\FTI\Run1\", "52-FT10", Array("fti_20180924080500_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0000-010-001_Blade_sanity_check\FTI\Run2\", "53-FT10", Array("fti_20180924083505_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0000-010-001_Blade_sanity_check\FTI\Run3\", "54-FT10", Array("fti_20180924084201_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0000-010-002_Shake_Test\FTI\Run1\", "55-FT10", Array("fti_20180924134556_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0000-010-002_Shake_Test\FTI\Run2\", "56-FT10", Array("fti_20180924134740_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0000-011\FTI\Run1\", "57-FT11", Array("fti_20180924141158_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0000-011\FTI\Run2\", "58-FT11", Array("fti_20180924144658_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0000-011\FTI\Run3\", "59-FT11", Array("fti_20180924150900_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0000-011\FTI\Run4\", "60-FT11", Array("fti_20180924153904_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0000-011\FTI\Run5\", "61-FT11", Array("fti_20180924160201_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0000-012\FTI\Run1\", "62-FT12", Array("fti_20180925082126_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0000-012\FTI\Run2\", "63-FT12", Array("fti_20180925084718_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0000-012\FTI\Run3\", "64-FT12", Array("fti_20180925090833_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0000-012\FTI\Run4\", "65-FT12", Array("fti_20180925093504_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0000-012\FTI\Run5\", "66-FT12", Array("fti_20180925095743_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0000-013\FTI\Run1\", "67-FT13", Array("fti_20180925123104_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0000-013\FTI\Run2\", "68-FT13", Array("fti_20180925135626_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0000-013-001_Shake_Test\FTI\Run1\", "69-FT13", Array("fti_20180926113630_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0000-014\FTI\Run1\", "70-FT14", Array("fti_20180926114703_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0000-014\FTI\Run2\", "71-FT14", Array("fti_20180926120604_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0000-014-001_Shake_Test\FTI\Run1\", "72-FT14", Array("fti_20180927083621_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0000-014-001_Shake_Test\FTI\Run2\", "73-FT14", Array("fti_20180927083843_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0000-015\FTI\Run1\", "74-FT15", Array("fti_20180927084214_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0000-015\FTI\Run2\", "75-FT15", Array("fti_20180927094742_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0000-016\FTI\Run1\", "76-FT16", Array("fti_20180928093132_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0000-017\FTI\Run1\", "77-FT17", Array("fti_20180929075300_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0000-017\FTI\Run2\", "78-FT17", Array("fti_20180929081130_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0000-018\FTI\Run1\", "79-FT18", Array("fti_20181002122121_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0000-018\FTI\Run2\", "80-FT18", Array("fti_20181002124416_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0000-018\FTI\Run3\", "81-FT18", Array("fti_20181002141033_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0000-019\FTI\Run1\", "82-FT19", Array("fti_20181003141138_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0000-019\FTI\Run2\", "83-FT19", Array("fti_20181003150150_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0000-020\FTI\Run1\", "84-FT20", Array("fti_20181004123543_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0000-020\FTI\Run2\", "85-FT20", Array("fti_20181004141626_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0000-021\FTI\Run1\", "86-FT21", Array("fti_20181005131723_pp.tdms")) _
   )
+
+' Identified errors - P3!!!
+' -> 77-FT17 contains NOVALUE for CNT_DST_BST_LNG and CNT_DST_BST_LAT
+' -> 78-FT17 contains NOVALUE for CNT_DST_BST_LNG and CNT_DST_BST_COL
 
 ' The variable iterators is used to load and operate only selected steps from above
 ' iterators = Array("1312")
@@ -125,7 +164,41 @@ iterators = Array(_
 		, "49-FT010" _
 		, "50-FT10" _
 		, "51-FT10" _
+		, "52-FT10" _
+		, "53-FT10" _
+		, "54-FT10" _
+		, "55-FT10" _
+		, "56-FT10" _
+		, "57-FT11" _
+		, "58-FT11" _
+		, "59-FT11" _
+		, "60-FT11" _
+		, "61-FT11" _
+		, "62-FT12" _
+		, "63-FT12" _
+		, "64-FT12" _
+		, "65-FT12" _
+		, "66-FT12" _
+		, "67-FT13" _
+		, "68-FT13" _
+		, "69-FT13" _
+		, "70-FT14" _
+		, "71-FT14" _
+		, "72-FT14" _
+		, "73-FT14" _
+		, "74-FT15" _
+		, "75-FT15" _
+		, "76-FT16" _
+		, "79-FT18" _
+		, "80-FT18" _
+		, "81-FT18" _
+		, "82-FT19" _
+		, "83-FT19" _
+		, "84-FT20" _
+		, "85-FT20" _
+		, "86-FT21" _
 		)
+
 
 ' iterators = Array("29-FT07")
 ' iterators = Array("08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28")
@@ -138,19 +211,23 @@ iterators = Array(_
 ' dictVaDiadem.Add "CNT_FRC_BST_COL", "CNT_FRC_BST_COL"
 ' dictVaDiadem.Add "CNT_FRC_BST_LAT", "CNT_FRC_BST_LAT"
 ' dictVaDiadem.Add "CNT_FRC_BST_LNG", "CNT_FRC_BST_LNG"
-' dictVaDiadem.Add "CNT_DST_BST_COL", "CNT_DST_BST_COL"
-' dictVaDiadem.Add "CNT_DST_BST_LAT", "CNT_DST_BST_LAT"
-' dictVaDiadem.Add "CNT_DST_BST_LNG", "CNT_DST_BST_LNG"
-dictVaDiadem.Add "CNT_DST_COL", "CNT_DST_COL"
-dictVaDiadem.Add "CNT_DST_LAT", "CNT_DST_LAT"
-dictVaDiadem.Add "CNT_DST_LNG", "CNT_DST_LNG"
+dictVaDiadem.Add "CNT_DST_BST_COL", "CNT_DST_BST_COL"
+dictVaDiadem.Add "CNT_DST_BST_LAT", "CNT_DST_BST_LAT"
+dictVaDiadem.Add "CNT_DST_BST_LNG", "CNT_DST_BST_LNG"
+' dictVaDiadem.Add "CNT_DST_COL", "CNT_DST_COL"
+' dictVaDiadem.Add "CNT_DST_LAT", "CNT_DST_LAT"
+' dictVaDiadem.Add "CNT_DST_LNG", "CNT_DST_LNG"
 ' dictVaDiadem.Add "CNT_DST_PED", "CNT_DST_PED"
 ' dictVaDiadem.Add "HYD_PRS_1", "HYD_PRS_1"
 ' dictVaDiadem.Add "HYD_PRS_2", "HYD_PRS_2"
 ' dictVaDiadem.Add "HYD_TMP_1", "HYD_TMP_1"
 ' dictVaDiadem.Add "HYD_TMP_2", "HYD_TMP_2"
+' dictVaDiadem.Add "HYD_TMP_TANK_1", "HYD_TMP_TANK_1"
+' dictVaDiadem.Add "HYD_TMP_TANK_2", "HYD_TMP_TANK_2"
 
+signalsToDif = Array("CNT_DST_BST_COL", "CNT_DST_BST_LNG", "CNT_DST_BST_LAT","CNT_DST_COL", "CNT_DST_LNG", "CNT_DST_LAT")
 
+FlagFTData = True
 
 newFreq = 100 'Hz'
 

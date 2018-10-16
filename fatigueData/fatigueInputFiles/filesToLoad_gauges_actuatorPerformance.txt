@@ -1,11 +1,13 @@
 -> Folders to load
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0223\01_Data_set\02_STEPS\csv100
 L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0214\01_Data_set-complete\02_STEPS\csv100
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0115 Booster P3\1200-1031112-AE SN2\AE_csv_data
 
 -> Test info
 test freq: 5
 
 -> Variable info
-name: Pres1
+name: rs__Pres1
 y-label: Pressure [bar]
 TO spec: no
 max load: 1250
@@ -17,79 +19,91 @@ alternate load: 1250
 margin alternate load (%): 3
 
 -> Variable info
-name: Pres2
+name: rs__Pres2
 y-label: Pressure [bar]
 TO spec: no
 Fatigue load spec: no
 
 -> Variable info
-name: VolFlow1
-y-label: Volume flow [l\min]
+name: rs__VolFlow1
+y-label: Volume flow [l/min]
 TO spec: no
 Fatigue load spec: no
 
 -> Variable info
-name: VolFlow2
-y-label: Volume flow [l\min]
+name: rs__VolFlow2
+y-label: Volume flow [l/min]
 TO spec: no
 Fatigue load spec: no
 
 -> Variable info
-name: ForceEye1
+name: rs__ForceEye1
 y-label: Force [N]
 TO spec: no
 Fatigue load spec: no
 
 -> Variable info
-name: ForceEye2
+name: rs__ForceEye2
 y-label: Force [N]
 TO spec: no
 Fatigue load spec: no
 
 -> Variable info
-name: forceFightingEyes(HP1-HP2)
+name: rs__forceFightingEyes(HP1-HP2)
 y-label: Force [N]
 TO spec: no
 Fatigue load spec: no
 
 -> Variable info
-name: forceSumEyes(HP1+HP2)
+name: rs__forceSumEyes(HP1+HP2)
 y-label: Force [N]
 TO spec: no
 Fatigue load spec: no
 
 -> Variable info
-name: InputForce
+name: rs__InputForce
 y-label: Force [N]
 TO spec: no
 Fatigue load spec: no
 
 -> Variable info
-name: PistonDispl
+name: rs__PistonDispl
 y-label: Displ. [mm]
 TO spec: no
 Fatigue load spec: no
 
 -> Variable info
-name: ValveDispl
+name: di__PistonDispl
+y-label: Vel. [mm/s]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__ValveDispl
 y-label: Displ. [mm]
 TO spec: no
 Fatigue load spec: no
 
 -> Variable info
-name: OutputForce
+name: di__ValveDispl
+y-label: Vel. [mm/s]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__OutputForce
 y-label: Force [N]
 TO spec: no
 Fatigue load spec: no
 
 -> Variable info
-name: Temp1
+name: rs__Temp1
 y-label: Temp. [degC]
 TO spec: no
 Fatigue load spec: no
 
 -> Variable info
-name: Temp2
+name: rs__Temp2
 y-label: Temp. [degC]
 TO spec: no
 Fatigue load spec: no
