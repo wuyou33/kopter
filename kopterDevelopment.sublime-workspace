@@ -4,6 +4,26 @@
 		"selected_items":
 		[
 			[
+				"segm",
+				"correctedSegmentsAdded_Temp1"
+			],
+			[
+				"el",
+				"else"
+			],
+			[
+				"max",
+				"max_temp1"
+			],
+			[
+				"mar",
+				"markerDict"
+			],
+			[
+				"colo",
+				"colorsDict"
+			],
+			[
 				"resu",
 				"result"
 			],
@@ -132,10 +152,6 @@
 				"VolFlow2"
 			],
 			[
-				"mar",
-				"markersDict"
-			],
-			[
 				"file",
 				"fileName"
 			],
@@ -222,10 +238,6 @@
 			[
 				"dat",
 				"dataVar"
-			],
-			[
-				"el",
-				"elif"
 			],
 			[
 				"ac",
@@ -423,7 +435,7 @@
 			"file": "fatigueData/main.py",
 			"settings":
 			{
-				"buffer_size": 25529,
+				"buffer_size": 30122,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -432,7 +444,7 @@
 			"file": "fatigueData/moduleFunctions.py",
 			"settings":
 			{
-				"buffer_size": 74359,
+				"buffer_size": 67665,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -441,7 +453,7 @@
 			"file": "fti/testsInitData/oldHousingP3.vbs",
 			"settings":
 			{
-				"buffer_size": 5195,
+				"buffer_size": 5322,
 				"encoding": "Western (Windows 1252)",
 				"line_ending": "Windows"
 			}
@@ -468,6 +480,15 @@
 			"settings":
 			{
 				"buffer_size": 5599,
+				"encoding": "Western (Windows 1252)",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "fti/testsInitData/actuatorPerformanceV3.vbs",
+			"settings":
+			{
+				"buffer_size": 4524,
 				"encoding": "Western (Windows 1252)",
 				"line_ending": "Windows"
 			}
@@ -559,7 +580,6 @@
 		"/P/kopter",
 		"/P/kopter/codingKnowledge",
 		"/P/kopter/fatigueData",
-		"/P/kopter/fatigueData/fatigueInputFiles",
 		"/P/kopter/fti",
 		"/P/kopter/s_id",
 		"/P/kopter/tolerances",
@@ -713,6 +733,50 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"3",
+			"dataTemp",
+			"False",
+			"dataTemp",
+			"corrected",
+			"1",
+			"+=",
+			"1",
+			"_f(",
+			"_f",
+			"'7-Step-2.4'",
+			"colors",
+			":",
+			"'o'",
+			"plotSettings['colors'][executionFlags_VolflowVSForce_actuators['colorsIDflags']",
+			":",
+			"'3-SN002-1.3'",
+			"executionFlags_VolflowVSTemp_actuators",
+			"get_rs_split",
+			"3",
+			"3-SN002-1.3",
+			"13-SN0012-2.4",
+			"'10-SN0012-1.3'",
+			"8-SN002-2.4",
+			"1",
+			"'8-SN002-2.4'",
+			"index_24",
+			"sn_current",
+			"][sn_current]",
+			"sn_current",
+			"index_24",
+			"SN002",
+			"housing",
+			"Old housing",
+			"housing",
+			"''",
+			"New housing/Counterforce ON'",
+			"Counterforce",
+			"''",
+			"Step",
+			":",
+			"SN00",
+			"'-'",
+			"-",
 			"mm",
 			"AE",
 			"699.79",
@@ -796,51 +860,7 @@
 			"executionFlags_VolflowVSForce_actuators",
 			"dataVolFlow.get_stepID()[j]",
 			"index_13",
-			"step",
-			"outputForce",
-			"createSegmentsOf_rs_FromVariableClass",
-			"seg",
-			"segmentsAdded_",
-			"_",
-			"get_rs_split",
-			"newTime",
-			"dataVolFlow1",
-			"time_13",
-			"variableClassExample",
-			"index_13",
-			"dataVolFlow1",
-			"ids",
-			"indexDict",
-			"id",
-			"importDataForClass",
-			"fileName",
-			"set_ylabel",
-			"get_description",
-			"set_ylabel",
-			"plotLimitsOfSteps",
-			"writeStepResultsToFileFlag",
-			"name",
-			"[l\\min]",
-			"l\\min",
-			"name",
-			"loadScript_resampleFlag",
-			"filesNames",
-			"L:\\MSH-Project Management Files\\Functional Engineering\\Test Division\\Test_Daten\\J17-03-Bench Tests\\P3-J17-03-BT0214\\01_Data_set-complete\\02_STEPS\\csv100",
-			"\",",
-			"Step",
-			"__freqData",
-			"calculateDaysHoursMinutes_string",
-			"2",
-			"HYD_TMP_1",
-			"mm",
-			"dif",
-			"figure",
-			"axes_ticks",
-			"12",
-			"\ndictVaDiadem.Add \"HYD_PRS_2\", \"HYD_PRS_2\"",
-			"DST",
-			"mm",
-			"Pressure"
+			"step"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -870,15 +890,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 25529,
+						"buffer_size": 30122,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								9753,
-								9753
+								14456,
+								14456
 							]
 						],
 						"settings":
@@ -888,10 +908,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 2135.0,
+						"translation.y": 3159.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
@@ -900,15 +920,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 74359,
+						"buffer_size": 67665,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								271,
-								256
+								400,
+								400
 							]
 						],
 						"settings":
@@ -918,16 +938,16 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1287.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 2,
 					"type": "text"
 				}
 			]
 		},
 		{
-			"selected": 0,
+			"selected": 3,
 			"sheets":
 			[
 				{
@@ -936,15 +956,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5195,
+						"buffer_size": 5322,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3002,
-								3002
+								4873,
+								4873
 							]
 						],
 						"settings":
@@ -954,10 +974,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 273.0,
+						"translation.y": 663.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
@@ -987,7 +1007,7 @@
 						"translation.y": 4181.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
@@ -1017,7 +1037,7 @@
 						"translation.y": 2507.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
@@ -1033,8 +1053,8 @@
 						"selection":
 						[
 							[
-								1389,
-								1376
+								2728,
+								2728
 							]
 						],
 						"settings":
@@ -1044,14 +1064,44 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 117.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
 					"buffer": 6,
+					"file": "fti/testsInitData/actuatorPerformanceV3.vbs",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 4524,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1596,
+								1596
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/VBScript/VBScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 35.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
 					"file": "fti/testToImport.vbs",
 					"semi_transient": false,
 					"settings":
@@ -1075,7 +1125,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 9,
 					"type": "text"
 				}
 			]
@@ -1090,15 +1140,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 25529,
+						"buffer_size": 30122,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								48,
-								33
+								106,
+								106
 							]
 						],
 						"settings":
@@ -1111,7 +1161,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -1120,7 +1170,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 74359,
+						"buffer_size": 67665,
 						"regions":
 						{
 						},
@@ -1141,13 +1191,13 @@
 						"translation.y": 156.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 11,
+					"stack_index": 12,
 					"type": "text"
 				}
 			]
 		},
 		{
-			"selected": 2,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -1156,15 +1206,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 74359,
+						"buffer_size": 67665,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								39776,
-								39776
+								39621,
+								39621
 							]
 						],
 						"settings":
@@ -1174,14 +1224,14 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 14405.0,
+						"translation.y": 14526.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 8,
 					"file": "fatigueData/fatigueInputFiles/filesToLoad_gauges_actuatorPerformance.txt",
 					"semi_transient": false,
 					"settings":
@@ -1205,11 +1255,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
+					"stack_index": 11,
 					"type": "text"
 				},
 				{
-					"buffer": 8,
+					"buffer": 9,
 					"file": "fatigueData/fatigueInputFiles/filesToLoad_gauges_P2_FTI_100Hz_1SYS_130bar.txt",
 					"semi_transient": false,
 					"settings":
@@ -1245,7 +1295,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 10,
 					"type": "text"
 				}
 			]
@@ -1253,7 +1303,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 24.0
+		"height": 22.0
 	},
 	"input":
 	{
@@ -1291,13 +1341,13 @@
 		"cols":
 		[
 			0.0,
-			0.532878411911,
+			0.897642679901,
 			1.0
 		],
 		"rows":
 		[
 			0.0,
-			0.612791880368,
+			0.539732519637,
 			1.0
 		]
 	},
@@ -1310,7 +1360,7 @@
 	"project": "kopterDevelopment.sublime-project",
 	"replace":
 	{
-		"height": 72.0
+		"height": 42.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -1344,7 +1394,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 1,
+	"selected_group": 0,
 	"settings":
 	{
 	},

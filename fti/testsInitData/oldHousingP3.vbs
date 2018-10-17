@@ -38,6 +38,7 @@ fileNamesBigArrayFolders = Array( _
   , Array(commonAddress & "Step 2.5\System 1_150bar\2018-01-22_155848\", "13-AE-Step-2.5", fileNames) _
   , Array(commonAddress & "Step 2.5\System 2_150bar\2018-01-22_163330\", "14-AE-Step-2.5", fileNames) _
   , Array(commonAddress & "Step 1.3\2018-01-18_145856\", "15-AE-Step-1.3", fileNames) _
+  , Array(commonAddress & "Step 2.3\2018-01-22_141907\", "16-AE-Step-2.3", fileNames) _
   )
 
 ' variable names inside DIAdem -> variable names for the files to be saved
@@ -66,7 +67,7 @@ loadScript_saveFlagResampledDataTDM = False 'possible values: True or False
 fileNameWithoutIterator_pre = "resampled"
 fileNameWithoutIterator_post = "__"&newFreq&"Hz__step" '+iterator 
 fileFormatImport = ".TDM"
-iterators = Array(_ 
+iterators2 = Array(_ 
                     "1-AE-Step-3.1" _
                   , "2-AE-Step-3.1" _
                   , "3-AE-Step-3.1" _
@@ -82,8 +83,9 @@ iterators = Array(_
                   , "13-AE-Step-2.5" _
                   , "14-AE-Step-2.5" _
                   , "15-AE-Step-1.3" _
+                  , "16-AE-Step-2.3" _
                   )
-iterators2 = Array("12-AE-Step-2.4")
+iterators = Array("16-AE-Step-2.3")
 ' iterators = Array(18)
 
 signalsToDif = Array("Laser Piston [mm]")

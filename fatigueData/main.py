@@ -4,7 +4,7 @@ import pdb #pdb.set_trace()
 import getopt
 import shutil
 from scipy import interpolate
-import numpy as np
+import numpy as np #pdb.set_trace()
 
 from moduleFunctions import *
 
@@ -161,6 +161,8 @@ if gaugesFlag:
 
 			# Show relationship between internal leakage and tempertature
 
+			# python main.py -f filesToLoad_gauges_actuatorPerformance.txt -v Temp1,Temp2,VolFlow1,VolFlow2 -m rs -o f -s f,t -a 4 -c f -n t -r 3-SN002-1.3,8-SN002-2.4,10-SN0012-1.3,13-SN0012-2.4,3-Step-1.3,7-Step-2.4 -w t -l f
+
 			dataTemp1 = [temp for temp in dataClasses if temp.get_description() == 'Temp1'][0]
 			dataTemp2 = [temp for temp in dataClasses if temp.get_description() == 'Temp2'][0]
 			dataVolFlow1 = [temp for temp in dataClasses if temp.get_description() == 'VolFlow1'][0]
@@ -168,15 +170,16 @@ if gaugesFlag:
 
 			figure, axs = plt.subplots(2, 1)
 			figure.set_size_inches(16, 10, forward=True)
-			linestyleDict = {'3-SN002-1.3':'-',	'8-SN002-2.4':'-',	'10-SN0012-1.3':'-.',	'13-SN0012-2.4':'-.'}
-			colorsDict = {'3-SN002-1.3':plotSettings['colors'][0],	'8-SN002-2.4':plotSettings['colors'][1],	'10-SN0012-1.3':plotSettings['colors'][2],	'13-SN0012-2.4':plotSettings['colors'][3]}
-			labelsDict = {'3-SN002-1.3':'Old housing/Counterforce ON',	'8-SN002-2.4':'Old housing/Counterforce OFF',	'10-SN0012-1.3':'New housing/Counterforce ON',	'13-SN0012-2.4':'New housing/Counterforce OFF'}
+			markerDict = {'3-SN002-1.3':'o',	'8-SN002-2.4':'+',	'10-SN0012-1.3':'o',	'13-SN0012-2.4':'+', '3-Step-1.3':'o',	'7-Step-2.4':'+'}
+			linestyleDict = {'3-SN002-1.3':'',	'8-SN002-2.4':'',	'10-SN0012-1.3':'',	'13-SN0012-2.4':'', '3-Step-1.3':'',	'7-Step-2.4':''}
+			colorsDict = {'3-SN002-1.3':plotSettings['colors'][0],	'8-SN002-2.4':plotSettings['colors'][0],	'10-SN0012-1.3':plotSettings['colors'][1],	'13-SN0012-2.4':plotSettings['colors'][1], '3-Step-1.3':plotSettings['colors'][2], '7-Step-2.4':plotSettings['colors'][2]}
+			labelsDict = {'3-SN002-1.3':'SN002 / 100bar / CF ON',	'8-SN002-2.4':'SN002 / 100bar / CF OFF', '10-SN0012-1.3':'SN0012 / 100bar / CF ON', '13-SN0012-2.4':'SN0012 / 100bar / CF OFF', '3-Step-1.3':'150bar / CF ON', '7-Step-2.4':'150bar / CF OFF'}
 			titlesDict = {0 : 'System 1', 1: 'System 2'}
 			i=0
 			for dataTemp,dataVolFlow in zip([dataTemp1,dataTemp2],[dataVolFlow1,dataVolFlow2]):
 				assert dataVolFlow.get_stepID() == dataTemp.get_stepID(), 'Error'
 				for j in range(len(dataVolFlow.get_stepID())):
-					axs[i].plot( dataTemp.get_rs_split()[j], dataVolFlow.get_rs_split()[j], linestyle = linestyleDict[dataVolFlow.get_stepID()[j]], marker = '', c = colorsDict[dataVolFlow.get_stepID()[j]], label = labelsDict[dataVolFlow.get_stepID()[j]], **plotSettings['line'])
+					axs[i].plot( dataTemp.get_rs_split()[j], dataVolFlow.get_rs_split()[j], linestyle = linestyleDict[dataVolFlow.get_stepID()[j]], marker = markerDict[dataVolFlow.get_stepID()[j]], c = colorsDict[dataVolFlow.get_stepID()[j]], label = labelsDict[dataVolFlow.get_stepID()[j]], **plotSettings['line'])
 				axs[i].set_ylabel(inputDataClass.get_variablesInfoDict()[mag+'__'+dataVolFlow.get_description()]['y-label'], **plotSettings['axes_y'])
 				axs[i].set_title(titlesDict[i], **plotSettings['ax_title'])
 				axs[i].legend(**plotSettings['legend'])
@@ -192,10 +195,23 @@ if gaugesFlag:
 			# CMD execution line:
 			# python main.py -f filesToLoad_gauges_actuatorPerformance.txt -v Temp1,Temp2,VolFlow1,VolFlow2,OutputForce -m rs -o f -s f,t -a 5 -c f -n t -r 3-SN002-1.3,8-SN002-2.4,10-SN0012-1.3,13-SN0012-2.4 -w f
 
-			# Segments from test step 1.3
-			executionFlags_VolflowVSForce_actuators = {	'segmentsFlag' : True, 'singleTempInterpolFlag' : False, 
-														'colorsIDflags' : {'SN0012' : 0, 'SN002' : 1}}
-			executionFlags_VolflowVSForce_actuators['13-SN0012-2.4'] = [  [692.8, 696.8]
+			#Vector of steps
+			dataTemp1 = [temp for temp in dataClasses if temp.get_description() == 'Temp1'][0]
+			dataTemp2 = [temp for temp in dataClasses if temp.get_description() == 'Temp2'][0]
+			dataVolFlow1 = [temp for temp in dataClasses if temp.get_description() == 'VolFlow1'][0]
+			dataVolFlow2 = [temp for temp in dataClasses if temp.get_description() == 'VolFlow2'][0]			
+			dataOutputForce = [temp for temp in dataClasses if temp.get_description() == 'OutputForce'][0]
+
+			stepStrs = dataTemp1.get_stepID()
+			indexDictForSteps = {}
+			for id_curr in stepStrs:
+				indexDictForSteps[id_curr] = stepStrs.index(id_curr)
+
+			# Segments from tests at 100bar
+			colorsDict = {'10-SN0012-1.3' :plotSettings['colors'][0], '3-SN002-1.3' :plotSettings['colors'][1], '1-Step-1.1':plotSettings['colors'][2], '3-Step-1.3':plotSettings['colors'][2]}
+			markerDict = {'10-SN0012-1.3':'o', '3-SN002-1.3':'o', '1-Step-1.1':'o', '3-Step-1.3':'+'}
+			executionFlags_VolflowVSForce_actuators = {}
+			executionFlags_VolflowVSForce_actuators['10-SN0012-1.3'] = [  [692.8, 696.8]
 																		, [699.2, 703.8]
 																		, [714.6, 719.6]
 																		, [721.2, 724.0]
@@ -203,32 +219,67 @@ if gaugesFlag:
 																		, [733.4, 737.4]
 																		, [740.9, 742.8]
 																		]
-			executionFlags_VolflowVSForce_actuators['8-SN002-2.4'] = [[3339.2, 3341.8]
+			executionFlags_VolflowVSForce_actuators['3-SN002-1.3'] = [[3339.2, 3341.8]
 																	, [3377.4, 3382]
 																	, [3392.5, 3394.75]
 																	, [3408.3, 3411.0]
 																	]
-
-			SN_to_Analyse = ('SN0012', 'SN002')
-
+			executionFlags_VolflowVSForce_actuators['1-Step-1.1'] = [[50, 70] #Negative force
+																	, [90, 150] #Positive force
+																	]
+			executionFlags_VolflowVSForce_actuators['3-Step-1.3'] = [[2235, 2250] #Negative force
+																	, [2260, 2290] #Positive force
+																	]
+			
 			# Figure initialization 
-			figure_VolflowVSForce_actuators, axs_VolflowVSForce_actuators = plt.subplots(2, 1, sharex='col', sharey='col')
+			figure_VolflowVSForce_actuators, axs = plt.subplots(2, 1, sharex='col', sharey='col')
 			figure_VolflowVSForce_actuators.set_size_inches(16, 10, forward=True)
 			figure_VolflowVSForce_actuators.suptitle('Increment of flow volume rate due to output force (effect of temperature removed)', **plotSettings['figure_title'])
 
-			forceEffectDict = {}
-			for sn_current in SN_to_Analyse:
+			# #####################			
+			correspondenceForStepsDict = {'3-SN002-1.3':'8-SN002-2.4', '10-SN0012-1.3':'13-SN0012-2.4', '1-Step-1.1':'7-Step-2.4', '3-Step-1.3':'7-Step-2.4'}
 
-				temp = plotVolflowVSForce_actuators(mag, inputDataClass, plotSettings, axs_VolflowVSForce_actuators, dataClasses, sn_current, executionFlags_VolflowVSForce_actuators)
-				forceEffectDict[sn_current] = temp
+			for stepStr in ('3-Step-1.3', '10-SN0012-1.3', '3-SN002-1.3'):
+
+				# Get interpolation function
+				interpol_flow_s1 = interpolate.interp1d(dataTemp1.get_rs_split()[indexDictForSteps[correspondenceForStepsDict[stepStr]]], dataVolFlow1.get_rs_split()[indexDictForSteps[correspondenceForStepsDict[stepStr]]], kind = 'linear', bounds_error = False, fill_value = (min(dataVolFlow1.get_rs_split()[indexDictForSteps[correspondenceForStepsDict[stepStr]]]), max(dataVolFlow1.get_rs_split()[indexDictForSteps[correspondenceForStepsDict[stepStr]]])), assume_sorted = False) 
+				interpol_flow_s2 = interpolate.interp1d(dataTemp2.get_rs_split()[indexDictForSteps[correspondenceForStepsDict[stepStr]]], dataVolFlow2.get_rs_split()[indexDictForSteps[correspondenceForStepsDict[stepStr]]], kind = 'linear', bounds_error = False, fill_value = (min(dataVolFlow2.get_rs_split()[indexDictForSteps[correspondenceForStepsDict[stepStr]]]), max(dataVolFlow2.get_rs_split()[indexDictForSteps[correspondenceForStepsDict[stepStr]]])), assume_sorted = False)
 				
-			for ax in axs_VolflowVSForce_actuators:
+				segmentsAdded_Temp1, segmentsAdded_Temp2, segmentsAdded_VolFlow1, segmentsAdded_VolFlow2, segmentsAdded_OutputForce, times = [], [], [], [], [], []
+				for seg in executionFlags_VolflowVSForce_actuators[stepStr]:
+					newTime = createSegmentsOf_rs_FromVariableClass(dataTemp1, seg, indexDictForSteps[stepStr])[1]
+					times += newTime
+
+					segmentsAdded_Temp1 += createSegmentsOf_rs_FromVariableClass(dataTemp1, seg, indexDictForSteps[stepStr])[0]
+					segmentsAdded_Temp2 += createSegmentsOf_rs_FromVariableClass(dataTemp2, seg, indexDictForSteps[stepStr])[0]
+					segmentsAdded_VolFlow1 += createSegmentsOf_rs_FromVariableClass(dataVolFlow1, seg, indexDictForSteps[stepStr])[0]
+					segmentsAdded_VolFlow2 += createSegmentsOf_rs_FromVariableClass(dataVolFlow2, seg, indexDictForSteps[stepStr])[0]
+					segmentsAdded_OutputForce += createSegmentsOf_rs_FromVariableClass(dataOutputForce, seg, indexDictForSteps[stepStr])[0]
+
+				# Correct points outside the interpolation range
+				# Get interpol functions
+				offset_flow_s1_vector = interpol_flow_s1(segmentsAdded_Temp1)
+				offset_flow_s2_vector = interpol_flow_s2(segmentsAdded_Temp2)
+
+				dataOutputForceToPlot = segmentsAdded_OutputForce
+				dataVolFlowToPlot1 = [r - p for r,p in  zip(segmentsAdded_VolFlow1, offset_flow_s1_vector)]
+				dataVolFlowToPlot2 = [r - p for r,p in  zip(segmentsAdded_VolFlow2, offset_flow_s2_vector)]
+
+				axs[0].plot( dataOutputForceToPlot, dataVolFlowToPlot1, linestyle = '', marker = markerDict[stepStr], c = colorsDict[stepStr], label = stepStr, **plotSettings['line'])
+				axs[1].plot( dataOutputForceToPlot, dataVolFlowToPlot2, linestyle = '', marker = markerDict[stepStr], c = colorsDict[stepStr], label = stepStr, **plotSettings['line'])
+				
+			# Axis labels
+			axs[0].set_ylabel(inputDataClass.get_variablesInfoDict()[mag+'__'+dataVolFlow1.get_description()]['y-label'], **plotSettings['axes_y'])
+			axs[0].set_title(dataVolFlow1.get_description(), **plotSettings['ax_title'])
+			
+			axs[1].set_ylabel(inputDataClass.get_variablesInfoDict()[mag+'__'+dataVolFlow2.get_description()]['y-label'], **plotSettings['axes_y'])
+			axs[1].set_title(dataVolFlow2.get_description(), **plotSettings['ax_title'])
+
+			axs[-1].set_xlabel(inputDataClass.get_variablesInfoDict()[mag+'__'+dataOutputForce.get_description()]['y-label'], **plotSettings['axes_x'])
+
+			for ax in axs:
 				ax.legend(**plotSettings['legend'])
 				usualSettingsAX(ax, plotSettings)
-
-			# Additional calculations for velocity
-			# Remove effect of temperature using: 8-SN002-2.4
-			# Remove effect of force 3-SN002-1.3
 
 		elif CMDoptionsDict['additionalCalsOpt'] == 6:
 			# Plot flow rate versus temperature for various operating pressures
@@ -291,7 +342,6 @@ if gaugesFlag:
 					segmentsAdded_Temp2 += createSegmentsOf_rs_FromVariableClass(dataTemp2, seg, indexDictForSteps[stepStr])[0]
 					segmentsAdded_VolFlow1 += createSegmentsOf_rs_FromVariableClass(dataVolFlow1, seg, indexDictForSteps[stepStr])[0]
 					segmentsAdded_VolFlow2 += createSegmentsOf_rs_FromVariableClass(dataVolFlow2, seg, indexDictForSteps[stepStr])[0]
-					# segmentsAdded_OutputForce += createSegmentsOf_rs_FromVariableClass(dataOutputForce, seg, indexDictForSteps[stepStr])[0]
 
 				axs[0].plot( dataTemp1.get_rs_split()[indexDictForSteps[stepStr]], dataVolFlow1.get_rs_split()[indexDictForSteps[stepStr]], linestyle = linestyleDict[stepStr], marker = markerDict[stepStr], c = colorsDict[stepStr], label = labelsDict[stepStr], **plotSettings['line'])
 				axs[1].plot( dataTemp2.get_rs_split()[indexDictForSteps[stepStr]], dataVolFlow2.get_rs_split()[indexDictForSteps[stepStr]], linestyle = linestyleDict[stepStr], marker = markerDict[stepStr], c = colorsDict[stepStr], label = labelsDict[stepStr], **plotSettings['line'])
