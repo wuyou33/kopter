@@ -546,7 +546,7 @@
 			"file": "fatigueData/moduleAdditionalFunctions.py",
 			"settings":
 			{
-				"buffer_size": 12758,
+				"buffer_size": 12895,
 				"encoding": "UTF-8",
 				"line_ending": "Windows",
 				"name": "#"
@@ -985,7 +985,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 3,
 			"sheets":
 			[
 				{
@@ -1001,8 +1001,8 @@
 						"selection":
 						[
 							[
-								30994,
-								30994
+								7444,
+								7595
 							]
 						],
 						"settings":
@@ -1011,11 +1011,11 @@
 							"syntax": "Packages/Python/Python.sublime-syntax",
 							"translate_tabs_to_spaces": false
 						},
-						"translation.x": 0.0,
-						"translation.y": 6842.0,
+						"translation.x": 92.0,
+						"translation.y": 1811.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -1031,8 +1031,8 @@
 						"selection":
 						[
 							[
-								33168,
-								33168
+								32311,
+								32311
 							]
 						],
 						"settings":
@@ -1042,10 +1042,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 13231.0,
+						"translation.y": 12919.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -1073,7 +1073,7 @@
 						"translation.y": 1568.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
@@ -1082,15 +1082,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 12758,
+						"buffer_size": 12895,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2190,
-								2200
+								2826,
+								2694
 							]
 						],
 						"settings":
@@ -1100,10 +1100,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1456.0,
+						"translation.y": 676.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -1332,15 +1332,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 12758,
+						"buffer_size": 12895,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2289,
-								2289
+								7011,
+								7011
 							]
 						],
 						"settings":
@@ -1349,7 +1349,7 @@
 							"syntax": "Packages/Python/Python.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 710.0,
+						"translation.y": 2192.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -1388,7 +1388,7 @@
 						"translation.y": 22902.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
