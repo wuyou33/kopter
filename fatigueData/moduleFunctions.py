@@ -1008,6 +1008,12 @@ class dataFromGaugesSingleMagnitudeClass(object):
 
 	def plotResampled(self, plotSettings, CMDoptionsDict, magnitude, additionalInput, inputDataClass):
 
+		# Range files
+		if len(CMDoptionsDict['rangeFileIDs']) < 8:
+			rangeIDstring = ','.join([str(i) for i in CMDoptionsDict['rangeFileIDs']])
+		else:
+			rangeIDstring = str(CMDoptionsDict['rangeFileIDs'][0])+'...'+str(CMDoptionsDict['rangeFileIDs'][-1])
+		
 		plotsDone = 0
 
 		if CMDoptionsDict['multipleYaxisInSameFigure'] and CMDoptionsDict['numberMultipleYaxisInSameFigure'] != 1 and plotSettings['currentAxis'][1] == -1:
@@ -1019,6 +1025,9 @@ class dataFromGaugesSingleMagnitudeClass(object):
 			ax = axesList[0]
 			plotSettings.update({'currentAxis': [ax, 0]})
 
+			# Figure title
+			figure.suptitle(rangeIDstring, **plotSettings['figure_title'])
+
 		elif CMDoptionsDict['multipleYaxisInSameFigure'] and CMDoptionsDict['numberMultipleYaxisInSameFigure'] != 1 and plotSettings['currentAxis'][1] != -1:
 			
 			new_ax_id = plotSettings['currentAxis'][1]+1
@@ -1028,6 +1037,9 @@ class dataFromGaugesSingleMagnitudeClass(object):
 			# Normal operation, one single plot
 			figure, ax = plt.subplots(1, 1)
 			figure.set_size_inches(16, 10, forward=True)
+			
+			# Figure title
+			figure.suptitle(rangeIDstring, **plotSettings['figure_title'])
 
 		if not additionalInput[0]:
 			ax.plot( [t/self.__freqData[0] for t in self.__timeRs], self.__rs, linestyle = '-', marker = '', c = plotSettings['colors'][plotsDone], label = self.__description, **plotSettings['line'])
@@ -1124,13 +1136,6 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		axdouble_in_y.set_ylim(ax.get_ylim())
 
 		#Save figure
-		if len(CMDoptionsDict['rangeFileIDs']) < 8:
-			rangeIDstring = ','.join([str(i) for i in CMDoptionsDict['rangeFileIDs']])
-		else:
-			rangeIDstring = str(CMDoptionsDict['rangeFileIDs'][0])+'...'+str(CMDoptionsDict['rangeFileIDs'][-1])
-
-		# Figure title
-		plotSettings['currentFigureMultipleAxes'].suptitle(rangeIDstring, **plotSettings['figure_title'])
 
 		if CMDoptionsDict['saveFigure'] and not CMDoptionsDict['multipleYaxisInSameFigure']:
 
@@ -1661,6 +1666,12 @@ def usualSettingsAX(ax, plotSettings):
 
 	return axdouble_in_y
 
+def usualSettingsAXNoDoubleAxis(ax, plotSettings):
+	
+	ax.grid(which='both', **plotSettings['grid'])
+	ax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])
+	ax.minorticks_on()
+
 def calculate_stats(dataFromRuns):
 
 	def roundToOneSignificant(x):
@@ -1779,7 +1790,7 @@ def importPlottingOptions():
 	scatter = {'linewidths' : 1.0}
 	legend = {'fontsize' : 10, 'loc' : 'best', 'markerscale' : 4}
 	grid = {'alpha' : 0.7}
-	colors = ['k', 'b', 'y', 'm', 'r', 'c', 'g', 'k', 'b', 'y', 'm', 'r', 'c','k', 'b', 'y', 'm', 'r', 'c','k', 'b', 'y', 'm', 'r', 'c']
+	colors = ['k', 'b', 'r', 'm', 'y', 'c', 'g', 'k', 'b', 'y', 'm', 'r', 'c','k', 'b', 'y', 'm', 'r', 'c','k', 'b', 'y', 'm', 'r', 'c']
 	markers = ['o', 'v', '^', 's', '*', '+']
 	linestyles = ['-', '--', '-.', ':']
 	axes_ticks_n = {'x_axis' : 3} #Number of minor labels in between 
