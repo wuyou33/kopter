@@ -586,7 +586,7 @@ if gaugesFlag:
 
 			# python main.py -f filesToLoad_gauges_P2_FTI_100Hz.txt -v CNT_DST_BST_COL,CNT_FRC_BST_COL,CNT_DST_BST_LNG,CNT_FRC_BST_LNG,CNT_DST_BST_LAT,CNT_FRC_BST_LAT,HYD_ARI_MFD_TMP_1,HYD_ARI_MFD_TMP_2 -m rs,di -o f -s t,t -a 9 -c f -n t -l f -w f -r 192-FT0106
 
-			calculateFlowFlight(dataClasses, testFactor, orderDeriv, inputDataClass, plotSettings, CMDoptionsDict)
+			calculateFlowFlight(dataClasses, testFactor, plotSettings, CMDoptionsDict)
 
 	os.chdir(cwd)
 
