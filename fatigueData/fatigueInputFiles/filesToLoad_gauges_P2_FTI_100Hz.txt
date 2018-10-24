@@ -153,3 +153,9 @@ name: rs__Q_2
 y-label: Vol. flow [L/min]
 TO spec: no
 Fatigue load spec: no
+
+-> Variable info
+name: rs__Total_Q
+y-label: Vol. flow [L/min]
+TO spec: no
+Fatigue load spec: no

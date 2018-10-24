@@ -599,6 +599,10 @@ class dataFromGaugesSingleMagnitudeClass(object):
 
 	def get_description(self):
 		return self.__description
+	def get_testFactor(self):
+		return self.__testFactor
+	def get_orderDeriv(self):
+		return self.__orderDeriv
 	def get_mag(self):
 		return self.__mag
 	def get_freqData(self):
@@ -748,7 +752,7 @@ class dataFromGaugesSingleMagnitudeClass(object):
 
 		# Last computed point stats
 		print('\t'+'-> Last computed data point index (file): ' + str(counter/1000000.0) + ' millions / '+calculateDaysHoursMinutes_string(counter, self.__freqData[-1]))
-		print('\t'+'-> Max and min values read (file), max: ' + str(max_data) + ', min: '+str(min_data))
+		print('\t'+'-> Max, min and mean values read (file), max: ' + str(max_data) + ', min: '+str(min_data)+', mean: '+str(mean_data))
 
 		if flagOutliers and fieldOfFile in ('lp', 'hp'):
 			print('\t'+'-> Max and min values without outliers (file), max: ' + str(round(self.__MinMax[-1][1], 2)) + ', min: '+str(round(self.__MinMax[-1][0], 2)))
@@ -1069,9 +1073,9 @@ class dataFromGaugesSingleMagnitudeClass(object):
 			minPlot_y = valuesMinRs*0.8 if valuesMinRs > 0.0 else valuesMinRs*1.2
 			previousDiv = 0.0
 			i = 0
-			ax.plot(2*[0.0], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
+			ax.plot(2*[0.0], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = 'r', **plotSettings['line'])
 			for div in [t/self.__freqData[0] for t in self.__timeSecNewRunRs]:
-				ax.plot(2*[div], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
+				ax.plot(2*[div], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = 'r', **plotSettings['line'])
 
 				#Add text with step number
 				ax.text(previousDiv + ((div - previousDiv)/2), minPlot_y, 'Step '+self.__stepID[i], bbox=dict(facecolor='black', alpha=0.2), horizontalalignment = 'center')
@@ -1788,7 +1792,7 @@ def importPlottingOptions():
 	axes_ticks = {'labelsize' : 12}
 	line = {'linewidth' : 1.5, 'markersize' : 2.5}
 	scatter = {'linewidths' : 1.0}
-	legend = {'fontsize' : 10, 'loc' : 'best', 'markerscale' : 4}
+	legend = {'fontsize' : 10, 'loc' : 'best', 'markerscale' : 1.5}
 	grid = {'alpha' : 0.7}
 	colors = ['k', 'b', 'r', 'm', 'y', 'c', 'g', 'k', 'b', 'y', 'm', 'r', 'c','k', 'b', 'y', 'm', 'r', 'c','k', 'b', 'y', 'm', 'r', 'c']
 	markers = ['o', 'v', '^', 's', '*', '+']
