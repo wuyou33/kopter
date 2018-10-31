@@ -33,10 +33,10 @@ def internalLeakageVSTemp_regression(dataClasses, inputDataClass, plotSettings, 
 
 	figure, axs = plt.subplots(2, 1)
 	figure.set_size_inches(16, 10, forward=True)
-	markerDict = {'3-SN002-1.3':'o',	'8-SN002-2.4':'+',	'10-SN0012-1.3':'o',	'13-SN0012-2.4':'+', '3-Step-1.3':'o',	'7-Step-2.4':'+'}
-	linestyleDict = {'3-SN002-1.3':'',	'8-SN002-2.4':'',	'10-SN0012-1.3':'',	'13-SN0012-2.4':'', '3-Step-1.3':'',	'7-Step-2.4':''}
-	colorsDict = {'3-SN002-1.3':plotSettings['colors'][0],	'8-SN002-2.4':plotSettings['colors'][0],	'10-SN0012-1.3':plotSettings['colors'][1],	'13-SN0012-2.4':plotSettings['colors'][1], '3-Step-1.3':plotSettings['colors'][2], '7-Step-2.4':plotSettings['colors'][2]}
-	labelsDict = {'3-SN002-1.3':'SN002 / 100bar / CF ON',	'8-SN002-2.4':'SN002 / 100bar / CF OFF', '10-SN0012-1.3':'SN0012 / 100bar / CF ON', '13-SN0012-2.4':'SN0012 / 100bar / CF OFF', '3-Step-1.3':'150bar / CF ON', '7-Step-2.4':'150bar / CF OFF'}
+	markerDict = {'3-SN002-1.3':'o',	'8-SN002-2.4':'+',	'10-SN0012-1.3':'o',	'13-SN0012-2.4':'+', '3-Step-1.3':'o',	'7-Step-2.4':'+', '11-Step-2.4-Repeat':'+'}
+	linestyleDict = {'3-SN002-1.3':'',	'8-SN002-2.4':'',	'10-SN0012-1.3':'',	'13-SN0012-2.4':'', '3-Step-1.3':'',	'7-Step-2.4':'', '11-Step-2.4-Repeat':''}
+	colorsDict = {'3-SN002-1.3':plotSettings['colors'][0],	'8-SN002-2.4':plotSettings['colors'][0],	'10-SN0012-1.3':plotSettings['colors'][1],	'13-SN0012-2.4':plotSettings['colors'][1], '3-Step-1.3':plotSettings['colors'][2], '7-Step-2.4':plotSettings['colors'][2], '11-Step-2.4-Repeat':plotSettings['colors'][3]}
+	labelsDict = {'3-SN002-1.3':'SN002 / 100bar / CF ON',	'8-SN002-2.4':'SN002 / 100bar', '10-SN0012-1.3':'SN0012 / 100bar / CF ON', '13-SN0012-2.4':'SN0012 / 100bar', '3-Step-1.3':'SN002 / 150bar / CF ON', '7-Step-2.4':'SN002 / 150bar', '11-Step-2.4-Repeat':'SN002 / 150bar / Repeat'}
 	titlesDict = {0 : 'System 1', 1: 'System 2'}
 	i=0
 	for dataTemp,dataVolFlow in zip([dataTemp1,dataTemp2],[dataVolFlow1,dataVolFlow2]):
@@ -51,42 +51,42 @@ def internalLeakageVSTemp_regression(dataClasses, inputDataClass, plotSettings, 
 	axs[-1].set_xlabel(inputDataClass.get_variablesInfoDict()[dataTemp.get_mag()+'__'+dataTemp.get_description()]['y-label'], **plotSettings['axes_x'])
 
 	# Regression
-	dataTemps = [dataTemp1, dataTemp2]
-	dataVolFlows = [dataVolFlow1, dataVolFlow2]
-	figure, axs = plt.subplots(2, 1)
-	figure.set_size_inches(16, 10, forward=True)
-	markersDegreesDict = {1:'+', 2:'v', 3:'^'}
-	for stepStr in dataVolFlow.get_stepID():
-		if stepStr in ('7-Step-2.4', '13-SN0012-2.4', '8-SN002-2.4'):
+	# dataTemps = [dataTemp1, dataTemp2]
+	# dataVolFlows = [dataVolFlow1, dataVolFlow2]
+	# figure, axs = plt.subplots(2, 1)
+	# figure.set_size_inches(16, 10, forward=True)
+	# markersDegreesDict = {1:'+', 2:'v', 3:'^'}
+	# for stepStr in dataVolFlow.get_stepID():
+	# 	if stepStr in ('7-Step-2.4', '13-SN0012-2.4', '8-SN002-2.4'):
 
-			for sysID in range(2):
+	# 		for sysID in range(2):
 			
-				print('\n--> Regression results for step '+stepStr +', sys: '+str(sysID+1))
+	# 			print('\n--> Regression results for step '+stepStr +', sys: '+str(sysID+1))
 
-				flow = dataVolFlows[sysID].get_rs_split()[indexDictForSteps[stepStr]]
-				temp = dataTemps[sysID].get_rs_split()[indexDictForSteps[stepStr]]
+	# 			flow = dataVolFlows[sysID].get_rs_split()[indexDictForSteps[stepStr]]
+	# 			temp = dataTemps[sysID].get_rs_split()[indexDictForSteps[stepStr]]
 
-				axs[sysID].plot( temp, flow, linestyle = '', marker = 'o', c = colorsDict[stepStr], label = stepStr, **plotSettings['line'])
-				for degreeRangeCurrent in range(3):
-					degree = 1+degreeRangeCurrent # 1, 2, 3
-					p = np.polyfit(temp, flow, degree)
-					regre = np.poly1d(p)
+	# 			axs[sysID].plot( temp, flow, linestyle = '', marker = 'o', c = colorsDict[stepStr], label = stepStr, **plotSettings['line'])
+	# 			for degreeRangeCurrent in range(3):
+	# 				degree = 1+degreeRangeCurrent # 1, 2, 3
+	# 				p = np.polyfit(temp, flow, degree)
+	# 				regre = np.poly1d(p)
 
-					# Regression results
-					print('-> Regression results with '+str(degree)+' order curve:')
-					print(','.join([str(o) for o in p]) + ' - R='+str(rsquared(temp, regre(temp))))
+	# 				# Regression results
+	# 				print('-> Regression results with '+str(degree)+' order curve:')
+	# 				print(','.join([str(o) for o in p]) + ' - R='+str(rsquared(temp, regre(temp))))
 
-					axs[sysID].plot( temp, regre(temp), linestyle = '', marker = markersDegreesDict[degree], c = colorsDict[stepStr], label = str(degree)+' ord. regression', **plotSettings['line'])
+	# 				axs[sysID].plot( temp, regre(temp), linestyle = '', marker = markersDegreesDict[degree], c = colorsDict[stepStr], label = str(degree)+' ord. regression', **plotSettings['line'])
 
-	i = 0
-	for ax in axs:
-		ax.set_ylabel(inputDataClass.get_variablesInfoDict()[dataVolFlow1.get_mag()+'__'+dataVolFlow1.get_description()]['y-label'], **plotSettings['axes_y'])
-		ax.set_title(titlesDict[i], **plotSettings['ax_title'])
-		ax.legend(**plotSettings['legend'])
-		usualSettingsAX(ax, plotSettings)
+	# i = 0
+	# for ax in axs:
+	# 	ax.set_ylabel(inputDataClass.get_variablesInfoDict()[dataVolFlow1.get_mag()+'__'+dataVolFlow1.get_description()]['y-label'], **plotSettings['axes_y'])
+	# 	ax.set_title(titlesDict[i], **plotSettings['ax_title'])
+	# 	ax.legend(**plotSettings['legend'])
+	# 	usualSettingsAX(ax, plotSettings)
 		
-		i+=1
-	axs[-1].set_xlabel('Temp. [$^\circ$C]', **plotSettings['axes_x'])
+	# 	i+=1
+	# axs[-1].set_xlabel('Temp. [$^\circ$C]', **plotSettings['axes_x'])
 
 def internalLeakageVSForce_regression(dataClasses, inputDataClass, plotSettings, CMDoptionsDict):
 

@@ -10,7 +10,7 @@ csvFolder = "L:\MSH-Project Management Files\Functional Engineering\Test Divisio
 filesNames = Array("Druck_HP_1_[bar].tdms", "Druck_HP_2_[bar].tdms","Durchfluss_HP_1_[l_min].tdms"_ 
                   , "Durchfluss_HP_2_[l_min]_.tdms", "Force_Piston_Eye_HP1_[N].tdms"_
                   , "Force_Piston_Eye_HP2_[N].tdms", "Input_force_[N].tdms", "Laser_Piston_[mm].tdms"_
-                  , "Laser_Steuerventilhebel_[mm].tdms", "Output_force_[N].tdms", "Temperatur_HP_1_[°C].tdms", "Temperatur_HP_2_[°C].tdms")
+                  , "Laser_Steuerventilhebel_[mm].tdms", "Output_force_[N].tdms", "Temperatur_HP_1_[°C].tdms", "Temperatur_HP_2_[°C].tdms","Temperatur_HP_1_[degC].tdms", "Temperatur_HP_2_[degC].tdms")
 
 ' These are the folders where the data that wants to be imported is contained. Each folder correspond to a differt time step
 commonAddress = "L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0214\01_Data_set-complete\01_RAW\"
@@ -40,7 +40,8 @@ iterators2 = Array("1-SN002-1.1","2-SN002-1.2","3-SN002-1.3","4-SN002-1.6","5-SN
                 , "9-SN0012-1.1", "10-SN0012-1.3", "11-SN0012-1.6", "12-SN0012-2.3", "13-SN0012-2.4" _
                 , "14-SN002-3.1", "15-SN002-3.1", "16-SN002-3.1", "17-SN002-3.1" _
                 )
-iterators = Array("14-SN002-3.1", "15-SN002-3.1", "16-SN002-3.1", "17-SN002-3.1")
+' iterators = Array("14-SN002-3.1", "15-SN002-3.1", "16-SN002-3.1", "17-SN002-3.1")
+iterators = Array("1-SN002-1.1")
 ' iterators = Array("08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28")
 ' iterators = Array("08")
 
@@ -57,11 +58,11 @@ iterators = Array("14-SN002-3.1", "15-SN002-3.1", "16-SN002-3.1", "17-SN002-3.1"
 ' dictVaDiadem.Add "Input force [N]", "InputForce"
 ' dictVaDiadem.Add "Laser Steuerventilhebel [mm]", "ValveDispl"
 ' dictVaDiadem.Add "Output force [N]", "OutputForce"
-' dictVaDiadem.Add "Temperatur HP_1 [degC]", "Temp1"
-' dictVaDiadem.Add "Temperatur HP_2 [degC]", "Temp2"
-' dictVaDiadem.Add "Temperatur HP_1 [°C]", "Temp1"
-' dictVaDiadem.Add "Temperatur HP_2 [°C]", "Temp2"
-dictVaDiadem.Add "Laser Piston [mm]", "PistonDispl"
+' dictVaDiadem.Add "Laser Piston [mm]", "PistonDispl"
+dictVaDiadem.Add "Temperatur HP_1 [degC]", "Temp1"
+dictVaDiadem.Add "Temperatur HP_2 [degC]", "Temp2"
+dictVaDiadem.Add "Temperatur HP_1 [°C]", "Temp1"
+dictVaDiadem.Add "Temperatur HP_2 [°C]", "Temp2"
 
 signalsToDif = Array("Laser Piston [mm]")
 FlagFTData = True

@@ -13,7 +13,7 @@ csvFolder = "P:\12_flightTestData\all\"
 '                   , "Laser_Steuerventilhebel_[mm].tdms", "Output_force_[N].tdms", "Temperatur_HP_1_[degC].TDM", "Temperatur_HP_2_[degC].TDM")
 
 ' These are the folders where the data that wants to be imported is contained. Each folder correspond to a differt time step
-commonAddress = "G:\FTI\ProcData\SKYeSH09\P2\J17-Test Data\"
+commonAddress = "G:\FTI\ProcData\SKYeSH09\P3\J17-Test Data\"
 fileNamesBigArrayFolders = Array( _
     Array(commonAddress&"P3-J17-0000-000-009_Rigging_check\FTI\fti_2018-08-22_120203\", "1-RC", Array("fti_2018-08-22_120203_pp.tdms")) _
     , Array(commonAddress&"P3-J17-0000-000-009_Rigging_check\FTI\fti_2018-08-22_125159\", "2-RC", Array("fti_2018-08-22_125159_pp.tdms")) _
@@ -101,6 +101,10 @@ fileNamesBigArrayFolders = Array( _
     , Array(commonAddress&"P3-J17-0000-020\FTI\Run1\", "84-FT20", Array("fti_20181004123543_pp.tdms")) _
     , Array(commonAddress&"P3-J17-0000-020\FTI\Run2\", "85-FT20", Array("fti_20181004141626_pp.tdms")) _
     , Array(commonAddress&"P3-J17-0000-021\FTI\Run1\", "86-FT21", Array("fti_20181005131723_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0000-022\FTI\Run1\", "87-FT22", Array("fti_20181019090234_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0000-022\FTI\Run2\", "88-FT22", Array("fti_20181019094749_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0000-022\FTI\Run3\", "89-FT22", Array("fti_20181019112117_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0000-022\FTI\Run4\", "90-FT22", Array("fti_20181019121827_pp.tdms")) _
   )
 
 ' Identified errors - P3!!!
@@ -197,6 +201,10 @@ iterators = Array(_
 		, "84-FT20" _
 		, "85-FT20" _
 		, "86-FT21" _
+        , "87-FT22" _
+        , "88-FT22" _
+        , "89-FT22" _
+        , "90-FT22" _
 		)
 
 

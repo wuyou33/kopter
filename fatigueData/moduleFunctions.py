@@ -660,7 +660,7 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		file = open(longFileName, 'r')
 		lines = file.readlines()
 
-		skipLines, dataID, data, counter = 0, [], [], 0
+		skipLines, dataID, data, counter, totalLines = 0, [], [], 0, len(lines)
 
 		for line in lines[(skipLines+1):]:
 
@@ -683,6 +683,10 @@ class dataFromGaugesSingleMagnitudeClass(object):
 					dataID += [self.__lastID+1]
 				else:
 					dataID += [dataID[-1]+1]
+
+			# status = round((counter/totalLines)* 100, 2)
+			# sys.stdout.write('-----> Status: '+ str(status) +'% \r')
+			# sys.stdout.flush()
 
 			counter += 1
 		
@@ -1104,7 +1108,7 @@ class dataFromGaugesSingleMagnitudeClass(object):
 				ax.plot([minPlot_x, maxPlot_x], 2*[limitLoad], linestyle = '--', marker = '', c = plotSettings['colors'][5], **plotSettings['line'])
 				if limitsLoadsBoundaries:
 					for limitLoadBoundary in limitsLoadsBoundaries:
-						ax.plot([minPlot_x, maxPlot_x], 2*[limitLoad*limitLoadBoundary], linestyle = '-.', marker = '', c = plotSettings['colors'][6], **plotSettings['line'])
+						ax.plot([minPlot_x, maxPlot_x], 2*[limitLoad*limitLoadBoundary], linestyle = '-.', marker = '', c = plotSettings['colors'][6], scaley = False, scalex = False, **plotSettings['line'])
 
 		# ax.set_xlabel('Number of points [Millions]', **plotSettings['axes_x'])
 		# ax.set_xlabel('Time elapsed [Million seconds]', **plotSettings['axes_x'])
@@ -1120,7 +1124,7 @@ class dataFromGaugesSingleMagnitudeClass(object):
 			ax.legend(**plotSettings['legend'])
 		else:
 			if magnitude == 'rs':
-				ax.set_title(self.__description+', re-sampled data to '+str(int(self.__freqData[0]))+' Hz', **plotSettings['ax_title'])
+				ax.set_title(self.__description+', '+str(int(self.__freqData[0]))+' Hz', **plotSettings['ax_title'])
 			elif magnitude == 'lp':
 				a = self.__filterData[0]
 				ax.set_title(self.__description+', low-pass filtered with '+str(float(self.__filterData[0]))+' Hz cut-off freq.', **plotSettings['ax_title'])
@@ -1130,17 +1134,9 @@ class dataFromGaugesSingleMagnitudeClass(object):
 				ax.set_title(self.__description, **plotSettings['ax_title'])
 
 		#Figure settings
-		ax.grid(which='both', **plotSettings['grid'])
-		ax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])
-		ax.minorticks_on()
-
-		#Double y-axis 
-		axdouble_in_y = ax.twinx()
-		axdouble_in_y.minorticks_on()
-		axdouble_in_y.set_ylim(ax.get_ylim())
-
+		usualSettingsAX(ax, plotSettings)
+		
 		#Save figure
-
 		if CMDoptionsDict['saveFigure'] and not CMDoptionsDict['multipleYaxisInSameFigure']:
 
 			if additionalInput[0]:
@@ -1667,6 +1663,7 @@ def usualSettingsAX(ax, plotSettings):
 	axdouble_in_y = ax.twinx()
 	axdouble_in_y.minorticks_on()
 	axdouble_in_y.set_ylim(ax.get_ylim())
+	axdouble_in_y.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])
 
 	return axdouble_in_y
 
@@ -1766,7 +1763,7 @@ def calculateDaysHoursMinutes_string(N, freq):
 	n_minutes = int(np.floor(remainingSeconds/(60)))
 	remainingSeconds = remainingSeconds - (60*n_minutes)
 
-	totalTimeString = str(n_days)+' days, '+str(n_hours)+' hours, '+str(n_minutes)+' minutes, '+str(round(remainingSeconds, 2))+' seconds ('+str(freq)+' Hz)'
+	totalTimeString = str(round(seconds/3600.0, 2))+' hours / '+str(n_days)+' days, '+str(n_hours)+' hours, '+str(n_minutes)+' minutes, '+str(round(remainingSeconds, 2))+' seconds ('+str(freq)+' Hz)'
 
 	return totalTimeString
 
