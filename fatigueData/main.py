@@ -150,10 +150,17 @@ if gaugesFlag:
 			dataAdditional = dataFromGaugesSingleMagnitudeClass('forceFightingEyes(HP1-HP2)', 'rs', testFactor, orderDeriv)
 			dataAdditional.addDataManual1(dataClasses)
 			dataAdditional.plotResampled(plotSettings, CMDoptionsDict, dataAdditional.get_mag(), (False, [], []), inputDataClass)
+
+		elif CMDoptionsDict['additionalCalsOpt'] == 1.5:
+			dataAdditional = dataFromGaugesSingleMagnitudeClass('forceFightingEyes(HP1-HP2)', 'rs', testFactor, orderDeriv)
+			dataAdditional.addDataManual1(dataClasses)
+			dataClasses += (dataAdditional, )
+			dataAdditional.plotResampled(plotSettings, CMDoptionsDict, dataAdditional.get_mag(), (True, dataClasses, ('forceFightingEyes(HP1-HP2)','ForceEye1','ForceEye2','PistonDispl')), inputDataClass)
 		elif CMDoptionsDict['additionalCalsOpt'] == 2:
 			dataAdditional = dataFromGaugesSingleMagnitudeClass('forceSumEyes(HP1+HP2)', 'rs', testFactor, orderDeriv)
 			dataAdditional.addDataManual2(dataClasses)
-			dataAdditional.plotResampled(plotSettings, CMDoptionsDict, dataAdditional.get_mag(), (True, dataClasses, 'OutputForce'), inputDataClass)
+			dataClasses += (dataAdditional, )
+			dataAdditional.plotResampled(plotSettings, CMDoptionsDict, dataAdditional.get_mag(), (True, dataClasses, ('forceSumEyes(HP1+HP2)', 'OutputForce')), inputDataClass)
 		elif CMDoptionsDict['additionalCalsOpt'] == 3:
 			# dataAdditional = dataFromGaugesSingleMagnitudeClass('forceSumEyes(HP1+HP2)', 'rs', testFactor, orderDeriv)
 			# dataAdditional.addDataManual2(dataClasses)
@@ -213,6 +220,7 @@ if gaugesFlag:
 			# python main.py -f filesToLoad_gauges_P2_FTI_100Hz.txt -v CNT_DST_BST_COL,CNT_FRC_BST_COL,CNT_DST_BST_LNG,CNT_FRC_BST_LNG,CNT_DST_BST_LAT,CNT_FRC_BST_LAT,HYD_ARI_MFD_TMP_1,HYD_ARI_MFD_TMP_2 -m rs,di -o f -s t,t -a 9 -c f -n t -l f -w f -r 192-FT0106
 
 			calculateFlowFlight(dataClasses, inputDataClass, plotSettings, CMDoptionsDict)
+
 
 	os.chdir(cwd)
 

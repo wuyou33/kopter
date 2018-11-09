@@ -105,6 +105,13 @@ fileNamesBigArrayFolders = Array( _
     , Array(commonAddress&"P3-J17-0000-022\FTI\Run2\", "88-FT22", Array("fti_20181019094749_pp.tdms")) _
     , Array(commonAddress&"P3-J17-0000-022\FTI\Run3\", "89-FT22", Array("fti_20181019112117_pp.tdms")) _
     , Array(commonAddress&"P3-J17-0000-022\FTI\Run4\", "90-FT22", Array("fti_20181019121827_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0000-022-001_Pitot_Check\FTI\Run1\", "91-FT22", Array("fti_20181023135013_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0000-022-002_Rigging\FTI\Run1\", "92-FT22", Array("fti_20181027160430_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0000-023\FTI\Run1\", "93-FT23", Array("fti_20181105135103_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0000-023\FTI\Run2\", "94-FT23", Array("fti_20181105150001_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0000-023\FTI\Run3\", "95-FT23", Array("fti_20181105164059_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0000-024\FTI\Run1\", "96-FT24", Array("fti_20181106141007_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0000-024\FTI\Run2\", "97-FT24", Array("fti_20181106162305_pp.tdms")) _
   )
 
 ' Identified errors - P3!!!
@@ -116,7 +123,7 @@ fileNamesBigArrayFolders = Array( _
 ' iterators = Array("1-SN002-1.1","2-SN002-1.2","3-SN002-1.3","4-SN002-1.6","5-SN002-2.3.1","6-SN002-2.3.2","7-SN002-2.3.3","8-SN002-2.4"_
 '                 , "9-SN0012-1.1", "10-SN0012-1.3", "11-SN0012-1.6", "12-SN0012-2.3", "13-SN0012-2.4" _
 '                 )
-iterators = Array(_ 
+iterators2 = Array(_ 
 			"1-RC"_
 		, 	"2-RC" _
 		, 	"3-RC" _
@@ -205,9 +212,25 @@ iterators = Array(_
         , "88-FT22" _
         , "89-FT22" _
         , "90-FT22" _
+        , "91-FT22" _
+        , "92-FT22" _
+        , "93-FT23" _
+        , "94-FT23" _
+        , "95-FT23" _
+        , "96-FT24" _
+        , "97-FT24" _
 		)
 
 
+iterators = Array(_
+          "91-FT22" _
+        , "92-FT22" _
+        , "93-FT23" _
+        , "94-FT23" _
+        , "95-FT23" _
+        , "96-FT24" _
+        , "97-FT24" _
+        )
 ' iterators = Array("29-FT07")
 ' iterators = Array("08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28")
 ' iterators = Array("08")
@@ -222,9 +245,9 @@ iterators = Array(_
 dictVaDiadem.Add "CNT_DST_BST_COL", "CNT_DST_BST_COL"
 dictVaDiadem.Add "CNT_DST_BST_LAT", "CNT_DST_BST_LAT"
 dictVaDiadem.Add "CNT_DST_BST_LNG", "CNT_DST_BST_LNG"
-' dictVaDiadem.Add "CNT_DST_COL", "CNT_DST_COL"
-' dictVaDiadem.Add "CNT_DST_LAT", "CNT_DST_LAT"
-' dictVaDiadem.Add "CNT_DST_LNG", "CNT_DST_LNG"
+dictVaDiadem.Add "CNT_DST_COL", "CNT_DST_COL"
+dictVaDiadem.Add "CNT_DST_LAT", "CNT_DST_LAT"
+dictVaDiadem.Add "CNT_DST_LNG", "CNT_DST_LNG"
 ' dictVaDiadem.Add "CNT_DST_PED", "CNT_DST_PED"
 ' dictVaDiadem.Add "HYD_PRS_1", "HYD_PRS_1"
 ' dictVaDiadem.Add "HYD_PRS_2", "HYD_PRS_2"

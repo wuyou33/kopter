@@ -43,6 +43,8 @@ fileNamesBigArrayFolders = Array( _
   , Array(commonAddress & "Step 2.1\1.5mm Auslenkung\2018-01-19_114534\", "18-AE-Step-2.1-Displ", fileNames) _
   , Array(commonAddress & "Step 1.4\2018-01-18_142629\", "19-AE-Step-1.4", fileNames) _
   , Array(commonAddress & "Step 2.2\2018-01-19_135437\", "20-AE-Step-2.2", fileNames) _
+  , Array(commonAddress & "Step 1.2\2018-01-18_135954\", "21-AE-Step-1.2", fileNames) _
+  , Array(commonAddress & "Step 1.2\2018-01-18_140114\", "22-AE-Step-1.2", fileNames) _
   )
 
 ' variable names inside DIAdem -> variable names for the files to be saved
@@ -92,9 +94,11 @@ iterators2 = Array(_
                   , "18-AE-Step-2.1-Displ" _
                   , "19-AE-Step-1.4" _
                   , "20-AE-Step-2.2" _
+                  , "21-AE-Step-1.2" _
+                  , "22-AE-Step-1.2" _
                   )
 ' iterators = Array("17-AE-Step-2.1-Neutral", "18-AE-Step-2.1-Displ")
-iterators = Array("13-AE-Step-2.5", "14-AE-Step-2.5")
+iterators = Array("21-AE-Step-1.2", "22-AE-Step-1.2")
 
 signalsToDif = Array("Laser Piston [mm]")
 FlagFTData = True

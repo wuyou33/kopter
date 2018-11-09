@@ -93,7 +93,7 @@ def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 				CMDoptionsDict['additionalCalsFlag'] = False
 			else:
 				CMDoptionsDict['additionalCalsFlag'] = True
-				CMDoptionsDict['additionalCalsOpt'] = int(arg)
+				CMDoptionsDict['additionalCalsOpt'] = float(arg)
 
 		elif opt in ("-c", "--correctionFilter"):
 
@@ -105,10 +105,15 @@ def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 
 		elif opt in ("-n", "--multipleYaxisInSameFigure"):
 
-			if arg.lower() in ('true', 't'):
+			argSplit = arg.split(',')
+
+			if arg[0].lower() in ('true', 't'):
 				CMDoptionsDict['multipleYaxisInSameFigure'] = True
-				CMDoptionsDict['numberMultipleYaxisInSameFigure'] = max(len(CMDoptionsDict['variables']),len(CMDoptionsDict['magnitudes']))
-			elif arg.lower() in ('false', 'f'):
+				if len(argSplit) == 1:
+					CMDoptionsDict['numberMultipleYaxisInSameFigure'] = max(len(CMDoptionsDict['variables']),len(CMDoptionsDict['magnitudes']))
+				else:
+					CMDoptionsDict['numberMultipleYaxisInSameFigure'] = int(argSplit[-1])
+			elif arg[0].lower() in ('false', 'f'):
 				CMDoptionsDict['multipleYaxisInSameFigure'] = False
 			else:
 				raise ValueError('ERROR: Wrong input for parameter '+opt)
@@ -897,55 +902,39 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		"""
 		Customized function to calculate the fighting force
 		"""
-		forceHP1 = []
-		forceHP2 = []
 		result = []
 
-		for dataClass in dataClasses:
+		forceHP1 = [temp for temp in dataClasses if temp.get_description() == 'ForceEye1'][0]
+		forceHP2 = [temp for temp in dataClasses if temp.get_description() == 'ForceEye2'][0]
 
-			if dataClass.get_description() in ('ForcePistonEyeHP1'):
-				forceHP1 = dataClass.get_rs()
-				oneClass = dataClass
+		for f1, f2 in zip(forceHP1.get_rs(), forceHP2.get_rs()):
 
-			elif dataClass.get_description() in ('ForcePistonEyeHP2'):
-				forceHP2 = dataClass.get_rs()
-
-		for f1, f2 in zip(forceHP1, forceHP2):
-
-			result += [f1-f2]
+			result += [abs(f1-f2)]
 
 		self.__rs = result
-		self.__freqData = oneClass.get_freqData()
-		self.__timeRs = oneClass.get_timeRs()
-		self.__timeSecNewRunRs = oneClass.get_timeSecNewRunRs()
-		self.__stepID = oneClass.get_stepID()
+		self.__freqData = forceHP1.get_freqData()
+		self.__timeRs = forceHP1.get_timeRs()
+		self.__timeSecNewRunRs = forceHP1.get_timeSecNewRunRs()
+		self.__stepID = forceHP1.get_stepID()
 
 	def addDataManual2(self, dataClasses):
 		"""
 		Customized function to calculate the fighting force
 		"""
-		forceHP1 = []
-		forceHP2 = []
 		result = []
 
-		for dataClass in dataClasses:
+		forceHP1 = [temp for temp in dataClasses if temp.get_description() == 'ForceEye1'][0]
+		forceHP2 = [temp for temp in dataClasses if temp.get_description() == 'ForceEye2'][0]
 
-			if dataClass.get_description() in ('ForcePistonEyeHP1'):
-				forceHP1 = dataClass.get_rs()
-				oneClass = dataClass
-
-			elif dataClass.get_description() in ('ForcePistonEyeHP2'):
-				forceHP2 = dataClass.get_rs()
-
-		for f1, f2 in zip(forceHP1, forceHP2):
+		for f1, f2 in zip(forceHP1.get_rs(), forceHP2.get_rs()):
 
 			result += [f1+f2]
 
 		self.__rs = result
-		self.__freqData = oneClass.get_freqData()
-		self.__timeRs = oneClass.get_timeRs()
-		self.__timeSecNewRunRs = oneClass.get_timeSecNewRunRs()
-		self.__stepID = oneClass.get_stepID()
+		self.__freqData = forceHP1.get_freqData()
+		self.__timeRs = forceHP1.get_timeRs()
+		self.__timeSecNewRunRs = forceHP1.get_timeSecNewRunRs()
+		self.__stepID = forceHP1.get_stepID()
 
 	def addDataManual3(self, dataClasses, dof_to_calculate, area):
 		
@@ -1064,7 +1053,7 @@ class dataFromGaugesSingleMagnitudeClass(object):
 			dataClasses = additionalInput[1]
 			for dataClass in dataClasses:
 				for additionalInputString in additionalInput[2]:
-					if dataClass.get_description() == additionalInputString:			
+					if dataClass.get_description() == additionalInputString:
 						ax.plot( [t/dataClass.get_freqData()[0] for t in dataClass.get_timeRs()], dataClass.get_rs(), linestyle = '-', marker = '', c = plotSettings['colors'][plotsDone], label = dataClass.get_description(), **plotSettings['line'])
 
 						plotsDone += 1
@@ -1082,7 +1071,8 @@ class dataFromGaugesSingleMagnitudeClass(object):
 				ax.plot(2*[div], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = 'r', **plotSettings['line'])
 
 				#Add text with step number
-				ax.text(previousDiv + ((div - previousDiv)/2), minPlot_y, 'Step '+self.__stepID[i], bbox=dict(facecolor='black', alpha=0.2), horizontalalignment = 'center')
+				ax.text(previousDiv + ((div - previousDiv)/2), minPlot_y, self.__stepID[i], bbox=dict(facecolor='black', alpha=0.2), horizontalalignment = 'center')
+				# ax.text(previousDiv + ((div - previousDiv)/2), minPlot_y, 'Step '+self.__stepID[i], bbox=dict(facecolor='black', alpha=0.2), horizontalalignment = 'center')
 				
 				previousDiv = div
 				i += 1
@@ -1110,13 +1100,13 @@ class dataFromGaugesSingleMagnitudeClass(object):
 					for limitLoadBoundary in limitsLoadsBoundaries:
 						ax.plot([minPlot_x, maxPlot_x], 2*[limitLoad*limitLoadBoundary], linestyle = '-.', marker = '', c = plotSettings['colors'][6], scaley = False, scalex = False, **plotSettings['line'])
 
-		# ax.set_xlabel('Number of points [Millions]', **plotSettings['axes_x'])
-		# ax.set_xlabel('Time elapsed [Million seconds]', **plotSettings['axes_x'])
+		# x-label
 		if not CMDoptionsDict['multipleYaxisInSameFigure'] or CMDoptionsDict['numberMultipleYaxisInSameFigure'] == 1:
 			ax.set_xlabel('Time elapsed [Seconds]', **plotSettings['axes_x'])
 		elif CMDoptionsDict['numberMultipleYaxisInSameFigure']==(plotSettings['currentAxis'][1]+1):
 			ax.set_xlabel('Time elapsed [Seconds]', **plotSettings['axes_x'])
 
+		# y-label
 		ax.set_ylabel(inputDataClass.get_variablesInfoDict()[magnitude+'__'+self.__description]['y-label'], **plotSettings['axes_y'])
 
 		#Legend and title
@@ -1140,7 +1130,7 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		if CMDoptionsDict['saveFigure'] and not CMDoptionsDict['multipleYaxisInSameFigure']:
 
 			if additionalInput[0]:
-				figure.savefig(os.path.join(CMDoptionsDict['cwd'], magnitude+'_'+rangeIDstring+'_'+self.__description+'&'+additionalInput[2]+'.png'), dpi = plotSettings['figure_settings']['dpi'])
+				figure.savefig(os.path.join(CMDoptionsDict['cwd'], magnitude+'_'+rangeIDstring+'_'+self.__description+'&'+'&'.join(additionalInput[2])+'.png'), dpi = plotSettings['figure_settings']['dpi'])
 			else: 
 				figure.savefig(os.path.join(CMDoptionsDict['cwd'], magnitude+'_'+rangeIDstring+'_'+self.__description+'.png'), dpi = plotSettings['figure_settings']['dpi'])
 		elif CMDoptionsDict['saveFigure'] and CMDoptionsDict['numberMultipleYaxisInSameFigure']==(plotSettings['currentAxis'][1]+1): #CMDoptionsDict['multipleYaxisInSameFigure'] is True
