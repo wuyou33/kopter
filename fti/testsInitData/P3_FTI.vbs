@@ -223,13 +223,8 @@ iterators2 = Array(_
 
 
 iterators = Array(_
-          "91-FT22" _
-        , "92-FT22" _
-        , "93-FT23" _
-        , "94-FT23" _
-        , "95-FT23" _
-        , "96-FT24" _
-        , "97-FT24" _
+          "10-FT03" _
+        , "13-FT04" _
         )
 ' iterators = Array("29-FT07")
 ' iterators = Array("08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28")
@@ -249,12 +244,14 @@ dictVaDiadem.Add "CNT_DST_COL", "CNT_DST_COL"
 dictVaDiadem.Add "CNT_DST_LAT", "CNT_DST_LAT"
 dictVaDiadem.Add "CNT_DST_LNG", "CNT_DST_LNG"
 ' dictVaDiadem.Add "CNT_DST_PED", "CNT_DST_PED"
-' dictVaDiadem.Add "HYD_PRS_1", "HYD_PRS_1"
-' dictVaDiadem.Add "HYD_PRS_2", "HYD_PRS_2"
-' dictVaDiadem.Add "HYD_TMP_1", "HYD_TMP_1"
-' dictVaDiadem.Add "HYD_TMP_2", "HYD_TMP_2"
-' dictVaDiadem.Add "HYD_TMP_TANK_1", "HYD_TMP_TANK_1"
-' dictVaDiadem.Add "HYD_TMP_TANK_2", "HYD_TMP_TANK_2"
+dictVaDiadem.Add "HYD_PRS_1", "HYD_PRS_1"
+dictVaDiadem.Add "HYD_PRS_2", "HYD_PRS_2"
+dictVaDiadem.Add "HYD_TMP_1", "HYD_TMP_1"
+dictVaDiadem.Add "HYD_TMP_2", "HYD_TMP_2"
+dictVaDiadem.Add "HYD_TMP_TANK_1", "HYD_TMP_TANK_1"
+dictVaDiadem.Add "HYD_TMP_TANK_2", "HYD_TMP_TANK_2"
+dictVaDiadem.Add "DIU_ARI_IND_HYD_PRS_1_C", "IND_PRS_1"
+dictVaDiadem.Add "DIU_ARI_IND_HYD_PRS_2_C", "IND_PRS_2"
 
 signalsToDif = Array("CNT_DST_BST_COL", "CNT_DST_BST_LNG", "CNT_DST_BST_LAT","CNT_DST_COL", "CNT_DST_LNG", "CNT_DST_LAT")
 

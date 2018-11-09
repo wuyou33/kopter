@@ -4,6 +4,38 @@
 		"selected_items":
 		[
 			[
+				"wind",
+				"windowFunctionsDict"
+			],
+			[
+				"bar",
+				"bartlett"
+			],
+			[
+				"n",
+				"n_plot"
+			],
+			[
+				"sett",
+				"settingsDict_FRF"
+			],
+			[
+				"lab",
+				"labelsDict"
+			],
+			[
+				"win",
+				"window"
+			],
+			[
+				"x",
+				"x_frac"
+			],
+			[
+				"w",
+				"window"
+			],
+			[
 				"out",
 				"outputDict"
 			],
@@ -482,14 +514,6 @@
 			[
 				"tol",
 				"tols"
-			],
-			[
-				"dist",
-				"dist_flight"
-			],
-			[
-				"_",
-				"__id"
 			]
 		]
 	},
@@ -509,7 +533,7 @@
 			"file": "moduleFunctions.py",
 			"settings":
 			{
-				"buffer_size": 68739,
+				"buffer_size": 69200,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -518,34 +542,7 @@
 			"file": "dynamicActuatorScript.py",
 			"settings":
 			{
-				"buffer_size": 3870,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/P/kopter/fti/getFlightTestData.vbs",
-			"settings":
-			{
-				"buffer_size": 9815,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/P/kopter/versionsBackup/main_versionsBackup.py",
-			"settings":
-			{
-				"buffer_size": 6382,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "input_files_flightTestAnalysis/analysisActuatorCavitation_34.txt",
-			"settings":
-			{
-				"buffer_size": 366,
+				"buffer_size": 4416,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -555,33 +552,14 @@
 			"settings":
 			{
 				"buffer_size": 236,
-				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "input_files_flightTestAnalysis/analysisActuatorCavitation_33.txt",
+			"file": "/P/kopter/fti/getFlightTestData.vbs",
 			"settings":
 			{
-				"buffer_size": 273,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "input_files_flightTestAnalysis/analysisActuatorCavitation_37.txt",
-			"settings":
-			{
-				"buffer_size": 367,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "input_files_flightTestAnalysis/analysisActuatorCavitation_32.txt",
-			"settings":
-			{
-				"buffer_size": 271,
+				"buffer_size": 9815,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -636,11 +614,16 @@
 		"/P/kopter/fatigueData",
 		"/P/kopter/fti",
 		"/P/kopter/SH09_s_id",
-		"/P/kopter/versionsBackup",
+		"/P/kopter/SH09_s_id/input_files_flightTestAnalysis",
 		"/P/10_code/abaqus-master/abaqus-master"
 	],
 	"file_history":
 	[
+		"/P/kopter/SH09_s_id/input_files_flightTestAnalysis/analysisActuatorCavitation_32.txt",
+		"/P/kopter/SH09_s_id/input_files_flightTestAnalysis/analysisActuatorCavitation_37.txt",
+		"/P/kopter/SH09_s_id/input_files_flightTestAnalysis/analysisActuatorCavitation_33.txt",
+		"/P/kopter/SH09_s_id/input_files_flightTestAnalysis/analysisActuatorCavitation_freq.txt",
+		"/P/kopter/SH09_s_id/input_files_flightTestAnalysis/analysisActuatorCavitation_34.txt",
 		"/P/kopter/versionsBackup/main_versionsBackup.py",
 		"/P/kopter/bladesCode/blade2.py",
 		"/P/kopter/fti/testsInitData/P2_FTI.vbs",
@@ -763,12 +746,7 @@
 		"/L/TEMP/michal/flap_stop/configClassModule.py",
 		"/P/10_code/kopter/SH09_s_id/main_versionsBackup.py",
 		"//mshzhstg/mshdata/MSH/02_Development/SKYe S09/06_Avionic/J00 Testing and FTI/SKYe test Benches/0c - Various Information/Simulator/Flight Physics/Flightlab_controller_design/A_mat_from_FL_v2.txt",
-		"//mshzhstg/mshdata/MSH/02_Development/SKYe S09/06_Avionic/J00 Testing and FTI/SKYe test Benches/0c - Various Information/Simulator/Flight Physics/Flightlab_controller_design/A_mat_from_FL_v1.txt",
-		"/P/10_code/kopter/SH09_s_id/C_mat_from_FL_v2.txt",
-		"/P/10_code/kopter/SH09_s_id/B_mat_from_FL_v1.txt",
-		"/P/10_code/kopter/versionsBackup/main_versionsBackup.py",
-		"/P/10_code/kopter/s_id/sidpac/startup.m",
-		"/L/TEMP/michal/flap_stop/toleranceChain.py"
+		"//mshzhstg/mshdata/MSH/02_Development/SKYe S09/06_Avionic/J00 Testing and FTI/SKYe test Benches/0c - Various Information/Simulator/Flight Physics/Flightlab_controller_design/A_mat_from_FL_v1.txt"
 	],
 	"find":
 	{
@@ -788,6 +766,16 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"n",
+			"settingsDict_FRF ={'x_frac' : 0.5, 'K' : 111, 'window' : 'bartlett','correlationPlotsFlag' : False}",
+			"np.bartlett",
+			"m",
+			"window",
+			"$x_{frac}$",
+			"[0]",
+			"0",
+			"'bartlett'",
+			"'outputFlag'",
 			"\", Array",
 			", Array",
 			" _",
@@ -905,17 +893,7 @@
 			"freq",
 			"max",
 			"travel",
-			"(times_max[i] + times_min[i-1])/2",
-			"[[abs",
-			"(times_max[i] + times_min[i])/2",
-			"travel",
-			"LNG",
-			"figure_title",
-			"Displ. i",
-			"Piston displ",
-			"Piston",
-			"+int(0.3*numberPointsCycle)",
-			"start"
+			"(times_max[i] + times_min[i-1])/2"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -969,7 +947,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
@@ -978,15 +956,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 68739,
+						"buffer_size": 69200,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								8276,
-								8276
+								7729,
+								7729
 							]
 						],
 						"settings":
@@ -998,7 +976,7 @@
 						"translation.y": 2548.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -1007,27 +985,56 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3870,
+						"buffer_size": 4416,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3556,
-								3556
+								1868,
+								1869
 							]
 						],
 						"settings":
 						{
+							"spell_check": true,
 							"syntax": "Packages/Python/Python.sublime-syntax",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 573.0,
+						"translation.y": 351.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "input_files_flightTestAnalysis/analysisActuatorCavitation_freq.txt",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 236,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								122,
+								122
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
 					"type": "text"
 				}
 			]
@@ -1042,15 +1049,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 68739,
+						"buffer_size": 69200,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								68686,
-								68651
+								69147,
+								69112
 							]
 						],
 						"settings":
@@ -1059,14 +1066,14 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 19228.0,
+						"translation.y": 19306.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 4,
 					"file": "/P/kopter/fti/getFlightTestData.vbs",
 					"semi_transient": false,
 					"settings":
@@ -1092,212 +1099,7 @@
 						"translation.y": 1443.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
-					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 1,
-			"sheets":
-			[
-				{
-					"buffer": 4,
-					"file": "/P/kopter/versionsBackup/main_versionsBackup.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 6382,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"history_list_is_closing": true,
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 2561.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "moduleFunctions.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 68739,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								30740,
-								30740
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 7945.0,
-						"zoom_level": 1.0
-					},
 					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "input_files_flightTestAnalysis/analysisActuatorCavitation_34.txt",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 366,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								366,
-								366
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "input_files_flightTestAnalysis/analysisActuatorCavitation_freq.txt",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 236,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								231,
-								231
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 9,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "input_files_flightTestAnalysis/analysisActuatorCavitation_33.txt",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 273,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								273,
-								273
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 11,
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "input_files_flightTestAnalysis/analysisActuatorCavitation_37.txt",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 367,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								367,
-								367
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 10,
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "input_files_flightTestAnalysis/analysisActuatorCavitation_32.txt",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 271,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								253,
-								234
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 12,
 					"type": "text"
 				}
 			]
@@ -1312,15 +1114,50 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 68739,
+						"buffer_size": 69200,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								7373,
-								7383
+								30634,
+								30634
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 7516.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 1,
+					"file": "moduleFunctions.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 69200,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								53623,
+								53623
 							]
 						],
 						"settings":
@@ -1330,10 +1167,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 2323.0,
+						"translation.y": 13616.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 2,
 					"type": "text"
 				}
 			]
@@ -1379,13 +1216,13 @@
 		"cols":
 		[
 			0.0,
-			0.352865421764,
+			0.631363087572,
 			1.0
 		],
 		"rows":
 		[
 			0.0,
-			0.603196347029,
+			0.599543378992,
 			1.0
 		]
 	},
@@ -1432,7 +1269,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 3,
+	"selected_group": 0,
 	"settings":
 	{
 	},
@@ -1440,7 +1277,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 367.0,
+	"side_bar_width": 320.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

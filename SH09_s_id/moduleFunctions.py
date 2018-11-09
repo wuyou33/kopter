@@ -1028,6 +1028,12 @@ class ClassVariableDef(object):
 			file.close()
 
 def FRF(input_in, output_in, settingsDict_FRF, plotSettings, CMDoptionsDict):
+	"""
+	Calculate the frequency response of the actuator
+
+	-> input_in: 2 column numpy array, [data, time]
+	-> output_in: 2 column numpy array, [data, time]
+	"""
 
 	inputFreqsMinMax = [float(p) for p in CMDoptionsDict['flightTestInfo']['inputFreqsMinMax'].split(',')]
 
@@ -1039,7 +1045,8 @@ def FRF(input_in, output_in, settingsDict_FRF, plotSettings, CMDoptionsDict):
 
 	# Time vector
 	time = input_in[:N,1]
-	assert input_in[1,1] == output_in[1,1], 'Error: Dismatch betw time vectors for input and output'
+	# Check the same time vector is used from each 
+	assert input_in[1,1] == output_in[1,1], 'Error: Mismatch between time vectors for input and output'
 
 	# Correlation plots
 
@@ -1094,22 +1101,23 @@ def FRF(input_in, output_in, settingsDict_FRF, plotSettings, CMDoptionsDict):
 	N_win = int( N / ( ((K-1)*(1 - x_frac)) + 1) )
 
 	# Power spectral density
-	f_PSD_x, Pxx_den_PSD_x = signal.welch(x, fs=f_s, window='bartlett', nperseg=N_win, noverlap=N_win/2, scaling= 'spectrum')
-	f_PSD_y, Pxx_den_PSD_y = signal.welch(y, fs=f_s, window='bartlett', nperseg=N_win, noverlap=N_win/2, scaling= 'spectrum')
+	f_PSD_x, Pxx_den_PSD_x = signal.welch(x, fs=f_s, window=settingsDict_FRF['window'], nperseg=N_win, noverlap=N_win/2, scaling= 'spectrum')
+	f_PSD_y, Pxx_den_PSD_y = signal.welch(y, fs=f_s, window=settingsDict_FRF['window'], nperseg=N_win, noverlap=N_win/2, scaling= 'spectrum')
 	
 
-	figure, axs = plt.subplots(2, 1, sharex='col')
-	figure.set_size_inches(14, 10, forward=True)
-	axs[0].semilogy(f_PSD_x, np.sqrt(Pxx_den_PSD_x), linestyle = '-', marker = '', c = plotSettings['colors'][0], label = 'x', **plotSettings['line'])
-	axs[1].semilogy(f_PSD_y, np.sqrt(Pxx_den_PSD_y), linestyle = '-', marker = '', c = plotSettings['colors'][0], label = 'y', **plotSettings['line'])
+	if settingsDict_FRF['additionalPlots']:
+		figure, axs = plt.subplots(2, 1, sharex='col')
+		figure.set_size_inches(14, 10, forward=True)
+		axs[0].semilogy(f_PSD_x, np.sqrt(Pxx_den_PSD_x), linestyle = '-', marker = '', c = plotSettings['colors'][0], label = 'x', **plotSettings['line'])
+		axs[1].semilogy(f_PSD_y, np.sqrt(Pxx_den_PSD_y), linestyle = '-', marker = '', c = plotSettings['colors'][0], label = 'y', **plotSettings['line'])
 
-	axs[0].set_ylabel('Linear spectrum [mm RMS]', **plotSettings['axes_y'])
-	axs[1].set_ylabel('Linear spectrum [% RMS]', **plotSettings['axes_y'])
-	
-	axs[-1].set_xlabel('Frequency [Hz]', **plotSettings['axes_x'])
+		axs[0].set_ylabel('Linear spectrum [mm RMS]', **plotSettings['axes_y'])
+		axs[1].set_ylabel('Linear spectrum [% RMS]', **plotSettings['axes_y'])
+		
+		axs[-1].set_xlabel('Frequency [Hz]', **plotSettings['axes_x'])
 
-	for ax in axs:
-		usualSettingsAX(ax, plotSettings)
+		for ax in axs:
+			usualSettingsAX(ax, plotSettings)
 
 	# Subdivision in segments
 	x_int, y_int, t_int = K*[None], K*[None], K*[None]
@@ -1133,33 +1141,36 @@ def FRF(input_in, output_in, settingsDict_FRF, plotSettings, CMDoptionsDict):
 	# Windowing
 	x_window, y_window = K*[None], K*[None]
 
+	windowFunctionsDict = {'bartlett' : np.bartlett, 'blackman' : np.blackman, 'hamming' : np.hamming, 'hanning' : np.hanning}
+
 	for k in range(K):
 
-		x_window[k] = x_int[k] * np.bartlett(x_int[k].shape[0])
-		y_window[k] = y_int[k] * np.bartlett(y_int[k].shape[0])
+		x_window[k] = x_int[k] * windowFunctionsDict[settingsDict_FRF['window']](x_int[k].shape[0])
+		y_window[k] = y_int[k] * windowFunctionsDict[settingsDict_FRF['window']](y_int[k].shape[0])
 
 
-	figure, axs = plt.subplots(4, 1, sharex='col')
-	figure.set_size_inches(14, 10, forward=True)
-	figure.suptitle('Correlation functions', **plotSettings['figure_title'])
+	if settingsDict_FRF['additionalPlots']:
+		figure, axs = plt.subplots(4, 1, sharex='col')
+		figure.set_size_inches(14, 10, forward=True)
+		figure.suptitle('Correlation functions', **plotSettings['figure_title'])
 
-	axs[0].plot(time, x, linestyle = '-', marker = '', c = plotSettings['colors'][0], label = 'x', **plotSettings['line'])
-	for seg_id in range(K):
-		axs[1].plot(t_int[seg_id], x_window[seg_id], linestyle = '-', marker = '', c = plotSettings['colors'][0], label = 'x_window', **plotSettings['line'])
-	
-	axs[2].plot(time, y, linestyle = '-', marker = '', c = plotSettings['colors'][0], label = 'y', **plotSettings['line'])
-	for seg_id in range(K):
-		axs[3].plot(t_int[seg_id], y_window[seg_id], linestyle = '-', marker = '', c = plotSettings['colors'][0], label = 'y_window', **plotSettings['line'])
+		axs[0].plot(time, x, linestyle = '-', marker = '', c = plotSettings['colors'][0], label = 'x', **plotSettings['line'])
+		for seg_id in range(K):
+			axs[1].plot(t_int[seg_id], x_window[seg_id], linestyle = '-', marker = '', c = plotSettings['colors'][0], label = 'x_window', **plotSettings['line'])
+		
+		axs[2].plot(time, y, linestyle = '-', marker = '', c = plotSettings['colors'][0], label = 'y', **plotSettings['line'])
+		for seg_id in range(K):
+			axs[3].plot(t_int[seg_id], y_window[seg_id], linestyle = '-', marker = '', c = plotSettings['colors'][0], label = 'y_window', **plotSettings['line'])
 
-	axs[0].set_ylabel('x', **plotSettings['axes_y'])
-	axs[1].set_ylabel('x_window', **plotSettings['axes_y'])
-	axs[2].set_ylabel('y', **plotSettings['axes_y'])
-	axs[3].set_ylabel('y_window', **plotSettings['axes_y'])
-	
-	axs[-1].set_xlabel('Time [s]', **plotSettings['axes_x'])
+		axs[0].set_ylabel('x', **plotSettings['axes_y'])
+		axs[1].set_ylabel('x_window', **plotSettings['axes_y'])
+		axs[2].set_ylabel('y', **plotSettings['axes_y'])
+		axs[3].set_ylabel('y_window', **plotSettings['axes_y'])
+		
+		axs[-1].set_xlabel('Time [s]', **plotSettings['axes_x'])
 
-	for ax in axs:
-		usualSettingsAX(ax, plotSettings)
+		for ax in axs:
+			usualSettingsAX(ax, plotSettings)
 
 	# Discrete Fourier transforms
 	X1, X, Y1, Y, freq = K*[None], K*[None], K*[None], K*[None], K*[None]
@@ -1205,28 +1216,23 @@ def FRF(input_in, output_in, settingsDict_FRF, plotSettings, CMDoptionsDict):
 	mod = [20*np.log10(cmath.polar(o)[0]) for o in H]
 	phi = [(180/cmath.pi)*cmath.polar(o)[1] for o in H]
 
-	# plt.figure()
-	# plt.semilogx(f, mod)    # Bode magnitude plot
-	# plt.figure()
-	# plt.semilogx(f, phi)  # Bode phase plot
-	# pdb.set_trace()
+	if settingsDict_FRF['additionalPlots']:
+		figure, axs = plt.subplots(2, 1, sharex='col')
+		figure.set_size_inches(14, 10, forward=True)
+		axs[0].semilogx(f, mod, linestyle = '-', marker = '', c = plotSettings['colors'][0], label = 'x', **plotSettings['line'])
+		axs[1].semilogx(f, phi, linestyle = '-', marker = '', c = plotSettings['colors'][0], label = 'x', **plotSettings['line'])
 
-	figure, axs = plt.subplots(2, 1, sharex='col')
-	figure.set_size_inches(14, 10, forward=True)
-	axs[0].semilogx(f, mod, linestyle = '-', marker = '', c = plotSettings['colors'][0], label = 'x', **plotSettings['line'])
-	axs[1].semilogx(f, phi, linestyle = '-', marker = '', c = plotSettings['colors'][0], label = 'x', **plotSettings['line'])
+		for lim in inputFreqsMinMax:
+			axs[0].semilogx(2*[lim], [max(mod), min(mod)], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
+			axs[1].semilogx(2*[lim], [max(phi), min(phi)], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
 
-	for lim in inputFreqsMinMax:
-		axs[0].semilogx(2*[lim], [max(mod), min(mod)], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
-		axs[1].semilogx(2*[lim], [max(phi), min(phi)], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
+		axs[0].set_ylabel('|H| [dB]', **plotSettings['axes_y'])
+		axs[1].set_ylabel('$\\varphi$ [deg]', **plotSettings['axes_y'])
+		
+		axs[-1].set_xlabel('Frequency [Hz]', **plotSettings['axes_x'])
 
-	axs[0].set_ylabel('|H| [dB]', **plotSettings['axes_y'])
-	axs[1].set_ylabel('$\\varphi$ [deg]', **plotSettings['axes_y'])
-	
-	axs[-1].set_xlabel('Frequency [Hz]', **plotSettings['axes_x'])
-
-	for ax in axs:
-		usualSettingsAX(ax, plotSettings)
+		for ax in axs:
+			usualSettingsAX(ax, plotSettings)
 
 	outputDict = {'f':f, 'mod':mod, 'phi':phi}
 

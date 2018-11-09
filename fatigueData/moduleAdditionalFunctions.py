@@ -849,3 +849,139 @@ def calculateFlowFlight(dataClasses, inputDataClass, plotSettings, CMDoptionsDic
 	if CMDoptionsDict['saveFigure']:
 		figure.suptitle(rangeIDstring, **plotSettings['figure_title'])
 		figure.savefig('hyd_flux'+'__'+rangeIDstring+'.png', dpi = plotSettings['figure_settings']['dpi'])
+
+def calculateSegmentsForHYDtestFT04(dataClasses, plotSettings, CMDoptionsDict):
+	
+	#Vector of steps
+	dataExample = [temp for temp in dataClasses if temp.get_description() == 'HYD_PRS_1'][0]
+	
+	# Get index for the step
+	stepStrs = dataExample.get_stepID()
+	indexDictForSteps = {}
+	for id_curr in stepStrs:
+		indexDictForSteps[id_curr] = stepStrs.index(id_curr)
+
+	# For each step
+
+	# variables 
+	# [ax loc, colorline, style, marker]
+	varDict = {
+				  'rs__HYD_TMP_TANK_1' : [0, plotSettings['colors'][0], plotSettings['linestyles'][0], '']
+				, 'rs__HYD_TMP_TANK_2' : [0, plotSettings['colors'][1], plotSettings['linestyles'][0], '']
+				, 'rs__HYD_PRS_1' : [1, plotSettings['colors'][0], plotSettings['linestyles'][0], '']
+				, 'rs__HYD_PRS_2' : [1, plotSettings['colors'][1], plotSettings['linestyles'][0], '']
+				, 'rs__IND_PRS_1' : [2, plotSettings['colors'][0], plotSettings['linestyles'][0], '']
+				, 'rs__IND_PRS_2' : [2, plotSettings['colors'][1], plotSettings['linestyles'][0], '']
+				, 'rs__CNT_DST_COL' : [3, plotSettings['colors'][0], plotSettings['linestyles'][0], '']
+				, 'rs__CNT_DST_LAT' : [3, plotSettings['colors'][1], plotSettings['linestyles'][0], '']
+				, 'rs__CNT_DST_LNG' : [3, plotSettings['colors'][2], plotSettings['linestyles'][0], '']
+				, 'di__CNT_DST_BST_COL' : [4, plotSettings['colors'][0], plotSettings['linestyles'][0], '']
+				, 'di__CNT_DST_BST_LAT' : [4, plotSettings['colors'][1], plotSettings['linestyles'][0], '']
+				, 'di__CNT_DST_BST_LNG' : [4, plotSettings['colors'][2], plotSettings['linestyles'][0], '']
+			}
+	additionDict = {'3-actuators' : [4, plotSettings['colors'][3], plotSettings['linestyles'][0], '']}
+
+	segmentsDict = {  
+					  '8'  : [810, 1170]
+					, '40' : [3925, 3966]
+					, '42' : [4075, 4135]
+					, '10' : [1128, 1310]
+					, '11' : [1310, 1450]
+					, '16' : [1465, 1840]
+					, '18' : [1465, 2300]
+					, '19' : [2300, 2430]
+					, '24' : [2570, 2690]
+					, '25' : [2570, 2690]
+					, '24' : [2570, 2690]
+					, '25' : [2688, 2830]
+					, '26' : [2830, 2903]
+					, '29' : [3006, 3053]
+					, '30' : [3060, 3120]
+					, '31' : [3140, 3188]
+					, '32' : [3230, 3255]
+					, '32-add': [3265, 3280]
+					, '33' : [3310, 3347]
+					, '34' : [3370, 3405]
+					, '35' : [3450, 3490]
+					, '36' : [3505, 3550]
+					, '37' : [3563, 3607]
+					, '38' : [3810, 3856]
+					, '39' : [3860, 3915]
+					, 'All_steps' : [810, 3966]
+					}
+
+	# segmentsDict = {'29' : [3006, 3053]}
+	stepStr = '13-FT04'
+	flagAdjustAxisPilot = True
+	for segKey in segmentsDict.keys():
+
+		figure, axs = plt.subplots(5, 1, sharex='col')
+		figure.set_size_inches(16, 10, forward=True)
+		figure.suptitle('Step '+segKey, **plotSettings['figure_title'])
+
+		maxValue, UpLimit, DoLimit = 0, 0, 0 # for plot 3
+		for var in varDict.keys():
+
+			dataTemp = [temp for temp in dataClasses if temp.get_mag()+'__'+temp.get_description() == var][0]
+
+			dataSplitForSegment, timeSplitForSegment = createSegmentsOf_rs_FromVariableClass(dataTemp, segmentsDict[segKey], indexDictForSteps[stepStr])
+
+			axs[varDict[var][0]].plot( timeSplitForSegment, dataSplitForSegment, linestyle = varDict[var][2], marker = varDict[var][3], c = varDict[var][1], label = var, **plotSettings['line'])
+
+			if varDict[var][0] == 3 and flagAdjustAxisPilot:
+				# tempVal = max(abs(max(dataSplitForSegment)), abs(min(dataSplitForSegment)))
+				a = max(dataSplitForSegment)
+				b = min(dataSplitForSegment)
+				# if b<0:
+				# 	b = 0
+				c = (a+b)/2
+				z = max(abs(b-c), abs(c-a))
+				# pdb.set_trace()
+				if z > maxValue:
+					maxValue = z
+					UpLimit = c+z
+					DoLimit = c-z
+
+		if segKey in ('31','34','37','40','42'):
+
+			dataCOL = [temp for temp in dataClasses if temp.get_mag()+'__'+temp.get_description() == 'di__CNT_DST_BST_COL'][0]
+			dataLNG = [temp for temp in dataClasses if temp.get_mag()+'__'+temp.get_description() == 'di__CNT_DST_BST_LNG'][0]
+			dataLAT = [temp for temp in dataClasses if temp.get_mag()+'__'+temp.get_description() == 'di__CNT_DST_BST_LAT'][0]
+
+			dataSplitForSegment_COL, timeSplitForSegment_COL = createSegmentsOf_rs_FromVariableClass(dataCOL, segmentsDict[segKey], indexDictForSteps[stepStr])
+			dataSplitForSegment_LNG, timeSplitForSegment_LNG = createSegmentsOf_rs_FromVariableClass(dataLNG, segmentsDict[segKey], indexDictForSteps[stepStr])
+			dataSplitForSegment_LAT, timeSplitForSegment_LAT = createSegmentsOf_rs_FromVariableClass(dataLAT, segmentsDict[segKey], indexDictForSteps[stepStr])
+
+			newData = []
+			i=0
+			for point in dataSplitForSegment_COL:
+				newData += [ abs(dataSplitForSegment_COL[i]) + abs(dataSplitForSegment_LNG[i]) + abs(dataSplitForSegment_LAT[i])]
+				i+=1
+
+			axs[varDict[var][0]].plot( timeSplitForSegment_COL, newData, linestyle = additionDict['3-actuators'][2], marker = additionDict['3-actuators'][3], c = additionDict['3-actuators'][1], label = '3-actuators', **plotSettings['line'])
+		
+		axs[0].set_title('HYD Temperature', **plotSettings['ax_title'])
+		axs[1].set_title('HYD pressure', **plotSettings['ax_title'])
+		axs[2].set_title('HYD PRES indications', **plotSettings['ax_title'])
+		axs[3].set_title('Pilot inputs', **plotSettings['ax_title'])
+		axs[4].set_title('Actuator piston speed', **plotSettings['ax_title'])
+
+		axs[0].set_ylabel('Temp. [$^\circ$C]', **plotSettings['axes_y'])
+		axs[1].set_ylabel('Press. [bar]', **plotSettings['axes_y'])
+		# axs[2].set_ylabel('HYD PRES indications', **plotSettings['axes_y'])
+		axs[3].set_ylabel('Increment [%]', **plotSettings['axes_y'])
+		axs[4].set_ylabel('Speed [mm/s]', **plotSettings['axes_y'])
+
+		axs[-1].set_xlabel('Time elapsed [Seconds]', **plotSettings['axes_x'])
+
+		# Limits pilot input
+		if flagAdjustAxisPilot:
+			axs[3].set_ylim([DoLimit-(maxValue*0.2), UpLimit+(maxValue*0.2)])
+			
+		for ax in axs:
+			ax.legend(**plotSettings['legend'])
+			usualSettingsAX(ax, plotSettings)
+
+		if CMDoptionsDict['saveFigure']:
+
+			figure.savefig(os.path.join('L:\\TEMP\\AlejandroValverde\\DIADEM\\resulting_plots\\FT04\\', 'HYD_GR_STEP__'+segKey+'.png'), dpi = plotSettings['figure_settings']['dpi'])

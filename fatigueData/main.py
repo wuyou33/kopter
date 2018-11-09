@@ -221,6 +221,13 @@ if gaugesFlag:
 
 			calculateFlowFlight(dataClasses, inputDataClass, plotSettings, CMDoptionsDict)
 
+		elif CMDoptionsDict['additionalCalsOpt'] == 10:
+
+			# Get information for HYD test during FT04, relevant for test report
+			# python main.py -f filesToLoad_gauges_P3_FTI.txt -m rs,di -o f -s t,f -a 10 -c f -w f -l f -r 13-FT04 -v HYD_TMP_TANK_1,HYD_TMP_TANK_2,HYD_PRS_1,HYD_PRS_2,IND_PRS_1,IND_PRS_2,CNT_DST_COL,CNT_DST_LAT,CNT_DST_LNG,CNT_DST_BST_COL,CNT_DST_BST_LAT,CNT_DST_BST_LNG -n t 
+
+			calculateSegmentsForHYDtestFT04(dataClasses, plotSettings, CMDoptionsDict)
+
 
 	os.chdir(cwd)
 

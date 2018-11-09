@@ -5,7 +5,19 @@
 		[
 			[
 				"def",
-				"defs\tMethod"
+				"def\tFunction"
+			],
+			[
+				"seg",
+				"segmentsDict"
+			],
+			[
+				"segmen",
+				"segmentsDict"
+			],
+			[
+				"va",
+				"variables"
 			],
 			[
 				"ForceEye",
@@ -240,10 +252,6 @@
 				"segmentsAdded_VolFlow1"
 			],
 			[
-				"seg",
-				"segmentsAdded_OutputForce"
-			],
-			[
 				"segmentsAd",
 				"segmentsAdded_OutputForce"
 			],
@@ -330,10 +338,6 @@
 			[
 				"sef",
 				"self"
-			],
-			[
-				"va",
-				"var"
 			],
 			[
 				"da",
@@ -510,10 +514,6 @@
 			[
 				"det",
 				"delta_y"
-			],
-			[
-				"th",
-				"theta_est"
 			]
 		]
 	},
@@ -523,7 +523,7 @@
 			"file": "fatigueData/main.py",
 			"settings":
 			{
-				"buffer_size": 13992,
+				"buffer_size": 14464,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -550,7 +550,7 @@
 			"file": "fatigueData/moduleAdditionalFunctions.py",
 			"settings":
 			{
-				"buffer_size": 45484,
+				"buffer_size": 51508,
 				"encoding": "UTF-8",
 				"line_ending": "Windows",
 				"name": "#"
@@ -578,7 +578,7 @@
 			"file": "fti/testsInitData/P3_FTI.vbs",
 			"settings":
 			{
-				"buffer_size": 16435,
+				"buffer_size": 16425,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -614,8 +614,12 @@
 		"selected_items":
 		[
 			[
+				"pas",
+				"Text Pastry: From 0 To X"
+			],
+			[
 				"past",
-				"Text Pastry: From 1 To X"
+				"Text Pastry: From 0 To X"
 			],
 			[
 				"pastt",
@@ -623,10 +627,6 @@
 			],
 			[
 				"1",
-				"Text Pastry: From 1 To X"
-			],
-			[
-				"pas",
 				"Text Pastry: From 1 To X"
 			],
 			[
@@ -666,6 +666,8 @@
 	],
 	"file_history":
 	[
+		"/P/kopter/fti/loadMultipleVariablesFromFoldersAndDeleteGroups.vbs",
+		"/L/TEMP/AlejandroValverde/DIADEM/testsInitData/P3_FTI.vbs",
 		"/P/kopter/other/temp_flange_fatigue.py",
 		"/P/kopter/fti/testsInitData/P3_FTI.vbs",
 		"/P/kopter/fti/testsInitData/P2_FTI.vbs",
@@ -675,7 +677,6 @@
 		"/L/MSH/02_Development/SKYe S09/05_Flight Systems/50_Engineering/J29/J29-00 General/40_Testing/44_Flight Testing/Script Data Analysis.VBS",
 		"/P/kopter/fatigueData/main.py",
 		"/L/MSH-Project Management Files/Functional Engineering/Test Division/Test_Daten/J17-03-Bench Tests/P3-J17-03-BT0228/01_Data_set/01_RAW/Run 4 - First run - Failure at 122000 cycles/Run_4_Measured values.csv",
-		"/P/kopter/fti/loadMultipleVariablesFromFoldersAndDeleteGroups.vbs",
 		"/P/kopter/fatigueData/moduleAdditionalFunctions.py",
 		"/P/kopter/fatigueData/moduleFunctions.py",
 		"/P/kopter/fti/testsInitData/actuatorPerformanceV3.vbs",
@@ -792,8 +793,7 @@
 		"/P/10_code/kopter/SH09_s_id/C_mat_from_FL_v1.txt",
 		"/P/10_code/kopter/SH09_s_id/A_mat_from_FL_v1.txt",
 		"//mshzhstg/mshdata/MSH/02_Development/SKYe S09/06_Avionic/J00 Testing and FTI/SKYe test Benches/0c - Various Information/Simulator/Flight Physics/Flightlab_controller_design/FCS_tuning.m",
-		"/L/TEMP/michal/flap_stop/configClassModule.py",
-		"/P/10_code/kopter/SH09_s_id/main_versionsBackup.py"
+		"/L/TEMP/michal/flap_stop/configClassModule.py"
 	],
 	"find":
 	{
@@ -812,6 +812,62 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"if",
+			"varDict",
+			"\\",
+			"[var]",
+			"var",
+			"dataSplitForSegment_",
+			"data",
+			"Temp",
+			"Tem",
+			"= [",
+			"data",
+			"=",
+			"LNG",
+			"COL",
+			"inputDataClass",
+			"# ",
+			"\\",
+			"05",
+			"DST",
+			"colors",
+			"-",
+			"plotSettings['markers'][0]",
+			"plottingSettings",
+			"y-label",
+			"DIU_ARI_IND_HYD_PRS",
+			"plotSettings['linestyles'][0]",
+			"dataTemp1",
+			"__",
+			"seconds",
+			"ax_title",
+			"set_title",
+			"1,",
+			"rs__DIU_ARI_IND_HYD_PRS_",
+			"di",
+			"DST_",
+			"rs__HYD_TMP_",
+			"rs__HYD_TMP_TANK_",
+			"TMP",
+			"rs__",
+			", '",
+			", ",
+			"P:\\12_flightTestData\\all",
+			"# ",
+			"get_description()",
+			"figure_VolflowVSForce_actuators",
+			"_C =",
+			"_C",
+			"C",
+			"Add",
+			"CNT_",
+			"Add",
+			"TMP",
+			"Temp",
+			"Temp1",
+			"P:\\12_flightTestData\\all",
+			"1",
 			"_",
 			"-FT",
 			"-F",
@@ -883,63 +939,7 @@
 			"26",
 			"filesNames",
 			"Output",
-			"\"Druck_HP_1_[bar].tdms\", \"Druck_HP_2_[bar].tdms\",\"Durchfluss_HP_1_[l_min].tdms\"_ \n                  , \"Durchfluss_HP_2_[l_min]_.tdms\", \"Force_Piston_Eye_HP1_[N].tdms\"_\n                  , \"Force_Piston_Eye_HP2_[N].tdms\", \"Input_force_[N].tdms\", \"Laser_Piston_[mm].tdms\"_\n                  , \"Laser_Steuerventilhebel_[mm].tdms\",",
-			"Input_force_w_o_offset",
-			"[i,0]",
-			"[i, 0]",
-			"-Step-",
-			"2.6.",
-			"Step-3.4",
-			"Step-3.2",
-			"Step-3.1",
-			"Step",
-			"2.6.2",
-			"-Step-",
-			"Step-",
-			"Step",
-			"2018",
-			"2.5",
-			"2.3",
-			"2.2",
-			"2.4",
-			"2.2",
-			"Output_force_w_o_offset",
-			"update",
-			"0",
-			"0, ",
-			"filter",
-			"print",
-			"low",
-			"time",
-			"filtered",
-			"fs",
-			"lowpass_force",
-			"filter",
-			"Results from ",
-			"str",
-			"**",
-			"usualSettingsAX",
-			"0, i",
-			"ax",
-			"N",
-			"load",
-			"outData",
-			",",
-			"un",
-			"ax.",
-			"ax",
-			"N",
-			"axs[3, sysIDsDict[sysID]]",
-			"title",
-			",",
-			"testing_step",
-			"\\",
-			"axs",
-			"\\",
-			"FT22",
-			"FT21",
-			"21",
-			"Run"
+			"\"Druck_HP_1_[bar].tdms\", \"Druck_HP_2_[bar].tdms\",\"Durchfluss_HP_1_[l_min].tdms\"_ \n                  , \"Durchfluss_HP_2_[l_min]_.tdms\", \"Force_Piston_Eye_HP1_[N].tdms\"_\n                  , \"Force_Piston_Eye_HP2_[N].tdms\", \"Input_force_[N].tdms\", \"Laser_Piston_[mm].tdms\"_\n                  , \"Laser_Steuerventilhebel_[mm].tdms\","
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -969,15 +969,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 13992,
+						"buffer_size": 14464,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								10318,
-								10318
+								10637,
+								10637
 							]
 						],
 						"settings":
@@ -986,10 +986,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 2395.0,
+						"translation.y": 2629.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -1019,7 +1019,7 @@
 						"translation.y": 39.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 9,
 					"type": "text"
 				},
 				{
@@ -1048,7 +1048,7 @@
 						"translation.y": 1848.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 12,
+					"stack_index": 10,
 					"type": "text"
 				},
 				{
@@ -1057,28 +1057,29 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 45484,
+						"buffer_size": 51508,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								11346,
-								11346
+								8794,
+								8794
 							]
 						],
 						"settings":
 						{
 							"auto_name": "#",
 							"spell_check": true,
-							"syntax": "Packages/Python/Python.sublime-syntax"
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1768.0,
+						"translation.y": 1640.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 7,
 					"type": "text"
 				}
 			]
@@ -1111,7 +1112,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 747.0,
+						"translation.y": 279.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 5,
@@ -1130,8 +1131,8 @@
 						"selection":
 						[
 							[
-								3122,
-								3122
+								2019,
+								2020
 							]
 						],
 						"settings":
@@ -1141,7 +1142,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 312.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 4,
@@ -1153,15 +1154,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 16435,
+						"buffer_size": 16425,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								11374,
-								11367
+								14821,
+								14821
 							]
 						],
 						"settings":
@@ -1171,10 +1172,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2689.0,
+						"translation.y": 2850.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -1201,10 +1202,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 78.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
@@ -1220,8 +1221,8 @@
 						"selection":
 						[
 							[
-								487,
-								487
+								753,
+								753
 							]
 						],
 						"settings":
@@ -1232,13 +1233,13 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 8,
 					"type": "text"
 				}
 			]
 		},
 		{
-			"selected": 1,
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -1247,15 +1248,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 13992,
+						"buffer_size": 14464,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								10976,
-								10976
+								11448,
+								11448
 							]
 						],
 						"settings":
@@ -1267,7 +1268,7 @@
 						"translation.y": 2680.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 11,
+					"stack_index": 12,
 					"type": "text"
 				},
 				{
@@ -1297,7 +1298,7 @@
 						"translation.y": 19224.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 11,
 					"type": "text"
 				},
 				{
@@ -1306,15 +1307,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 45484,
+						"buffer_size": 51508,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3518,
-								3518
+								49027,
+								49027
 							]
 						],
 						"settings":
@@ -1323,10 +1324,10 @@
 							"syntax": "Packages/Python/Python.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 546.0,
+						"translation.y": 12559.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
+					"stack_index": 0,
 					"type": "text"
 				}
 			]
@@ -1348,8 +1349,8 @@
 						"selection":
 						[
 							[
-								38663,
-								38663
+								40141,
+								40175
 							]
 						],
 						"settings":
@@ -1359,10 +1360,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 14626.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 2,
 					"type": "text"
 				}
 			]
@@ -1408,13 +1409,13 @@
 		"cols":
 		[
 			0.0,
-			0.46728138013,
+			0.781429878783,
 			1.0
 		],
 		"rows":
 		[
 			0.0,
-			0.653705988008,
+			0.509413750565,
 			1.0
 		]
 	},
@@ -1461,7 +1462,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 0,
+	"selected_group": 2,
 	"settings":
 	{
 	},
@@ -1469,7 +1470,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 239.0,
+	"side_bar_width": 339.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
