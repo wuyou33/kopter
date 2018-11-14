@@ -1,6 +1,6 @@
 import os
 import sys
-import pdb #pdb.set_trace()
+# import pdb #pdb.set_trace()
 import getopt
 import shutil
 from scipy import interpolate
@@ -228,6 +228,58 @@ if gaugesFlag:
 
 			calculateSegmentsForHYDtestFT04(dataClasses, plotSettings, CMDoptionsDict)
 
+		elif CMDoptionsDict['additionalCalsOpt'] == 11:
+			"""
+			Apply corrections to measured distances
+
+			CMD: python main.py -f filesToLoad_gauges_P3_FTI.txt -m rs -o f -s f,t -a 11 -c f -w f -l t -r 1-RC,2-RC,...,96-FT24,97-FT24 -v CNT_DST_COL,CNT_DST_LAT,CNT_DST_LNG,CNT_DST_BST_COL,CNT_DST_BST_LAT,CNT_DST_BST_LNG -n t
+			"""
+			# Header operations
+			# Range files
+			if len(CMDoptionsDict['rangeFileIDs']) < 8:
+				rangeIDstring = ','.join([str(i) for i in CMDoptionsDict['rangeFileIDs']])
+			else:
+				rangeIDstring = str(CMDoptionsDict['rangeFileIDs'][0])+'...'+str(CMDoptionsDict['rangeFileIDs'][-1])
+
+			colorDict = {'COL' : plotSettings['colors'][0], 'LNG' : plotSettings['colors'][1], 'LAT' : plotSettings['colors'][2]}
+			# ###################
+
+			# Corrections
+			for dof in ('COL', 'LNG', 'LAT'):
+
+				data_temp = [temp for temp in dataClasses if temp.get_description() == 'CNT_DST_BST_'+dof][0]
+				data_temp.addDataManual6(float(inputDataClass.get_variablesInfoDict()['testData']['corr_'+dof]))
+				data_temp.addDataManual7() #Calculate increment vector
+
+				data_temp = [temp for temp in dataClasses if temp.get_description() == 'CNT_DST_'+dof][0]
+				data_temp.addDataManual7() #Calculate increment vector
+				
+			# Display normal data
+			for dataClass in dataClasses: #For each class variable
+				dataClass.plotResampled(plotSettings, CMDoptionsDict, dataClass.get_mag(), (False, [], []), inputDataClass)
+			# ###################
+
+			figure, ax = plt.subplots(1, 1, sharex='col')
+			figure.set_size_inches(16, 10, forward=True)
+			figure.suptitle('Ratio $\\phi_{\\mathrm{out}/\\mathrm{in}}$ between change in pilot input $\\theta_{\\mathrm{in}}$ and increment in booster displacement $\\theta_{\\mathrm{out}}$\n$\\phi_{\\mathrm{out}/\\mathrm{in}}$ = $\\Delta \\theta_{\\mathrm{out}}$ / $\\Delta \\theta_{\\mathrm{in}}$\nDataset: '+rangeIDstring, **plotSettings['figure_title'])
+
+			for dof in ('COL', 'LNG', 'LAT'):
+
+				data_input_temp = [temp for temp in dataClasses if temp.get_description() == 'CNT_DST_'+dof][0]
+				data_boost_temp = [temp for temp in dataClasses if temp.get_description() == 'CNT_DST_BST_'+dof][0]
+
+				input_temp, ratio_temp = [], []
+				for out,inp in zip(data_boost_temp.rs_increments, data_input_temp.rs_increments):
+					if abs(inp) > 1:
+						input_temp += [inp]
+						ratio_temp += [out / inp] 
+				ax.plot( input_temp, ratio_temp, linestyle = '', marker = 'o', c = colorDict[dof], label = dof, **plotSettings['line'])
+
+			ax.set_ylabel('Ratio $\\phi_{\\mathrm{out}/\\mathrm{in}}$ [mm/%]', **plotSettings['axes_y'])
+			ax.set_xlabel('$\\Delta \\theta_{\mathrm{in}}$ [%]', **plotSettings['axes_x'])
+
+			ax.legend(**plotSettings['legend'])
+			usualSettingsAX(ax, plotSettings)
 
 	os.chdir(cwd)
 

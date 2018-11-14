@@ -223,7 +223,7 @@ def loadFileAddressesAndData(fileName, typeData):
 
 			dict_temp_fromClass = inputDataClass.get_variablesInfoDict()
 			
-			if not 'testInfo' in dict_temp_fromClass:
+			if not 'testData' in dict_temp_fromClass:
 				inputDataClass.updateVariablesInfoDict('testData', {})
 			else:
 				dict_temp_fromClass = inputDataClass.get_variablesInfoDict()
@@ -970,6 +970,26 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		self.__timeRs = data_lng.get_timeRs()
 		self.__timeSecNewRunRs = data_lng.get_timeSecNewRunRs()
 		self.__stepID = data_lng.get_stepID()
+
+	def addDataManual6(self, correction):
+
+		self.__rs = [t + correction for t in self.__rs]
+
+	def addDataManual7(self):
+		"""
+		Add increment variable
+		"""
+
+		originalVector = self.__rs
+		incrementVector = [0]
+		i = 0
+		for point in originalVector[1:]:
+			incrementVector += [point - originalVector[i]]
+			i += 1
+
+		assert len(originalVector) == len(incrementVector)
+
+		self.rs_increments = incrementVector
 
 	def plotMaxMinMean_fromDIAdem(self, plotSettings):
 

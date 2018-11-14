@@ -1,8 +1,11 @@
 -> Folders to load
-P:\12_flightTestData\all
+P:\12_flightTestData\P3-all_smallSamplingRate
 
 -> Test info
-test freq: 2
+test_freq: 2
+corr_COL: 2.54
+corr_LNG: 9.76
+corr_LAT: 1.54
 
 -> Variable info
 name: rs__CNT_FRC_BST_COL

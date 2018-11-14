@@ -39,6 +39,7 @@ For Each fileNameDataInput in filesNamesDataInput
         newGroupForResamplingCount = 0
       End If
 
+      ' Main loop
       For groupID = 1 To Data.Root.ChannelGroups.Count-newGroupForResamplingCount Step 1
         For Each originalChannel in Data.Root.ChannelGroups(groupID).Channels
           ' originalChannel = "[1]/"&dictVaDiadem(var)
@@ -46,13 +47,20 @@ For Each fileNameDataInput in filesNamesDataInput
 
             If loadScript_resampleFlag Then
 
+              ' Limit sampling frequency to the minimum between the prescribed frequency and original sampling frequency from channel
+              resampling_freq = newFreq
+              currentFreq = 1/originalChannel.Properties("wf_increment").Value
+              If currentFreq < newFreq Then
+                resampling_freq = currentFreq
+              End If
+
               ' If resampled data 
-              newChannel = "/"&originalChannel.Name&"__"&newFreq&"Hz__"&folderInfo(1)
-              Call ChnResampleFreqBased("",originalChannel, newChannel,newFreq,"Automatic",0,0)
+              newChannel = "/"&originalChannel.Name&"__"&resampling_freq&"Hz__"&folderInfo(1)
+              Call ChnResampleFreqBased("",originalChannel, newChannel,resampling_freq,"Automatic",0,0)
 
               ' export operation to csv
               If loadScript_saveFlagResampledDataCSV Then
-                  nameOfFile = "rs__"&dictVaDiadem(originalChannel.Name)&"__"&newFreq&"Hz__"&folderInfo(1)&".csv"
+                  nameOfFile = "rs__"&dictVaDiadem(originalChannel.Name)&"__"&resampling_freq&"Hz__"&folderInfo(1)&".csv"
                   Call DataFileSaveSel(csvFolder & nameOfFile,"CSV",newChannel)
               End If
 
@@ -60,23 +68,23 @@ For Each fileNameDataInput in filesNamesDataInput
               If FlagFTData Then
 
                 If Ubound(Filter(signalsToDif, originalChannel.Name)) > -1 Then
-                  diffVariableToSave = "/"&originalChannel.Name&"__"&newFreq&"Hz__"&folderInfo(1)&"__diff"
+                  diffVariableToSave = "/"&originalChannel.Name&"__"&resampling_freq&"Hz__"&folderInfo(1)&"__diff"
 
                   'Smooth operation'
-                  ' smoothVariableToSave = "/"&originalChannel.Name&"__"&newFreq&"Hz__"&folderInfo(1)&"__smooth"
+                  ' smoothVariableToSave = "/"&originalChannel.Name&"__"&resampling_freq&"Hz__"&folderInfo(1)&"__smooth"
                   ' Call ChnSmooth(newChannel,smoothVariableToSave,numberPointsSmoothering,"symmetric","byMeanValue")
                   ' Call ChnDeriveCalc("",smoothVariableToSave,diffVariableToSave)
 
                   Call ChnDeriveCalc("",newChannel,diffVariableToSave)
-                  Call DataFileSaveSel(csvFolder & "di__"&dictVaDiadem(originalChannel.Name)&"__"&newFreq&"Hz__"&folderInfo(1)&".csv","CSV",diffVariableToSave)
+                  Call DataFileSaveSel(csvFolder & "di__"&dictVaDiadem(originalChannel.Name)&"__"&resampling_freq&"Hz__"&folderInfo(1)&".csv","CSV",diffVariableToSave)
                 End If
 
               End If
 
             Else
 
-              newFreq = 1/originalChannel.Properties("wf_increment").Value
-              nameOfFile = "rs__"&dictVaDiadem(originalChannel.Name)&"__"&newFreq&"Hz__"&folderInfo(1)&".csv"
+              resampling_freq = 1/originalChannel.Properties("wf_increment").Value
+              nameOfFile = "rs__"&dictVaDiadem(originalChannel.Name)&"__"&resampling_freq&"Hz__"&folderInfo(1)&".csv"
               Call DataFileSaveSel(csvFolder & nameOfFile,"CSV",originalChannel)
 
             End If
@@ -92,7 +100,7 @@ For Each fileNameDataInput in filesNamesDataInput
       End If
 
       If loadScript_saveFlagResampledDataTDM Then
-        Call DataFileSaveSel(workingFolder&"resampled__"&newFreq&"Hz__step"&folderInfo(1)&".TDM","TDM", Data.Root.ChannelGroups(2).Channels)
+        Call DataFileSaveSel(workingFolder&"resampled__"&resampling_freq&"Hz__step"&folderInfo(1)&".TDM","TDM", Data.Root.ChannelGroups(2).Channels)
       End If
 
       ' Delete both folders for the group, the one that contains resampled data and the one with the original data

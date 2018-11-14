@@ -49,13 +49,17 @@ fileNamesBigArrayFolders = Array( _
   , Array(commonAddress & "Step3.4-1\2018-10-27_062515\", "25-Step-3.4-3", filesNames) _
   , Array(commonAddress & "Step 3.7 Part 1\2018-10-30_063221\", "31-Step-3.7-1", filesNames) _
   , Array(commonAddress & "Step 3.7 Part 2\2018-10-30_124303\", "32-Step-3.7-2", filesNames) _
+  , Array(commonAddress & "Step 3.1 40 FH\Cold\2018-11-13_143336\", "33-Step-3.1-5", filesNames) _
+  , Array(commonAddress & "Step 3.1 40 FH\Cold\2018-11-14_092019\", "34-Step-3.1-6", filesNames) _
+  , Array(commonAddress & "Step 3.1 40 FH\Hot - 100C\2018-11-14_132712\", "35-Step-3.1-7", filesNames) _
   )
 
 ' The variable iterators is used to load and operate only selected steps from above
 ' iterators = Array("12-Step-2.5", "13-Step-2.6-1", "14-Step-2.6-2", "15-Step-3.1-1", "16-Step-3.1-2", "17-Step-3.1-3", "18-Step-3.1-4", "19-Step-3.2-1", "20-Step-3.2-2", "21-Step-3.3-1", "22-Step-3.3-2", "23-Step-3.4-1", "24-Step-3.4-2", "25-Step-3.4-3")
 ' iterators = Array("15-Step-3.1-1", "16-Step-3.1-2", "17-Step-3.1-3", "18-Step-3.1-4", "19-Step-3.2-1", "20-Step-3.2-2", "21-Step-3.3-1", "22-Step-3.3-2", "23-Step-3.4-1", "24-Step-3.4-2", "25-Step-3.4-3")
 ' iterators = Array("31-Step-3.7-1")
-iterators = Array("19-Step-3.2-1", "20-Step-3.2-2", "21-Step-3.3-1", "22-Step-3.3-2", "23-Step-3.4-1", "24-Step-3.4-2", "25-Step-3.4-3", "26-Step-2.4-Repeat2", "27-Step-3.2-hot", "28-Step-3.2-cold", "29-Step-1.1-Repeat", "30-Step-1.3-Repeat", "32-Step-3.7-2")
+iterators = Array("33-Step-3.1-5","34-Step-3.1-6","35-Step-3.1-7")
+' iterators = Array("19-Step-3.2-1", "20-Step-3.2-2", "21-Step-3.3-1", "22-Step-3.3-2", "23-Step-3.4-1", "24-Step-3.4-2", "25-Step-3.4-3", "26-Step-2.4-Repeat2", "27-Step-3.2-hot", "28-Step-3.2-cold", "29-Step-1.1-Repeat", "30-Step-1.3-Repeat", "32-Step-3.7-2")
 ' iterators = Array("1-Step-1.1", "2-Step-1.2", "3-Step-1.3", "4-Step-1.4", "5-Step-1.5", "6-Step-1.6", "7-Step-2.4")
 ' iterators = Array("8-Step-2.1-1.5Displ", "9-Step-2.1-NeutralPos")
 ' iterators = Array("SN002-1.3", "SN002-2.4", "SN0012-1.3", "SN0012-2.4")
