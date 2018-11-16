@@ -4,6 +4,42 @@
 		"selected_items":
 		[
 			[
+				"data",
+				"dataPres1"
+			],
+			[
+				"color",
+				"colors"
+			],
+			[
+				"e",
+				"enabled"
+			],
+			[
+				"reas",
+				"re-sampling"
+			],
+			[
+				"da",
+				"dataClasses"
+			],
+			[
+				"var",
+				"variables"
+			],
+			[
+				"ra",
+				"raise"
+			],
+			[
+				"input",
+				"inputDataClass"
+			],
+			[
+				"exampl",
+				"exampleLabel"
+			],
+			[
 				"increm",
 				"incrementVector"
 			],
@@ -92,10 +128,6 @@
 				"dst_di"
 			],
 			[
-				"color",
-				"colorsDict"
-			],
-			[
 				"q",
 				"q_F"
 			],
@@ -142,10 +174,6 @@
 			[
 				"dataTe",
 				"dataTemp2"
-			],
-			[
-				"data",
-				"dataTemp1"
 			],
 			[
 				"deg",
@@ -230,10 +258,6 @@
 			[
 				"out",
 				"output"
-			],
-			[
-				"var",
-				"variableClasses"
 			],
 			[
 				"id",
@@ -346,10 +370,6 @@
 			[
 				"sef",
 				"self"
-			],
-			[
-				"da",
-				"dataClass"
 			],
 			[
 				"num",
@@ -494,39 +514,25 @@
 			[
 				"fil",
 				"fileName"
-			],
-			[
-				"Add",
-				"address"
-			],
-			[
-				"fi",
-				"fileAddress"
-			],
-			[
-				"lin",
-				"lineN"
-			],
-			[
-				"forc",
-				"forces"
-			],
-			[
-				"pa",
-				"path_shared"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"contents": "import os\nimport sys\n# import pdb #pdb.set_trace()\nimport getopt\nimport shutil\nfrom scipy import interpolate\nimport numpy as np #pdb.set_trace()\n\nfrom moduleFunctions import *\nfrom moduleAdditionalFunctions import *\n\nprint('\\n\\tKOPTER PYTHON DATA ANALYSIS TOOL')\nprint('\\n\\t\\t-> developed by Alejandro Valverde Lopez')\n\n# CMD input\n# actuator:\n# python main.py -f filesToLoad_actuator_outerBeearing.txt -o -2.1,2.1 -s t\n# \n# gauges:\n# python main.py -f filesToLoad_gauges_enduranceActuatorNewBearing.txt -v DruckHP1,DruckHP2,DurchflussHP1,DurchflussHP2,ForcePistonEyeHP1,ForcePistonEyeHP2,InputForce,LaserPiston,LaserSteuerventilhebel,OutputForce,TemperaturHP1,TemperaturHP2 -m lp -o f -s t,t -r 1,2,3,4,5,6,7,8,9 -a t\n# python main.py -f filesToLoad_gauges_TRbladeholder.txt -v BendingMoment,MyBlade,MyLoadcell,MzBlade,CF -m rs -o f -s t,t -a f -r 11,12,13,14,15\n# python main.py -f filesToLoad_gauges_OC.txt -v Tension,Bending -m rs -o t -s t,t -a f -r 1,2,3,4,5,6\n\n# Dicitionary of loading options\nCMDoptionsDict = {}\n\n#Get working directory\ncwd = os.getcwd()\nCMDoptionsDict['cwd'] = cwd\n\n#Read postProc folder name from CMD\nCMDoptionsDict = readCMDoptionsMainAbaqusParametric(sys.argv[1:], CMDoptionsDict)\n\n#Write output data\nif CMDoptionsDict['writeStepResultsToFileFlag']:\n\tCMDoptionsDict['stepsSummaryResultsFolder'] = os.path.join(CMDoptionsDict['cwd'],'stepsSummaryResults')\n\tif not os.path.isdir(CMDoptionsDict['stepsSummaryResultsFolder']):\n\t\tos.mkdir(CMDoptionsDict['stepsSummaryResultsFolder'])\n\n# What to do?\ngaugesFlag = CMDoptionsDict['dmsFlag']\nactuatorFlag = CMDoptionsDict['actuatorFlag']\nactuatorMesswerteFlag = CMDoptionsDict['actuatorMesswerte']\n\n# Gauges data analysis\nif gaugesFlag:\n\tprint('\\n'+'**** Running general data script'+'\\n')\n\n\ttestFactor = 1.0 #HZ\n\torderDeriv = 2\t\n\t# Import settings\n\tplotSettings = importPlottingOptions()\n\tdataClasses = ()\n\tfor magComplex in CMDoptionsDict['magnitudes']:\n\n\t\t# Mag operations\n\t\tmag = magComplex[:2]\n\t\tif magComplex[2:]:\n\t\t\tadditionalMag = magComplex[2:]\n\t\tinputDataClass = loadFileAddressesAndData(CMDoptionsDict['fileNameOfFileToLoadFiles'], 'gauges')\n\n\t\tlistOfFilesSortedInFolder = []\n\t\tfor folderName in inputDataClass.getTupleFiles(): #For each folder with min, max or mean values\n\t\t\tlistOfFilesInFolderMathingVar = []\n\n\t\t\tfor fileName2 in os.listdir(folderName):\n\t\t\t\tif fileName2.endswith('.csv'): #Take only .csv files\n\t\t\t\t\tif magComplex[2:]:\n\t\t\t\t\t\tif fileName2.startswith(mag) and fileName2.split('.csv')[0].split('__')[-1] in CMDoptionsDict['rangeFileIDs'] and fileName2.split('__')[-2][:-2] == additionalMag:\n\t\t\t\t\t\t\tlistOfFilesInFolderMathingVar += [fileName2]\n\t\t\t\t\telse:\n\t\t\t\t\t\tif fileName2.startswith(mag) and fileName2.split('.csv')[0].split('__')[-1] in CMDoptionsDict['rangeFileIDs']:\n\t\t\t\t\t\t\tlistOfFilesInFolderMathingVar += [fileName2]\n\n\t\t\tlistOfFilesSortedInFolder += sortFilesInFolderByLastNumberInName(listOfFilesInFolderMathingVar, folderName, CMDoptionsDict)\n\n\t\t# Create dataClasses\n\t\tlistOfFilesMatchingMag = [t[1] for t in listOfFilesSortedInFolder]\n\t\tlistOfMagVarPairs = [t.split('__')[0]+'__'+t.split('__')[1] for t in listOfFilesMatchingMag]\n\t\tfor var in CMDoptionsDict['variables']:\n\t\t\tif mag+'__'+var in listOfMagVarPairs:\n\t\t\t\tdataVar = dataFromGaugesSingleMagnitudeClass(var, mag, testFactor, orderDeriv)\n\t\t\t\tdataClasses += (dataVar, )\n\t\t\n\t\t# pdb.set_trace()\n\t\tfor dataClass in dataClasses: #For each class variable\n\n\t\t\tif dataClass.get_mag() == mag: #Only to dataClass with the current mag\n\n\n\t\t\t\t# mag = dataClass.get_mag()\n\n\t\t\t\t#Create summmary file\n\t\t\t\tif CMDoptionsDict['writeStepResultsToFileFlag']:\n\t\t\t\t\t# pdb.set_trace()\n\t\t\t\t\tfileOutComeSummaryForVarAndMag = open(os.path.join(CMDoptionsDict['stepsSummaryResultsFolder'], dataClass.get_mag()+'__'+dataClass.get_description()+'.csv'), 'w')\n\t\t\t\t\tfileOutComeSummaryForVarAndMag.write(','.join(['step ID', 'max', 'min', 'mean']) + '\\n') \n\t\t\t\telse:\n\t\t\t\t\tfileOutComeSummaryForVarAndMag = []\n\n\t\t\t\t#Main inner loop\n\t\t\t\tprint('\\n'+'---> Importing data for variable: ' + dataClass.get_description() + ', '+dataClass.get_mag()+ ' values')\n\t\t\t\t\t\n\t\t\t\tfor fileNameList in listOfFilesSortedInFolder: #For each file matching the criteria\n\n\t\t\t\t\tshortFileName = fileNameList[1]\n\t\t\t\t\tlongFileName = os.path.join(fileNameList[0], fileNameList[1])\n\t\t\t\t\tif dataClass.get_description() in shortFileName.split('__')[1] and shortFileName.split('__')[1] in dataClass.get_description(): #Restring to only file matching type of variable of class\n\t\t\t\t\t\tprint('\\n'+'-> Reading: ' + shortFileName)\n\t\t\t\t\t\tdataClass.importDataForClass(shortFileName, longFileName, dataClass.get_mag(), CMDoptionsDict, fileOutComeSummaryForVarAndMag)\n\n\t\t\t\t#Here dataClass has collected the full data for a variable and magnitude\n\n\t\t\t\t#Close data summary to file\n\t\t\t\tif CMDoptionsDict['writeStepResultsToFileFlag']:\n\t\t\t\t\tfileOutComeSummaryForVarAndMag.close()\n\t\t\t\t\n\t\t\t\t#Time operations\t\t\t\t\n\t\t\t\tif dataClass.get_mag() in ('hp', 'lp', 'di'):\n\t\t\t\t\tdataClass.getTimeList('rs')\n\t\t\t\telse:\n\t\t\t\t\tdataClass.getTimeList(dataClass.get_mag())\n\t\t\t\t\n\t\t\t\tdataClass.reStartXvaluesAndLastID()\n\n\t\t\t\tif dataClass.get_mag() == 'rs' and False:\n\n\t\t\t\t\tnewPicksMax, newPicksMean, newPicksMin, timePicks = dataClass.computePicks() ###STRANGE ERROR, PYTHON BUG?\n\t\t\t\t\tdataClass.updatePicksData(newPicksMax, newPicksMean, newPicksMin, timePicks)\n\t\t\n\t\t# Up to here all the data for a single variable has bee imported \n\n\t# Plotting\n\tfor dataClass in dataClasses: #For each class variable\n\n\t\t#Plotting max, min and mean from DIAdem\n\t\t# dataClass.plotMaxMinMean_fromDIAdem(plotSettings)\n\n\t\t#Plotting resampled total data\n\t\tif (CMDoptionsDict['showFigures'] or CMDoptionsDict['saveFigure']) and not CMDoptionsDict['additionalCalsFlag']:\n\t\t\tdataClass.plotResampled(plotSettings, CMDoptionsDict, dataClass.get_mag(), (False, [], []), inputDataClass)\n\n\t# Additional calculations\n\tif CMDoptionsDict['additionalCalsFlag']:\n\n\t\tprint('\\n\\n'+'-> Additional calculations in progress...')\n\n\t\t# dataAdditional = dataFromGaugesSingleMagnitudeClass('forceFighting', testFactor, orderDeriv)\n\t\tif CMDoptionsDict['additionalCalsOpt'] == 1:\n\t\t\tdataAdditional = dataFromGaugesSingleMagnitudeClass('forceFightingEyes(HP1-HP2)', 'rs', testFactor, orderDeriv)\n\t\t\tdataAdditional.addDataManual1(dataClasses)\n\t\t\tdataAdditional.plotResampled(plotSettings, CMDoptionsDict, dataAdditional.get_mag(), (False, [], []), inputDataClass)\n\n\t\telif CMDoptionsDict['additionalCalsOpt'] == 1.5:\n\t\t\tdataAdditional = dataFromGaugesSingleMagnitudeClass('forceFightingEyes(HP1-HP2)', 'rs', testFactor, orderDeriv)\n\t\t\tdataAdditional.addDataManual1(dataClasses)\n\t\t\tdataClasses += (dataAdditional, )\n\t\t\tdataAdditional.plotResampled(plotSettings, CMDoptionsDict, dataAdditional.get_mag(), (True, dataClasses, ('forceFightingEyes(HP1-HP2)','ForceEye1','ForceEye2','PistonDispl')), inputDataClass)\n\t\telif CMDoptionsDict['additionalCalsOpt'] == 2:\n\t\t\tdataAdditional = dataFromGaugesSingleMagnitudeClass('forceSumEyes(HP1+HP2)', 'rs', testFactor, orderDeriv)\n\t\t\tdataAdditional.addDataManual2(dataClasses)\n\t\t\tdataClasses += (dataAdditional, )\n\t\t\tdataAdditional.plotResampled(plotSettings, CMDoptionsDict, dataAdditional.get_mag(), (True, dataClasses, ('forceSumEyes(HP1+HP2)', 'OutputForce')), inputDataClass)\n\t\telif CMDoptionsDict['additionalCalsOpt'] == 3:\n\t\t\t# dataAdditional = dataFromGaugesSingleMagnitudeClass('forceSumEyes(HP1+HP2)', 'rs', testFactor, orderDeriv)\n\t\t\t# dataAdditional.addDataManual2(dataClasses)\n\t\t\tdataClass.plotResampled(plotSettings, CMDoptionsDict, dataAdditional.get_mag(), (True, dataClasses, ('BoosterLinklong','BoosterLinklat','BoosterLinkcol')), inputDataClass)\n\n\t\telif CMDoptionsDict['additionalCalsOpt'] == 4:\n\n\t\t\t# Show relationship between internal leakage and tempertature\n\n\t\t\t# python main.py -f filesToLoad_gauges_actuatorPerformance.txt -v Temp1,Temp2,VolFlow1,VolFlow2 -m rs -o f -s f,t -a 4 -c f -n t -r 3-SN002-1.3,8-SN002-2.4,10-SN0012-1.3,13-SN0012-2.4,3-Step-1.3,7-Step-2.4 -w t -l f\n\t\t\t# python main.py -f filesToLoad_gauges_actuatorPerformance.txt -v Temp1,Temp2,VolFlow1,VolFlow2 -m rs -o f -s f,t -a 4 -c f -n t -r 7-Step-2.4 -w t -l f\n\n\t\t\tinternalLeakageVSTemp_regression(dataClasses, inputDataClass, plotSettings, CMDoptionsDict)\n\n\t\telif CMDoptionsDict['additionalCalsOpt'] == 5:\n\t\t\t# Plot flow rate versus force\n\t\t\t# Test 2.4 contains the relationship between temperature and volume flow for zero force\n\t\t\t# Remove contribution from the temperature to the volume flow shown in test 1.3\n\n\t\t\t# python main.py -f filesToLoad_gauges_actuatorPerformance.txt -v Temp1,Temp2,VolFlow1,VolFlow2,OutputForce -m rs -o f -s f,t -a 5 -c f -n t -r 3-SN002-1.3,8-SN002-2.4,10-SN0012-1.3,13-SN0012-2.4,7-Step-2.4,1-Step-1.1,3-Step-1.3 -w f\n\n\t\t\tinternalLeakageVSForce_regression(dataClasses, inputDataClass, plotSettings, CMDoptionsDict)\n\n\t\telif CMDoptionsDict['additionalCalsOpt'] == 6:\n\t\t\t# Plot flow rate versus temperature for various operating pressures\n\t\t\t# Include P2 flight test summary information information\n\n\t\t\t# python main.py -f filesToLoad_gauges_actuatorPerformance.txt -v Temp1,Temp2,VolFlow1,VolFlow2 -m rs -o f -s f,t -a 6 -c f -n t -w f -l t -r 6-Step-1.6,4-SN002-1.6,8-SN002-2.4,7-Step-2.4,3-Step-1.3,3-SN002-1.3\n\n\t\t\tinternalLeakageVSTempVSPress_withP2ref(dataClasses, inputDataClass, plotSettings, CMDoptionsDict)\n\n\t\telif CMDoptionsDict['additionalCalsOpt'] == 7:\n\t\t\t# Plot flow rate versus temperature using segments of data\n\t\t\t# python main.py -f filesToLoad_gauges_actuatorPerformance.txt -v VolFlow1,VolFlow2,Temp1,Temp2 -m rs -o f -s f,t -c f -n t -w f -l t -r 3-SN002-1.3,10-SN0012-1.3,8-SN002-2.4,13-SN0012-2.4 -a 7\n\n\t\t\tinternalLeakageVSTemp_segments(dataClasses, inputDataClass, plotSettings, CMDoptionsDict)\n\n\t\telif CMDoptionsDict['additionalCalsOpt'] == 8:\n\n\t\t\t# Estimate the volume flow considering the piston demand \n\t\t\t# For this, piston velocities are extracted from P2 flights recorded data\n\t\t\t# python main.py -f filesToLoad_gauges_P2_FTI_100Hz.txt -v CNT_DST_BST_COL,CNT_DST_BST_LNG,CNT_DST_BST_LAT -m di -o f -s f,t -a 8 -c f -n f -w f -l t -r 192-FT0106\n\n\t\t\tinternalLeakageDueToPistonDemand_P2flights(dataClasses, inputDataClass, plotSettings, CMDoptionsDict)\n\n\t\telif CMDoptionsDict['additionalCalsOpt'] == 9:\n\n\t\t\t# Big code to estimate the internal leakage for an instrumented flight. The internal leakege is calculated as:\n\n\t\t\t# q_total = q_v + q_T,P + q_F\n\t\t\t# \tq_v = v * A -> Contribution of the piston demand\n\t\t\t# \tq_T,P -> Contribution of the fluid temperature\n\t\t\t#\t\t--> Data is interpolated used component testing data for a given pressure\n\t\t\t#\tq_F -> Contribution of the force\n\t\t\t#\t\t--> Data is interpolated from component testing data\n\n\t\t\t# python main.py -f filesToLoad_gauges_P2_FTI_100Hz.txt -v CNT_DST_BST_COL,CNT_FRC_BST_COL,CNT_DST_BST_LNG,CNT_FRC_BST_LNG,CNT_DST_BST_LAT,CNT_FRC_BST_LAT,HYD_ARI_MFD_TMP_1,HYD_ARI_MFD_TMP_2 -m rs,di -o f -s t,t -a 9 -c f -n t -l f -w f -r 192-FT0106\n\n\t\t\tcalculateFlowFlight(dataClasses, inputDataClass, plotSettings, CMDoptionsDict)\n\n\t\telif CMDoptionsDict['additionalCalsOpt'] == 10:\n\n\t\t\t# Get information for HYD test during FT04, relevant for test report\n\t\t\t# python main.py -f filesToLoad_gauges_P3_FTI.txt -m rs,di -o f -s t,f -a 10 -c f -w f -l f -r 13-FT04 -v HYD_TMP_TANK_1,HYD_TMP_TANK_2,HYD_PRS_1,HYD_PRS_2,IND_PRS_1,IND_PRS_2,CNT_DST_COL,CNT_DST_LAT,CNT_DST_LNG,CNT_DST_BST_COL,CNT_DST_BST_LAT,CNT_DST_BST_LNG -n t \n\n\t\t\tcalculateSegmentsForHYDtestFT04(dataClasses, plotSettings, CMDoptionsDict)\n\n\t\telif CMDoptionsDict['additionalCalsOpt'] == 11:\n\t\t\t\"\"\"\n\t\t\tApply corrections to measured distances\n\n\t\t\tCMD: python main.py -f filesToLoad_gauges_P3_FTI.txt -m rs -o f -s f,t -a 11 -c f -w f -l t -r 1-RC,2-RC,...,96-FT24,97-FT24 -v CNT_DST_COL,CNT_DST_LAT,CNT_DST_LNG,CNT_DST_BST_COL,CNT_DST_BST_LAT,CNT_DST_BST_LNG -n t\n\t\t\t\"\"\"\n\t\t\t# Header operations\n\t\t\t# Range files\n\t\t\tif len(CMDoptionsDict['rangeFileIDs']) < 8:\n\t\t\t\trangeIDstring = ','.join([str(i) for i in CMDoptionsDict['rangeFileIDs']])\n\t\t\telse:\n\t\t\t\trangeIDstring = str(CMDoptionsDict['rangeFileIDs'][0])+'...'+str(CMDoptionsDict['rangeFileIDs'][-1])\n\n\t\t\tcolorDict = {'COL' : plotSettings['colors'][0], 'LNG' : plotSettings['colors'][1], 'LAT' : plotSettings['colors'][2]}\n\t\t\t# ###################\n\n\t\t\t# Corrections\n\t\t\tfor dof in ('COL', 'LNG', 'LAT'):\n\n\t\t\t\tdata_temp = [temp for temp in dataClasses if temp.get_description() == 'CNT_DST_BST_'+dof][0]\n\t\t\t\tdata_temp.addDataManual6(float(inputDataClass.get_variablesInfoDict()['testData']['corr_'+dof]))\n\t\t\t\tdata_temp.addDataManual7() #Calculate increment vector\n\n\t\t\t\tdata_temp = [temp for temp in dataClasses if temp.get_description() == 'CNT_DST_'+dof][0]\n\t\t\t\tdata_temp.addDataManual7() #Calculate increment vector\n\t\t\t\t\n\t\t\t# Display normal data\n\t\t\tfor dataClass in dataClasses: #For each class variable\n\t\t\t\tdataClass.plotResampled(plotSettings, CMDoptionsDict, dataClass.get_mag(), (False, [], []), inputDataClass)\n\t\t\t# ###################\n\n\t\t\tfigure, ax = plt.subplots(1, 1, sharex='col')\n\t\t\tfigure.set_size_inches(16, 10, forward=True)\n\t\t\tfigure.suptitle('Ratio $\\\\phi_{\\\\mathrm{out}/\\\\mathrm{in}}$ between change in pilot input $\\\\theta_{\\\\mathrm{in}}$ and increment in booster displacement $\\\\theta_{\\\\mathrm{out}}$\\n$\\\\phi_{\\\\mathrm{out}/\\\\mathrm{in}}$ = $\\\\Delta \\\\theta_{\\\\mathrm{out}}$ / $\\\\Delta \\\\theta_{\\\\mathrm{in}}$\\nDataset: '+rangeIDstring, **plotSettings['figure_title'])\n\n\t\t\tfor dof in ('COL', 'LNG', 'LAT'):\n\n\t\t\t\tdata_input_temp = [temp for temp in dataClasses if temp.get_description() == 'CNT_DST_'+dof][0]\n\t\t\t\tdata_boost_temp = [temp for temp in dataClasses if temp.get_description() == 'CNT_DST_BST_'+dof][0]\n\n\t\t\t\tinput_temp, ratio_temp = [], []\n\t\t\t\tfor out,inp in zip(data_boost_temp.rs_increments, data_input_temp.rs_increments):\n\t\t\t\t\tif abs(inp) > 1:\n\t\t\t\t\t\tinput_temp += [inp]\n\t\t\t\t\t\tratio_temp += [out / inp] \n\t\t\t\tax.plot( input_temp, ratio_temp, linestyle = '', marker = 'o', c = colorDict[dof], label = dof, **plotSettings['line'])\n\n\t\t\tax.set_ylabel('Ratio $\\\\phi_{\\\\mathrm{out}/\\\\mathrm{in}}$ [mm/%]', **plotSettings['axes_y'])\n\t\t\tax.set_xlabel('$\\\\Delta \\\\theta_{\\mathrm{in}}$ [%]', **plotSettings['axes_x'])\n\n\t\t\tax.legend(**plotSettings['legend'])\n\t\t\tusualSettingsAX(ax, plotSettings)\n\n\tos.chdir(cwd)\n\n#Import data from actuator\nelif actuatorFlag:\n\n\t# Import plot settings\n\tplotSettings = importPlottingOptions()\n\n\tprint('\\n'+'**** Running data analysis program for actuator measurements'+'\\n')\n\tinputDataClass = loadFileAddressesAndData(CMDoptionsDict['fileNameOfFileToLoadFiles'], 'actuator')\n\n\tdataFromRuns, previousNCycles, iFile = [], 0, 1\n\n\tfor file in inputDataClass.getTupleFiles():\n\n\t\tif float(file.split('\\\\')[-1].split('_')[1]) in CMDoptionsDict['rangeFileIDs']:\n\n\t\t\tprint('-> Reading: ' + file.split('\\\\')[-1])\n\t\t\tdataFromRun_temp = importDataActuator(file, iFile, CMDoptionsDict, inputDataClass)\n\n\t\t\tdataFromRun_temp.setAbsoluteNCycles(previousNCycles)\n\n\t\t\tpreviousNCycles = dataFromRun_temp.get_absoluteNCycles()[-1]\n\n\t\t\tprint('\\t'+'-> Last computed data point index (accumulated): ' + str(int(previousNCycles)/1000000.0) + ' millions')\n\n\t\t\tdataFromRuns += [dataFromRun_temp]\n\n\t\t\tiFile += 1\n\n\n\t#################################\n\t#Calculate std and mean of recorded values\n\tif 'OC' in CMDoptionsDict['fileNameOfFileToLoadFiles']:\n\t\tcalculate_stats(dataFromRuns[:-2]) #Only the first loading phase\n\telse:\n\t\tcalculate_stats(dataFromRuns)\n\n\t#################################\n\t#Plot data\n\t# dataFromRuns[0].plotSingleRun(plotSettings)\n\t# dataFromRuns[-1].plotSingleRun(plotSettings)\n\n\tplotAllRuns_force(dataFromRuns, plotSettings, CMDoptionsDict, inputDataClass)\n\tplotAllRuns_displacement(dataFromRuns, plotSettings, CMDoptionsDict, inputDataClass)\n\nelif actuatorMesswerteFlag:\n\n\t# Import plot settings\n\tplotSettings = importPlottingOptions()\n\n\tprint('\\n'+'**** Running data analysis program for actuator measurements, all data'+'\\n')\n\tinputDataClass = loadFileAddressesAndData(CMDoptionsDict['fileNameOfFileToLoadFiles'], 'actuatorMesswerte')\n\n\tdataFromRuns, iFile, lastDataPointCounter, lastTimeList, totalTime = [], 1, 0, [], []\n\n\tfor file in inputDataClass.getTupleFiles():\n\n\t\tif int(file.split('\\\\')[-1].split('_')[1]) in [int(o) for o in CMDoptionsDict['rangeFileIDs']]: #Filter out test steps that are not specified \n\n\t\t\tprint('-> Reading: ' + file.split('\\\\')[-1])\n\t\t\tdataFromRun_temp = importDataActuator(file, iFile, CMDoptionsDict, inputDataClass)\n\n\t\t\tlastDataPointCounter += dataFromRun_temp.get_lastDataPointCounter()\n\t\t\t\n\t\t\tif not lastTimeList: #If list is empty\n\t\t\t\tlastTimeList += [dataFromRun_temp.get_time()[-1]]\n\t\t\telse:\n\t\t\t\tlastTimeList += [lastTimeList[-1]+dataFromRun_temp.get_time()[-1]]\n\n\t\t\tprint('\\t'+'-> Last computed data point index (accumulated): ' + str(int(lastDataPointCounter)/1000000.0) + ' millions')\n\n\t\t\tdataFromRuns += [dataFromRun_temp]\n\n\t\t\tiFile += 1\n\n\ttimesDict = {'lastTimeList': lastTimeList}\n\n\t# plotAllRuns_force_Messwerte(dataFromRuns, plotSettings, CMDoptionsDict, inputDataClass)\n\t# plotAllRuns_filtered_Messwerte(dataFromRuns, timesDict, plotSettings, CMDoptionsDict, inputDataClass)\n\tplotStiffnessForChoosenSteps_Messwerte(dataFromRuns, timesDict, plotSettings, CMDoptionsDict, inputDataClass)\n\n\nplt.show(block = CMDoptionsDict['showFigures'])",
-			"file": "fatigueData/main.py",
-			"file_size": 17555,
-			"file_write_time": 131866863292565750,
+			"file": "fti/testsInitData/P3_FTI.vbs",
 			"settings":
 			{
-				"buffer_size": 17190,
+				"buffer_size": 21178,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "fatigueData/main.py",
+			"settings":
+			{
+				"buffer_size": 27224,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -535,7 +541,7 @@
 			"file": "fatigueData/moduleFunctions.py",
 			"settings":
 			{
-				"buffer_size": 68528,
+				"buffer_size": 69611,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -554,34 +560,16 @@
 			"file": "fti/testsInitData/actuatorPerformanceV3.vbs",
 			"settings":
 			{
-				"buffer_size": 8066,
+				"buffer_size": 8422,
 				"encoding": "Western (Windows 1252)",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "fatigueData/fatigueInputFiles/filesToLoad_gauges_actuatorPerformance.txt",
+			"file": "fatigueData/InputFiles/filesToLoad_general_actuatorPerformance.txt",
 			"settings":
 			{
 				"buffer_size": 2145,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "fti/testsInitData/actuatorPerformanceV2.vbs",
-			"settings":
-			{
-				"buffer_size": 5689,
-				"encoding": "Western (Windows 1252)",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "fti/testsInitData/P3_FTI.vbs",
-			"settings":
-			{
-				"buffer_size": 17355,
-				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
@@ -595,10 +583,10 @@
 			}
 		},
 		{
-			"file": "fatigueData/fatigueInputFiles/filesToLoad_gauges_P3_FTI.txt",
+			"file": "fti/testsInitData/template_VBS.vbs",
 			"settings":
 			{
-				"buffer_size": 2300,
+				"buffer_size": 7703,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -615,6 +603,10 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"pat",
+				"Text Pastry: From 1 To X"
+			],
 			[
 				"past",
 				"Text Pastry: From 1 To X"
@@ -663,16 +655,21 @@
 		"/P/kopter",
 		"/P/kopter/codingKnowledge",
 		"/P/kopter/fatigueData",
-		"/P/kopter/fatigueData/fatigueInputFiles",
+		"/P/kopter/fatigueData/InputFiles",
 		"/P/kopter/fti",
+		"/P/kopter/fti/testsInitData",
 		"/P/kopter/s_id"
 	],
 	"file_history":
 	[
+		"/P/kopter/fti/main_DIAdem_extractData.vbs",
+		"/P/kopter/fatigueData/user_guide_dataAnalysisTool.txt",
+		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_gauges_P3_FTI.txt",
+		"/P/kopter/fti/testsInitData/actuatorPerformanceV3.vbs",
+		"/P/kopter/fti/testsInitData/actuatorPerformanceV2.vbs",
 		"/P/kopter/fti/testsInitData/newHousingP3.vbs",
 		"/P/kopter/fti/testsInitData/oldHousingP3.vbs",
 		"/P/kopter/fti/loadMultipleVariablesFromFoldersAndDeleteGroups.vbs",
-		"/P/kopter/fti/testsInitData/actuatorPerformanceV3.vbs",
 		"/P/kopter/other/temp_flange_fatigue.py",
 		"/L/TEMP/AlejandroValverde/DIADEM/testsInitData/P3_FTI.vbs",
 		"/P/kopter/fti/testsInitData/P3_FTI.vbs",
@@ -686,7 +683,6 @@
 		"/P/kopter/fatigueData/moduleAdditionalFunctions.py",
 		"/P/kopter/fatigueData/moduleFunctions.py",
 		"/P/kopter/codingKnowledge/visualBasicScript.VBS",
-		"/P/kopter/fti/testsInitData/actuatorPerformanceV2.vbs",
 		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_gauges_actuatorPerformanceV2.txt",
 		"/P/kopter/versionsBackup/main_versionsBackup.py",
 		"/P/kopter/fti/testToImport.vbs",
@@ -694,7 +690,6 @@
 		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_gauges_actuatorPerformanceV3.txt",
 		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_gauges_enduranceActuatorNewBearing.txt",
 		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_gauges_P2_FTI.txt",
-		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_gauges_P3_FTI.txt",
 		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_gauges_P2_FTI_50Hz_smooth.txt",
 		"/P/kopter/versionsBackup/inputDirectoriesP3.txt",
 		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_actuatorMesswerte_actuatorBolts.txt",
@@ -794,9 +789,7 @@
 		"//mshzhstg/mshdata/MSH/02_Development/SKYe S09/06_Avionic/J00 Testing and FTI/SKYe test Benches/0c - Various Information/Simulator/Flight Physics/Flightlab_controller_design/read_LTI_matrix_from_FL.m",
 		"//mshzhstg/mshdata/MSH/02_Development/SKYe S09/06_Avionic/J00 Testing and FTI/SKYe test Benches/0c - Various Information/Simulator/Flight Physics/Flightlab_controller_design/read_LTI_matrix_from_FL_2.m",
 		"/P/10_code/kopter/SH09_s_id/C_mat_from_FL_v1.txt",
-		"/P/10_code/kopter/SH09_s_id/A_mat_from_FL_v1.txt",
-		"//mshzhstg/mshdata/MSH/02_Development/SKYe S09/06_Avionic/J00 Testing and FTI/SKYe test Benches/0c - Various Information/Simulator/Flight Physics/Flightlab_controller_design/FCS_tuning.m",
-		"/L/TEMP/michal/flap_stop/configClassModule.py"
+		"/P/10_code/kopter/SH09_s_id/A_mat_from_FL_v1.txt"
 	],
 	"find":
 	{
@@ -815,6 +808,94 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"createSegmentsOf_rs_FromVariableClass",
+			"get_rs_split",
+			"Step",
+			"createSegmentsOf_rs_FromVariableClass",
+			"get_rs_split",
+			".get_rs_split()[indexDictForSteps[stepName]]",
+			"dataPres1.get_rs_split()[indexDictForSteps[stepName]]",
+			"stepStr",
+			"Pres",
+			"dataVolFlow",
+			"dataTemp",
+			"VolFlow",
+			"Temp",
+			"titlesDict[i]",
+			"ax.",
+			"ax",
+			"1",
+			"ax",
+			"Step-3.1",
+			"38-Step-3.2-40FH-hot-1",
+			"35-Step-3.1-40FH-hot-1",
+			"plotsCounter",
+			"Step",
+			"Step-3.1",
+			"Step",
+			"35-Step-3.1-40FH-hot-1",
+			"Step",
+			"Step-3.1",
+			"Step",
+			"dataTemp1",
+			"plotSettings['colors']",
+			"plotSettings['colors'][1]",
+			"plotSettings['colors']",
+			"temp",
+			"'colors'",
+			"Step",
+			"figure_VolflowVSForce_actuators",
+			"-Step-",
+			"33-Step-3.",
+			".2-",
+			"Step-3",
+			"Step",
+			"Step-3",
+			"Step-3.2",
+			"filterFreq",
+			"workingFolder",
+			"csvFolder",
+			"“",
+			"-w",
+			"-n",
+			"Group",
+			"-v",
+			"or and",
+			"81",
+			"['correctionFilterNum']",
+			"-c",
+			"m",
+			"_gauges_",
+			"gauge",
+			"\t",
+			"t.",
+			"t",
+			"raise",
+			"ENG_TMP_EDUCT",
+			"Add",
+			"ECS_TMP_LEDE_SUS_FWD_INN",
+			"Add",
+			"TMP",
+			"Add \"ENG_TMP_EDUCT\"",
+			"ENG_TMP_EDUCT",
+			"TMP",
+			"Add \"ECS_TMP_BLEDA",
+			"BLEDA",
+			"CMDoptionsDict['multipleYaxisInSameFigure']",
+			"FT",
+			"Add",
+			"exampleClasse",
+			"dataAdditional",
+			",",
+			"Add \"HYD_PRS_1\"",
+			"TMP",
+			"Add",
+			"HYD_TMP_TANK_2",
+			"TMP",
+			"FT24",
+			"º",
+			"24",
+			"FT24",
 			"Step",
 			"-Step",
 			"Step-3.1",
@@ -854,95 +935,7 @@
 			"colors",
 			"-",
 			"plotSettings['markers'][0]",
-			"plottingSettings",
-			"y-label",
-			"DIU_ARI_IND_HYD_PRS",
-			"plotSettings['linestyles'][0]",
-			"dataTemp1",
-			"__",
-			"seconds",
-			"ax_title",
-			"set_title",
-			"1,",
-			"rs__DIU_ARI_IND_HYD_PRS_",
-			"di",
-			"DST_",
-			"rs__HYD_TMP_",
-			"rs__HYD_TMP_TANK_",
-			"TMP",
-			"rs__",
-			", '",
-			", ",
-			"P:\\12_flightTestData\\all",
-			"# ",
-			"get_description()",
-			"figure_VolflowVSForce_actuators",
-			"_C =",
-			"_C",
-			"C",
-			"Add",
-			"CNT_",
-			"Add",
-			"TMP",
-			"Temp",
-			"Temp1",
-			"P:\\12_flightTestData\\all",
-			"1",
-			"_",
-			"-FT",
-			"-F",
-			"FT",
-			"FT22",
-			"SN002",
-			"'Time elapsed [Seconds]'",
-			"'+'",
-			"+",
-			"handle",
-			"legendHandles",
-			"-Repeat",
-			"Repeat",
-			"-Step-",
-			"-Step",
-			"-Step-",
-			"Step",
-			"2.2",
-			"20",
-			"1.3",
-			"1.2",
-			"Step-1.2",
-			"label",
-			"stepStr",
-			"arg.lower",
-			"Step-2.4",
-			"7-Step-2.4",
-			"__MinMax",
-			"setOne",
-			"additionalInput[0]",
-			"oneClass",
-			"forceHP2 = []",
-			"forceHP1 = []",
-			"forceHP1 =",
-			"forceHP1",
-			"forceHP",
-			"forceHP2",
-			"forceHP1",
-			"1",
-			"oneClass",
-			"forceHP",
-			"ForcePistonEyeHP1",
-			"'Temp1'",
-			"Temp1",
-			"Step-3.4",
-			"Step-3.3",
-			"filesNames2",
-			"\"Input_force_with_offset[N].tdms\"",
-			"Step-3.2",
-			"Input_force_w_o_offset",
-			"filesNames",
-			"2.5",
-			"2.6",
-			"150bar",
-			" / CF OFF"
+			"plottingSettings"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -950,6 +943,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"_general_",
 			"[l/min]",
 			"'ax_title'",
 			"self.__"
@@ -963,24 +957,54 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "fatigueData/main.py",
+					"file": "fti/testsInitData/P3_FTI.vbs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 17190,
+						"buffer_size": 21178,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								14189,
-								14189
+								20266,
+								20387
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/VBScript/VBScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 7.0,
+						"translation.y": 4485.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "fatigueData/main.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 27224,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								22670,
+								22670
 							]
 						],
 						"settings":
@@ -988,28 +1012,28 @@
 							"syntax": "Packages/Python/Python.sublime-syntax",
 							"translate_tabs_to_spaces": false
 						},
-						"translation.x": 0.0,
-						"translation.y": 3058.0,
+						"translation.x": 242.0,
+						"translation.y": 4927.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 1,
+					"buffer": 2,
 					"file": "fatigueData/moduleFunctions.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 68528,
+						"buffer_size": 69611,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								1840,
+								1840
 							]
 						],
 						"settings":
@@ -1019,14 +1043,14 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 507.0,
+						"translation.y": 780.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
+					"buffer": 3,
 					"file": "fatigueData/moduleAdditionalFunctions.py",
 					"semi_transient": false,
 					"settings":
@@ -1038,8 +1062,8 @@
 						"selection":
 						[
 							[
-								10087,
-								10087
+								5346,
+								4883
 							]
 						],
 						"settings":
@@ -1050,33 +1074,63 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1640.0,
+						"translation.y": 977.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 8,
 					"type": "text"
 				}
 			]
 		},
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
-					"buffer": 3,
-					"file": "fti/testsInitData/actuatorPerformanceV3.vbs",
+					"buffer": 2,
+					"file": "fatigueData/moduleFunctions.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 8066,
+						"buffer_size": 69611,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3165,
-								3165
+								24304,
+								24304
+							]
+						],
+						"settings":
+						{
+							"spell_check": true,
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 3156.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "fti/testsInitData/actuatorPerformanceV3.vbs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8422,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5996,
+								5996
 							]
 						],
 						"settings":
@@ -1085,16 +1139,16 @@
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
-						"translation.x": 0.0,
-						"translation.y": 234.0,
+						"translation.x": 160.0,
+						"translation.y": 780.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
-					"file": "fatigueData/fatigueInputFiles/filesToLoad_gauges_actuatorPerformance.txt",
+					"buffer": 5,
+					"file": "fatigueData/InputFiles/filesToLoad_general_actuatorPerformance.txt",
 					"semi_transient": true,
 					"settings":
 					{
@@ -1105,8 +1159,8 @@
 						"selection":
 						[
 							[
-								887,
-								887
+								535,
+								535
 							]
 						],
 						"settings":
@@ -1117,71 +1171,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "fti/testsInitData/actuatorPerformanceV2.vbs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 5689,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2019,
-								2020
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/VBScript/VBScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 312.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 11,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
 					"buffer": 6,
-					"file": "fti/testsInitData/P3_FTI.vbs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 17355,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								15220,
-								15220
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/VBScript/VBScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1301.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
 					"file": "fti/testToImport.vbs",
 					"semi_transient": false,
 					"settings":
@@ -1193,8 +1187,8 @@
 						"selection":
 						[
 							[
-								545,
-								545
+								753,
+								753
 							]
 						],
 						"settings":
@@ -1205,30 +1199,30 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 10,
 					"type": "text"
 				}
 			]
 		},
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
-					"buffer": 0,
+					"buffer": 1,
 					"file": "fatigueData/main.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 17190,
+						"buffer_size": 27224,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								393,
-								393
+								145,
+								145
 							]
 						],
 						"settings":
@@ -1237,44 +1231,14 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 195.0,
+						"translation.y": 663.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
-					"buffer": 1,
-					"file": "fatigueData/moduleFunctions.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 68528,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								19151,
-								19178
-							]
-						],
-						"settings":
-						{
-							"spell_check": true,
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 7626.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
+					"buffer": 3,
 					"file": "fatigueData/moduleAdditionalFunctions.py",
 					"semi_transient": false,
 					"settings":
@@ -1286,8 +1250,8 @@
 						"selection":
 						[
 							[
-								51057,
-								51057
+								21753,
+								21753
 							]
 						],
 						"settings":
@@ -1296,10 +1260,10 @@
 							"syntax": "Packages/Python/Python.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 12559.0,
+						"translation.y": 4785.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 12,
+					"stack_index": 3,
 					"type": "text"
 				}
 			]
@@ -1309,20 +1273,20 @@
 			"sheets":
 			[
 				{
-					"buffer": 1,
+					"buffer": 2,
 					"file": "fatigueData/moduleFunctions.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 68528,
+						"buffer_size": 69611,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								31226,
-								31226
+								62025,
+								62111
 							]
 						],
 						"settings":
@@ -1332,35 +1296,38 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 12657.0,
+						"translation.y": 21411.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 8,
-					"file": "fatigueData/fatigueInputFiles/filesToLoad_gauges_P3_FTI.txt",
+					"buffer": 7,
+					"file": "fti/testsInitData/template_VBS.vbs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2300,
+						"buffer_size": 7703,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								64,
-								64
+								4160,
+								4160
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
+							"spell_check": true,
+							"syntax": "Packages/VBScript/VBScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 858.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 9,
@@ -1371,7 +1338,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 25.0
+		"height": 29.0
 	},
 	"input":
 	{
@@ -1409,13 +1376,13 @@
 		"cols":
 		[
 			0.0,
-			0.432283768726,
+			0.716382853787,
 			1.0
 		],
 		"rows":
 		[
 			0.0,
-			0.6728840702,
+			0.659185440063,
 			1.0
 		]
 	},
@@ -1428,7 +1395,7 @@
 	"project": "kopterDevelopment.sublime-project",
 	"replace":
 	{
-		"height": 46.0
+		"height": 72.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -1462,7 +1429,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 1,
+	"selected_group": 0,
 	"settings":
 	{
 	},
@@ -1470,7 +1437,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 409.0,
+	"side_bar_width": 217.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

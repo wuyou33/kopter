@@ -1,5 +1,5 @@
 -> Folders to load
-P:\12_flightTestData\P3-all_smallSamplingRate
+P:\12_flightTestData\P3-all
 
 -> Test info
 test_freq: 2
@@ -135,6 +135,127 @@ Fatigue load spec: no
 
 -> Variable info
 name: rs__HYD_TMP_TANK_2
+y-label: Temperature [degC]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__ECS_TMP_BLEDA_VERI
+y-label: Temperature [degC]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__ECS_TMP_BLEDA_PRT
+y-label: Temperature [degC]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__ECS_TMP_BLEDA_TFIT
+y-label: Temperature [degC]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__ECS_TMP_BLEDA_FEEDT
+y-label: Temperature [degC]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__ECS_TMP_BLEDA_CTR
+y-label: Temperature [degC]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__ECS_TMP_BLEDA_NOZ_LH
+y-label: Temperature [degC]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__ECS_TMP_BLEDA_NOZ_RH
+y-label: Temperature [degC]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__RECO_TMP_INS_CTR
+y-label: Temperature [degC]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__FRW_TMP_FWD_MID
+y-label: Temperature [degC]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__FRW_TMP_FWD_RH
+y-label: Temperature [degC]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__FRW_TMP_AFT_LH
+y-label: Temperature [degC]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__FRW_TMP_AFT_RH
+y-label: Temperature [degC]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__MGB_TMP_SUS_FWD
+y-label: Temperature [degC]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__ENG_TMP_EDUCT
+y-label: Temperature [degC]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__ECS_TMP_LEDE_SUS_FWD_INN
+y-label: Temperature [degC]
+TO spec: no
+Fatigue load spec: no
+
+
+-> Variable info
+name: rs__ECS_TMP_LEDE_SUS_FWD_OUT
+y-label: Temperature [degC]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__ECS_TMP_LEDE_SUS_AFT
+y-label: Temperature [degC]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__ECS_TMP_LEDE_FRW
+y-label: Temperature [degC]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__ECS_TMP_LEDE_HYD
+y-label: Temperature [degC]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__ENG_TMP_CPT_AIR
 y-label: Temperature [degC]
 TO spec: no
 Fatigue load spec: no

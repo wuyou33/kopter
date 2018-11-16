@@ -31,13 +31,13 @@ def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 
 		if opt in ("-f", "--fileName"):
 			# postProcFolderName = arg
-			CMDoptionsDict['fileNameOfFileToLoadFiles'] = os.path.join(CMDoptionsDict['cwd'], 'fatigueInputFiles',arg)
+			CMDoptionsDict['fileNameOfFileToLoadFiles'] = os.path.join(CMDoptionsDict['cwd'], 'InputFiles',arg)
 
 			if 'actuatormesswerte' in arg.lower():
 				CMDoptionsDict['actuatorMesswerte'] = True
 				CMDoptionsDict['actuatorFlag'] = False
 				CMDoptionsDict['dmsFlag'] = False
-			elif 'gauge' in arg.lower():
+			elif 'general' in arg.lower():
 				CMDoptionsDict['actuatorMesswerte'] = False
 				CMDoptionsDict['actuatorFlag'] = False
 				CMDoptionsDict['dmsFlag'] = True
@@ -74,6 +74,8 @@ def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 				CMDoptionsDict['saveFigure'] = True
 			elif argSaveFigure.lower() in ('false', 'f'):
 				CMDoptionsDict['saveFigure'] = False
+			else:
+				raise ValueError('ERROR: Wrong input for parameter '+opt)
 
 			if argShowFigure.lower() in ('true', 't'):
 				CMDoptionsDict['showFigures'] = True
@@ -99,9 +101,11 @@ def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 
 			if arg.lower() in ('false', 'f'):
 				CMDoptionsDict['correctionFilterFlag'] = False
-			else:
+			elif arg.lower() in ('true', 't'):
 				CMDoptionsDict['correctionFilterFlag'] = True
 				CMDoptionsDict['correctionFilterNum'] = float(arg)
+			else:
+				raise ValueError('ERROR: Wrong input for parameter '+opt)
 
 		elif opt in ("-n", "--multipleYaxisInSameFigure"):
 
@@ -110,7 +114,8 @@ def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 			if arg[0].lower() in ('true', 't'):
 				CMDoptionsDict['multipleYaxisInSameFigure'] = True
 				if len(argSplit) == 1:
-					CMDoptionsDict['numberMultipleYaxisInSameFigure'] = max(len(CMDoptionsDict['variables']),len(CMDoptionsDict['magnitudes']))
+					# Load other options 
+					CMDoptionsDict['numberMultipleYaxisInSameFigure'] = max( [len(opt_current[1].split(',')) for opt_current in opts if opt_current[0] in ("-v", "--variables")][0] ,  [len(opt_current[1].split(',')) for opt_current in opts if opt_current[0] in ("-m", "--magnitudes")][0])
 				else:
 					CMDoptionsDict['numberMultipleYaxisInSameFigure'] = int(argSplit[-1])
 			elif arg[0].lower() in ('false', 'f'):
@@ -133,6 +138,8 @@ def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 				CMDoptionsDict['divisionLineForPlotsFlag'] = True
 			elif arg.lower() in ('false', 'f'):
 				CMDoptionsDict['divisionLineForPlotsFlag'] = False
+			else:
+				raise ValueError('ERROR: Wrong input for parameter '+opt)
 
 	return CMDoptionsDict
 
@@ -1074,7 +1081,7 @@ class dataFromGaugesSingleMagnitudeClass(object):
 			for dataClass in dataClasses:
 				for additionalInputString in additionalInput[2]:
 					if dataClass.get_description() == additionalInputString:
-						ax.plot( [t/dataClass.get_freqData()[0] for t in dataClass.get_timeRs()], dataClass.get_rs(), linestyle = '-', marker = '', c = plotSettings['colors'][plotsDone], label = dataClass.get_description(), **plotSettings['line'])
+						ax.plot( [t/dataClass.get_freqData()[0] for t in dataClass.get_timeRs()], dataClass.get_rs(), linestyle = plotSettings['linestyles'][int(plotsDone/7)], marker = '', c = plotSettings['colors'][plotsDone], label = dataClass.get_description(), **plotSettings['line'])
 
 						plotsDone += 1
 		
@@ -1664,6 +1671,16 @@ def createSegmentsOf_rs_FromVariableClass(variableClass, segmentList, index_rs_s
 	return new_rs, newTime
 
 #Utility functions
+def checkErrors(dataClasses, CMDoptionsDict, inputDataClass):
+
+	if not dataClasses: #If dataClasses is empty
+		raise ImportError('EXCEPTION CAUGHT: No files loaded. Verify variables names, steps IDs, specified location of data folder, ...')
+
+	# Check if any of the variables names are not described
+	for classCurrent in dataClasses:
+		if not classCurrent.get_mag()+'__'+classCurrent.get_description() in inputDataClass.get_variablesInfoDict().keys():
+			raise AssertionError('EXCEPTION CAUGHT: Variable '+classCurrent.get_mag()+'__'+classCurrent.get_description()+' is not described in '+CMDoptionsDict['fileNameOfFileToLoadFiles'])
+
 def usualSettingsAX(ax, plotSettings):
 	
 	ax.grid(which='both', **plotSettings['grid'])

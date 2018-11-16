@@ -14,12 +14,12 @@ print('\n\t\t-> developed by Alejandro Valverde Lopez')
 
 # CMD input
 # actuator:
-# python main.py -f filesToLoad_actuator_outerBearing.txt -o -2.1,2.1 -s t
+# python main.py -f filesToLoad_actuator_outerBeearing.txt -o -2.1,2.1 -s t
 # 
 # gauges:
-# python main.py -f filesToLoad_gauges_enduranceActuatorNewBearing.txt -v DruckHP1,DruckHP2,DurchflussHP1,DurchflussHP2,ForcePistonEyeHP1,ForcePistonEyeHP2,InputForce,LaserPiston,LaserSteuerventilhebel,OutputForce,TemperaturHP1,TemperaturHP2 -m lp -o f -s t,t -r 1,2,3,4,5,6,7,8,9 -a t
-# python main.py -f filesToLoad_gauges_TRbladeholder.txt -v BendingMoment,MyBlade,MyLoadcell,MzBlade,CF -m rs -o f -s t,t -a f -r 11,12,13,14,15
-# python main.py -f filesToLoad_gauges_OC.txt -v Tension,Bending -m rs -o t -s t,t -a f -r 1,2,3,4,5,6
+# python main.py -f filesToLoad_general_enduranceActuatorNewBearing.txt -v DruckHP1,DruckHP2,DurchflussHP1,DurchflussHP2,ForcePistonEyeHP1,ForcePistonEyeHP2,InputForce,LaserPiston,LaserSteuerventilhebel,OutputForce,TemperaturHP1,TemperaturHP2 -m lp -o f -s t,t -r 1,2,3,4,5,6,7,8,9 -a t
+# python main.py -f filesToLoad_general_TRbladeholder.txt -v BendingMoment,MyBlade,MyLoadcell,MzBlade,CF -m rs -o f -s t,t -a f -r 11,12,13,14,15
+# python main.py -f filesToLoad_general_OC.txt -v Tension,Bending -m rs -o t -s t,t -a f -r 1,2,3,4,5,6
 
 # Dicitionary of loading options
 CMDoptionsDict = {}
@@ -45,6 +45,7 @@ actuatorMesswerteFlag = CMDoptionsDict['actuatorMesswerte']
 # Gauges data analysis
 if gaugesFlag:
 	print('\n'+'**** Running general data script'+'\n')
+	print()
 
 	testFactor = 1.0 #HZ
 	orderDeriv = 2	
@@ -130,15 +131,35 @@ if gaugesFlag:
 		
 		# Up to here all the data for a single variable has bee imported 
 
+	# Errors check
+	# Analyse results until here and raise exceptions, if any
+	checkErrors(dataClasses, CMDoptionsDict, inputDataClass)
+
 	# Plotting
-	for dataClass in dataClasses: #For each class variable
+	if not CMDoptionsDict['additionalCalsFlag']:
+		
+		# Check if 
+		exampleClasse = dataClasses[0]
+		exampleLabel = inputDataClass.get_variablesInfoDict()[exampleClasse.get_mag()+'__'+exampleClasse.get_description()]['y-label']
+		flagAllTheVariablesTheSameLabel = all([inputDataClass.get_variablesInfoDict()[t.get_mag()+'__'+t.get_description()]['y-label'] == exampleLabel for t in dataClasses])
+		
+		if CMDoptionsDict['multipleYaxisInSameFigure']:
 
-		#Plotting max, min and mean from DIAdem
-		# dataClass.plotMaxMinMean_fromDIAdem(plotSettings)
+			for dataClass in dataClasses: #For each class variable
+				#Plotting resampled total data
+				if (CMDoptionsDict['showFigures'] or CMDoptionsDict['saveFigure']):
+					dataClass.plotResampled(plotSettings, CMDoptionsDict, dataClass.get_mag(), (False, [], []), inputDataClass)
 
-		#Plotting resampled total data
-		if (CMDoptionsDict['showFigures'] or CMDoptionsDict['saveFigure']) and not CMDoptionsDict['additionalCalsFlag']:
-			dataClass.plotResampled(plotSettings, CMDoptionsDict, dataClass.get_mag(), (False, [], []), inputDataClass)
+		else:
+			if not flagAllTheVariablesTheSameLabel:
+				for dataClass in dataClasses: #For each class variable
+					#Plotting resampled total data
+					if (CMDoptionsDict['showFigures'] or CMDoptionsDict['saveFigure']):
+						dataClass.plotResampled(plotSettings, CMDoptionsDict, dataClass.get_mag(), (False, [], []), inputDataClass)
+			else:
+
+				exampleClasse = dataClasses[0]
+				exampleClasse.plotResampled(plotSettings, CMDoptionsDict, exampleClasse.get_mag(), (True, dataClasses, CMDoptionsDict['variables']), inputDataClass)
 
 	# Additional calculations
 	if CMDoptionsDict['additionalCalsFlag']:
@@ -170,8 +191,8 @@ if gaugesFlag:
 
 			# Show relationship between internal leakage and tempertature
 
-			# python main.py -f filesToLoad_gauges_actuatorPerformance.txt -v Temp1,Temp2,VolFlow1,VolFlow2 -m rs -o f -s f,t -a 4 -c f -n t -r 3-SN002-1.3,8-SN002-2.4,10-SN0012-1.3,13-SN0012-2.4,3-Step-1.3,7-Step-2.4 -w t -l f
-			# python main.py -f filesToLoad_gauges_actuatorPerformance.txt -v Temp1,Temp2,VolFlow1,VolFlow2 -m rs -o f -s f,t -a 4 -c f -n t -r 7-Step-2.4 -w t -l f
+			# python main.py -f filesToLoad_general_actuatorPerformance.txt -v Temp1,Temp2,VolFlow1,VolFlow2 -m rs -o f -s f,t -a 4 -c f -n t -r 3-SN002-1.3,8-SN002-2.4,10-SN0012-1.3,13-SN0012-2.4,3-Step-1.3,7-Step-2.4 -w t -l f
+			# python main.py -f filesToLoad_general_actuatorPerformance.txt -v Temp1,Temp2,VolFlow1,VolFlow2 -m rs -o f -s f,t -a 4 -c f -n t -r 7-Step-2.4 -w t -l f
 
 			internalLeakageVSTemp_regression(dataClasses, inputDataClass, plotSettings, CMDoptionsDict)
 
@@ -180,7 +201,7 @@ if gaugesFlag:
 			# Test 2.4 contains the relationship between temperature and volume flow for zero force
 			# Remove contribution from the temperature to the volume flow shown in test 1.3
 
-			# python main.py -f filesToLoad_gauges_actuatorPerformance.txt -v Temp1,Temp2,VolFlow1,VolFlow2,OutputForce -m rs -o f -s f,t -a 5 -c f -n t -r 3-SN002-1.3,8-SN002-2.4,10-SN0012-1.3,13-SN0012-2.4,7-Step-2.4,1-Step-1.1,3-Step-1.3 -w f
+			# python main.py -f filesToLoad_general_actuatorPerformance.txt -v Temp1,Temp2,VolFlow1,VolFlow2,OutputForce -m rs -o f -s f,t -a 5 -c f -n t -r 3-SN002-1.3,8-SN002-2.4,10-SN0012-1.3,13-SN0012-2.4,7-Step-2.4,1-Step-1.1,3-Step-1.3 -w f
 
 			internalLeakageVSForce_regression(dataClasses, inputDataClass, plotSettings, CMDoptionsDict)
 
@@ -188,13 +209,13 @@ if gaugesFlag:
 			# Plot flow rate versus temperature for various operating pressures
 			# Include P2 flight test summary information information
 
-			# python main.py -f filesToLoad_gauges_actuatorPerformance.txt -v Temp1,Temp2,VolFlow1,VolFlow2 -m rs -o f -s f,t -a 6 -c f -n t -w f -l t -r 6-Step-1.6,4-SN002-1.6,8-SN002-2.4,7-Step-2.4,3-Step-1.3,3-SN002-1.3
+			# python main.py -f filesToLoad_general_actuatorPerformance.txt -v Temp1,Temp2,VolFlow1,VolFlow2 -m rs -o f -s f,t -a 6 -c f -n t -w f -l t -r 6-Step-1.6,4-SN002-1.6,8-SN002-2.4,7-Step-2.4,3-Step-1.3,3-SN002-1.3
 
 			internalLeakageVSTempVSPress_withP2ref(dataClasses, inputDataClass, plotSettings, CMDoptionsDict)
 
 		elif CMDoptionsDict['additionalCalsOpt'] == 7:
 			# Plot flow rate versus temperature using segments of data
-			# python main.py -f filesToLoad_gauges_actuatorPerformance.txt -v VolFlow1,VolFlow2,Temp1,Temp2 -m rs -o f -s f,t -c f -n t -w f -l t -r 3-SN002-1.3,10-SN0012-1.3,8-SN002-2.4,13-SN0012-2.4 -a 7
+			# python main.py -f filesToLoad_general_actuatorPerformance.txt -v VolFlow1,VolFlow2,Temp1,Temp2 -m rs -o f -s f,t -c f -n t -w f -l t -r 3-SN002-1.3,10-SN0012-1.3,8-SN002-2.4,13-SN0012-2.4 -a 7
 
 			internalLeakageVSTemp_segments(dataClasses, inputDataClass, plotSettings, CMDoptionsDict)
 
@@ -202,7 +223,7 @@ if gaugesFlag:
 
 			# Estimate the volume flow considering the piston demand 
 			# For this, piston velocities are extracted from P2 flights recorded data
-			# python main.py -f filesToLoad_gauges_P2_FTI_100Hz.txt -v CNT_DST_BST_COL,CNT_DST_BST_LNG,CNT_DST_BST_LAT -m di -o f -s f,t -a 8 -c f -n f -w f -l t -r 192-FT0106
+			# python main.py -f filesToLoad_general_P2_FTI_100Hz.txt -v CNT_DST_BST_COL,CNT_DST_BST_LNG,CNT_DST_BST_LAT -m di -o f -s f,t -a 8 -c f -n f -w f -l t -r 192-FT0106
 
 			internalLeakageDueToPistonDemand_P2flights(dataClasses, inputDataClass, plotSettings, CMDoptionsDict)
 
@@ -217,14 +238,14 @@ if gaugesFlag:
 			#	q_F -> Contribution of the force
 			#		--> Data is interpolated from component testing data
 
-			# python main.py -f filesToLoad_gauges_P2_FTI_100Hz.txt -v CNT_DST_BST_COL,CNT_FRC_BST_COL,CNT_DST_BST_LNG,CNT_FRC_BST_LNG,CNT_DST_BST_LAT,CNT_FRC_BST_LAT,HYD_ARI_MFD_TMP_1,HYD_ARI_MFD_TMP_2 -m rs,di -o f -s t,t -a 9 -c f -n t -l f -w f -r 192-FT0106
+			# python main.py -f filesToLoad_general_P2_FTI_100Hz.txt -v CNT_DST_BST_COL,CNT_FRC_BST_COL,CNT_DST_BST_LNG,CNT_FRC_BST_LNG,CNT_DST_BST_LAT,CNT_FRC_BST_LAT,HYD_ARI_MFD_TMP_1,HYD_ARI_MFD_TMP_2 -m rs,di -o f -s t,t -a 9 -c f -n t -l f -w f -r 192-FT0106
 
 			calculateFlowFlight(dataClasses, inputDataClass, plotSettings, CMDoptionsDict)
 
 		elif CMDoptionsDict['additionalCalsOpt'] == 10:
 
 			# Get information for HYD test during FT04, relevant for test report
-			# python main.py -f filesToLoad_gauges_P3_FTI.txt -m rs,di -o f -s t,f -a 10 -c f -w f -l f -r 13-FT04 -v HYD_TMP_TANK_1,HYD_TMP_TANK_2,HYD_PRS_1,HYD_PRS_2,IND_PRS_1,IND_PRS_2,CNT_DST_COL,CNT_DST_LAT,CNT_DST_LNG,CNT_DST_BST_COL,CNT_DST_BST_LAT,CNT_DST_BST_LNG -n t 
+			# python main.py -f filesToLoad_general_P3_FTI.txt -m rs,di -o f -s t,f -a 10 -c f -w f -l f -r 13-FT04 -v HYD_TMP_TANK_1,HYD_TMP_TANK_2,HYD_PRS_1,HYD_PRS_2,IND_PRS_1,IND_PRS_2,CNT_DST_COL,CNT_DST_LAT,CNT_DST_LNG,CNT_DST_BST_COL,CNT_DST_BST_LAT,CNT_DST_BST_LNG -n t 
 
 			calculateSegmentsForHYDtestFT04(dataClasses, plotSettings, CMDoptionsDict)
 
@@ -232,7 +253,7 @@ if gaugesFlag:
 			"""
 			Apply corrections to measured distances
 
-			CMD: python main.py -f filesToLoad_gauges_P3_FTI.txt -m rs -o f -s f,t -a 11 -c f -w f -l t -r 1-RC,2-RC,...,96-FT24,97-FT24 -v CNT_DST_COL,CNT_DST_LAT,CNT_DST_LNG,CNT_DST_BST_COL,CNT_DST_BST_LAT,CNT_DST_BST_LNG -n t
+			CMD: python main.py -f filesToLoad_general_P3_FTI.txt -m rs -o f -s f,t -a 11 -c f -w f -l t -r 1-RC,2-RC,...,96-FT24,97-FT24 -v CNT_DST_COL,CNT_DST_LAT,CNT_DST_LNG,CNT_DST_BST_COL,CNT_DST_BST_LAT,CNT_DST_BST_LNG -n t
 			"""
 			# Header operations
 			# Range files
@@ -280,6 +301,137 @@ if gaugesFlag:
 
 			ax.legend(**plotSettings['legend'])
 			usualSettingsAX(ax, plotSettings)
+
+		elif CMDoptionsDict['additionalCalsOpt'] in (12, 13, 14):
+
+			segsDict = {
+						'15-Step-3.1-1' : [1, 25000],
+						'16-Step-3.1-2' : [20, 1300],
+						'17-Step-3.1-3' : [2000, 23000],
+						'18-Step-3.1-4' : [50, 1500],
+						'27-Step-3.2-hot' : [100, 2000],
+						'28-Step-3.2-cold' : [4000, 38000],
+						'33-Step-3.1-40FH-cold-1' : [2000, 10000],
+						'34-Step-3.1-40FH-cold-2' : [2000, 13000],
+						'35-Step-3.1-40FH-hot' : [50, 1300],
+						'36-Step-3.2-40FH-cold-1' : [500, 9500],
+						'37-Step-3.2-40FH-cold-2' : [2000, 28000],
+						'38-Step-3.2-40FH-hot' : [100, 2000]
+			}
+
+			if CMDoptionsDict['additionalCalsOpt'] == 12:
+				"""
+				Plot the relation 
+
+				python main.py -f filesToLoad_general_actuatorPerformance.txt -m rs -o f -s f,t -a 12 -c f -w f -l t -r 15-Step-3.1-1,16-Step-3.1-2,17-Step-3.1-3,18-Step-3.1-4,33-Step-3.1-40FH-cold-1,34-Step-3.1-40FH-cold-2,35-Step-3.1-40FH-hot -v Temp1,Temp2,VolFlow1,VolFlow2 -n f
+				python main.py -f filesToLoad_general_actuatorPerformance.txt -m rs -o f -s t,t -a 12 -c f -w f -l t -r 27-Step-3.2-hot,28-Step-3.2-cold,36-Step-3.2-40FH-cold-1,37-Step-3.2-40FH-cold-2,38-Step-3.2-40FH-hot -v Temp1,Temp2,VolFlow1,VolFlow2 -n f
+				"""
+				# Data Classes
+				dataTemp1 = [temp for temp in dataClasses if temp.get_description() == 'Temp1'][0]
+				dataTemp2 = [temp for temp in dataClasses if temp.get_description() == 'Temp2'][0]
+				dataVolFlow1 = [temp for temp in dataClasses if temp.get_description() == 'VolFlow1'][0]
+				dataVolFlow2 = [temp for temp in dataClasses if temp.get_description() == 'VolFlow2'][0]			
+
+				#Vector of steps
+				stepStrs = dataTemp1.get_stepID()
+				indexDictForSteps = {}
+				for id_curr in stepStrs:
+					indexDictForSteps[id_curr] = stepStrs.index(id_curr)
+
+				# Figure initialization 
+				figure, axs = plt.subplots(2, 1, sharex='col')
+				figure.set_size_inches(16, 10, forward=True)
+				figure.suptitle('Temp ', **plotSettings['figure_title'])
+
+				plotsDone = 0
+				for stepName in stepStrs:
+					# axs[0].plot( dataTemp1.get_rs_split()[indexDictForSteps[stepName]], dataVolFlow1.get_rs_split()[indexDictForSteps[stepName]], linestyle = plotSettings['linestyles'][int(plotsDone/7)], marker = '', c = plotSettings['colors'][plotsDone], label = stepName, **plotSettings['line'])
+					# axs[1].plot( dataTemp2.get_rs_split()[indexDictForSteps[stepName]], dataVolFlow2.get_rs_split()[indexDictForSteps[stepName]], linestyle = plotSettings['linestyles'][int(plotsDone/7)], marker = '', c = plotSettings['colors'][plotsDone], label = stepName, **plotSettings['line'])
+					axs[0].plot( createSegmentsOf_rs_FromVariableClass(dataTemp1, segsDict[stepName], indexDictForSteps[stepName])[0], createSegmentsOf_rs_FromVariableClass(dataVolFlow1, segsDict[stepName], indexDictForSteps[stepName])[0], linestyle = plotSettings['linestyles'][int(plotsDone/7)], marker = '', c = plotSettings['colors'][plotsDone], label = stepName, **plotSettings['line'])
+					axs[1].plot( createSegmentsOf_rs_FromVariableClass(dataTemp2, segsDict[stepName], indexDictForSteps[stepName])[0], createSegmentsOf_rs_FromVariableClass(dataVolFlow2, segsDict[stepName], indexDictForSteps[stepName])[0], linestyle = plotSettings['linestyles'][int(plotsDone/7)], marker = '', c = plotSettings['colors'][plotsDone], label = stepName, **plotSettings['line'])
+					plotsDone += 1
+
+				axs[0].set_title('SYS 1', **plotSettings['ax_title'])
+				axs[1].set_title('SYS 2', **plotSettings['ax_title'])
+				axs[-1].set_xlabel(inputDataClass.get_variablesInfoDict()[dataTemp1.get_mag()+'__'+dataTemp1.get_description()]['y-label'], **plotSettings['axes_x'])
+				for ax in axs:
+					ax.set_ylabel(inputDataClass.get_variablesInfoDict()[dataVolFlow1.get_mag()+'__'+dataVolFlow1.get_description()]['y-label'], **plotSettings['axes_y'])
+					ax.legend(**plotSettings['legend'])
+					usualSettingsAX(ax, plotSettings)
+
+			elif CMDoptionsDict['additionalCalsOpt'] == 13:
+				"""
+				Plot the relation 
+				python main.py -f filesToLoad_general_actuatorPerformance.txt -m rs -o f -s t,t -a 13 -c f -w f -l t -r 27-Step-3.2-hot,28-Step-3.2-cold,36-Step-3.2-40FH-cold-1,37-Step-3.2-40FH-cold-2,38-Step-3.2-40FH-hot-1 -v Temp1,Temp2,Pres1,Pres2 -n f
+				"""
+				# Data Classes
+				dataTemp1 = [temp for temp in dataClasses if temp.get_description() == 'Temp1'][0]
+				dataTemp2 = [temp for temp in dataClasses if temp.get_description() == 'Temp2'][0]
+				dataPres1 = [temp for temp in dataClasses if temp.get_description() == 'Pres1'][0]
+				dataPres2 = [temp for temp in dataClasses if temp.get_description() == 'Pres2'][0]			
+
+				#Vector of steps
+				stepStrs = dataTemp1.get_stepID()
+				indexDictForSteps = {}
+				for id_curr in stepStrs:
+					indexDictForSteps[id_curr] = stepStrs.index(id_curr)
+
+				# Figure initialization 
+				figure, axs = plt.subplots(2, 1, sharex='col', sharey='col')
+				figure.set_size_inches(16, 10, forward=True)
+				figure.suptitle('Temp ', **plotSettings['figure_title'])
+
+				plotsDone = 0
+				for stepName in stepStrs:
+					# axs[0].plot( dataTemp1.get_rs_split()[indexDictForSteps[stepName]], dataPistonDispl.get_rs_split()[indexDictForSteps[stepName]], linestyle = plotSettings['linestyles'][int(plotsDone/7)], marker = '', c = plotSettings['colors'][plotsDone], label = stepName, **plotSettings['line'])
+					axs[0].plot( createSegmentsOf_rs_FromVariableClass(dataTemp1, segsDict[stepName], indexDictForSteps[stepName])[0], createSegmentsOf_rs_FromVariableClass(dataPres1, segsDict[stepName], indexDictForSteps[stepName])[0], linestyle = plotSettings['linestyles'][int(plotsDone/7)], marker = '', c = plotSettings['colors'][plotsDone], label = stepName, **plotSettings['line'])
+					axs[1].plot( createSegmentsOf_rs_FromVariableClass(dataTemp2, segsDict[stepName], indexDictForSteps[stepName])[0], createSegmentsOf_rs_FromVariableClass(dataPres2, segsDict[stepName], indexDictForSteps[stepName])[0], linestyle = plotSettings['linestyles'][int(plotsDone/7)], marker = '', c = plotSettings['colors'][plotsDone], label = stepName, **plotSettings['line'])
+					plotsDone += 1
+
+				axs[0].set_title('SYS 1', **plotSettings['ax_title'])
+				axs[1].set_title('SYS 2', **plotSettings['ax_title'])
+				axs[-1].set_xlabel(inputDataClass.get_variablesInfoDict()[dataTemp1.get_mag()+'__'+dataTemp1.get_description()]['y-label'], **plotSettings['axes_x'])
+				for ax in axs:
+					ax.set_ylabel(inputDataClass.get_variablesInfoDict()[dataPres1.get_mag()+'__'+dataPres1.get_description()]['y-label'], **plotSettings['axes_y'])
+					ax.legend(**plotSettings['legend'])
+					usualSettingsAX(ax, plotSettings)
+
+			elif CMDoptionsDict['additionalCalsOpt'] == 14:
+				"""
+				Plot the relation 
+				python main.py -f filesToLoad_general_actuatorPerformance.txt -m rs -o f -s t,t -a 14 -c f -w f -l t -r 27-Step-3.2-hot,28-Step-3.2-cold,36-Step-3.2-40FH-cold-1,37-Step-3.2-40FH-cold-2,38-Step-3.2-40FH-hot-1 -v Temp1,Temp2,PistonDispl -n f
+				"""
+				# Data Classes
+				dataTemp1 = [temp for temp in dataClasses if temp.get_description() == 'Temp1'][0]
+				dataTemp2 = [temp for temp in dataClasses if temp.get_description() == 'Temp2'][0]
+				dataPistonDispl = [temp for temp in dataClasses if temp.get_description() == 'PistonDispl'][0]
+				# dataPres2 = [temp for temp in dataClasses if temp.get_description() == 'Pres2'][0]			
+
+				#Vector of steps
+				stepStrs = dataTemp1.get_stepID()
+				indexDictForSteps = {}
+				for id_curr in stepStrs:
+					indexDictForSteps[id_curr] = stepStrs.index(id_curr)
+
+				# Figure initialization 
+				figure, axs = plt.subplots(2, 1, sharex='col', sharey='col')
+				figure.set_size_inches(16, 10, forward=True)
+				figure.suptitle('Temp ', **plotSettings['figure_title'])
+
+				plotsDone = 0
+				for stepName in stepStrs:
+					axs[0].plot( createSegmentsOf_rs_FromVariableClass(dataTemp1, segsDict[stepName], indexDictForSteps[stepName])[0], createSegmentsOf_rs_FromVariableClass(dataPistonDispl, segsDict[stepName], indexDictForSteps[stepName])[0], linestyle = plotSettings['linestyles'][int(plotsDone/7)], marker = '', c = plotSettings['colors'][plotsDone], label = stepName, **plotSettings['line'])
+					axs[1].plot( createSegmentsOf_rs_FromVariableClass(dataTemp2, segsDict[stepName], indexDictForSteps[stepName])[0], createSegmentsOf_rs_FromVariableClass(dataPistonDispl, segsDict[stepName], indexDictForSteps[stepName])[0], linestyle = plotSettings['linestyles'][int(plotsDone/7)], marker = '', c = plotSettings['colors'][plotsDone], label = stepName, **plotSettings['line'])
+					plotsDone += 1
+
+				axs[0].set_title('SYS 1', **plotSettings['ax_title'])
+				axs[1].set_title('SYS 2', **plotSettings['ax_title'])
+				axs[-1].set_xlabel(inputDataClass.get_variablesInfoDict()[dataTemp1.get_mag()+'__'+dataTemp1.get_description()]['y-label'], **plotSettings['axes_x'])
+				for ax in axs:
+					ax.set_ylabel(inputDataClass.get_variablesInfoDict()[dataPistonDispl.get_mag()+'__'+dataPistonDispl.get_description()]['y-label'], **plotSettings['axes_y'])
+					ax.legend(**plotSettings['legend'])
+					usualSettingsAX(ax, plotSettings)
+
 
 	os.chdir(cwd)
 

@@ -113,6 +113,8 @@ fileNamesBigArrayFolders = Array( _
     , Array(commonAddress&"P3-J17-0000-023\FTI\Run3\", "95-FT23", Array("fti_20181105164059_pp.tdms")) _
     , Array(commonAddress&"P3-J17-0000-024\FTI\Run1\", "96-FT24", Array("fti_20181106141007_pp.tdms")) _
     , Array(commonAddress&"P3-J17-0000-024\FTI\Run2\", "97-FT24", Array("fti_20181106162305_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0000-025\FTI\Run1\", "98-FT25", Array("fti_20181110121623_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0000-025\FTI\Run2\", "99-FT25", Array("fti_20181110125653_pp.tdms")) _
   )
 
 ' Identified errors - P3!!!
@@ -124,7 +126,7 @@ fileNamesBigArrayFolders = Array( _
 ' iterators = Array("1-SN002-1.1","2-SN002-1.2","3-SN002-1.3","4-SN002-1.6","5-SN002-2.3.1","6-SN002-2.3.2","7-SN002-2.3.3","8-SN002-2.4"_
 '                 , "9-SN0012-1.1", "10-SN0012-1.3", "11-SN0012-1.6", "12-SN0012-2.3", "13-SN0012-2.4" _
 '                 )
-iterators = Array( _ 
+iterators_base = Array( _ 
              "1-RC"_
            , "2-RC" _
            , "3-RC" _
@@ -220,14 +222,104 @@ iterators = Array( _
            , "95-FT23" _
            , "96-FT24" _
            , "97-FT24" _
+           , "98-FT25" _
+           , "99-FT25" _
 )
 
 
-iterators2 = Array(_
-          "96-FT24" _
-        , "97-FT24" _
-        , "92-FT22" _
-        )
+iterators = Array( _ 
+             "7-FT01" _
+           , "8-FT02" _
+           , "9-FT02" _
+           , "10-FT03" _
+           , "11-FT03" _
+           , "12-FT03" _
+           , "13-FT04" _
+           , "14-FT05" _
+           , "15-FT05" _
+           , "16-FT05" _
+           , "17-FT05" _
+           , "18-FT05" _
+           , "19-FT05" _
+           , "20-FT05" _
+           , "21-FT05" _
+           , "22-FT05" _
+           , "23-FT06" _
+           , "24-FT06" _
+           , "25-FT06" _
+           , "26-FT06" _
+           , "27-FT06" _
+           , "28-FT06" _
+           , "29-FT07" _
+           , "30-FT07" _
+           , "31-FT07" _
+           , "32-FT07" _
+           , "33-FT07" _
+           , "34-FT08" _
+           , "35-FT09" _
+           , "36-FT09" _
+           , "37-FT09" _
+           , "38-FT09" _
+           , "39-FT09" _
+           , "40-FT09" _
+           , "41-FT09" _
+           , "42-FT09" _
+           , "43-FT09" _
+           , "44-FT09" _
+           , "45-FT09" _
+           , "46-FT09" _
+           , "47-FT09" _
+           , "48-FT09" _
+           , "49-FT010" _
+           , "50-FT10" _
+           , "51-FT10" _
+           , "52-FT10" _
+           , "53-FT10" _
+           , "54-FT10" _
+           , "55-FT10" _
+           , "56-FT10" _
+           , "57-FT11" _
+           , "58-FT11" _
+           , "59-FT11" _
+           , "60-FT11" _
+           , "61-FT11" _
+           , "62-FT12" _
+           , "63-FT12" _
+           , "64-FT12" _
+           , "65-FT12" _
+           , "66-FT12" _
+           , "67-FT13" _
+           , "68-FT13" _
+           , "69-FT13" _
+           , "70-FT14" _
+           , "71-FT14" _
+           , "72-FT14" _
+           , "73-FT14" _
+           , "74-FT15" _
+           , "75-FT15" _
+           , "76-FT16" _
+           , "79-FT18" _
+           , "80-FT18" _
+           , "81-FT18" _
+           , "82-FT19" _
+           , "83-FT19" _
+           , "84-FT20" _
+           , "85-FT20" _
+           , "86-FT21" _
+           , "87-FT22" _
+           , "88-FT22" _
+           , "89-FT22" _
+           , "90-FT22" _
+           , "91-FT22" _
+           , "92-FT22" _
+           , "93-FT23" _
+           , "94-FT23" _
+           , "95-FT23" _
+           , "96-FT24" _
+           , "97-FT24" _
+           , "98-FT25" _
+           , "99-FT25" _
+)
 ' iterators = Array("29-FT07")
 ' iterators = Array("08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28")
 ' iterators = Array("08")
@@ -239,13 +331,13 @@ iterators2 = Array(_
 ' dictVaDiadem.Add "CNT_FRC_BST_COL", "CNT_FRC_BST_COL"
 ' dictVaDiadem.Add "CNT_FRC_BST_LAT", "CNT_FRC_BST_LAT"
 ' dictVaDiadem.Add "CNT_FRC_BST_LNG", "CNT_FRC_BST_LNG"
-dictVaDiadem.Add "CNT_DST_BST_COL", "CNT_DST_BST_COL"
-dictVaDiadem.Add "CNT_DST_BST_LAT", "CNT_DST_BST_LAT"
-dictVaDiadem.Add "CNT_DST_BST_LNG", "CNT_DST_BST_LNG"
-dictVaDiadem.Add "CNT_DST_COL", "CNT_DST_COL"
-dictVaDiadem.Add "CNT_DST_LAT", "CNT_DST_LAT"
-dictVaDiadem.Add "CNT_DST_LNG", "CNT_DST_LNG"
-' dictVaDiadem.Add "CNT_DST_PED", "CNT_DST_PED"
+' dictVaDiadem.Add "CNT_DST_BST_COL", "CNT_DST_BST_COL"
+' dictVaDiadem.Add "CNT_DST_BST_LAT", "CNT_DST_BST_LAT"
+' dictVaDiadem.Add "CNT_DST_BST_LNG", "CNT_DST_BST_LNG"
+' dictVaDiadem.Add "CNT_DST_COL", "CNT_DST_COL"
+' dictVaDiadem.Add "CNT_DST_LAT", "CNT_DST_LAT"
+' dictVaDiadem.Add "CNT_DST_LNG", "CNT_DST_LNG"
+' ' dictVaDiadem.Add "CNT_DST_PED", "CNT_DST_PED"
 ' dictVaDiadem.Add "HYD_PRS_1", "HYD_PRS_1"
 ' dictVaDiadem.Add "HYD_PRS_2", "HYD_PRS_2"
 ' dictVaDiadem.Add "HYD_TMP_1", "HYD_TMP_1"
@@ -254,6 +346,30 @@ dictVaDiadem.Add "CNT_DST_LNG", "CNT_DST_LNG"
 ' dictVaDiadem.Add "HYD_TMP_TANK_2", "HYD_TMP_TANK_2"
 ' dictVaDiadem.Add "DIU_ARI_IND_HYD_PRS_1_C", "IND_PRS_1"
 ' dictVaDiadem.Add "DIU_ARI_IND_HYD_PRS_2_C", "IND_PRS_2"
+
+' Temperature investigation upper deck
+dictVaDiadem.Add "ECS_TMP_BLEDA_VERI", "ECS_TMP_BLEDA_VERI" 'not'
+dictVaDiadem.Add "ECS_TMP_BLEDA_PRT", "ECS_TMP_BLEDA_PRT" 'not'
+dictVaDiadem.Add "ECS_TMP_BLEDA_TFIT", "ECS_TMP_BLEDA_TFIT" 'not'
+dictVaDiadem.Add "ECS_TMP_BLEDA_FEEDT", "ECS_TMP_BLEDA_FEEDT" 'not'
+dictVaDiadem.Add "ECS_TMP_BLEDA_CTR", "ECS_TMP_BLEDA_CTR" 'not'
+dictVaDiadem.Add "ECS_TMP_BLEDA_NOZ_LH", "ECS_TMP_BLEDA_NOZ_LH" 'not'
+dictVaDiadem.Add "ECS_TMP_BLEDA_NOZ_RH", "ECS_TMP_BLEDA_NOZ_RH" 'not'
+dictVaDiadem.Add "RECO_TMP_INS_CTR", "RECO_TMP_INS_CTR" 'not'
+dictVaDiadem.Add "FRW_TMP_FWD_MID", "FRW_TMP_FWD_MID" 'Kurt'
+dictVaDiadem.Add "FRW_TMP_FWD_RH", "FRW_TMP_FWD_RH" 'Kurt'
+dictVaDiadem.Add "FRW_TMP_AFT_LH", "FRW_TMP_AFT_LH" 'Kurt'
+dictVaDiadem.Add "FRW_TMP_AFT_RH", "FRW_TMP_AFT_RH" 'Kurt'
+dictVaDiadem.Add "MGB_TMP_SUS_FWD", "MGB_TMP_SUS_FWD" 'Kurt'
+dictVaDiadem.Add "ENG_TMP_EDUCT", "ENG_TMP_EDUCT" 'Kurt'
+
+dictVaDiadem.Add "ECS_TMP_LEDE_SUS_FWD_INN", "ECS_TMP_LEDE_SUS_FWD_INN" 'Kurt'
+dictVaDiadem.Add "ECS_TMP_LEDE_SUS_FWD_OUT", "ECS_TMP_LEDE_SUS_FWD_OUT" 'Kurt'
+dictVaDiadem.Add "ECS_TMP_LEDE_SUS_AFT", "ECS_TMP_LEDE_SUS_AFT" 'Kurt'
+dictVaDiadem.Add "ECS_TMP_LEDE_FRW", "ECS_TMP_LEDE_FRW" 'Kurt'
+dictVaDiadem.Add "ECS_TMP_LEDE_HYD", "ECS_TMP_LEDE_HYD" 'Kurt'
+dictVaDiadem.Add "ENG_TMP_CPT_AIR", "ENG_TMP_CPT_AIR" 'Kurt'
+
 
 signalsToDif = Array("CNT_DST_BST_COL", "CNT_DST_BST_LNG", "CNT_DST_BST_LAT","CNT_DST_COL", "CNT_DST_LNG", "CNT_DST_LAT")
 
