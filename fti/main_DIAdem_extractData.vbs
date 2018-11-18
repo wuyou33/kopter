@@ -7,9 +7,11 @@
 Include(CurrentScriptPath&"testToImport.vbs")
 ' --------------------------------------------------
 
+'Main code
+' --------------------------------------------------
+
 ' Delete all the previous groups
 Call Data.Root.Clear()
-
 
 For Each fileNameDataInput in filesNamesDataInput
 

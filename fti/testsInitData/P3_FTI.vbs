@@ -337,7 +337,7 @@ iterators = Array( _
 ' dictVaDiadem.Add "CNT_DST_COL", "CNT_DST_COL"
 ' dictVaDiadem.Add "CNT_DST_LAT", "CNT_DST_LAT"
 ' dictVaDiadem.Add "CNT_DST_LNG", "CNT_DST_LNG"
-' ' dictVaDiadem.Add "CNT_DST_PED", "CNT_DST_PED"
+' dictVaDiadem.Add "CNT_DST_PED", "CNT_DST_PED"
 ' dictVaDiadem.Add "HYD_PRS_1", "HYD_PRS_1"
 ' dictVaDiadem.Add "HYD_PRS_2", "HYD_PRS_2"
 ' dictVaDiadem.Add "HYD_TMP_1", "HYD_TMP_1"

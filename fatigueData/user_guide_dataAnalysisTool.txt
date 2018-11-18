@@ -5,30 +5,54 @@ Python&DIAdem Kopter Data Analysis Tool
     -> written by Alejandro Valverde López
 
 -> DIAdem is used to extract the data in .csv format 
--> A python program does the post-processing of the previously saved data
+-> A python program does the post-processing of the data saved by DIAdem
 
-%%%%%%%%%%%%%%%%%%
-PYTHON INSTALLATION
-%%%%%%%%%%%%%%%%%%
--> Software installation
-Installed latest python release from https://www.python.org/. Preferably install it with admin rights.  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+PYTHON INSTALLATION STEPS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+1) Software installation
+Install latest python release from https://www.python.org/. Preferably install it with admin rights. During the installation steps, 
+make sure to add "python" to the system environment variables. If the installation is completed and "python" was not included into 
+the environment variables, this need to be manually added posteriorly.
 
--> Packages installation:
+2) Packages installation:
 In CMD type: python -m pip install --user numpy scipy matplotlib ipython jupyter pandas sympy nose
 
--> Environment variables
-Add "python" to the admin or user system environment variables, depending of the type of installation which was performed.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+DIADEM CODE EXECUTION
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+As part of the present tool, DIAdem is used to extract the data and save it in a format which can be read by Python (.csv).
+To run DIAdem more efficiently, a VBS (Visual Basic Script) can be executed from DIAdem. The following files are needed to execute 
+the DIAdem script:
 
-%%%%%%%%%%%%%%%%%%
+    -> [1] Main file: "main_DIAdem_extractData.vbs" 
+    This file contains the main script. It loads its input information from the other scripts. It loads the data, performs a 
+    re-sampling operation, if applicable; and saves the variables in the .csv format. This files shall be not modified by the user.
+
+    -> [2] Definition of input files to import: "testToImport.vbs"
+    Defines which execution input file [3], or files, which are going to be imported.
+
+    -> [3] Input file: "[anyName].vbs"
+    Contains the relevant information of the test which data is going to be extracted. The file "template_VBS.vbs" can be followed 
+    to find indications on how to write this input file.
+
+For each test new execution of the DIAdem script code, the following steps shall be followed:
+
+    1) Create an input file [3], following the guidance included in "template_VBS.vbs".
+    2) Modify the variable "filesNamesDataInput" in the file [2] so that includes the name of the file [3].
+    3) Execute file [1] from DIAdem. Upon successful execution, a message window with the sentence "Execution finished" 
+    will be displayed.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 PYTHON PROGRAM EXECUTION
-%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Program needs to be executed via the command window. Type:
 
     -> python main.py [-options]
 
 Example: python main.py -f filesToLoad_gauges_P3_FTI.txt -n f -m rs -o f -s f,t -a f -c f -w f -l t -r 99-FT25 -v ENG_TMP_CPT_AIR
 
-The [-options] are written one after each other, separated by spaces. They can be written in any other. The available options are of two kinds:
+The [-options] are written one after each other, separated by spaces. They can be written in any order. The available options are of two kinds:
 
     -> Group A:
     These are used to load the input parameters to the program.
@@ -65,7 +89,7 @@ The [-options] are written one after each other, separated by spaces. They can b
             -> -c -81.15 : Adds -81.15 to all the data points of the low-pass data and 81.15 to the high-pass data imported
 
     -> Group B:
-    These are used to the choose different ways of executing the code. In most of the cases, they allow two inputs: to enable 
+    These are used to control the way the code is executed. In most of the cases, they allow two inputs: to enable 
     the option, then 'true' or 't' can be written. On the other hand, to disable the option, one can write 'false' or 'f'
 
         -> -s, -saveFigure:
@@ -108,18 +132,4 @@ The [-options] are written one after each other, separated by spaces. They can b
             -> -l t : Draw division line between test steps
             -> -l f : Do not draw division line between test steps
 
-%%%%%%%%%%%%%%%%%%
-DIADEM CODE EXECUTION
-%%%%%%%%%%%%%%%%%%
-As part of the present tool, DIAdem is used to extract the data and save it in a format which can be read by Python (.csv).
-To run DIAdem more efficiently, a VBS (Visual Basic Script) can be executed from DIAdem. The following files are needed to execute the 
-DIAdem script:
-
-    -> "main_DIAdem_extractData.vbs": This is the main script. It loads its input information from the other scripts. It loads the data, performs a 
-    re-sampling operation, if applicable; and saves the variables in the .csv format. This files shall be not modified by the user.
-
-    -> "testToImport.vbs": Defines the execution input file, or files, which is going to be imported. Define 
-
-    -> "[anyName].vbs" : Contains 
-
-This section describes how to modify the template of the input 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
