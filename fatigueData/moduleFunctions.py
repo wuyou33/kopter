@@ -25,9 +25,14 @@ def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 
 	# check input
 	# if len(opts) != len(long_opts):
-		# raise ValueError('ERROR: Invalid number of inputs')	
-
+		# raise ValueError('ERROR: Invalid number of inputs')
+	# Initial values, to be overwrited
+	for optionToInitiate in ['correctionFilterNum','correctionFilterFlag','axisArrangementOption','testOrderFlagFromCMD', 'writeStepResultsToFileFlag', 'divisionLineForPlotsFlag']:
+		CMDoptionsDict[optionToInitiate] = ''
+	optsLoaded = []
 	for opt, arg in opts:
+
+		optsLoaded += [opt]
 
 		if opt in ("-f", "--fileName"):
 			# postProcFolderName = arg
@@ -93,6 +98,7 @@ def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 
 			if arg.lower() in ('false', 'f'):
 				CMDoptionsDict['additionalCalsFlag'] = False
+				CMDoptionsDict['additionalCalsOpt'] = 0
 			else:
 				CMDoptionsDict['additionalCalsFlag'] = True
 				CMDoptionsDict['additionalCalsOpt'] = float(arg)
@@ -111,15 +117,21 @@ def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 
 			argSplit = arg.split(',')
 
-			if arg[0].lower() in ('true', 't'):
+			CMDoptionsDict['axisArrangementOption'] = arg
+			if arg[0].lower() in ('true', 't', '2', '3'):
 				CMDoptionsDict['multipleYaxisInSameFigure'] = True
+				CMDoptionsDict['oneVariableInEachAxis'] = False
 				if len(argSplit) == 1:
 					# Load other options 
 					CMDoptionsDict['numberMultipleYaxisInSameFigure'] = max( [len(opt_current[1].split(',')) for opt_current in opts if opt_current[0] in ("-v", "--variables")][0] ,  [len(opt_current[1].split(',')) for opt_current in opts if opt_current[0] in ("-m", "--magnitudes")][0])
 				else:
 					CMDoptionsDict['numberMultipleYaxisInSameFigure'] = int(argSplit[-1])
-			elif arg[0].lower() in ('false', 'f'):
+			elif arg[0].lower() in ('false', 'f', '1'):
 				CMDoptionsDict['multipleYaxisInSameFigure'] = False
+				CMDoptionsDict['oneVariableInEachAxis'] = False
+			elif arg[0].lower() in ('4'):
+				CMDoptionsDict['multipleYaxisInSameFigure'] = False
+				CMDoptionsDict['oneVariableInEachAxis'] = True
 			else:
 				raise ValueError('ERROR: Wrong input for parameter '+opt)
 
@@ -141,6 +153,7 @@ def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 			else:
 				raise ValueError('ERROR: Wrong input for parameter '+opt)
 
+	CMDoptionsDict['optsLoaded'] = optsLoaded
 	return CMDoptionsDict
 
 class dataForVariable(object): #NOT IN USE
@@ -185,7 +198,9 @@ def loadFileAddressesAndData(fileName, typeData):
 
 		elif sectionName == 'Signal characteristics actuator':
 
-			variableStringKey = cleanLine.split(':')[0]
+			variableStringKey2 = cleanLine.split(':')[0]
+			variableStringKey1 = variableStringKey2.rstrip()
+			variableStringKey = variableStringKey1.rstrip()
 			valueLine2 = cleanLine.split(':')[1]
 			valueLine1 = valueLine2.lstrip()
 			valueLine = valueLine1.rstrip()
@@ -202,7 +217,10 @@ def loadFileAddressesAndData(fileName, typeData):
 	def addSectionsInfoGauge(rawLine, sectionName, inputDataClass, currentVariable):
 		
 		cleanLine = cleanString(rawLine)
-		variableStringKey = cleanLine.split(':')[0]
+		variableStringKey2 = cleanLine.split(':')[0]
+		variableStringKey1 = variableStringKey2.lstrip()
+		variableStringKey = variableStringKey1.rstrip()
+		
 		valueLine2 = cleanLine.split(':')[1]
 		valueLine1 = valueLine2.lstrip()
 		valueLine = valueLine1.rstrip()
@@ -905,14 +923,14 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		self.__minPicks += newPicksMin_in
 		self.__timePicks += timePicks_in
 
-	def addDataManual1(self, dataClasses):
+	def addDataManual1(self, dataClasses, forceName1, forceName2, inputDataClass):
 		"""
 		Customized function to calculate the fighting force
 		"""
 		result = []
 
-		forceHP1 = [temp for temp in dataClasses if temp.get_description() == 'ForceEye1'][0]
-		forceHP2 = [temp for temp in dataClasses if temp.get_description() == 'ForceEye2'][0]
+		forceHP1 = [temp for temp in dataClasses if temp.get_description() == forceName1][0]
+		forceHP2 = [temp for temp in dataClasses if temp.get_description() == forceName2][0]
 
 		for f1, f2 in zip(forceHP1.get_rs(), forceHP2.get_rs()):
 
@@ -923,6 +941,9 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		self.__timeRs = forceHP1.get_timeRs()
 		self.__timeSecNewRunRs = forceHP1.get_timeSecNewRunRs()
 		self.__stepID = forceHP1.get_stepID()
+
+		variableDict = {'y-label' : inputDataClass.get_variablesInfoDict()[forceHP1.get_mag()+'__'+forceHP1.get_description()]['y-label']}
+		inputDataClass.updateVariablesInfoDict(forceHP1.get_mag()+'__'+self.__description, variableDict)
 
 	def addDataManual2(self, dataClasses):
 		"""
@@ -1040,6 +1061,8 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		
 		plotsDone = 0
 
+		# pdb.set_trace()
+
 		if CMDoptionsDict['multipleYaxisInSameFigure'] and CMDoptionsDict['numberMultipleYaxisInSameFigure'] != 1 and plotSettings['currentAxis'][1] == -1:
 			figure, axesList = plt.subplots(CMDoptionsDict['numberMultipleYaxisInSameFigure'], 1, sharex='col')
 			figure.set_size_inches(16, 10, forward=True)
@@ -1093,9 +1116,9 @@ class dataFromGaugesSingleMagnitudeClass(object):
 			minPlot_y = valuesMinRs*0.8 if valuesMinRs > 0.0 else valuesMinRs*1.2
 			previousDiv = 0.0
 			i = 0
-			ax.plot(2*[0.0], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = 'r', **plotSettings['line'])
+			ax.plot(2*[0.0], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = 'r', scalex = False, scaley = False, **plotSettings['line'])
 			for div in [t/self.__freqData[0] for t in self.__timeSecNewRunRs]:
-				ax.plot(2*[div], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = 'r', **plotSettings['line'])
+				ax.plot(2*[div], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = 'r', scalex = False, scaley = False, **plotSettings['line'])
 
 				#Add text with step number
 				ax.text(previousDiv + ((div - previousDiv)/2), minPlot_y, self.__stepID[i], bbox=dict(facecolor='black', alpha=0.2), horizontalalignment = 'center')
@@ -1105,18 +1128,18 @@ class dataFromGaugesSingleMagnitudeClass(object):
 				i += 1
 
 		# Test Order plots 
-		if not additionalInput[0] and CMDoptionsDict['testOrderFlagFromCMD'] and ( (inputDataClass.get_variablesInfoDict()[magnitude+'__'+self.__description]['TO spec'] in ('yes', 'y') and magnitude == 'rs') or (inputDataClass.get_variablesInfoDict()[magnitude+'__'+self.__description]['Fatigue load spec'] in ('yes', 'y') and magnitude in ('lp', 'hp')) ):
+		if not additionalInput[0] and CMDoptionsDict['testOrderFlagFromCMD'] and ( (inputDataClass.get_variablesInfoDict()[magnitude+'__'+self.__description]['TO spec'].lower() in ('yes', 'y') and magnitude == 'rs') or (inputDataClass.get_variablesInfoDict()[magnitude+'__'+self.__description]['Fatigue load spec'].lower() in ('yes', 'y') and magnitude in ('lp', 'hp')) ):
 			maxPlot_x = 0.0
 			minPlot_x = max(self.__timeSecNewRunRs)/self.__freqData[0]
 
 			limitsLoadsBoundaries = []
 			if magnitude == 'rs':
 				limitLoads = [float(t) for t in [inputDataClass.get_variablesInfoDict()[magnitude+'__'+self.__description]['max load'], inputDataClass.get_variablesInfoDict()[magnitude+'__'+self.__description]['min load']]]
-			elif magnitude == 'lp' and inputDataClass.get_variablesInfoDict()[magnitude+'__'+self.__description]['Fatigue load spec'] in ('yes', 'y'):
+			elif magnitude == 'lp' and inputDataClass.get_variablesInfoDict()[magnitude+'__'+self.__description]['Fatigue load spec'].lower() in ('yes', 'y'):
 				limitLoads = [float(inputDataClass.get_variablesInfoDict()[magnitude+'__'+self.__description]['static load'])]
 				margin = float(inputDataClass.get_variablesInfoDict()[magnitude+'__'+self.__description]['margin static load (%)'])
 				limitsLoadsBoundaries = [1 + (margin/100), 1 - (margin/100)]
-			elif magnitude == 'hp' and inputDataClass.get_variablesInfoDict()[magnitude+'__'+self.__description]['Fatigue load spec'] in ('yes', 'y'):
+			elif magnitude == 'hp' and inputDataClass.get_variablesInfoDict()[magnitude+'__'+self.__description]['Fatigue load spec'].lower() in ('yes', 'y'):
 				limitLoads = [float(inputDataClass.get_variablesInfoDict()[magnitude+'__'+self.__description]['alternate load']), -float(inputDataClass.get_variablesInfoDict()[magnitude+'__'+self.__description]['alternate load'])]
 				margin = float(inputDataClass.get_variablesInfoDict()[magnitude+'__'+self.__description]['margin alternate load (%)'])
 				limitsLoadsBoundaries = [1 + (margin/100), 1 - (margin/100)]
@@ -1166,6 +1189,43 @@ class dataFromGaugesSingleMagnitudeClass(object):
 			figure.savefig(os.path.join(CMDoptionsDict['cwd'], ','.join([str(i) for i in CMDoptionsDict['magnitudes']])+'_'+rangeIDstring+'_'+','.join([str(i) for i in CMDoptionsDict['variables']])+'.png'), dpi = plotSettings['figure_settings']['dpi'])
 
 		return plotSettings
+
+	def plotOneVariableAgainstOther(self, plotSettings, CMDoptionsDict, inputDataClass, dataClasses):
+
+			# Range files
+			if len(CMDoptionsDict['rangeFileIDs']) < 8:
+				rangeIDstring = ','.join([str(i) for i in CMDoptionsDict['rangeFileIDs']])
+			else:
+				rangeIDstring = str(CMDoptionsDict['rangeFileIDs'][0])+'...'+str(CMDoptionsDict['rangeFileIDs'][-1])
+
+			# Data Classes
+			data1 = [temp for temp in dataClasses if temp.get_description() == CMDoptionsDict['variables'][0]][0]
+			data2 = [temp for temp in dataClasses if temp.get_description() == CMDoptionsDict['variables'][1]][0]
+
+			#Vector of steps
+			stepStrs = data1.get_stepID()
+			indexDictForSteps = {}
+			for id_curr in stepStrs:
+				indexDictForSteps[id_curr] = stepStrs.index(id_curr)
+
+			figure, ax = plt.subplots(1, 1, sharex='col')
+			figure.set_size_inches(16, 10, forward=True)
+			figure.suptitle(rangeIDstring, **plotSettings['figure_title'])
+
+			plotsDone = 0
+			for stepName in stepStrs:
+				ax.plot( data1.get_rs_split()[indexDictForSteps[stepName]], data2.get_rs_split()[indexDictForSteps[stepName]], linestyle = plotSettings['linestyles'][int(plotsDone/7)], marker = '', c = plotSettings['colors'][plotsDone], label = stepName, **plotSettings['line'])
+				plotsDone += 1
+
+			ax.set_xlabel(inputDataClass.get_variablesInfoDict()[data1.get_mag()+'__'+data1.get_description()]['y-label'], **plotSettings['axes_x'])
+			ax.set_ylabel(inputDataClass.get_variablesInfoDict()[data2.get_mag()+'__'+data2.get_description()]['y-label'], **plotSettings['axes_y'])
+
+			ax.legend(**plotSettings['legend'])
+			usualSettingsAX(ax, plotSettings)
+			# Save figure
+			if CMDoptionsDict['saveFigure']:
+
+				figure.savefig(os.path.join(CMDoptionsDict['cwd'], ','.join([str(i) for i in CMDoptionsDict['magnitudes']])+'_'+rangeIDstring+'_'+'_vs_'.join([str(i) for i in CMDoptionsDict['variables']])+'.png'), dpi = plotSettings['figure_settings']['dpi'])
 
 	def plotMinMeanMax(self, plotSettings):
 
@@ -1546,17 +1606,17 @@ def plotAllRuns_filtered_Messwerte(dataFromRuns, timesDict, plotSettings, CMDopt
 				previousDiv = div
 				i += 1
 
-			if CMDoptionsDict['testOrderFlagFromCMD'] and inputDataClass.get_actuatorDataInfoDict()['TO spec'] in ('yes', 'y') and ('force' in attr or 'kraft' in attr):
+			if CMDoptionsDict['testOrderFlagFromCMD'] and inputDataClass.get_actuatorDataInfoDict()['TO spec'].lower() in ('yes', 'y') and ('force' in attr or 'kraft' in attr):
 				maxPlot_x = 0.0
 				minPlot_x = timesDict['lastTimeList'][-1]
 				limitsLoadsBoundaries = []
 				if attr == 'kraft':
 					limitLoads = [float(t) for t in [inputDataClass.get_actuatorDataInfoDict()['max load'], inputDataClass.get_actuatorDataInfoDict()['min load']]]
-				elif attr == 'lowpass_force' and inputDataClass.get_actuatorDataInfoDict()['Fatigue load spec'] in ('yes', 'y'):
+				elif attr == 'lowpass_force' and inputDataClass.get_actuatorDataInfoDict()['Fatigue load spec'].lower() in ('yes', 'y'):
 					limitLoads = [float(inputDataClass.get_actuatorDataInfoDict()['static load'])]
 					margin = float(inputDataClass.get_actuatorDataInfoDict()['margin static load (%)'])
 					limitsLoadsBoundaries = [1 + (margin/100), 1 - (margin/100)]
-				elif attr == 'highpass_force' and inputDataClass.get_actuatorDataInfoDict()['Fatigue load spec'] in ('yes', 'y'):
+				elif attr == 'highpass_force' and inputDataClass.get_actuatorDataInfoDict()['Fatigue load spec'].lower() in ('yes', 'y'):
 					limitLoads = [float(inputDataClass.get_actuatorDataInfoDict()['alternate load']), -float(inputDataClass.get_actuatorDataInfoDict()['alternate load'])]
 					margin = float(inputDataClass.get_actuatorDataInfoDict()['margin alternate load (%)'])
 					limitsLoadsBoundaries = [1 + (margin/100), 1 - (margin/100)]
@@ -1659,16 +1719,27 @@ def filter(data, fs, typeFilter, cutoff):
 
 def createSegmentsOf_rs_FromVariableClass(variableClass, segmentList, index_rs_split):
 
-	allTime = list(np.linspace(0, float(len(variableClass.get_rs_split()[index_rs_split])*(1/variableClass.get_freqData()[0])), len(variableClass.get_rs_split()[index_rs_split]), endpoint=True))
+	allTime = get_timeVectorClass(variableClass, index_rs_split)
 
-	startTime_index = allTime.index([t for t in allTime if abs(segmentList[0]-t)<(0.6*(1/variableClass.get_freqData()[0]))][0])
-	endTime_index = allTime.index([t for t in allTime if abs(segmentList[1]-t)<(0.6*(1/variableClass.get_freqData()[0]))][0])
+	assert len(allTime) == len(variableClass.get_rs_split()[index_rs_split])
 
-	new_rs = variableClass.get_rs_split()[index_rs_split][startTime_index:endTime_index+1]
+	if isinstance(segmentList, list):
+		startTime_index = allTime.index([t for t in allTime if abs(segmentList[0]-t)<(0.6*(1/variableClass.get_freqData()[0]))][0])
+		endTime_index = allTime.index([t for t in allTime if abs(segmentList[1]-t)<(0.6*(1/variableClass.get_freqData()[0]))][0])
 
-	newTime = allTime[startTime_index:endTime_index+1]
+		new_rs = variableClass.get_rs_split()[index_rs_split][startTime_index:endTime_index+1]
 
-	return new_rs, newTime
+		newTime = allTime[startTime_index:endTime_index+1]
+
+		return new_rs, newTime
+
+	else:
+		singleTime_index = allTime.index([t for t in allTime if abs(segmentList-t)<(0.6*(1/variableClass.get_freqData()[0]))][0])
+		new_rs = variableClass.get_rs_split()[index_rs_split][singleTime_index]
+		newTime = allTime[singleTime_index]
+
+		return new_rs, newTime
+
 
 #Utility functions
 def checkErrors(dataClasses, CMDoptionsDict, inputDataClass):
@@ -1680,6 +1751,17 @@ def checkErrors(dataClasses, CMDoptionsDict, inputDataClass):
 	for classCurrent in dataClasses:
 		if not classCurrent.get_mag()+'__'+classCurrent.get_description() in inputDataClass.get_variablesInfoDict().keys():
 			raise AssertionError('EXCEPTION CAUGHT: Variable '+classCurrent.get_mag()+'__'+classCurrent.get_description()+' is not described in '+CMDoptionsDict['fileNameOfFileToLoadFiles'])
+
+	if '-n' in CMDoptionsDict['optsLoaded']:
+		if CMDoptionsDict['oneVariableInEachAxis'] and len(CMDoptionsDict['variables']) != 2:
+			raise AssertionError('EXCEPTION CAUGHT: One two variables can be plotted one against each other. The current number of variables is '+str(len(CMDoptionsDict['variables'])))
+		elif CMDoptionsDict['oneVariableInEachAxis']:
+			# Data Classes
+			data1 = [temp for temp in dataClasses if temp.get_description() == CMDoptionsDict['variables'][0]][0]
+			data2 = [temp for temp in dataClasses if temp.get_description() == CMDoptionsDict['variables'][1]][0]
+
+			if data1.get_freqData() != data2.get_freqData():
+				raise AssertionError('EXCEPTION CAUGHT: The two variables which are going to be plotted one against each other need to have the same sampling freq.')
 
 def usualSettingsAX(ax, plotSettings):
 	
@@ -1861,3 +1943,53 @@ def cleanString(stringIn):
 	else:
 
 		return stringIn
+
+def get_indexDictForSteps(exampleClass):
+	stepStrs = exampleClass.get_stepID()
+	indexDictForSteps = {}
+	for id_curr in stepStrs:
+		indexDictForSteps[id_curr] = stepStrs.index(id_curr)
+
+	return indexDictForSteps, stepStrs
+
+def get_timeVectorClass(variableClass, index_rs_split):
+
+	allTime = list(np.linspace(0, float(len(variableClass.get_rs_split()[index_rs_split])*(1/variableClass.get_freqData()[0])), len(variableClass.get_rs_split()[index_rs_split]), endpoint=True))
+
+	return allTime
+
+def showInputOptions(CMDoptionsDict):
+
+	print('\n'+'**** Options loaded'+'\n')
+
+	titlesDict = {
+					'-f': 'File name with test definition (-f):',
+					'-v': 'Input variables (-v):',
+					'-m': 'Variables magnitudes (-m):',
+					'-r': 'Range of steps considered (-r):',
+					'-c': 'Offset correction to be applied to the filtered data (-c):',
+					'-s': 'Figure display options (-s):',
+					'-n': 'Axes arrangements option (-n):',
+					'-o': 'Show reference lines (Test Order values) (-o):',
+					'-a': 'Additional calculations option (-a):',
+					'-w': 'Write data summary report in spreadsheet (-w):',
+					'-l': 'Plot division between consecutive test steps (-l):',
+					}
+	
+	valuesDict = {
+					'-f': CMDoptionsDict['fileNameOfFileToLoadFiles'],
+					'-v': ' '.join(CMDoptionsDict['variables']),
+					'-m': ' '.join(CMDoptionsDict['magnitudes']),
+					'-r': ' '.join(CMDoptionsDict['rangeFileIDs']),
+					'-c': 'Enabled, with value '+str(CMDoptionsDict['correctionFilterNum']) if CMDoptionsDict['correctionFilterFlag'] else 'Disabled',
+					'-s': ', '.join(['Show figure: ' + 'Enabled' if CMDoptionsDict['showFigures'] else 'Disabled', 'Save figure: ' + 'Enabled' if CMDoptionsDict['saveFigure'] else 'Disabled']),
+					'-n': CMDoptionsDict['axisArrangementOption'],
+					'-o': 'Enabled' if CMDoptionsDict['testOrderFlagFromCMD'] else 'Disabled',
+					'-a': 'Option '+str(CMDoptionsDict['additionalCalsOpt']) if CMDoptionsDict['additionalCalsFlag'] else 'Disabled',
+					'-w': 'Enabled' if CMDoptionsDict['writeStepResultsToFileFlag'] else 'Disabled',
+					'-l': 'Enabled' if CMDoptionsDict['divisionLineForPlotsFlag'] else 'Disabled',
+					}
+	
+	for option in CMDoptionsDict['optsLoaded']:
+		print('-> '+titlesDict[option])
+		print(valuesDict[option])

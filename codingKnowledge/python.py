@@ -31,11 +31,13 @@ for tick in xticksMajor[: len(xticksMajor)-2]:
 	xticksMinorUser += xticksMinorUserInBetween
 	counter += 1
 
-[print(m) for m in xticksMinorUser]
+check[print(m) for m in xticksMinorUser]
 xlistOfLabelsMinor = [str(m) for m in xticksMinor]
 ylistOfLabelsMinor = [str(m) for m in yticksMinor]
 ax.set_xticklabels(xlistOfLabelsMinor, minor=True)
 ax.set_yticklabels(ylistOfLabelsMinor, minor=True)
+
+, scalex = False, scaley = False,
 
 # Lin algebra
 a.shape
@@ -48,3 +50,7 @@ for ad in addressTuple_P2:
 	file.write(ad+'\n')
 
 file.close()
+
+# Check variable type
+isinstance(numbers, list)
+isinstance(s, str)

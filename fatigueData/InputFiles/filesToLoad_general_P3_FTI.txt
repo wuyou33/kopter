@@ -6,6 +6,8 @@ test_freq: 2
 corr_COL: 2.54
 corr_LNG: 9.76
 corr_LAT: 1.54
+threshold_press_up: 85
+threshold_press_down: 5
 
 -> Variable info
 name: rs__CNT_FRC_BST_COL
@@ -25,6 +27,26 @@ Fatigue load spec: no
 
 -> Variable info
 name: rs__CNT_FRC_BST_LNG
+y-label: Force [N]
+TO spec: yes
+max load: 700
+min load: -700
+Fatigue load spec: no
+
+-> Variable info
+name: rs__CNT_FRC_BST_TR_1
+y-label: Force [N]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__CNT_FRC_BST_TR_2
+y-label: Force [N]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__CNT_FRC_BST_TR_CALC
 y-label: Force [N]
 TO spec: yes
 max load: 700
@@ -257,5 +279,23 @@ Fatigue load spec: no
 -> Variable info
 name: rs__ENG_TMP_CPT_AIR
 y-label: Temperature [degC]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__PFD_ARI_TMP_OAT
+y-label: Temperature [degC]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__DIU_ARI_IND_HYD_PRS_1_C
+y-label: [None]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__DIU_ARI_IND_HYD_PRS_2_C
+y-label: [None]
 TO spec: no
 Fatigue load spec: no

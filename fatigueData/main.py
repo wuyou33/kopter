@@ -1,3 +1,17 @@
+##################################################
+## Python&DIAdem Kopter Data Analysis Tool
+##################################################
+## This script is a python script used t
+##################################################
+## Author: Alejandro Valverde Lopez
+## Copyright: Kopter Groupd AG
+## License: GNU
+## Version: 1
+## Maintainer: Alejandro Valverde Lopez
+## Email: Alejandro.Valverde@koptergroup.com
+## Status: Under develop
+##################################################
+
 import os
 import sys
 # import pdb #pdb.set_trace()
@@ -31,8 +45,10 @@ CMDoptionsDict['cwd'] = cwd
 #Read postProc folder name from CMD
 CMDoptionsDict = readCMDoptionsMainAbaqusParametric(sys.argv[1:], CMDoptionsDict)
 
+showInputOptions(CMDoptionsDict)
+
 #Write output data
-if CMDoptionsDict['writeStepResultsToFileFlag']:
+if CMDoptionsDict['writeStepResultsToFileFlag'] or CMDoptionsDict['additionalCalsOpt'] == 15:
 	CMDoptionsDict['stepsSummaryResultsFolder'] = os.path.join(CMDoptionsDict['cwd'],'stepsSummaryResults')
 	if not os.path.isdir(CMDoptionsDict['stepsSummaryResultsFolder']):
 		os.mkdir(CMDoptionsDict['stepsSummaryResultsFolder'])
@@ -83,7 +99,6 @@ if gaugesFlag:
 				dataVar = dataFromGaugesSingleMagnitudeClass(var, mag, testFactor, orderDeriv)
 				dataClasses += (dataVar, )
 		
-		# pdb.set_trace()
 		for dataClass in dataClasses: #For each class variable
 
 			if dataClass.get_mag() == mag: #Only to dataClass with the current mag
@@ -137,6 +152,7 @@ if gaugesFlag:
 
 	# Plotting
 	if not CMDoptionsDict['additionalCalsFlag']:
+
 		
 		# Check if 
 		exampleClasse = dataClasses[0]
@@ -145,21 +161,31 @@ if gaugesFlag:
 		
 		if CMDoptionsDict['multipleYaxisInSameFigure']:
 
-			for dataClass in dataClasses: #For each class variable
-				#Plotting resampled total data
-				if (CMDoptionsDict['showFigures'] or CMDoptionsDict['saveFigure']):
-					dataClass.plotResampled(plotSettings, CMDoptionsDict, dataClass.get_mag(), (False, [], []), inputDataClass)
-
-		else:
-			if not flagAllTheVariablesTheSameLabel:
+			
+			if not flagAllTheVariablesTheSameLabel or CMDoptionsDict['axisArrangementOption'] == '2':
 				for dataClass in dataClasses: #For each class variable
 					#Plotting resampled total data
 					if (CMDoptionsDict['showFigures'] or CMDoptionsDict['saveFigure']):
 						dataClass.plotResampled(plotSettings, CMDoptionsDict, dataClass.get_mag(), (False, [], []), inputDataClass)
 			else:
 
+				CMDoptionsDict['multipleYaxisInSameFigure'] = False
+
 				exampleClasse = dataClasses[0]
 				exampleClasse.plotResampled(plotSettings, CMDoptionsDict, exampleClasse.get_mag(), (True, dataClasses, CMDoptionsDict['variables']), inputDataClass)
+
+		elif CMDoptionsDict['oneVariableInEachAxis']:
+
+			exampleClasse = dataClasses[0]
+
+			exampleClasse.plotOneVariableAgainstOther(plotSettings, CMDoptionsDict, inputDataClass, dataClasses)
+
+		else:
+
+			for dataClass in dataClasses: #For each class variable
+				#Plotting resampled total data
+				if (CMDoptionsDict['showFigures'] or CMDoptionsDict['saveFigure']):
+					dataClass.plotResampled(plotSettings, CMDoptionsDict, dataClass.get_mag(), (False, [], []), inputDataClass)
 
 	# Additional calculations
 	if CMDoptionsDict['additionalCalsFlag']:
@@ -169,12 +195,12 @@ if gaugesFlag:
 		# dataAdditional = dataFromGaugesSingleMagnitudeClass('forceFighting', testFactor, orderDeriv)
 		if CMDoptionsDict['additionalCalsOpt'] == 1:
 			dataAdditional = dataFromGaugesSingleMagnitudeClass('forceFightingEyes(HP1-HP2)', 'rs', testFactor, orderDeriv)
-			dataAdditional.addDataManual1(dataClasses)
+			dataAdditional.addDataManual1(dataClasses, 'ForceEye1', 'ForceEye2', inputDataClass)
 			dataAdditional.plotResampled(plotSettings, CMDoptionsDict, dataAdditional.get_mag(), (False, [], []), inputDataClass)
 
 		elif CMDoptionsDict['additionalCalsOpt'] == 1.5:
 			dataAdditional = dataFromGaugesSingleMagnitudeClass('forceFightingEyes(HP1-HP2)', 'rs', testFactor, orderDeriv)
-			dataAdditional.addDataManual1(dataClasses)
+			dataAdditional.addDataManual1(dataClasses, 'ForceEye1', 'ForceEye2', inputDataClass)
 			dataClasses += (dataAdditional, )
 			dataAdditional.plotResampled(plotSettings, CMDoptionsDict, dataAdditional.get_mag(), (True, dataClasses, ('forceFightingEyes(HP1-HP2)','ForceEye1','ForceEye2','PistonDispl')), inputDataClass)
 		elif CMDoptionsDict['additionalCalsOpt'] == 2:
@@ -304,26 +330,17 @@ if gaugesFlag:
 
 		elif CMDoptionsDict['additionalCalsOpt'] in (12, 13, 14):
 
-			segsDict = {
-						'15-Step-3.1-1' : [1, 25000],
-						'16-Step-3.1-2' : [20, 1300],
-						'17-Step-3.1-3' : [2000, 23000],
-						'18-Step-3.1-4' : [50, 1500],
-						'27-Step-3.2-hot' : [100, 2000],
-						'28-Step-3.2-cold' : [4000, 38000],
-						'33-Step-3.1-40FH-cold-1' : [2000, 10000],
-						'34-Step-3.1-40FH-cold-2' : [2000, 13000],
-						'35-Step-3.1-40FH-hot' : [50, 1300],
-						'36-Step-3.2-40FH-cold-1' : [500, 9500],
-						'37-Step-3.2-40FH-cold-2' : [2000, 28000],
-						'38-Step-3.2-40FH-hot' : [100, 2000]
-			}
+			# Extract di
+			segsDict = {}
+			for stepID in CMDoptionsDict['rangeFileIDs']:
+
+				segsDict[stepID] = [float(t) for t in inputDataClass.get_variablesInfoDict()['testData']['segment__'+stepID].split(',')]
 
 			if CMDoptionsDict['additionalCalsOpt'] == 12:
 				"""
-				Plot the relation 
+				Plot the relation between the internal leakage and the temperature, considering a segmented data set
 
-				python main.py -f filesToLoad_general_actuatorPerformance.txt -m rs -o f -s f,t -a 12 -c f -w f -l t -r 15-Step-3.1-1,16-Step-3.1-2,17-Step-3.1-3,18-Step-3.1-4,33-Step-3.1-40FH-cold-1,34-Step-3.1-40FH-cold-2,35-Step-3.1-40FH-hot -v Temp1,Temp2,VolFlow1,VolFlow2 -n f
+				python main.py -f filesToLoad_general_actuatorPerformance.txt -m rs -o f -s f,t -a 12 -c f -w f -l t -r 15-Step-3.1-1,16-Step-3.1-2,17-Step-3.1-3,18-Step-3.1-4,33-Step-3.1-40FH-cold-1,34-Step-3.1-40FH-cold-2,35-Step-3.1-40FH-hot,39-Step-3.1-50FH-col,40-Step-3.1-50FH-hot -v Temp1,Temp2,VolFlow1,VolFlow2 -n f
 				python main.py -f filesToLoad_general_actuatorPerformance.txt -m rs -o f -s t,t -a 12 -c f -w f -l t -r 27-Step-3.2-hot,28-Step-3.2-cold,36-Step-3.2-40FH-cold-1,37-Step-3.2-40FH-cold-2,38-Step-3.2-40FH-hot -v Temp1,Temp2,VolFlow1,VolFlow2 -n f
 				"""
 				# Data Classes
@@ -333,10 +350,7 @@ if gaugesFlag:
 				dataVolFlow2 = [temp for temp in dataClasses if temp.get_description() == 'VolFlow2'][0]			
 
 				#Vector of steps
-				stepStrs = dataTemp1.get_stepID()
-				indexDictForSteps = {}
-				for id_curr in stepStrs:
-					indexDictForSteps[id_curr] = stepStrs.index(id_curr)
+				indexDictForSteps, stepStrs = get_indexDictForSteps(dataTemp1)
 
 				# Figure initialization 
 				figure, axs = plt.subplots(2, 1, sharex='col')
@@ -371,11 +385,8 @@ if gaugesFlag:
 				dataPres2 = [temp for temp in dataClasses if temp.get_description() == 'Pres2'][0]			
 
 				#Vector of steps
-				stepStrs = dataTemp1.get_stepID()
-				indexDictForSteps = {}
-				for id_curr in stepStrs:
-					indexDictForSteps[id_curr] = stepStrs.index(id_curr)
-
+				indexDictForSteps, stepStrs = get_indexDictForSteps(dataTemp1)
+				
 				# Figure initialization 
 				figure, axs = plt.subplots(2, 1, sharex='col', sharey='col')
 				figure.set_size_inches(16, 10, forward=True)
@@ -408,10 +419,7 @@ if gaugesFlag:
 				# dataPres2 = [temp for temp in dataClasses if temp.get_description() == 'Pres2'][0]			
 
 				#Vector of steps
-				stepStrs = dataTemp1.get_stepID()
-				indexDictForSteps = {}
-				for id_curr in stepStrs:
-					indexDictForSteps[id_curr] = stepStrs.index(id_curr)
+				indexDictForSteps, stepStrs = get_indexDictForSteps(dataTemp1)
 
 				# Figure initialization 
 				figure, axs = plt.subplots(2, 1, sharex='col', sharey='col')
@@ -431,6 +439,116 @@ if gaugesFlag:
 					ax.set_ylabel(inputDataClass.get_variablesInfoDict()[dataPistonDispl.get_mag()+'__'+dataPistonDispl.get_description()]['y-label'], **plotSettings['axes_y'])
 					ax.legend(**plotSettings['legend'])
 					usualSettingsAX(ax, plotSettings)
+
+		elif CMDoptionsDict['additionalCalsOpt'] == 15:
+			"""
+			Calculations for Christian, obtain temperatures
+			CMD: python main.py -f filesToLoad_general_P3_FTI.txt -m rs -s f,t -a 15 -v HYD_PRS_1,HYD_PRS_2,HYD_TMP_TANK_1,HYD_TMP_TANK_2,DIU_ARI_IND_HYD_PRS_1_C,DIU_ARI_IND_HYD_PRS_2_C,PFD_ARI_TMP_OAT -r 100-FT01
+			"""
+
+			# Write header row to file
+			#I/O with files
+			file = open(os.path.join(CMDoptionsDict['stepsSummaryResultsFolder'], 'HYD_analysis.csv'), 'w')
+
+			indexDictForSteps, stepStrs = get_indexDictForSteps(dataClasses[0])
+
+			OAT_Class = [temp for temp in dataClasses if temp.get_description() == 'PFD_ARI_TMP_OAT'][0]
+			
+			header = ['SYS', 'Time[s]', 'Type', 'HYD_TMP_TANK[degC]', 'HYD_PRS[bar]', 'OAT[degC]', 'TimeToDown[s]']
+			file.write(';'.join(header)+'\n')
+			for stepStr in stepStrs:
+				file.write(stepStr+'\n')
+
+				for sysID in ('1', '2'):
+
+					figure, axs = plt.subplots(4, 1, sharex='col')
+					figure.set_size_inches(16, 10, forward=True)
+					figure.suptitle(stepStr + ' / SYS '+sysID, **plotSettings['figure_title'])
+
+
+					HYD_IND_Class = [temp for temp in dataClasses if temp.get_description() == 'DIU_ARI_IND_HYD_PRS_'+sysID+'_C'][0]
+					HYD_TMP_Class = [temp for temp in dataClasses if temp.get_description() == 'HYD_TMP_TANK_'+sysID][0]
+					HYD_PRS_Class = [temp for temp in dataClasses if temp.get_description() == 'HYD_PRS_'+sysID][0]
+
+					for ax, class_current in zip(axs, [OAT_Class, HYD_TMP_Class, HYD_PRS_Class, HYD_IND_Class]):
+						ax.plot( get_timeVectorClass(class_current, indexDictForSteps[stepStr]), class_current.get_rs_split()[indexDictForSteps[stepStr]], linestyle = '-', marker = 'o', c = 'k', label = class_current.get_description(), **plotSettings['line'])
+						ax.set_ylabel(inputDataClass.get_variablesInfoDict()[class_current.get_mag()+'__'+class_current.get_description()]['y-label'], **plotSettings['axes_y'])
+
+					timeSegment = get_timeVectorClass(HYD_IND_Class, indexDictForSteps[stepStr])
+					dataSegment = HYD_IND_Class.get_rs_split()[indexDictForSteps[stepStr]]
+
+					assert len(timeSegment) == len(dataSegment)
+
+					i = 1
+					timesOff = []
+					for point in dataSegment[1:]:
+
+						incrementBinary = point - dataSegment[i-1]
+
+						if incrementBinary != 0:
+							temp_sys_singlePoint = createSegmentsOf_rs_FromVariableClass(HYD_TMP_Class, timeSegment[i-1], indexDictForSteps[stepStr])[0]
+							prs_sys_singlePoint = createSegmentsOf_rs_FromVariableClass(HYD_PRS_Class, timeSegment[i-1], indexDictForSteps[stepStr])[0]
+							oat_sys_singlePoint = createSegmentsOf_rs_FromVariableClass(OAT_Class, timeSegment[i-1], indexDictForSteps[stepStr])[0]
+							
+							if incrementBinary == 1:
+								# Switch went from 0 to 1
+								type_detected = 'Switch-ON'
+								for ax in axs:
+									ax.plot(2*[timeSegment[i-1]], [ax.get_ylim()[0], ax.get_ylim()[1]], linestyle = '--', marker = '', c = 'g', scalex = False, scaley = False, **plotSettings['line'])
+
+								pressureRangeUp, timeRangeUp = createSegmentsOf_rs_FromVariableClass(HYD_PRS_Class, [timeSegment[i-1]-1, timeSegment[i-1]+2], indexDictForSteps[stepStr])
+								pressureRangeDown, timeRangeDown = createSegmentsOf_rs_FromVariableClass(HYD_PRS_Class, [timeSegment[i-1], timeSegment[-2]], indexDictForSteps[stepStr])
+								time_up = None
+								for press, time_current in zip(pressureRangeUp, timeRangeUp):
+									if press < float(inputDataClass.get_variablesInfoDict()['testData']['threshold_press_up']):
+										time_up = time_current
+										break
+								time_down = None
+								for press, time_current in zip(pressureRangeDown, timeRangeDown):
+									if press < float(inputDataClass.get_variablesInfoDict()['testData']['threshold_press_down']):
+										time_down = time_current
+										break
+								try:
+									time_to_down = time_down - time_up
+								except TypeError as e:
+									raise ValueError('Error for calculating point at '+str(timeSegment[i-1])+' seconds / SYS '+sysID)
+
+							elif incrementBinary == -1:
+								# Switch from 1 to 0
+								type_detected = 'Switch-OFF'
+								for ax in axs:
+									ax.plot(2*[timeSegment[i-1]], [ax.get_ylim()[0], ax.get_ylim()[1]], linestyle = '--', marker = '', c = 'r', scalex = False, scaley = False, **plotSettings['line'])
+								time_to_down = ''
+
+							# Output data
+							output = [p if isinstance(p, str) else str(p) for p in [sysID, timeSegment[i-1], type_detected, temp_sys_singlePoint, prs_sys_singlePoint, oat_sys_singlePoint, time_to_down]]
+							file.write(';'.join(output)+'\n')
+						i+=1
+
+					for ax in axs:
+						ax.set_xlabel('Time elapsed', **plotSettings['axes_x'])
+						ax.legend(**plotSettings['legend'])
+						usualSettingsAX(ax, plotSettings)
+
+					if CMDoptionsDict['saveFigure']:
+
+						# Range files
+						if len(CMDoptionsDict['rangeFileIDs']) < 8:
+							rangeIDstring = ','.join([str(i) for i in CMDoptionsDict['rangeFileIDs']])
+						else:
+							rangeIDstring = str(CMDoptionsDict['rangeFileIDs'][0])+'...'+str(CMDoptionsDict['rangeFileIDs'][-1])
+
+						figure.savefig(os.path.join(CMDoptionsDict['cwd'], 'hyd_analysis__sys'+sysID+'__'+stepStr+'.png'), dpi = plotSettings['figure_settings']['dpi'])
+			file.close()
+		
+		elif CMDoptionsDict['additionalCalsOpt'] == 16:
+			"""
+			Show force fighting for flight test.
+			"""
+			dataAdditional = dataFromGaugesSingleMagnitudeClass('forceFighting_abs(1-2)', 'rs', testFactor, orderDeriv)
+			dataAdditional.addDataManual1(dataClasses, 'CNT_FRC_BST_TR_1', 'CNT_FRC_BST_TR_2', inputDataClass)
+			dataClasses += (dataAdditional, )
+			dataAdditional.plotResampled(plotSettings, CMDoptionsDict, dataAdditional.get_mag(), (True, dataClasses, CMDoptionsDict['variables']+['forceFighting_abs(1-2)']), inputDataClass)
 
 
 	os.chdir(cwd)

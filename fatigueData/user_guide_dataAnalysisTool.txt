@@ -60,7 +60,8 @@ The [-options] are written one after each other, separated by spaces. They can b
         -> -f, -fileName:
         The input to this option is a test with the name of the file including the .txt extension. This file contains 
         all the addresses of all the files containing data from the actuator. Additionally, they allow to input additional 
-        information for each of the variables of the test. They need to be stored in a folder named 'InputFiles'.
+        information for each of the variables of the test. They need to be stored in a folder named 'InputFiles'. In order
+        to write this file, the template '' can be used.
         Example values: 'filesToLoad_general_TRbladeholder.txt', 'filesToLoad_actuator_OCLoad1.txt'
 
         -> -v, -variables:
@@ -103,10 +104,11 @@ The [-options] are written one after each other, separated by spaces. They can b
 
         -> -n, -multipleYaxisInSameFigure:
         Enables the possibility to split the figures into multiple plots with a shared y-axis. Possible values:
-            -> -n t : All the variables will be shown in a single plot with multiple axis, one per variable.
-            -> -n f : If all the input variables are expressed in the same physical units, then the results will be plotted in 
-                    a single figure, with different lines for each variable. If the variables have different units, then one new 
-                    figure will be created per variable.
+            -> -n 1 : One new figure will be created per variable.
+            -> -n 2 : All the variables will be shown in a single plot with multiple axes, one per variable. 
+            -> -n 3 : If all the input variables are expressed in the same physical units, then the results will be plotted 
+            in a single axis, with different lines for each variable.
+            -> -n 4 : Two variables will be plotted in a single figure, one against each other.
 
         -> -o, -testOrder:
         This parameter defines whether a reference of the loads prescribed in the Test Order shall be included in the resulting plots.
