@@ -16,8 +16,8 @@ import pdb #pdb.set_trace()
 ###### Functions
 def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 
-	short_opts = "f:v:m:o:s:r:a:c:n:w:l:" #"o:f:"
-	long_opts = ["fileName=","variables=","magnitudes=","testOrder=","saveFigure=","rangeFileIDs=","additionalCals=","correctionFilter=", "multipleYaxisInSameFigure=", "writeStepResultsToFileFlag=", "divisionLineForPlotsFlag="] #["option=","fileName="]
+	short_opts = "f:v:m:o:s:r:a:c:n:w:l:g:" #"o:f:"
+	long_opts = ["fileName=","variables=","magnitudes=","testOrder=","saveFigure=","rangeFileIDs=","additionalCals=","correctionFilter=", "axisArrangementOption=", "writeStepResultsToFileFlag=", "divisionLineForPlotsFlag=", "dataPartitionFlag="] #["option=","fileName="]
 	try:
 		opts, args = getopt.getopt(argv,short_opts,long_opts)
 	except getopt.GetoptError:
@@ -26,9 +26,17 @@ def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 	# check input
 	# if len(opts) != len(long_opts):
 		# raise ValueError('ERROR: Invalid number of inputs')
-	# Initial values, to be overwrited
-	for optionToInitiate in ['correctionFilterNum','correctionFilterFlag','axisArrangementOption','testOrderFlagFromCMD', 'writeStepResultsToFileFlag', 'divisionLineForPlotsFlag']:
-		CMDoptionsDict[optionToInitiate] = ''
+	
+	# Initial values if nothing else specified, to be overwritten
+	CMDoptionsDict['correctionFilterNum'] = ''
+	CMDoptionsDict['correctionFilterFlag'] = False
+	CMDoptionsDict['axisArrangementOption'] = ''
+	CMDoptionsDict['axisArrangementOptionFlag'] = False
+	CMDoptionsDict['testOrderFlagFromCMD'] = False
+	CMDoptionsDict['writeStepResultsToFileFlag'] = False
+	CMDoptionsDict['divisionLineForPlotsFlag'] = True
+	CMDoptionsDict['dataPartitionFlag'] = False
+	
 	optsLoaded = []
 	for opt, arg in opts:
 
@@ -64,9 +72,9 @@ def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 		elif opt in ("-o", "--testOrder"):
 
 			if arg.lower() in ('true', 't'):
-				CMDoptionsDict['testOrderFlagFromCMD'] = True
+				CMDoptionsDict.update({'testOrderFlagFromCMD' : True})
 			elif arg.lower() in ('false', 'f'):
-				CMDoptionsDict['testOrderFlagFromCMD'] = False
+				CMDoptionsDict.update({'testOrderFlagFromCMD' : False})
 			else:
 				raise ValueError('ERROR: Wrong input for parameter '+opt)
 
@@ -101,25 +109,25 @@ def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 				CMDoptionsDict['additionalCalsOpt'] = 0
 			else:
 				CMDoptionsDict['additionalCalsFlag'] = True
-				CMDoptionsDict['additionalCalsOpt'] = float(arg)
+				CMDoptionsDict['additionalCalsOpt'] = int(arg)
 
 		elif opt in ("-c", "--correctionFilter"):
 
 			if arg.lower() in ('false', 'f'):
-				CMDoptionsDict['correctionFilterFlag'] = False
+				CMDoptionsDict.update({'correctionFilterFlag' : False})
 			elif arg.lower() in ('true', 't'):
-				CMDoptionsDict['correctionFilterFlag'] = True
+				CMDoptionsDict.update({'correctionFilterFlag' : True})
 				CMDoptionsDict['correctionFilterNum'] = float(arg)
 			else:
 				raise ValueError('ERROR: Wrong input for parameter '+opt)
 
-		elif opt in ("-n", "--multipleYaxisInSameFigure"):
+		elif opt in ("-n", "--axisArrangementOption"):
 
 			argSplit = arg.split(',')
 
 			CMDoptionsDict['axisArrangementOption'] = arg
 			if arg[0].lower() in ('true', 't', '2', '3'):
-				CMDoptionsDict['multipleYaxisInSameFigure'] = True
+				CMDoptionsDict['axisArrangementOptionFlag'] = True
 				CMDoptionsDict['oneVariableInEachAxis'] = False
 				if len(argSplit) == 1:
 					# Load other options 
@@ -127,10 +135,10 @@ def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 				else:
 					CMDoptionsDict['numberMultipleYaxisInSameFigure'] = int(argSplit[-1])
 			elif arg[0].lower() in ('false', 'f', '1'):
-				CMDoptionsDict['multipleYaxisInSameFigure'] = False
+				CMDoptionsDict['axisArrangementOptionFlag'] = False
 				CMDoptionsDict['oneVariableInEachAxis'] = False
 			elif arg[0].lower() in ('4'):
-				CMDoptionsDict['multipleYaxisInSameFigure'] = False
+				CMDoptionsDict['axisArrangementOptionFlag'] = False
 				CMDoptionsDict['oneVariableInEachAxis'] = True
 			else:
 				raise ValueError('ERROR: Wrong input for parameter '+opt)
@@ -138,18 +146,27 @@ def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 		elif opt in ("-w", "--writeStepResultsToFileFlag"):
 
 			if arg.lower() in ('true', 't'):
-				CMDoptionsDict['writeStepResultsToFileFlag'] = True
+				CMDoptionsDict.update({'writeStepResultsToFileFlag' : True})
 			elif arg.lower() in ('false', 'f'):
-				CMDoptionsDict['writeStepResultsToFileFlag'] = False
+				CMDoptionsDict.update({'writeStepResultsToFileFlag' : False})
 			else:
 				raise ValueError('ERROR: Wrong input for parameter '+opt)
 
 		elif opt in ("-l", "--divisionLineForPlotsFlag"):
 
 			if arg.lower() in ('true', 't'):
-				CMDoptionsDict['divisionLineForPlotsFlag'] = True
+				CMDoptionsDict.update({'divisionLineForPlotsFlag' : True})
 			elif arg.lower() in ('false', 'f'):
-				CMDoptionsDict['divisionLineForPlotsFlag'] = False
+				CMDoptionsDict.update({'divisionLineForPlotsFlag' : False})
+			else:
+				raise ValueError('ERROR: Wrong input for parameter '+opt)
+
+		elif opt in ("-g", "--dataPartitionFlag"):
+
+			if arg.lower() in ('true', 't'):
+				CMDoptionsDict.update({'dataPartitionFlag' : True})
+			elif arg.lower() in ('false', 'f'):
+				CMDoptionsDict.update({'dataPartitionFlag' : False})
 			else:
 				raise ValueError('ERROR: Wrong input for parameter '+opt)
 
@@ -661,6 +678,7 @@ class dataFromGaugesSingleMagnitudeClass(object):
 			self.__min += data
 		else:
 			raise ValueError('Error in identifying data field: ' + nameField)
+
 	def getTimeList(self, nameField):
 		
 		timeSec = np.linspace(0, float(len(self.__xValues)/self.__testFactor), len(self.__xValues), endpoint=True)
@@ -698,12 +716,7 @@ class dataFromGaugesSingleMagnitudeClass(object):
 
 				try:
 
-					if CMDoptionsDict['correctionFilterFlag'] and fieldOfFile in ('lp'):
-						data += [float(cleanString(line)) + CMDoptionsDict['correctionFilterNum']]
-					elif CMDoptionsDict['correctionFilterFlag'] and fieldOfFile in ('hp'):
-						data += [float(cleanString(line)) - CMDoptionsDict['correctionFilterNum']]
-					else:
-						data += [float(cleanString(line))]
+					data += [float(cleanString(line))] #Import line
 
 				except ValueError as e:
 					print('Error when reading line '+str(counter)+', data content: '+cleanString(line))
@@ -714,13 +727,17 @@ class dataFromGaugesSingleMagnitudeClass(object):
 				else:
 					dataID += [dataID[-1]+1]
 
-			# status = round((counter/totalLines)* 100, 2)
-			# sys.stdout.write('-----> Status: '+ str(status) +'% \r')
-			# sys.stdout.flush()
-
 			counter += 1
 		
 		file.close()
+
+		# Apply correction to filtered data
+		if CMDoptionsDict['correctionFilterFlag']:
+			if fieldOfFile in ('lp'):
+				newData = [d + CMDoptionsDict['correctionFilterNum'] for d in data]
+			elif fieldOfFile in ('hp'):
+				newData = [d - CMDoptionsDict['correctionFilterNum'] for d in data]
+			data = newData
 
 		if CMDoptionsDict['correctionFilterFlag'] and fieldOfFile in ('lp', 'hp'):
 			print('\t'+'-> Correction applied to each imported data point, value: '+str(CMDoptionsDict['correctionFilterNum']))
@@ -795,7 +812,46 @@ class dataFromGaugesSingleMagnitudeClass(object):
 
 		#Print results to file
 		if CMDoptionsDict['writeStepResultsToFileFlag']:
-			fileOutComeSummaryForVarAndMag.write(','.join([str(t) for t in [file_stepID,max_data, min_data, mean_data]]) + '\n') 
+			fileOutComeSummaryForVarAndMag.write(';'.join([str(t) for t in [file_stepID,max_data, min_data, mean_data]]) + '\n') 
+
+	def dataPartition(self, inputDataClass, CMDoptionsDict):
+		"""
+		Split data for variable in segments
+		"""
+
+		indexDictForSteps, stepStrs = get_indexDictForSteps(self)
+
+		# Get applicable segments per 
+		segsDict = {}
+		for stepID in CMDoptionsDict['rangeFileIDs']:
+
+			segsDict[stepID] = [[float(i) for i in t.split(',')] for t in inputDataClass.get_variablesInfoDict()['testData']['segment__'+stepID].split(';')]
+
+		vectorNewRS, vectorNewRS_split,xCount,xCountLastStep, initialX = [], [], [], [], 0
+		for stepStr in self.__stepID:
+
+			result = []
+			for divSegment in segsDict[stepStr]:
+
+				result += createSegmentsOf_rs_FromVariableClass(self, divSegment, indexDictForSteps[stepStr])[0]
+
+			temp = np.linspace(initialX+1, len(result)+initialX, num = len(result))
+			xCount += temp.tolist()
+			xCountLastStep += [xCount[-1]]
+			initialX = xCount[-1]
+			
+			vectorNewRS += result
+			vectorNewRS_split += [result]
+
+		self.__rs = vectorNewRS
+		self.__rs_split = vectorNewRS_split
+
+		self.__xValues = xCount 
+		self.__xValuesNewRun = xCountLastStep
+
+		print('\n'+'-----> Data has been partitioned')
+
+		self.getTimeList(self.__mag)
 
 	def computePicks(self):
 		"""
@@ -927,22 +983,31 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		"""
 		Customized function to calculate the fighting force
 		"""
-		result = []
+
+		indexDictForSteps, stepStrs = get_indexDictForSteps(dataClasses[0])
 
 		forceHP1 = [temp for temp in dataClasses if temp.get_description() == forceName1][0]
 		forceHP2 = [temp for temp in dataClasses if temp.get_description() == forceName2][0]
 
-		for f1, f2 in zip(forceHP1.get_rs(), forceHP2.get_rs()):
+		vectorNewRS, vectorNewRS_split = [], []
+		for stepStr in stepStrs:
+			
+			result = []
+			for f1, f2 in zip(forceHP1.get_rs_split()[indexDictForSteps[stepStr]], forceHP2.get_rs_split()[indexDictForSteps[stepStr]]):
 
-			result += [abs(f1-f2)]
+				result += [abs(f1-f2)]
 
-		self.__rs = result
+			vectorNewRS_split += [result]
+			vectorNewRS += result
+
+		self.__rs = vectorNewRS
+		self.__rs_split = vectorNewRS_split
 		self.__freqData = forceHP1.get_freqData()
 		self.__timeRs = forceHP1.get_timeRs()
 		self.__timeSecNewRunRs = forceHP1.get_timeSecNewRunRs()
 		self.__stepID = forceHP1.get_stepID()
 
-		variableDict = {'y-label' : inputDataClass.get_variablesInfoDict()[forceHP1.get_mag()+'__'+forceHP1.get_description()]['y-label']}
+		variableDict = {'y-label' : inputDataClass.get_variablesInfoDict()[forceHP1.get_mag()+'__'+forceHP1.get_description()]['y-label'], 'TO spec' : 'no', 'Fatigue load spec' : 'no'}
 		inputDataClass.updateVariablesInfoDict(forceHP1.get_mag()+'__'+self.__description, variableDict)
 
 	def addDataManual2(self, dataClasses):
@@ -1019,6 +1084,51 @@ class dataFromGaugesSingleMagnitudeClass(object):
 
 		self.rs_increments = incrementVector
 
+	def addDataManual8(self, dataClasses, inputDataClass):
+
+		data_col = [temp for temp in dataClasses if temp.get_description() == 'CNT_FRC_BST_COL'][0]
+
+		indexDictForSteps, stepStrs = get_indexDictForSteps(data_col)
+
+		upperLim = float(inputDataClass.get_variablesInfoDict()[data_col.get_mag()+'__'+data_col.get_description()]['max load'])
+		lowerLim = float(inputDataClass.get_variablesInfoDict()[data_col.get_mag()+'__'+data_col.get_description()]['min load'])
+		vectorNewRS, vectorNewRS_split,ExceedanceFlag,accumulatedTimeList = [], [], False, []
+		for stepStr in stepStrs:
+
+			accumulatedTime = 0.0
+
+			temp = []
+			for point in data_col.get_rs_split()[indexDictForSteps[stepStr]]:
+				if any([point>upperLim, point<lowerLim]):
+					if ExceedanceFlag:
+						temp += [temp[-1] + (1/data_col.get_freqData()[indexDictForSteps[stepStr]])]
+					else:
+						ExceedanceFlag = True
+						temp += [(1/data_col.get_freqData()[indexDictForSteps[stepStr]])]
+				else:
+					if ExceedanceFlag:#If previously there was exceedance
+						accumulatedTime += temp[-1]
+					ExceedanceFlag = False
+					temp += [0.0]
+
+			vectorNewRS_split += [temp]
+			vectorNewRS += temp
+
+			print('\t\t\t-> Total time outside the envelope for '+stepStr+': '+str(accumulatedTime)+' seconds')
+			accumulatedTimeList += [accumulatedTime]
+		
+		print('\t\t\t-> Total time outside the envelope in total : '+str(sum(accumulatedTimeList))+' seconds')
+		
+		self.__rs = vectorNewRS
+		self.__rs_split = vectorNewRS_split
+		self.__freqData = data_col.get_freqData()
+		self.__timeRs = data_col.get_timeRs()
+		self.__timeSecNewRunRs = data_col.get_timeSecNewRunRs()
+		self.__stepID = data_col.get_stepID()
+
+		variableDict = {'y-label' : 'Time [seconds]', 'TO spec' : 'no', 'Fatigue load spec' : 'no'}
+		inputDataClass.updateVariablesInfoDict(self.__mag+'__'+self.__description, variableDict)
+
 	def plotMaxMinMean_fromDIAdem(self, plotSettings):
 
 		figure, ax = plt.subplots(1, 1)
@@ -1051,7 +1161,7 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		ax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])
 		ax.minorticks_on()
 
-	def plotResampled(self, plotSettings, CMDoptionsDict, magnitude, additionalInput, inputDataClass):
+	def plotResampled(self, dataClasses, plotSettings, CMDoptionsDict, magnitude, additionalInput, inputDataClass):
 
 		# Range files
 		if len(CMDoptionsDict['rangeFileIDs']) < 8:
@@ -1061,10 +1171,8 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		
 		plotsDone = 0
 
-		# pdb.set_trace()
-
-		if CMDoptionsDict['multipleYaxisInSameFigure'] and CMDoptionsDict['numberMultipleYaxisInSameFigure'] != 1 and plotSettings['currentAxis'][1] == -1:
-			figure, axesList = plt.subplots(CMDoptionsDict['numberMultipleYaxisInSameFigure'], 1, sharex='col')
+		if CMDoptionsDict['axisArrangementOption'] == '2' and len(dataClasses)  != 1 and plotSettings['currentAxis'][1] == -1:
+			figure, axesList = plt.subplots(len(dataClasses) , 1, sharex='col')
 			figure.set_size_inches(16, 10, forward=True)
 			plotSettings.update({'listMultipleAxes': axesList})
 			plotSettings.update({'currentFigureMultipleAxes': figure})
@@ -1075,7 +1183,7 @@ class dataFromGaugesSingleMagnitudeClass(object):
 			# Figure title
 			figure.suptitle(rangeIDstring, **plotSettings['figure_title'])
 
-		elif CMDoptionsDict['multipleYaxisInSameFigure'] and CMDoptionsDict['numberMultipleYaxisInSameFigure'] != 1 and plotSettings['currentAxis'][1] != -1:
+		elif CMDoptionsDict['axisArrangementOption'] == '2' and len(dataClasses)  != 1 and plotSettings['currentAxis'][1] != -1:
 			
 			new_ax_id = plotSettings['currentAxis'][1]+1
 			ax = plotSettings['listMultipleAxes'][new_ax_id]
@@ -1092,12 +1200,12 @@ class dataFromGaugesSingleMagnitudeClass(object):
 			ax.plot( [t/self.__freqData[0] for t in self.__timeRs], self.__rs, linestyle = '-', marker = '', c = plotSettings['colors'][plotsDone], label = self.__description, **plotSettings['line'])
 			plotsDone += 1
 		# Mean based on max and min
-		if not additionalInput[0]:
+		if not additionalInput[0] and self.__MinMax:
 			mean_min = np.mean([setOne[0] for setOne in self.__MinMax])
 			mean_max = np.mean([setOne[1] for setOne in self.__MinMax])
 
 			mean_fromMinMax = ((mean_max - mean_min)/2) + mean_min
-			print('mean record data :'+str(mean_fromMinMax))
+			print('Mean record from min and max mean:'+str(mean_fromMinMax))
 
 		if additionalInput[0]:
 			dataClasses = additionalInput[1]
@@ -1112,13 +1220,13 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		if CMDoptionsDict['divisionLineForPlotsFlag']:
 			valuesMaxRs = ax.get_ylim()[1]
 			valuesMinRs = ax.get_ylim()[0]
-			maxPlot_y = valuesMaxRs*1.2 if valuesMaxRs > 0.0 else valuesMaxRs*0.8
-			minPlot_y = valuesMinRs*0.8 if valuesMinRs > 0.0 else valuesMinRs*1.2
+			# maxPlot_y = valuesMaxRs*1.2 if valuesMaxRs < 0.0 else valuesMaxRs*0.8
+			minPlot_y = valuesMinRs + (abs(valuesMaxRs-valuesMinRs)*0.05)
 			previousDiv = 0.0
 			i = 0
-			ax.plot(2*[0.0], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = 'r', scalex = False, scaley = False, **plotSettings['line'])
+			ax.plot(2*[0.0], [valuesMinRs, valuesMaxRs], linestyle = '--', marker = '', c = 'r', scalex = False, scaley = False, **plotSettings['line'])
 			for div in [t/self.__freqData[0] for t in self.__timeSecNewRunRs]:
-				ax.plot(2*[div], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = 'r', scalex = False, scaley = False, **plotSettings['line'])
+				ax.plot(2*[div], [valuesMinRs, valuesMaxRs], linestyle = '--', marker = '', c = 'r', scalex = False, scaley = False, **plotSettings['line'])
 
 				#Add text with step number
 				ax.text(previousDiv + ((div - previousDiv)/2), minPlot_y, self.__stepID[i], bbox=dict(facecolor='black', alpha=0.2), horizontalalignment = 'center')
@@ -1151,9 +1259,9 @@ class dataFromGaugesSingleMagnitudeClass(object):
 						ax.plot([minPlot_x, maxPlot_x], 2*[limitLoad*limitLoadBoundary], linestyle = '-.', marker = '', c = plotSettings['colors'][6], scaley = False, scalex = False, **plotSettings['line'])
 
 		# x-label
-		if not CMDoptionsDict['multipleYaxisInSameFigure'] or CMDoptionsDict['numberMultipleYaxisInSameFigure'] == 1:
+		if not CMDoptionsDict['axisArrangementOptionFlag'] or len(dataClasses)  == 1:
 			ax.set_xlabel('Time elapsed [Seconds]', **plotSettings['axes_x'])
-		elif CMDoptionsDict['numberMultipleYaxisInSameFigure']==(plotSettings['currentAxis'][1]+1):
+		elif len(dataClasses) ==(plotSettings['currentAxis'][1]+1):
 			ax.set_xlabel('Time elapsed [Seconds]', **plotSettings['axes_x'])
 
 		# y-label
@@ -1177,13 +1285,13 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		usualSettingsAX(ax, plotSettings)
 		
 		#Save figure
-		if CMDoptionsDict['saveFigure'] and not CMDoptionsDict['multipleYaxisInSameFigure']:
+		if CMDoptionsDict['saveFigure'] and not CMDoptionsDict['axisArrangementOptionFlag']:
 
 			if additionalInput[0]:
 				figure.savefig(os.path.join(CMDoptionsDict['cwd'], magnitude+'_'+rangeIDstring+'_'+self.__description+'&'+'&'.join(additionalInput[2])+'.png'), dpi = plotSettings['figure_settings']['dpi'])
 			else: 
 				figure.savefig(os.path.join(CMDoptionsDict['cwd'], magnitude+'_'+rangeIDstring+'_'+self.__description+'.png'), dpi = plotSettings['figure_settings']['dpi'])
-		elif CMDoptionsDict['saveFigure'] and CMDoptionsDict['numberMultipleYaxisInSameFigure']==(plotSettings['currentAxis'][1]+1): #CMDoptionsDict['multipleYaxisInSameFigure'] is True
+		elif CMDoptionsDict['saveFigure'] and len(dataClasses) ==(plotSettings['currentAxis'][1]+1): #CMDoptionsDict['axisArrangementOption'] is True
 
 			figure = plotSettings['currentFigureMultipleAxes']
 			figure.savefig(os.path.join(CMDoptionsDict['cwd'], ','.join([str(i) for i in CMDoptionsDict['magnitudes']])+'_'+rangeIDstring+'_'+','.join([str(i) for i in CMDoptionsDict['variables']])+'.png'), dpi = plotSettings['figure_settings']['dpi'])
@@ -1199,8 +1307,8 @@ class dataFromGaugesSingleMagnitudeClass(object):
 				rangeIDstring = str(CMDoptionsDict['rangeFileIDs'][0])+'...'+str(CMDoptionsDict['rangeFileIDs'][-1])
 
 			# Data Classes
-			data1 = [temp for temp in dataClasses if temp.get_description() == CMDoptionsDict['variables'][0]][0]
-			data2 = [temp for temp in dataClasses if temp.get_description() == CMDoptionsDict['variables'][1]][0]
+			data1 = dataClasses[0]
+			data2 = dataClasses[1]
 
 			#Vector of steps
 			stepStrs = data1.get_stepID()
@@ -1214,7 +1322,7 @@ class dataFromGaugesSingleMagnitudeClass(object):
 
 			plotsDone = 0
 			for stepName in stepStrs:
-				ax.plot( data1.get_rs_split()[indexDictForSteps[stepName]], data2.get_rs_split()[indexDictForSteps[stepName]], linestyle = plotSettings['linestyles'][int(plotsDone/7)], marker = '', c = plotSettings['colors'][plotsDone], label = stepName, **plotSettings['line'])
+				ax.plot( data1.get_rs_split()[indexDictForSteps[stepName]], data2.get_rs_split()[indexDictForSteps[stepName]], linestyle = '', marker = plotSettings['markers'][int(plotsDone/7)], c = plotSettings['colors'][plotsDone], label = stepName, **plotSettings['line'])
 				plotsDone += 1
 
 			ax.set_xlabel(inputDataClass.get_variablesInfoDict()[data1.get_mag()+'__'+data1.get_description()]['y-label'], **plotSettings['axes_x'])
@@ -1753,7 +1861,7 @@ def checkErrors(dataClasses, CMDoptionsDict, inputDataClass):
 			raise AssertionError('EXCEPTION CAUGHT: Variable '+classCurrent.get_mag()+'__'+classCurrent.get_description()+' is not described in '+CMDoptionsDict['fileNameOfFileToLoadFiles'])
 
 	if '-n' in CMDoptionsDict['optsLoaded']:
-		if CMDoptionsDict['oneVariableInEachAxis'] and len(CMDoptionsDict['variables']) != 2:
+		if CMDoptionsDict['oneVariableInEachAxis'] and len(CMDoptionsDict['variables']) != 2 and CMDoptionsDict['additionalCalsOpt'] != 18:
 			raise AssertionError('EXCEPTION CAUGHT: One two variables can be plotted one against each other. The current number of variables is '+str(len(CMDoptionsDict['variables'])))
 		elif CMDoptionsDict['oneVariableInEachAxis']:
 			# Data Classes
@@ -1974,6 +2082,7 @@ def showInputOptions(CMDoptionsDict):
 					'-a': 'Additional calculations option (-a):',
 					'-w': 'Write data summary report in spreadsheet (-w):',
 					'-l': 'Plot division between consecutive test steps (-l):',
+					'-g': 'Perform a data partition operation on the loaded data (-g):',
 					}
 	
 	valuesDict = {
@@ -1982,12 +2091,13 @@ def showInputOptions(CMDoptionsDict):
 					'-m': ' '.join(CMDoptionsDict['magnitudes']),
 					'-r': ' '.join(CMDoptionsDict['rangeFileIDs']),
 					'-c': 'Enabled, with value '+str(CMDoptionsDict['correctionFilterNum']) if CMDoptionsDict['correctionFilterFlag'] else 'Disabled',
-					'-s': ', '.join(['Show figure: ' + 'Enabled' if CMDoptionsDict['showFigures'] else 'Disabled', 'Save figure: ' + 'Enabled' if CMDoptionsDict['saveFigure'] else 'Disabled']),
+					'-s': ', '.join(['Show figure: Enabled' if CMDoptionsDict['showFigures'] else 'Show figure: Disabled', 'Save figure: Enabled' if CMDoptionsDict['saveFigure'] else 'Save figure: Disabled']),
 					'-n': CMDoptionsDict['axisArrangementOption'],
 					'-o': 'Enabled' if CMDoptionsDict['testOrderFlagFromCMD'] else 'Disabled',
 					'-a': 'Option '+str(CMDoptionsDict['additionalCalsOpt']) if CMDoptionsDict['additionalCalsFlag'] else 'Disabled',
 					'-w': 'Enabled' if CMDoptionsDict['writeStepResultsToFileFlag'] else 'Disabled',
 					'-l': 'Enabled' if CMDoptionsDict['divisionLineForPlotsFlag'] else 'Disabled',
+					'-g': 'Enabled' if CMDoptionsDict['dataPartitionFlag'] else 'Disabled',
 					}
 	
 	for option in CMDoptionsDict['optsLoaded']:

@@ -72,6 +72,12 @@ TO spec: no
 Fatigue load spec: no
 
 -> Variable info
+name: rs__CNT_DST_PED
+y-label: Displ. [%]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
 name: di__CNT_DST_COL
 y-label: Vel. [%/s]
 TO spec: no
@@ -103,6 +109,12 @@ Fatigue load spec: no
 
 -> Variable info
 name: rs__CNT_DST_BST_LNG
+y-label: Displ. [mm]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__CNT_DST_BST_TR
 y-label: Displ. [mm]
 TO spec: no
 Fatigue load spec: no

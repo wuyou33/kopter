@@ -35,6 +35,42 @@ print('\n\t\t-> developed by Alejandro Valverde Lopez')
 # python main.py -f filesToLoad_general_TRbladeholder.txt -v BendingMoment,MyBlade,MyLoadcell,MzBlade,CF -m rs -o f -s t,t -a f -r 11,12,13,14,15
 # python main.py -f filesToLoad_general_OC.txt -v Tension,Bending -m rs -o t -s t,t -a f -r 1,2,3,4,5,6
 
+def plottingLoop(dataClasses, inputDataClass, plotSettings, CMDoptionsDict):
+
+	# Check if 
+	exampleClasse = dataClasses[0]
+	exampleLabel = inputDataClass.get_variablesInfoDict()[exampleClasse.get_mag()+'__'+exampleClasse.get_description()]['y-label']
+	flagAllTheVariablesTheSameLabel = all([inputDataClass.get_variablesInfoDict()[t.get_mag()+'__'+t.get_description()]['y-label'] == exampleLabel for t in dataClasses])
+	
+	if CMDoptionsDict['axisArrangementOptionFlag']:
+
+		
+		if not flagAllTheVariablesTheSameLabel or CMDoptionsDict['axisArrangementOption'] == '2':
+
+			for dataClass in dataClasses: #For each class variable
+				#Plotting resampled total data
+				if (CMDoptionsDict['showFigures'] or CMDoptionsDict['saveFigure']):
+					dataClass.plotResampled(dataClasses, plotSettings, CMDoptionsDict, dataClass.get_mag(), (False, [], []), inputDataClass)
+		else:
+
+			CMDoptionsDict['multipleYaxisInSameFigure'] = False
+
+			exampleClasse = dataClasses[0]
+			exampleClasse.plotResampled(dataClasses, plotSettings, CMDoptionsDict, exampleClasse.get_mag(), (True, dataClasses, [currentClass.get_description() for currentClass in dataClasses]), inputDataClass)
+
+	elif CMDoptionsDict['oneVariableInEachAxis']:
+
+		exampleClasse = dataClasses[0]
+
+		exampleClasse.plotOneVariableAgainstOther(plotSettings, CMDoptionsDict, inputDataClass, dataClasses)
+
+	else:
+
+		for dataClass in dataClasses: #For each class variable
+			#Plotting resampled total data
+			if (CMDoptionsDict['showFigures'] or CMDoptionsDict['saveFigure']):
+				dataClass.plotResampled(dataClasses, plotSettings, CMDoptionsDict, dataClass.get_mag(), (False, [], []), inputDataClass)
+
 # Dicitionary of loading options
 CMDoptionsDict = {}
 
@@ -60,7 +96,7 @@ actuatorMesswerteFlag = CMDoptionsDict['actuatorMesswerte']
 
 # Gauges data analysis
 if gaugesFlag:
-	print('\n'+'**** Running general data script'+'\n')
+	print('\n'+'**** Running general data script')
 	print()
 
 	testFactor = 1.0 #HZ
@@ -110,7 +146,7 @@ if gaugesFlag:
 				if CMDoptionsDict['writeStepResultsToFileFlag']:
 					# pdb.set_trace()
 					fileOutComeSummaryForVarAndMag = open(os.path.join(CMDoptionsDict['stepsSummaryResultsFolder'], dataClass.get_mag()+'__'+dataClass.get_description()+'.csv'), 'w')
-					fileOutComeSummaryForVarAndMag.write(','.join(['step ID', 'max', 'min', 'mean']) + '\n') 
+					fileOutComeSummaryForVarAndMag.write(';'.join(['step ID', 'max', 'min', 'mean']) + '\n') 
 				else:
 					fileOutComeSummaryForVarAndMag = []
 
@@ -150,42 +186,16 @@ if gaugesFlag:
 	# Analyse results until here and raise exceptions, if any
 	checkErrors(dataClasses, CMDoptionsDict, inputDataClass)
 
+	# Data partition
+	if CMDoptionsDict['dataPartitionFlag']:
+
+		# Perform data partition operations for each data class
+		for dataClass in dataClasses:
+			dataClass.dataPartition(inputDataClass, CMDoptionsDict)
+
 	# Plotting
 	if not CMDoptionsDict['additionalCalsFlag']:
-
-		
-		# Check if 
-		exampleClasse = dataClasses[0]
-		exampleLabel = inputDataClass.get_variablesInfoDict()[exampleClasse.get_mag()+'__'+exampleClasse.get_description()]['y-label']
-		flagAllTheVariablesTheSameLabel = all([inputDataClass.get_variablesInfoDict()[t.get_mag()+'__'+t.get_description()]['y-label'] == exampleLabel for t in dataClasses])
-		
-		if CMDoptionsDict['multipleYaxisInSameFigure']:
-
-			
-			if not flagAllTheVariablesTheSameLabel or CMDoptionsDict['axisArrangementOption'] == '2':
-				for dataClass in dataClasses: #For each class variable
-					#Plotting resampled total data
-					if (CMDoptionsDict['showFigures'] or CMDoptionsDict['saveFigure']):
-						dataClass.plotResampled(plotSettings, CMDoptionsDict, dataClass.get_mag(), (False, [], []), inputDataClass)
-			else:
-
-				CMDoptionsDict['multipleYaxisInSameFigure'] = False
-
-				exampleClasse = dataClasses[0]
-				exampleClasse.plotResampled(plotSettings, CMDoptionsDict, exampleClasse.get_mag(), (True, dataClasses, CMDoptionsDict['variables']), inputDataClass)
-
-		elif CMDoptionsDict['oneVariableInEachAxis']:
-
-			exampleClasse = dataClasses[0]
-
-			exampleClasse.plotOneVariableAgainstOther(plotSettings, CMDoptionsDict, inputDataClass, dataClasses)
-
-		else:
-
-			for dataClass in dataClasses: #For each class variable
-				#Plotting resampled total data
-				if (CMDoptionsDict['showFigures'] or CMDoptionsDict['saveFigure']):
-					dataClass.plotResampled(plotSettings, CMDoptionsDict, dataClass.get_mag(), (False, [], []), inputDataClass)
+		plottingLoop(dataClasses, inputDataClass, plotSettings, CMDoptionsDict)	
 
 	# Additional calculations
 	if CMDoptionsDict['additionalCalsFlag']:
@@ -196,22 +206,19 @@ if gaugesFlag:
 		if CMDoptionsDict['additionalCalsOpt'] == 1:
 			dataAdditional = dataFromGaugesSingleMagnitudeClass('forceFightingEyes(HP1-HP2)', 'rs', testFactor, orderDeriv)
 			dataAdditional.addDataManual1(dataClasses, 'ForceEye1', 'ForceEye2', inputDataClass)
-			dataAdditional.plotResampled(plotSettings, CMDoptionsDict, dataAdditional.get_mag(), (False, [], []), inputDataClass)
-
-		elif CMDoptionsDict['additionalCalsOpt'] == 1.5:
-			dataAdditional = dataFromGaugesSingleMagnitudeClass('forceFightingEyes(HP1-HP2)', 'rs', testFactor, orderDeriv)
-			dataAdditional.addDataManual1(dataClasses, 'ForceEye1', 'ForceEye2', inputDataClass)
 			dataClasses += (dataAdditional, )
-			dataAdditional.plotResampled(plotSettings, CMDoptionsDict, dataAdditional.get_mag(), (True, dataClasses, ('forceFightingEyes(HP1-HP2)','ForceEye1','ForceEye2','PistonDispl')), inputDataClass)
+			plottingLoop(dataClasses, inputDataClass, plotSettings, CMDoptionsDict)	
+		
 		elif CMDoptionsDict['additionalCalsOpt'] == 2:
 			dataAdditional = dataFromGaugesSingleMagnitudeClass('forceSumEyes(HP1+HP2)', 'rs', testFactor, orderDeriv)
 			dataAdditional.addDataManual2(dataClasses)
 			dataClasses += (dataAdditional, )
-			dataAdditional.plotResampled(plotSettings, CMDoptionsDict, dataAdditional.get_mag(), (True, dataClasses, ('forceSumEyes(HP1+HP2)', 'OutputForce')), inputDataClass)
+			plottingLoop(dataClasses, inputDataClass, plotSettings, CMDoptionsDict)
+		
 		elif CMDoptionsDict['additionalCalsOpt'] == 3:
 			# dataAdditional = dataFromGaugesSingleMagnitudeClass('forceSumEyes(HP1+HP2)', 'rs', testFactor, orderDeriv)
 			# dataAdditional.addDataManual2(dataClasses)
-			dataClass.plotResampled(plotSettings, CMDoptionsDict, dataAdditional.get_mag(), (True, dataClasses, ('BoosterLinklong','BoosterLinklat','BoosterLinkcol')), inputDataClass)
+			dataClass.plotResampled(dataClasses, plotSettings, CMDoptionsDict, dataAdditional.get_mag(), (True, dataClasses, ('BoosterLinklong','BoosterLinklat','BoosterLinkcol')), inputDataClass)
 
 		elif CMDoptionsDict['additionalCalsOpt'] == 4:
 
@@ -243,7 +250,7 @@ if gaugesFlag:
 			# Plot flow rate versus temperature using segments of data
 			# python main.py -f filesToLoad_general_actuatorPerformance.txt -v VolFlow1,VolFlow2,Temp1,Temp2 -m rs -o f -s f,t -c f -n t -w f -l t -r 3-SN002-1.3,10-SN0012-1.3,8-SN002-2.4,13-SN0012-2.4 -a 7
 
-			internalLeakageVSTemp_segments(dataClasses, inputDataClass, plotSettings, CMDoptionsDict)
+			internalLeakageVSTemp_segments_V1(dataClasses, inputDataClass, plotSettings, CMDoptionsDict)
 
 		elif CMDoptionsDict['additionalCalsOpt'] == 8:
 
@@ -277,269 +284,52 @@ if gaugesFlag:
 
 		elif CMDoptionsDict['additionalCalsOpt'] == 11:
 			"""
-			Apply corrections to measured distances
+			Calculate 
 
 			CMD: python main.py -f filesToLoad_general_P3_FTI.txt -m rs -o f -s f,t -a 11 -c f -w f -l t -r 1-RC,2-RC,...,96-FT24,97-FT24 -v CNT_DST_COL,CNT_DST_LAT,CNT_DST_LNG,CNT_DST_BST_COL,CNT_DST_BST_LAT,CNT_DST_BST_LNG -n t
 			"""
 			# Header operations
 			# Range files
-			if len(CMDoptionsDict['rangeFileIDs']) < 8:
-				rangeIDstring = ','.join([str(i) for i in CMDoptionsDict['rangeFileIDs']])
-			else:
-				rangeIDstring = str(CMDoptionsDict['rangeFileIDs'][0])+'...'+str(CMDoptionsDict['rangeFileIDs'][-1])
-
-			colorDict = {'COL' : plotSettings['colors'][0], 'LNG' : plotSettings['colors'][1], 'LAT' : plotSettings['colors'][2]}
-			# ###################
-
-			# Corrections
-			for dof in ('COL', 'LNG', 'LAT'):
-
-				data_temp = [temp for temp in dataClasses if temp.get_description() == 'CNT_DST_BST_'+dof][0]
-				data_temp.addDataManual6(float(inputDataClass.get_variablesInfoDict()['testData']['corr_'+dof]))
-				data_temp.addDataManual7() #Calculate increment vector
-
-				data_temp = [temp for temp in dataClasses if temp.get_description() == 'CNT_DST_'+dof][0]
-				data_temp.addDataManual7() #Calculate increment vector
-				
-			# Display normal data
-			for dataClass in dataClasses: #For each class variable
-				dataClass.plotResampled(plotSettings, CMDoptionsDict, dataClass.get_mag(), (False, [], []), inputDataClass)
-			# ###################
-
-			figure, ax = plt.subplots(1, 1, sharex='col')
-			figure.set_size_inches(16, 10, forward=True)
-			figure.suptitle('Ratio $\\phi_{\\mathrm{out}/\\mathrm{in}}$ between change in pilot input $\\theta_{\\mathrm{in}}$ and increment in booster displacement $\\theta_{\\mathrm{out}}$\n$\\phi_{\\mathrm{out}/\\mathrm{in}}$ = $\\Delta \\theta_{\\mathrm{out}}$ / $\\Delta \\theta_{\\mathrm{in}}$\nDataset: '+rangeIDstring, **plotSettings['figure_title'])
-
-			for dof in ('COL', 'LNG', 'LAT'):
-
-				data_input_temp = [temp for temp in dataClasses if temp.get_description() == 'CNT_DST_'+dof][0]
-				data_boost_temp = [temp for temp in dataClasses if temp.get_description() == 'CNT_DST_BST_'+dof][0]
-
-				input_temp, ratio_temp = [], []
-				for out,inp in zip(data_boost_temp.rs_increments, data_input_temp.rs_increments):
-					if abs(inp) > 1:
-						input_temp += [inp]
-						ratio_temp += [out / inp] 
-				ax.plot( input_temp, ratio_temp, linestyle = '', marker = 'o', c = colorDict[dof], label = dof, **plotSettings['line'])
-
-			ax.set_ylabel('Ratio $\\phi_{\\mathrm{out}/\\mathrm{in}}$ [mm/%]', **plotSettings['axes_y'])
-			ax.set_xlabel('$\\Delta \\theta_{\mathrm{in}}$ [%]', **plotSettings['axes_x'])
-
-			ax.legend(**plotSettings['legend'])
-			usualSettingsAX(ax, plotSettings)
+			calculateRatioBetweenChangeInPilotInputAndIncrementInBoosterDisplacement(dataClasses, inputDataClass, plotSettings, CMDoptionsDict)
 
 		elif CMDoptionsDict['additionalCalsOpt'] in (12, 13, 14):
 
-			# Extract di
+			# Get applicable segments per 
 			segsDict = {}
 			for stepID in CMDoptionsDict['rangeFileIDs']:
 
-				segsDict[stepID] = [float(t) for t in inputDataClass.get_variablesInfoDict()['testData']['segment__'+stepID].split(',')]
+				segsDict[stepID] = [[float(i) for i in t.split(',')] for t in inputDataClass.get_variablesInfoDict()['testData']['segment__'+stepID].split(';')]
 
 			if CMDoptionsDict['additionalCalsOpt'] == 12:
 				"""
 				Plot the relation between the internal leakage and the temperature, considering a segmented data set
 
-				python main.py -f filesToLoad_general_actuatorPerformance.txt -m rs -o f -s f,t -a 12 -c f -w f -l t -r 15-Step-3.1-1,16-Step-3.1-2,17-Step-3.1-3,18-Step-3.1-4,33-Step-3.1-40FH-cold-1,34-Step-3.1-40FH-cold-2,35-Step-3.1-40FH-hot,39-Step-3.1-50FH-col,40-Step-3.1-50FH-hot -v Temp1,Temp2,VolFlow1,VolFlow2 -n f
-				python main.py -f filesToLoad_general_actuatorPerformance.txt -m rs -o f -s t,t -a 12 -c f -w f -l t -r 27-Step-3.2-hot,28-Step-3.2-cold,36-Step-3.2-40FH-cold-1,37-Step-3.2-40FH-cold-2,38-Step-3.2-40FH-hot -v Temp1,Temp2,VolFlow1,VolFlow2 -n f
+				python main.py -f filesToLoad_general_actuatorPerformance.txt -m rs -o f -m f -s f,t -a 12 -c f -w f -l t -r 15-Step-3.1-1,16-Step-3.1-2,17-Step-3.1-3,18-Step-3.1-4,33-Step-3.1-40FH-cold-1,34-Step-3.1-40FH-cold-2,35-Step-3.1-40FH-hot,39-Step-3.1-50FH-col,40-Step-3.1-50FH-hot -v Temp1,Temp2,VolFlow1,VolFlow2
+				python main.py -f filesToLoad_general_actuatorPerformance.txt -m rs -o f -m f -s t,t -a 12 -c f -w f -l t -r 27-Step-3.2-hot,28-Step-3.2-cold,36-Step-3.2-40FH-cold-1,37-Step-3.2-40FH-cold-2,38-Step-3.2-40FH-hot,41-Step-3.2-50FH-cold-1,42-Step-3.2-50FH-cold-2,43-Step-3.2-50FH-hot,46-Step-3.2-60FH-hot,47-Step-3.2-60FH-cold1,48-Step-3.2-60FH-cold2 -v Temp1,Temp2,VolFlow1,VolFlow2
 				"""
-				# Data Classes
-				dataTemp1 = [temp for temp in dataClasses if temp.get_description() == 'Temp1'][0]
-				dataTemp2 = [temp for temp in dataClasses if temp.get_description() == 'Temp2'][0]
-				dataVolFlow1 = [temp for temp in dataClasses if temp.get_description() == 'VolFlow1'][0]
-				dataVolFlow2 = [temp for temp in dataClasses if temp.get_description() == 'VolFlow2'][0]			
-
-				#Vector of steps
-				indexDictForSteps, stepStrs = get_indexDictForSteps(dataTemp1)
-
-				# Figure initialization 
-				figure, axs = plt.subplots(2, 1, sharex='col')
-				figure.set_size_inches(16, 10, forward=True)
-				figure.suptitle('Temp ', **plotSettings['figure_title'])
-
-				plotsDone = 0
-				for stepName in stepStrs:
-					# axs[0].plot( dataTemp1.get_rs_split()[indexDictForSteps[stepName]], dataVolFlow1.get_rs_split()[indexDictForSteps[stepName]], linestyle = plotSettings['linestyles'][int(plotsDone/7)], marker = '', c = plotSettings['colors'][plotsDone], label = stepName, **plotSettings['line'])
-					# axs[1].plot( dataTemp2.get_rs_split()[indexDictForSteps[stepName]], dataVolFlow2.get_rs_split()[indexDictForSteps[stepName]], linestyle = plotSettings['linestyles'][int(plotsDone/7)], marker = '', c = plotSettings['colors'][plotsDone], label = stepName, **plotSettings['line'])
-					axs[0].plot( createSegmentsOf_rs_FromVariableClass(dataTemp1, segsDict[stepName], indexDictForSteps[stepName])[0], createSegmentsOf_rs_FromVariableClass(dataVolFlow1, segsDict[stepName], indexDictForSteps[stepName])[0], linestyle = plotSettings['linestyles'][int(plotsDone/7)], marker = '', c = plotSettings['colors'][plotsDone], label = stepName, **plotSettings['line'])
-					axs[1].plot( createSegmentsOf_rs_FromVariableClass(dataTemp2, segsDict[stepName], indexDictForSteps[stepName])[0], createSegmentsOf_rs_FromVariableClass(dataVolFlow2, segsDict[stepName], indexDictForSteps[stepName])[0], linestyle = plotSettings['linestyles'][int(plotsDone/7)], marker = '', c = plotSettings['colors'][plotsDone], label = stepName, **plotSettings['line'])
-					plotsDone += 1
-
-				axs[0].set_title('SYS 1', **plotSettings['ax_title'])
-				axs[1].set_title('SYS 2', **plotSettings['ax_title'])
-				axs[-1].set_xlabel(inputDataClass.get_variablesInfoDict()[dataTemp1.get_mag()+'__'+dataTemp1.get_description()]['y-label'], **plotSettings['axes_x'])
-				for ax in axs:
-					ax.set_ylabel(inputDataClass.get_variablesInfoDict()[dataVolFlow1.get_mag()+'__'+dataVolFlow1.get_description()]['y-label'], **plotSettings['axes_y'])
-					ax.legend(**plotSettings['legend'])
-					usualSettingsAX(ax, plotSettings)
+				internalLeakageVSTemp_segments_V2(dataClasses, inputDataClass, plotSettings, CMDoptionsDict, segsDict)
+				
 
 			elif CMDoptionsDict['additionalCalsOpt'] == 13:
 				"""
-				Plot the relation 
+				Plot the relation between the internal leakage and the pressure, considering a segmented data set
 				python main.py -f filesToLoad_general_actuatorPerformance.txt -m rs -o f -s t,t -a 13 -c f -w f -l t -r 27-Step-3.2-hot,28-Step-3.2-cold,36-Step-3.2-40FH-cold-1,37-Step-3.2-40FH-cold-2,38-Step-3.2-40FH-hot-1 -v Temp1,Temp2,Pres1,Pres2 -n f
 				"""
-				# Data Classes
-				dataTemp1 = [temp for temp in dataClasses if temp.get_description() == 'Temp1'][0]
-				dataTemp2 = [temp for temp in dataClasses if temp.get_description() == 'Temp2'][0]
-				dataPres1 = [temp for temp in dataClasses if temp.get_description() == 'Pres1'][0]
-				dataPres2 = [temp for temp in dataClasses if temp.get_description() == 'Pres2'][0]			
-
-				#Vector of steps
-				indexDictForSteps, stepStrs = get_indexDictForSteps(dataTemp1)
-				
-				# Figure initialization 
-				figure, axs = plt.subplots(2, 1, sharex='col', sharey='col')
-				figure.set_size_inches(16, 10, forward=True)
-				figure.suptitle('Temp ', **plotSettings['figure_title'])
-
-				plotsDone = 0
-				for stepName in stepStrs:
-					# axs[0].plot( dataTemp1.get_rs_split()[indexDictForSteps[stepName]], dataPistonDispl.get_rs_split()[indexDictForSteps[stepName]], linestyle = plotSettings['linestyles'][int(plotsDone/7)], marker = '', c = plotSettings['colors'][plotsDone], label = stepName, **plotSettings['line'])
-					axs[0].plot( createSegmentsOf_rs_FromVariableClass(dataTemp1, segsDict[stepName], indexDictForSteps[stepName])[0], createSegmentsOf_rs_FromVariableClass(dataPres1, segsDict[stepName], indexDictForSteps[stepName])[0], linestyle = plotSettings['linestyles'][int(plotsDone/7)], marker = '', c = plotSettings['colors'][plotsDone], label = stepName, **plotSettings['line'])
-					axs[1].plot( createSegmentsOf_rs_FromVariableClass(dataTemp2, segsDict[stepName], indexDictForSteps[stepName])[0], createSegmentsOf_rs_FromVariableClass(dataPres2, segsDict[stepName], indexDictForSteps[stepName])[0], linestyle = plotSettings['linestyles'][int(plotsDone/7)], marker = '', c = plotSettings['colors'][plotsDone], label = stepName, **plotSettings['line'])
-					plotsDone += 1
-
-				axs[0].set_title('SYS 1', **plotSettings['ax_title'])
-				axs[1].set_title('SYS 2', **plotSettings['ax_title'])
-				axs[-1].set_xlabel(inputDataClass.get_variablesInfoDict()[dataTemp1.get_mag()+'__'+dataTemp1.get_description()]['y-label'], **plotSettings['axes_x'])
-				for ax in axs:
-					ax.set_ylabel(inputDataClass.get_variablesInfoDict()[dataPres1.get_mag()+'__'+dataPres1.get_description()]['y-label'], **plotSettings['axes_y'])
-					ax.legend(**plotSettings['legend'])
-					usualSettingsAX(ax, plotSettings)
+				internalLeakageVSPres_segments(dataClasses, inputDataClass, plotSettings, CMDoptionsDict, segsDict)				
 
 			elif CMDoptionsDict['additionalCalsOpt'] == 14:
 				"""
-				Plot the relation 
+				Plot the relation between the internal leakage and the piston displacement, considering a segmented data set
 				python main.py -f filesToLoad_general_actuatorPerformance.txt -m rs -o f -s t,t -a 14 -c f -w f -l t -r 27-Step-3.2-hot,28-Step-3.2-cold,36-Step-3.2-40FH-cold-1,37-Step-3.2-40FH-cold-2,38-Step-3.2-40FH-hot-1 -v Temp1,Temp2,PistonDispl -n f
 				"""
-				# Data Classes
-				dataTemp1 = [temp for temp in dataClasses if temp.get_description() == 'Temp1'][0]
-				dataTemp2 = [temp for temp in dataClasses if temp.get_description() == 'Temp2'][0]
-				dataPistonDispl = [temp for temp in dataClasses if temp.get_description() == 'PistonDispl'][0]
-				# dataPres2 = [temp for temp in dataClasses if temp.get_description() == 'Pres2'][0]			
-
-				#Vector of steps
-				indexDictForSteps, stepStrs = get_indexDictForSteps(dataTemp1)
-
-				# Figure initialization 
-				figure, axs = plt.subplots(2, 1, sharex='col', sharey='col')
-				figure.set_size_inches(16, 10, forward=True)
-				figure.suptitle('Temp ', **plotSettings['figure_title'])
-
-				plotsDone = 0
-				for stepName in stepStrs:
-					axs[0].plot( createSegmentsOf_rs_FromVariableClass(dataTemp1, segsDict[stepName], indexDictForSteps[stepName])[0], createSegmentsOf_rs_FromVariableClass(dataPistonDispl, segsDict[stepName], indexDictForSteps[stepName])[0], linestyle = plotSettings['linestyles'][int(plotsDone/7)], marker = '', c = plotSettings['colors'][plotsDone], label = stepName, **plotSettings['line'])
-					axs[1].plot( createSegmentsOf_rs_FromVariableClass(dataTemp2, segsDict[stepName], indexDictForSteps[stepName])[0], createSegmentsOf_rs_FromVariableClass(dataPistonDispl, segsDict[stepName], indexDictForSteps[stepName])[0], linestyle = plotSettings['linestyles'][int(plotsDone/7)], marker = '', c = plotSettings['colors'][plotsDone], label = stepName, **plotSettings['line'])
-					plotsDone += 1
-
-				axs[0].set_title('SYS 1', **plotSettings['ax_title'])
-				axs[1].set_title('SYS 2', **plotSettings['ax_title'])
-				axs[-1].set_xlabel(inputDataClass.get_variablesInfoDict()[dataTemp1.get_mag()+'__'+dataTemp1.get_description()]['y-label'], **plotSettings['axes_x'])
-				for ax in axs:
-					ax.set_ylabel(inputDataClass.get_variablesInfoDict()[dataPistonDispl.get_mag()+'__'+dataPistonDispl.get_description()]['y-label'], **plotSettings['axes_y'])
-					ax.legend(**plotSettings['legend'])
-					usualSettingsAX(ax, plotSettings)
+				internalLeakageVSPistonDispl_segments(dataClasses, inputDataClass, plotSettings, CMDoptionsDict, segsDict)
 
 		elif CMDoptionsDict['additionalCalsOpt'] == 15:
 			"""
 			Calculations for Christian, obtain temperatures
-			CMD: python main.py -f filesToLoad_general_P3_FTI.txt -m rs -s f,t -a 15 -v HYD_PRS_1,HYD_PRS_2,HYD_TMP_TANK_1,HYD_TMP_TANK_2,DIU_ARI_IND_HYD_PRS_1_C,DIU_ARI_IND_HYD_PRS_2_C,PFD_ARI_TMP_OAT -r 100-FT01
+			CMD: python main.py -f filesToLoad_general_P3_FTI.txt -m rs -s f,t -a 15 -v HYD_PRS_1,HYD_PRS_2,HYD_TMP_TANK_1,HYD_TMP_TANK_2,DIU_ARI_IND_HYD_PRS_1_C,DIU_ARI_IND_HYD_PRS_2_C,PFD_ARI_TMP_OAT,FAD_CHA_ARI_ARR_NR -r 100-FT01
 			"""
-
-			# Write header row to file
-			#I/O with files
-			file = open(os.path.join(CMDoptionsDict['stepsSummaryResultsFolder'], 'HYD_analysis.csv'), 'w')
-
-			indexDictForSteps, stepStrs = get_indexDictForSteps(dataClasses[0])
-
-			OAT_Class = [temp for temp in dataClasses if temp.get_description() == 'PFD_ARI_TMP_OAT'][0]
-			
-			header = ['SYS', 'Time[s]', 'Type', 'HYD_TMP_TANK[degC]', 'HYD_PRS[bar]', 'OAT[degC]', 'TimeToDown[s]']
-			file.write(';'.join(header)+'\n')
-			for stepStr in stepStrs:
-				file.write(stepStr+'\n')
-
-				for sysID in ('1', '2'):
-
-					figure, axs = plt.subplots(4, 1, sharex='col')
-					figure.set_size_inches(16, 10, forward=True)
-					figure.suptitle(stepStr + ' / SYS '+sysID, **plotSettings['figure_title'])
-
-
-					HYD_IND_Class = [temp for temp in dataClasses if temp.get_description() == 'DIU_ARI_IND_HYD_PRS_'+sysID+'_C'][0]
-					HYD_TMP_Class = [temp for temp in dataClasses if temp.get_description() == 'HYD_TMP_TANK_'+sysID][0]
-					HYD_PRS_Class = [temp for temp in dataClasses if temp.get_description() == 'HYD_PRS_'+sysID][0]
-
-					for ax, class_current in zip(axs, [OAT_Class, HYD_TMP_Class, HYD_PRS_Class, HYD_IND_Class]):
-						ax.plot( get_timeVectorClass(class_current, indexDictForSteps[stepStr]), class_current.get_rs_split()[indexDictForSteps[stepStr]], linestyle = '-', marker = 'o', c = 'k', label = class_current.get_description(), **plotSettings['line'])
-						ax.set_ylabel(inputDataClass.get_variablesInfoDict()[class_current.get_mag()+'__'+class_current.get_description()]['y-label'], **plotSettings['axes_y'])
-
-					timeSegment = get_timeVectorClass(HYD_IND_Class, indexDictForSteps[stepStr])
-					dataSegment = HYD_IND_Class.get_rs_split()[indexDictForSteps[stepStr]]
-
-					assert len(timeSegment) == len(dataSegment)
-
-					i = 1
-					timesOff = []
-					for point in dataSegment[1:]:
-
-						incrementBinary = point - dataSegment[i-1]
-
-						if incrementBinary != 0:
-							temp_sys_singlePoint = createSegmentsOf_rs_FromVariableClass(HYD_TMP_Class, timeSegment[i-1], indexDictForSteps[stepStr])[0]
-							prs_sys_singlePoint = createSegmentsOf_rs_FromVariableClass(HYD_PRS_Class, timeSegment[i-1], indexDictForSteps[stepStr])[0]
-							oat_sys_singlePoint = createSegmentsOf_rs_FromVariableClass(OAT_Class, timeSegment[i-1], indexDictForSteps[stepStr])[0]
-							
-							if incrementBinary == 1:
-								# Switch went from 0 to 1
-								type_detected = 'Switch-ON'
-								for ax in axs:
-									ax.plot(2*[timeSegment[i-1]], [ax.get_ylim()[0], ax.get_ylim()[1]], linestyle = '--', marker = '', c = 'g', scalex = False, scaley = False, **plotSettings['line'])
-
-								pressureRangeUp, timeRangeUp = createSegmentsOf_rs_FromVariableClass(HYD_PRS_Class, [timeSegment[i-1]-1, timeSegment[i-1]+2], indexDictForSteps[stepStr])
-								pressureRangeDown, timeRangeDown = createSegmentsOf_rs_FromVariableClass(HYD_PRS_Class, [timeSegment[i-1], timeSegment[-2]], indexDictForSteps[stepStr])
-								time_up = None
-								for press, time_current in zip(pressureRangeUp, timeRangeUp):
-									if press < float(inputDataClass.get_variablesInfoDict()['testData']['threshold_press_up']):
-										time_up = time_current
-										break
-								time_down = None
-								for press, time_current in zip(pressureRangeDown, timeRangeDown):
-									if press < float(inputDataClass.get_variablesInfoDict()['testData']['threshold_press_down']):
-										time_down = time_current
-										break
-								try:
-									time_to_down = time_down - time_up
-								except TypeError as e:
-									raise ValueError('Error for calculating point at '+str(timeSegment[i-1])+' seconds / SYS '+sysID)
-
-							elif incrementBinary == -1:
-								# Switch from 1 to 0
-								type_detected = 'Switch-OFF'
-								for ax in axs:
-									ax.plot(2*[timeSegment[i-1]], [ax.get_ylim()[0], ax.get_ylim()[1]], linestyle = '--', marker = '', c = 'r', scalex = False, scaley = False, **plotSettings['line'])
-								time_to_down = ''
-
-							# Output data
-							output = [p if isinstance(p, str) else str(p) for p in [sysID, timeSegment[i-1], type_detected, temp_sys_singlePoint, prs_sys_singlePoint, oat_sys_singlePoint, time_to_down]]
-							file.write(';'.join(output)+'\n')
-						i+=1
-
-					for ax in axs:
-						ax.set_xlabel('Time elapsed', **plotSettings['axes_x'])
-						ax.legend(**plotSettings['legend'])
-						usualSettingsAX(ax, plotSettings)
-
-					if CMDoptionsDict['saveFigure']:
-
-						# Range files
-						if len(CMDoptionsDict['rangeFileIDs']) < 8:
-							rangeIDstring = ','.join([str(i) for i in CMDoptionsDict['rangeFileIDs']])
-						else:
-							rangeIDstring = str(CMDoptionsDict['rangeFileIDs'][0])+'...'+str(CMDoptionsDict['rangeFileIDs'][-1])
-
-						figure.savefig(os.path.join(CMDoptionsDict['cwd'], 'hyd_analysis__sys'+sysID+'__'+stepStr+'.png'), dpi = plotSettings['figure_settings']['dpi'])
-			file.close()
+			performHYDanalysisFromFTdata(dataClasses, inputDataClass, plotSettings, CMDoptionsDict)
 		
 		elif CMDoptionsDict['additionalCalsOpt'] == 16:
 			"""
@@ -548,8 +338,126 @@ if gaugesFlag:
 			dataAdditional = dataFromGaugesSingleMagnitudeClass('forceFighting_abs(1-2)', 'rs', testFactor, orderDeriv)
 			dataAdditional.addDataManual1(dataClasses, 'CNT_FRC_BST_TR_1', 'CNT_FRC_BST_TR_2', inputDataClass)
 			dataClasses += (dataAdditional, )
-			dataAdditional.plotResampled(plotSettings, CMDoptionsDict, dataAdditional.get_mag(), (True, dataClasses, CMDoptionsDict['variables']+['forceFighting_abs(1-2)']), inputDataClass)
+			plottingLoop(dataClasses, inputDataClass, plotSettings, CMDoptionsDict)	
 
+		elif CMDoptionsDict['additionalCalsOpt'] == 17:
+			"""
+			Show exceedances on collective force for the actuator
+			CMD: python main.py -f filesToLoad_general_P3_FTI.txt -v CNT_FRC_BST_COL -m rs -o t -s f,t -a 17 -c f -n 2 -r 100-FT01,101-FT02 -w f -l t
+			"""
+
+			dataAdditional = dataFromGaugesSingleMagnitudeClass('TimeOutsideEnvelope_COL', 'rs', testFactor, orderDeriv)
+			dataAdditional.addDataManual8(dataClasses, inputDataClass)
+			dataClasses += (dataAdditional, )
+			plottingLoop(dataClasses, inputDataClass, plotSettings, CMDoptionsDict)
+
+		elif CMDoptionsDict['additionalCalsOpt'] == 18:
+			"""
+			Show force fighting versus temperature
+			CMD: python main.py -f filesToLoad_general_P3_FTI.txt -v CNT_FRC_BST_COL -m rs -o t -s f,t -a 17 -c f -n 2 -r 100-FT01,101-FT02 -w f -l t
+			"""
+			dataAdditional = dataFromGaugesSingleMagnitudeClass('forceFightingEyes(HP1-HP2)', 'rs', testFactor, orderDeriv)
+			dataAdditional.addDataManual1(dataClasses, 'ForceEye1', 'ForceEye2', inputDataClass)
+			tempClass = [temp for temp in dataClasses if temp.get_description() == 'Temp1'][0]
+			plottingLoop((tempClass, dataAdditional), inputDataClass, plotSettings, CMDoptionsDict)
+			forceClass = [temp for temp in dataClasses if temp.get_description() == 'ForceEye1'][0]
+			plottingLoop((forceClass, dataAdditional), inputDataClass, plotSettings, CMDoptionsDict)
+
+
+		elif CMDoptionsDict['additionalCalsOpt'] == 19:
+			"""
+			Show force fighting versus temperature
+			CMD: python main.py -f filesToLoad_general_P3_FTI.txt -v CNT_FRC_BST_COL -m rs -o t -s f,t -a 17 -c f -n 2 -r 100-FT01,101-FT02 -w f -l t
+			"""
+			dataAdditional = dataFromGaugesSingleMagnitudeClass('forceFighting_abs(1-2)', 'rs', testFactor, orderDeriv)
+			dataAdditional.addDataManual1(dataClasses, 'CNT_FRC_BST_TR_1', 'CNT_FRC_BST_TR_2', inputDataClass)
+			loadClass = [temp for temp in dataClasses if temp.get_description() == 'CNT_FRC_BST_TR_1'][0]
+			plottingLoop((loadClass, dataAdditional), inputDataClass, plotSettings, CMDoptionsDict)	
+
+		elif CMDoptionsDict['additionalCalsOpt'] == 20:
+			"""
+			Flow gain curve
+			CMD: python main.py -f filesToLoad_general_actuatorPerformance.txt -m rs -o f -s f,t -a 20 -c f -w f -l t -r 3-SN002-1.3 -v ValveDispl,OutputForce -n 4 -g t
+			"""
+
+			# Range files
+			if len(CMDoptionsDict['rangeFileIDs']) < 8:
+				rangeIDstring = ','.join([str(i) for i in CMDoptionsDict['rangeFileIDs']])
+			else:
+				rangeIDstring = str(CMDoptionsDict['rangeFileIDs'][0])+'...'+str(CMDoptionsDict['rangeFileIDs'][-1])
+
+			# Data Classes
+			dataOutputForce = [temp for temp in dataClasses if temp.get_description() == 'OutputForce'][0]
+			dataValveDispl = [temp for temp in dataClasses if temp.get_description() == 'ValveDispl'][0]
+
+			#Vector of steps
+			indexDictForSteps, stepStrs = get_indexDictForSteps(dataOutputForce)
+
+			# Figure initialization 
+			figure, ax = plt.subplots(1, 1, sharex='col', sharey='col')
+			figure2, ax2 = plt.subplots(2, 1, sharex='col')
+			figure.set_size_inches(16, 10, forward=True)
+			figure2.set_size_inches(16, 10, forward=True)
+			figure.suptitle('Flow gain - '+rangeIDstring, **plotSettings['figure_title'])
+
+			forceVector = dataOutputForce.get_rs()
+			valveVector = dataValveDispl.get_rs()
+			timeForce = [t/dataOutputForce.get_freqData()[0] for t in dataOutputForce.get_timeRs()]
+			timeValve = [t/dataValveDispl.get_freqData()[0] for t in dataValveDispl.get_timeRs()]
+			
+			nPoints = 100
+			legendHandles, legendHandles2, plotsDone =  [], [], 0
+			for stepName in stepStrs:
+				i = nPoints+1
+				for force, valve in zip(forceVector[nPoints+1:-nPoints-1], valveVector[nPoints+1:-nPoints-1]):
+
+					vector_valve = valveVector[i-int(nPoints/2):i+int(nPoints/10)+1]
+					vector_time = timeForce[i-int(nPoints/2):i+int(nPoints/10)+1]
+
+					# regre = np.polyfit(np.linspace(0, nPoints, num = nPoints+1).tolist(), [j-np.mean(vector_forces) for j in vector_forces], 2)[0]
+					# mean_vector_valve = np.mean(vector_valve)
+					newX, newY = getNewVectorWithoutOutliers(vector_time,vector_valve)
+					regre = np.polyfit(newX, newY, 1)
+					# regre_fn = np.poly1d(regre)
+					# if (regre > 0.0 and force > 0.0) or (regre < 0.0 and force < 0.0): # Valve is opening
+					# if abs(vector_forces[-1]) - abs(vector_forces[0]) > 0.0: # Valve is opening
+					# if abs(np.mean(vector_valve[-3:])) - abs(np.mean(vector_valve[:3])) > 0.0: # Valve is opening
+					# if abs(valveVector[i]) - abs(vector_valve[0]) > 0.0: # Valve is opening
+					# pdb.set_trace()
+					if (regre[0] > 0.0 and valve > 0.0) or (regre[0] < 0.0 and valve < 0.0): # Valve is opening
+						ax.plot(valve,force, linestyle = '', marker = plotSettings['markers'][plotsDone], c = 'r', label = 'Valve opening', **plotSettings['line'])
+						ax2[0].plot(timeForce[i],force, linestyle = '', marker = plotSettings['markers'][plotsDone], c = 'r', label = 'Valve opening', **plotSettings['line'])
+						ax2[1].plot(timeForce[i],valve, linestyle = '', marker = plotSettings['markers'][plotsDone], c = 'r', label = 'Valve opening', **plotSettings['line'])
+						# ax2[2].plot(timeForce[i],regre, linestyle = '', marker = plotSettings['markers'][plotsDone], c = 'g', label = 'Valve opening', **plotSettings['line'])
+					else: # Valve is closing
+						ax.plot(valve,force, linestyle = '', marker = plotSettings['markers'][plotsDone], c = 'k', label = 'Valve closing', **plotSettings['line'])
+						ax2[0].plot(timeValve[i],force, linestyle = '', marker = plotSettings['markers'][plotsDone], c = 'k', label = 'Valve closing', **plotSettings['line'])
+						ax2[1].plot(timeValve[i],valve, linestyle = '', marker = plotSettings['markers'][plotsDone], c = 'k', label = 'Valve closing', **plotSettings['line'])
+						# ax2[2].plot(timeForce[i],regre, linestyle = '', marker = plotSettings['markers'][plotsDone], c = 'r', label = 'Valve closing', **plotSettings['line'])
+					
+					# ax2[1].plot(timeForce[i:i+2],regre_fn(valveVector[i:i+2])+mean_vector_valve, linestyle = '--', marker = '', c = 'k', **plotSettings['line'])
+
+					i+=1
+
+				legendHandles += [plt.Line2D([],[], color='r', marker=plotSettings['markers'][plotsDone], linestyle='', label='Valve opening - '+stepName)]
+				legendHandles += [plt.Line2D([],[], color='k', marker=plotSettings['markers'][plotsDone], linestyle='', label='Valve closing - '+stepName)]
+				legendHandles2 += [plt.Line2D([],[], color='r', marker=plotSettings['markers'][plotsDone], linestyle='', label='Valve opening - '+stepName)]
+				legendHandles2 += [plt.Line2D([],[], color='k', marker=plotSettings['markers'][plotsDone], linestyle='', label='Valve closing - '+stepName)]
+
+				plotsDone+=1
+			
+			ax.set_xlabel(inputDataClass.get_variablesInfoDict()[dataValveDispl.get_mag()+'__'+dataValveDispl.get_description()]['y-label'], **plotSettings['axes_x'])
+			ax.set_ylabel(inputDataClass.get_variablesInfoDict()[dataOutputForce.get_mag()+'__'+dataOutputForce.get_description()]['y-label'], **plotSettings['axes_y'])
+			ax.legend(handles = legendHandles, **plotSettings['legend'])
+			ax2[0].legend(handles = legendHandles2, **plotSettings['legend'])
+			ax2[1].legend(handles = legendHandles2, **plotSettings['legend'])
+			# for ax_c in [ax, ax2[0], ax2[1], ax2[2]]:
+			for ax_c in [ax, ax2[0], ax2[1]]:
+				usualSettingsAX(ax_c, plotSettings)
+
+			if CMDoptionsDict['saveFigure']:
+
+				figure.savefig(os.path.join(CMDoptionsDict['cwd'], 'Flow gain'+'__'+rangeIDstring+'.png'), dpi = plotSettings['figure_settings']['dpi'])
 
 	os.chdir(cwd)
 

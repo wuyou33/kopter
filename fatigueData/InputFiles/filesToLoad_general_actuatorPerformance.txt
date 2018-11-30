@@ -5,7 +5,12 @@ L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\
 
 -> Test info
 test freq: 5
-segment__15-Step-3.1-1 : 1, 25000 
+segment__3-SN002-1.3 : 3339.2, 3341.8; 3342.5, 3351; 3354, 3360; 3366, 3371 ;3374, 3382; 3388.5, 3392 ;3392.5, 3394.75;3400, 3405; 3406, 3411.5; 3412.5, 3417
+segment__10-SN0012-1.3 : 10, 100; 200, 650; 775, 875
+segment__8-SN002-2.4 : 100, 4400
+segment__13-SN0012-2.4 : 100, 3000
+
+segment__15-Step-3.1-1 : 1, 25000
 segment__16-Step-3.1-2 : 20, 1300 
 segment__17-Step-3.1-3 : 2000, 23000 
 segment__18-Step-3.1-4 : 50, 1500 
@@ -22,6 +27,9 @@ segment__40-Step-3.1-50FH-hot : 50, 1300
 segment__41-Step-3.2-50FH-cold-1 : 1000, 22000 
 segment__42-Step-3.2-50FH-cold-2 : 500, 18000 
 segment__43-Step-3.2-50FH-hot : 100, 2000
+segment__46-Step-3.2-60FH-hot : 100, 2100
+segment__47-Step-3.2-60FH-cold1 : 1000, 23000
+segment__48-Step-3.2-60FH-cold2 : 2000, 15000
 
 -> Variable info
 name: rs__Pres1

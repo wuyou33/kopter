@@ -1,0 +1,30 @@
+-> Folders to load
+[ADDRESS TO FOLDER WITH DATA 1]
+[ADDRESS TO FOLDER WITH DATA 2]
+EXAMPLE: L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0223\01_Data_set\02_STEPS\csv100
+
+-> Test info
+[ADDITIONAL VARIABLE TEST]: [VALUE VARIABLE]
+
+-> Variable info
+name: [MAGNITUDE]__[NAME VARIABLE]
+y-label: [LABEL FOR VARIABLE]
+TO spec: [YES OR NO TO INCLUDE INFORMATION]
+max load: [MAX VALUE]
+min load: [MAX VALUE]
+Fatigue load spec: [YES OR NO TO INCLUDE INFORMATION]
+static load: [VALUE STATIC LOAD]
+margin static load (%): [ALLOWED MARGIN FROM STATIC LOAD]
+alternate load: [VALUE ALTERNATE LOAD]
+margin alternate load (%): [ALLOWED MARGIN FROM ALTERNATE LOAD]
+
+-> Variable info
+name: rs__InputForce
+y-label: Force [N]
+TO spec: no
+max load: 1250
+Fatigue load spec: no
+static load: 0.0
+margin static load (%): 5
+alternate load: 1250
+margin alternate load (%): 3

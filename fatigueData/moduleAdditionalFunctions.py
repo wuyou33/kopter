@@ -329,7 +329,7 @@ def internalLeakageVSTempVSPress_withP2ref(dataClasses, inputDataClass, plotSett
 		i+=1
 	axs[-1].set_xlabel('Temp. [$^\circ$C]', **plotSettings['axes_x'])
 
-def internalLeakageVSTemp_segments(dataClasses, inputDataClass, plotSettings, CMDoptionsDict):
+def internalLeakageVSTemp_segments_V1(dataClasses, inputDataClass, plotSettings, CMDoptionsDict):
 
 	dataTemp1 = [temp for temp in dataClasses if temp.get_description() == 'Temp1'][0]
 	dataTemp2 = [temp for temp in dataClasses if temp.get_description() == 'Temp2'][0]
@@ -389,7 +389,7 @@ def internalLeakageVSTemp_segments(dataClasses, inputDataClass, plotSettings, CM
 	i = 0
 	for ax in axs:
 		
-		ax.set_ylabel(inputDataClass.get_variablesInfoDict()[mag+'__'+dataVolFlow1.get_description()]['y-label'], **plotSettings['axes_y'])
+		ax.set_ylabel(inputDataClass.get_variablesInfoDict()[dataVolFlow1.get_mag()+'__'+dataVolFlow1.get_description()]['y-label'], **plotSettings['axes_y'])
 		ax.set_title(titlesDict[i], **plotSettings['ax_title'])
 		ax.legend(**plotSettings['legend'])
 		usualSettingsAX(ax, plotSettings)
@@ -985,3 +985,277 @@ def calculateSegmentsForHYDtestFT04(dataClasses, plotSettings, CMDoptionsDict):
 		if CMDoptionsDict['saveFigure']:
 
 			figure.savefig(os.path.join('L:\\TEMP\\AlejandroValverde\\DIADEM\\resulting_plots\\FT04\\', 'HYD_GR_STEP__'+segKey+'.png'), dpi = plotSettings['figure_settings']['dpi'])
+
+def calculateRatioBetweenChangeInPilotInputAndIncrementInBoosterDisplacement(dataClasses, inputDataClass, plotSettings, CMDoptionsDict):	
+
+	if len(CMDoptionsDict['rangeFileIDs']) < 8:
+		rangeIDstring = ','.join([str(i) for i in CMDoptionsDict['rangeFileIDs']])
+	else:
+		rangeIDstring = str(CMDoptionsDict['rangeFileIDs'][0])+'...'+str(CMDoptionsDict['rangeFileIDs'][-1])
+
+	colorDict = {'COL' : plotSettings['colors'][0], 'LNG' : plotSettings['colors'][1], 'LAT' : plotSettings['colors'][2]}
+	# ###################
+
+	# Corrections
+	for dof in ('COL', 'LNG', 'LAT'):
+
+		data_temp = [temp for temp in dataClasses if temp.get_description() == 'CNT_DST_BST_'+dof][0]
+		data_temp.addDataManual6(float(inputDataClass.get_variablesInfoDict()['testData']['corr_'+dof]))
+		data_temp.addDataManual7() #Calculate increment vector
+
+		data_temp = [temp for temp in dataClasses if temp.get_description() == 'CNT_DST_'+dof][0]
+		data_temp.addDataManual7() #Calculate increment vector
+		
+	# Display normal data
+	for dataClass in dataClasses: #For each class variable
+		dataClass.plotResampled(plotSettings, CMDoptionsDict, dataClass.get_mag(), (False, [], []), inputDataClass)
+	# ###################
+
+	figure, ax = plt.subplots(1, 1, sharex='col')
+	figure.set_size_inches(16, 10, forward=True)
+	figure.suptitle('Ratio $\\phi_{\\mathrm{out}/\\mathrm{in}}$ between change in pilot input $\\theta_{\\mathrm{in}}$ and increment in booster displacement $\\theta_{\\mathrm{out}}$\n$\\phi_{\\mathrm{out}/\\mathrm{in}}$ = $\\Delta \\theta_{\\mathrm{out}}$ / $\\Delta \\theta_{\\mathrm{in}}$\nDataset: '+rangeIDstring, **plotSettings['figure_title'])
+
+	for dof in ('COL', 'LNG', 'LAT'):
+
+		data_input_temp = [temp for temp in dataClasses if temp.get_description() == 'CNT_DST_'+dof][0]
+		data_boost_temp = [temp for temp in dataClasses if temp.get_description() == 'CNT_DST_BST_'+dof][0]
+
+		input_temp, ratio_temp = [], []
+		for out,inp in zip(data_boost_temp.rs_increments, data_input_temp.rs_increments):
+			if abs(inp) > 1:
+				input_temp += [inp]
+				ratio_temp += [out / inp] 
+		ax.plot( input_temp, ratio_temp, linestyle = '', marker = 'o', c = colorDict[dof], label = dof, **plotSettings['line'])
+
+	ax.set_ylabel('Ratio $\\phi_{\\mathrm{out}/\\mathrm{in}}$ [mm/%]', **plotSettings['axes_y'])
+	ax.set_xlabel('$\\Delta \\theta_{\mathrm{in}}$ [%]', **plotSettings['axes_x'])
+
+	ax.legend(**plotSettings['legend'])
+	usualSettingsAX(ax, plotSettings)
+
+def internalLeakageVSTemp_segments_V2(dataClasses, inputDataClass, plotSettings, CMDoptionsDict, segsDict):
+	
+	# Data Classes
+	dataTemp1 = [temp for temp in dataClasses if temp.get_description() == 'Temp1'][0]
+	dataTemp2 = [temp for temp in dataClasses if temp.get_description() == 'Temp2'][0]
+	dataVolFlow1 = [temp for temp in dataClasses if temp.get_description() == 'VolFlow1'][0]
+	dataVolFlow2 = [temp for temp in dataClasses if temp.get_description() == 'VolFlow2'][0]			
+
+	#Vector of steps
+	indexDictForSteps, stepStrs = get_indexDictForSteps(dataTemp1)
+
+	# Figure initialization 
+	figure, axs = plt.subplots(2, 1, sharex='col')
+	figure.set_size_inches(16, 10, forward=True)
+	figure.suptitle('internalLeakageVSTemp ', **plotSettings['figure_title'])
+
+	plotsDone = 0
+	legendHandles = []
+	for stepName in stepStrs:
+		for divSegment in segsDict[stepName]:
+			axs[0].plot( createSegmentsOf_rs_FromVariableClass(dataTemp1, divSegment, indexDictForSteps[stepName])[0], createSegmentsOf_rs_FromVariableClass(dataVolFlow1, divSegment, indexDictForSteps[stepName])[0], linestyle = plotSettings['linestyles'][int(plotsDone/7)], marker = '', c = plotSettings['colors'][plotsDone], label = stepName, **plotSettings['line'])
+			axs[1].plot( createSegmentsOf_rs_FromVariableClass(dataTemp2, divSegment, indexDictForSteps[stepName])[0], createSegmentsOf_rs_FromVariableClass(dataVolFlow2, divSegment, indexDictForSteps[stepName])[0], linestyle = plotSettings['linestyles'][int(plotsDone/7)], marker = '', c = plotSettings['colors'][plotsDone], label = stepName, **plotSettings['line'])
+		legendHandles += [plt.Line2D([],[], color=plotSettings['colors'][plotsDone], marker='', linestyle=plotSettings['linestyles'][int(plotsDone/7)], label=stepName)]
+		plotsDone += 1
+
+	axs[0].set_title('SYS 1', **plotSettings['ax_title'])
+	axs[1].set_title('SYS 2', **plotSettings['ax_title'])
+	axs[-1].set_xlabel(inputDataClass.get_variablesInfoDict()[dataTemp1.get_mag()+'__'+dataTemp1.get_description()]['y-label'], **plotSettings['axes_x'])
+	for ax in axs:
+		ax.set_ylabel(inputDataClass.get_variablesInfoDict()[dataVolFlow1.get_mag()+'__'+dataVolFlow1.get_description()]['y-label'], **plotSettings['axes_y'])
+		ax.legend(handles = legendHandles, **plotSettings['legend'])
+		usualSettingsAX(ax, plotSettings)
+
+	if CMDoptionsDict['saveFigure']:
+
+		# Range files
+		if len(CMDoptionsDict['rangeFileIDs']) < 8:
+			rangeIDstring = ','.join([str(i) for i in CMDoptionsDict['rangeFileIDs']])
+		else:
+			rangeIDstring = str(CMDoptionsDict['rangeFileIDs'][0])+'...'+str(CMDoptionsDict['rangeFileIDs'][-1])
+
+		figure.savefig(os.path.join(CMDoptionsDict['cwd'], 'internalLeakageVSTemp'+'__'+rangeIDstring+'.png'), dpi = plotSettings['figure_settings']['dpi'])
+
+def internalLeakageVSPres_segments(dataClasses, inputDataClass, plotSettings, CMDoptionsDict, segsDict):
+
+	# Data Classes
+	dataTemp1 = [temp for temp in dataClasses if temp.get_description() == 'Temp1'][0]
+	dataTemp2 = [temp for temp in dataClasses if temp.get_description() == 'Temp2'][0]
+	dataPres1 = [temp for temp in dataClasses if temp.get_description() == 'Pres1'][0]
+	dataPres2 = [temp for temp in dataClasses if temp.get_description() == 'Pres2'][0]			
+
+	#Vector of steps
+	indexDictForSteps, stepStrs = get_indexDictForSteps(dataTemp1)
+	
+	# Figure initialization 
+	figure, axs = plt.subplots(2, 1, sharex='col', sharey='col')
+	figure.set_size_inches(16, 10, forward=True)
+	figure.suptitle('internalLeakageVSPres ', **plotSettings['figure_title'])
+
+	plotsDone = 0
+	legendHandles = []
+	for stepName in stepStrs:
+		for divSegment in segsDict[stepName]:
+			axs[0].plot( createSegmentsOf_rs_FromVariableClass(dataTemp1, divSegment, indexDictForSteps[stepName])[0], createSegmentsOf_rs_FromVariableClass(dataPres1, divSegment, indexDictForSteps[stepName])[0], linestyle = plotSettings['linestyles'][int(plotsDone/7)], marker = '', c = plotSettings['colors'][plotsDone], label = stepName, **plotSettings['line'])
+			axs[1].plot( createSegmentsOf_rs_FromVariableClass(dataTemp2, divSegment, indexDictForSteps[stepName])[0], createSegmentsOf_rs_FromVariableClass(dataPres2, divSegment, indexDictForSteps[stepName])[0], linestyle = plotSettings['linestyles'][int(plotsDone/7)], marker = '', c = plotSettings['colors'][plotsDone], label = stepName, **plotSettings['line'])
+		legendHandles += [plt.Line2D([],[], color=plotSettings['colors'][plotsDone], marker='', linestyle=plotSettings['linestyles'][int(plotsDone/7)], label=stepName)]
+		plotsDone += 1
+
+	axs[0].set_title('SYS 1', **plotSettings['ax_title'])
+	axs[1].set_title('SYS 2', **plotSettings['ax_title'])
+	axs[-1].set_xlabel(inputDataClass.get_variablesInfoDict()[dataTemp1.get_mag()+'__'+dataTemp1.get_description()]['y-label'], **plotSettings['axes_x'])
+	for ax in axs:
+		ax.set_ylabel(inputDataClass.get_variablesInfoDict()[dataPres1.get_mag()+'__'+dataPres1.get_description()]['y-label'], **plotSettings['axes_y'])
+		ax.legend(handles = legendHandles, **plotSettings['legend'])
+		usualSettingsAX(ax, plotSettings)
+
+	if CMDoptionsDict['saveFigure']:
+
+		# Range files
+		if len(CMDoptionsDict['rangeFileIDs']) < 8:
+			rangeIDstring = ','.join([str(i) for i in CMDoptionsDict['rangeFileIDs']])
+		else:
+			rangeIDstring = str(CMDoptionsDict['rangeFileIDs'][0])+'...'+str(CMDoptionsDict['rangeFileIDs'][-1])
+
+		figure.savefig(os.path.join(CMDoptionsDict['cwd'], 'internalLeakageVSPres'+'__'+rangeIDstring+'.png'), dpi = plotSettings['figure_settings']['dpi'])
+
+def internalLeakageVSPistonDispl_segments(dataClasses, inputDataClass, plotSettings, CMDoptionsDict, segsDict):
+
+	# Data Classes
+	dataTemp1 = [temp for temp in dataClasses if temp.get_description() == 'Temp1'][0]
+	dataTemp2 = [temp for temp in dataClasses if temp.get_description() == 'Temp2'][0]
+	dataPistonDispl = [temp for temp in dataClasses if temp.get_description() == 'PistonDispl'][0]
+	# dataPres2 = [temp for temp in dataClasses if temp.get_description() == 'Pres2'][0]			
+
+	#Vector of steps
+	indexDictForSteps, stepStrs = get_indexDictForSteps(dataTemp1)
+
+	# Figure initialization 
+	figure, axs = plt.subplots(2, 1, sharex='col', sharey='col')
+	figure.set_size_inches(16, 10, forward=True)
+	figure.suptitle('internalLeakageVSPistonDispl ', **plotSettings['figure_title'])
+
+	plotsDone = 0
+	legendHandles = []
+	for stepName in stepStrs:
+		for divSegment in segsDict[stepName]:
+			axs[0].plot( createSegmentsOf_rs_FromVariableClass(dataTemp1, divSegment, indexDictForSteps[stepName])[0], createSegmentsOf_rs_FromVariableClass(dataPistonDispl, divSegment, indexDictForSteps[stepName])[0], linestyle = plotSettings['linestyles'][int(plotsDone/7)], marker = '', c = plotSettings['colors'][plotsDone], label = stepName, **plotSettings['line'])
+			axs[1].plot( createSegmentsOf_rs_FromVariableClass(dataTemp2, divSegment, indexDictForSteps[stepName])[0], createSegmentsOf_rs_FromVariableClass(dataPistonDispl, divSegment, indexDictForSteps[stepName])[0], linestyle = plotSettings['linestyles'][int(plotsDone/7)], marker = '', c = plotSettings['colors'][plotsDone], label = stepName, **plotSettings['line'])
+		legendHandles += [plt.Line2D([],[], color=plotSettings['colors'][plotsDone], marker='', linestyle=plotSettings['linestyles'][int(plotsDone/7)], label=stepName)]
+		plotsDone += 1
+
+	axs[0].set_title('SYS 1', **plotSettings['ax_title'])
+	axs[1].set_title('SYS 2', **plotSettings['ax_title'])
+	axs[-1].set_xlabel(inputDataClass.get_variablesInfoDict()[dataTemp1.get_mag()+'__'+dataTemp1.get_description()]['y-label'], **plotSettings['axes_x'])
+	for ax in axs:
+		ax.set_ylabel(inputDataClass.get_variablesInfoDict()[dataPistonDispl.get_mag()+'__'+dataPistonDispl.get_description()]['y-label'], **plotSettings['axes_y'])
+		ax.legend(handles = legendHandles, **plotSettings['legend'])
+		usualSettingsAX(ax, plotSettings)
+
+	if CMDoptionsDict['saveFigure']:
+
+		# Range files
+		if len(CMDoptionsDict['rangeFileIDs']) < 8:
+			rangeIDstring = ','.join([str(i) for i in CMDoptionsDict['rangeFileIDs']])
+		else:
+			rangeIDstring = str(CMDoptionsDict['rangeFileIDs'][0])+'...'+str(CMDoptionsDict['rangeFileIDs'][-1])
+
+		figure.savefig(os.path.join(CMDoptionsDict['cwd'], 'internalLeakageVSPistonDispl'+'__'+rangeIDstring+'.png'), dpi = plotSettings['figure_settings']['dpi'])
+
+def performHYDanalysisFromFTdata(dataClasses, inputDataClass, plotSettings, CMDoptionsDict):
+	
+	# Write header row to file
+	#I/O with files
+	file = open(os.path.join(CMDoptionsDict['stepsSummaryResultsFolder'], 'HYD_analysis.csv'), 'w')
+
+	indexDictForSteps, stepStrs = get_indexDictForSteps(dataClasses[0])
+
+	OAT_Class = [temp for temp in dataClasses if temp.get_description() == 'PFD_ARI_TMP_OAT'][0]
+	FAD_Class = [temp for temp in dataClasses if temp.get_description() == 'FAD_CHA_ARI_ARR_NR'][0]
+	
+	header = ['Step', 'SYS', 'Time[s]', 'Type', 'HYD_TMP_TANK[degC]', 'HYD_PRS[bar]', 'ENG_NR[%]', 'OAT[degC]', 'TimeToDown[s]']
+	file.write(';'.join(header)+'\n')
+	for stepStr in stepStrs:
+
+		for sysID in ('1', '2'):
+
+			figure, axs = plt.subplots(5, 1, sharex='col')
+			figure.set_size_inches(16, 10, forward=True)
+			figure.suptitle(stepStr + ' / SYS '+sysID, **plotSettings['figure_title'])
+
+
+			HYD_IND_Class = [temp for temp in dataClasses if temp.get_description() == 'DIU_ARI_IND_HYD_PRS_'+sysID+'_C'][0]
+			HYD_TMP_Class = [temp for temp in dataClasses if temp.get_description() == 'HYD_TMP_TANK_'+sysID][0]
+			HYD_PRS_Class = [temp for temp in dataClasses if temp.get_description() == 'HYD_PRS_'+sysID][0]
+
+			for ax, class_current in zip(axs, [OAT_Class, HYD_TMP_Class, HYD_PRS_Class, HYD_IND_Class, FAD_Class]):
+				ax.plot( get_timeVectorClass(class_current, indexDictForSteps[stepStr]), class_current.get_rs_split()[indexDictForSteps[stepStr]], linestyle = '-', marker = 'o', c = 'k', label = class_current.get_description(), **plotSettings['line'])
+				ax.set_ylabel(inputDataClass.get_variablesInfoDict()[class_current.get_mag()+'__'+class_current.get_description()]['y-label'], **plotSettings['axes_y'])
+
+			timeSegment = get_timeVectorClass(HYD_IND_Class, indexDictForSteps[stepStr])
+			dataSegment = HYD_IND_Class.get_rs_split()[indexDictForSteps[stepStr]]
+
+			assert len(timeSegment) == len(dataSegment)
+
+			i = 1
+			timesOff = []
+			for point in dataSegment[1:]:
+
+				incrementBinary = point - dataSegment[i-1]
+
+				if incrementBinary != 0:
+					temp_sys_singlePoint = createSegmentsOf_rs_FromVariableClass(HYD_TMP_Class, timeSegment[i-1], indexDictForSteps[stepStr])[0]
+					prs_sys_singlePoint = createSegmentsOf_rs_FromVariableClass(HYD_PRS_Class, timeSegment[i-1], indexDictForSteps[stepStr])[0]
+					oat_sys_singlePoint = createSegmentsOf_rs_FromVariableClass(OAT_Class, timeSegment[i-1], indexDictForSteps[stepStr])[0]
+					fad_sys_singlePoint = createSegmentsOf_rs_FromVariableClass(FAD_Class, timeSegment[i-1], indexDictForSteps[stepStr])[0]
+					
+					if incrementBinary == 1:
+						# Switch went from 0 to 1
+						type_detected = 'Switch-ON'
+						for ax in axs:
+							ax.plot(2*[timeSegment[i-1]], [ax.get_ylim()[0], ax.get_ylim()[1]], linestyle = '--', marker = '', c = 'g', scalex = False, scaley = False, **plotSettings['line'])
+
+						pressureRangeUp, timeRangeUp = createSegmentsOf_rs_FromVariableClass(HYD_PRS_Class, [timeSegment[i-1]-1, timeSegment[i-1]+2], indexDictForSteps[stepStr])
+						pressureRangeDown, timeRangeDown = createSegmentsOf_rs_FromVariableClass(HYD_PRS_Class, [timeSegment[i-1], timeSegment[-2]], indexDictForSteps[stepStr])
+						time_up = None
+						for press, time_current in zip(pressureRangeUp, timeRangeUp):
+							if press < float(inputDataClass.get_variablesInfoDict()['testData']['threshold_press_up']):
+								time_up = time_current
+								break
+						time_down = None
+						for press, time_current in zip(pressureRangeDown, timeRangeDown):
+							if press < float(inputDataClass.get_variablesInfoDict()['testData']['threshold_press_down']):
+								time_down = time_current
+								break
+						try:
+							time_to_down = time_down - time_up
+						except TypeError as e:
+							raise ValueError('Error for calculating point at '+str(timeSegment[i-1])+' seconds / SYS '+sysID)
+
+					elif incrementBinary == -1:
+						# Switch from 1 to 0
+						type_detected = 'Switch-OFF'
+						for ax in axs:
+							ax.plot(2*[timeSegment[i-1]], [ax.get_ylim()[0], ax.get_ylim()[1]], linestyle = '--', marker = '', c = 'r', scalex = False, scaley = False, **plotSettings['line'])
+						time_to_down = ''
+
+					# Output data
+					output = [p if isinstance(p, str) else str(p) for p in [stepStr, sysID, timeSegment[i-1], type_detected, temp_sys_singlePoint, prs_sys_singlePoint, fad_sys_singlePoint, oat_sys_singlePoint, time_to_down]]
+					file.write(';'.join(output)+'\n')
+				i+=1
+
+			axs[-1].set_xlabel('Time elapsed', **plotSettings['axes_x'])
+			for ax in axs:
+				ax.legend(**plotSettings['legend'])
+				usualSettingsAX(ax, plotSettings)
+
+			if CMDoptionsDict['saveFigure']:
+
+				# Range files
+				if len(CMDoptionsDict['rangeFileIDs']) < 8:
+					rangeIDstring = ','.join([str(i) for i in CMDoptionsDict['rangeFileIDs']])
+				else:
+					rangeIDstring = str(CMDoptionsDict['rangeFileIDs'][0])+'...'+str(CMDoptionsDict['rangeFileIDs'][-1])
+
+				figure.savefig(os.path.join(CMDoptionsDict['cwd'], 'hyd_analysis__sys'+sysID+'__'+stepStr+'.png'), dpi = plotSettings['figure_settings']['dpi'])
+	file.close()

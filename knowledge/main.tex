@@ -9,7 +9,8 @@
 \includeonly{
 	sections/Introduction,
 	sections/Model_description,
-	sections/TheoryOfHelicopters
+	sections/TheoryOfHelicopters,
+	sections/Actuators,
 	} %{file1,file2,...} 
 
 %%%%%%%%%%%%%%%%%
@@ -23,6 +24,7 @@
 \maketitle
 \tableofcontents
 
+\clearpage
 \input{sections/0.Nomenclature} %Import nomenclature, no text is written
 \printnomenclature[0.75in]
 
@@ -35,6 +37,9 @@
 
 \clearpage
 \include{sections/TheoryOfHelicopters}
+
+\clearpage
+\include{sections/Actuators}
 
 % Bibliography
 \bibliographystyle{ieeetr}

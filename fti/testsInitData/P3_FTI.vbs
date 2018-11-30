@@ -116,6 +116,9 @@ fileNamesBigArrayFolders = Array( _
     , Array(commonAddress&"P3-J17-0000-025\FTI\Run1\", "98-GR25", Array("fti_20181110121623_pp.tdms")) _
     , Array(commonAddress&"P3-J17-0000-025\FTI\Run2\", "99-GR25", Array("fti_20181110125653_pp.tdms")) _
     , Array(commonAddress&"P3-J17-0001-000\FTI\Run1\", "100-FT01", Array("fti_20181122132613_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0002\FTI\Run1\", "101-FT02", Array("fti_20181123131614_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0003\FTI\Run1\", "102-FT03", Array("fti_20181128125529_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0003\FTI\Run2\", "103-FT03", Array("fti_20181128143532_pp.tdms")) _
   )
 
 ' Identified errors - P3!!!
@@ -228,9 +231,13 @@ iterators_base = Array( _
           , "98-GR25" _
           , "99-GR25" _
           , "100-FT01" _
+          , "101-FT02" _
+          , "102-FT03" _
+          , "103-FT03" _
 )
 
-iterators = Array("100-FT01")
+' iterators = Array("100-FT01", "101-FT02")
+iterators = Array("102-FT03", "103-FT03")
 ' iterators = Array("08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28")
 ' iterators = Array("08")
 
@@ -238,27 +245,26 @@ iterators = Array("100-FT01")
 ' This dictionary contains the original variable names as keys. For each key, a corresponding simplified name is assign and this will be used
 ' in the "csv" file name.
 ' The variable name has to be written without: spaces , . _ -
-' dictVaDiadem.Add "CNT_FRC_BST_COL", "CNT_FRC_BST_COL"
-' dictVaDiadem.Add "CNT_FRC_BST_LAT", "CNT_FRC_BST_LAT"
-' dictVaDiadem.Add "CNT_FRC_BST_LNG", "CNT_FRC_BST_LNG"
+dictVaDiadem.Add "CNT_FRC_BST_COL", "CNT_FRC_BST_COL"
+dictVaDiadem.Add "CNT_FRC_BST_LNG", "CNT_FRC_BST_LNG"
+dictVaDiadem.Add "CNT_FRC_BST_LAT", "CNT_FRC_BST_LAT"
 dictVaDiadem.Add "CNT_FRC_BST_TR_1", "CNT_FRC_BST_TR_1"
 dictVaDiadem.Add "CNT_FRC_BST_TR_2", "CNT_FRC_BST_TR_2"
 dictVaDiadem.Add "CNT_FRC_BST_TR_CALC", "CNT_FRC_BST_TR_CALC"
-' dictVaDiadem.Add "CNT_DST_BST_COL", "CNT_DST_BST_COL"
-' dictVaDiadem.Add "CNT_DST_BST_LAT", "CNT_DST_BST_LAT"
-' dictVaDiadem.Add "CNT_DST_BST_LNG", "CNT_DST_BST_LNG"
-' dictVaDiadem.Add "CNT_DST_COL", "CNT_DST_COL"
-' dictVaDiadem.Add "CNT_DST_LAT", "CNT_DST_LAT"
-' dictVaDiadem.Add "CNT_DST_LNG", "CNT_DST_LNG"
-' dictVaDiadem.Add "CNT_DST_PED", "CNT_DST_PED"
-' dictVaDiadem.Add "HYD_PRS_1", "HYD_PRS_1"
-' dictVaDiadem.Add "HYD_PRS_2", "HYD_PRS_2"
-' ' dictVaDiadem.Add "HYD_TMP_1", "HYD_TMP_1"
-' ' dictVaDiadem.Add "HYD_TMP_2", "HYD_TMP_2"
-' dictVaDiadem.Add "HYD_TMP_TANK_1", "HYD_TMP_TANK_1"
-' dictVaDiadem.Add "HYD_TMP_TANK_2", "HYD_TMP_TANK_2"
-' dictVaDiadem.Add "DIU_ARI_IND_HYD_PRS_1_C", "IND_PRS_1"
-' dictVaDiadem.Add "DIU_ARI_IND_HYD_PRS_2_C", "IND_PRS_2"
+dictVaDiadem.Add "CNT_DST_BST_COL", "CNT_DST_BST_COL"
+dictVaDiadem.Add "CNT_DST_BST_LAT", "CNT_DST_BST_LAT"
+dictVaDiadem.Add "CNT_DST_BST_LNG", "CNT_DST_BST_LNG"
+dictVaDiadem.Add "CNT_DST_BST_TR", "CNT_DST_BST_TR"
+dictVaDiadem.Add "CNT_DST_COL", "CNT_DST_COL"
+dictVaDiadem.Add "CNT_DST_LAT", "CNT_DST_LAT"
+dictVaDiadem.Add "CNT_DST_LNG", "CNT_DST_LNG"
+dictVaDiadem.Add "CNT_DST_PED", "CNT_DST_PED"
+dictVaDiadem.Add "HYD_PRS_1", "HYD_PRS_1"
+dictVaDiadem.Add "HYD_PRS_2", "HYD_PRS_2"
+' dictVaDiadem.Add "HYD_TMP_1", "HYD_TMP_1"
+' dictVaDiadem.Add "HYD_TMP_2", "HYD_TMP_2"
+dictVaDiadem.Add "HYD_TMP_TANK_1", "HYD_TMP_TANK_1"
+dictVaDiadem.Add "HYD_TMP_TANK_2", "HYD_TMP_TANK_2"
 ' dictVaDiadem.Add "DIU_ARI_IND_HYD_PRS_1_C", "DIU_ARI_IND_HYD_PRS_1_C"
 ' dictVaDiadem.Add "DIU_ARI_IND_HYD_PRS_2_C", "DIU_ARI_IND_HYD_PRS_2_C"
 ' dictVaDiadem.Add "PFD_ARI_TMP_OAT", "PFD_ARI_TMP_OAT"
@@ -285,7 +291,7 @@ FlagFTData = False
 ' FlagFTData = False
 
 ' newFreq = 0.1 'Hz'
-newFreq = 100 'Hz'
+newFreq = 1000 'Hz'
 
 loadScript_resampleFlag = True
 loadScript_saveFlagResampledDataCSV = True 'possible values: True or False

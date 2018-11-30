@@ -102,7 +102,7 @@ The [-options] are written one after each other, separated by spaces. They can b
             -> -s t,f : Plots are saved but not shown
             -> -s t,t : Plots are saved and shown
 
-        -> -n, -multipleYaxisInSameFigure:
+        -> -n, -axisArrangementOption:
         Enables the possibility to split the figures into multiple plots with a shared y-axis. Possible values:
             -> -n 1 : One new figure will be created per variable.
             -> -n 2 : All the variables will be shown in a single plot with multiple axes, one per variable. 
@@ -119,7 +119,9 @@ The [-options] are written one after each other, separated by spaces. They can b
         -> -a, -additionalCals:
         This parameter allows the program to execute specific code lines which have been created to give an answer to particular  data 
         analysis tasks. During normal operation, this option has to be disabled. Possible values:
-            -> -n [1,2,4,5,...] : Each number executes one particular portion of the code
+            -> -n [1,2,4,5,...] : Each number executes one particular portion of the code. For example:
+                --> 16: Show force fighting for flight test.
+                --> 17: Show exceedances from FTI in collective force for the actuator.
             -> -n f : Normal operation
 
         -> -w, -writeStepResultsToFileFlag:
@@ -133,5 +135,14 @@ The [-options] are written one after each other, separated by spaces. They can b
         the main figure. Possible values:
             -> -l t : Draw division line between test steps
             -> -l f : Do not draw division line between test steps
+
+        -> -g, -dataPartitionFlag:
+        When this option is enabled, the program perform a data partition operation on the loaded data. Only the data corresponding to 
+        the specified time slots will be plotted. In the file containing the information for the test, the time slots need to be defined.
+        This is done for each step with the sintax : 'segment__[step name] : [time slots]'. The input [time slots] is divided with ';' for 
+        each time slot and this are in turn divided by ',' between the first and the second time defining each of the slots. 
+        For example: 'segment__10-SN0012-1.3 : 10, 100; 200, 650; 775, 875'. Possible values:
+            -> -l t : Perform data partition according to what it has been defined in the input file for each step
+            -> -l f : Leave data as it is
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

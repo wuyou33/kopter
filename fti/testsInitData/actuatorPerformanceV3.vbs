@@ -62,6 +62,9 @@ fileNamesBigArrayFolders = Array( _
   , Array(commonAddress & "Step 3.2 50 FH\Hot - 100 C\2018-11-20_142553\", "43-Step-3.2-50FH-hot", filesNames) _
   , Array(commonAddress & "Step 3.1 60 FH\Cold\2018-11-21_084053\", "44-Step-3.1-60FH-cold", filesNames) _
   , Array(commonAddress & "Step 3.1 60 FH\Hot - 100 C\2018-11-21_154444\", "45-Step-3.1-60FH-hot", filesNames) _
+  , Array(commonAddress & "Step 3.2 60 FH\Hot - 100 C\2018-11-23_140033\", "46-Step-3.2-60FH-hot", filesNames) _
+  , Array(commonAddress & "Step 3.2 60 FH\Cold\2018-11-22_093727", "47-Step-3.2-60FH-cold1", filesNames) _
+  , Array(commonAddress & "Step 3.2 60 FH\Cold\2018-11-23_091202", "48-Step-3.2-60FH-cold2", filesNames) _
   )
 
 ' All steps
@@ -70,7 +73,8 @@ fileNamesBigArrayFolders = Array( _
 ' iterators = Array("12-Step-2.5", "13-Step-2.6-1", "14-Step-2.6-2", "15-Step-3.1-1", "16-Step-3.1-2", "17-Step-3.1-3", "18-Step-3.1-4", "19-Step-3.2-1", "20-Step-3.2-2", "21-Step-3.3-1", "22-Step-3.3-2", "23-Step-3.4-1", "24-Step-3.4-2", "25-Step-3.4-3")
 ' iterators = Array("15-Step-3.1-1", "16-Step-3.1-2", "17-Step-3.1-3", "18-Step-3.1-4", "19-Step-3.2-1", "20-Step-3.2-2", "21-Step-3.3-1", "22-Step-3.3-2", "23-Step-3.4-1", "24-Step-3.4-2", "25-Step-3.4-3")
 ' iterators = Array("41-Step-3.2-50FH-cold-1","42-Step-3.2-50FH-cold-2","43-Step-3.2-50FH-hot")
-iterators = Array("44-Step-3.1-60FH-cold", "45-Step-3.1-60FH-hot")
+' iterators = Array("44-Step-3.1-60FH-cold", "45-Step-3.1-60FH-hot")
+iterators = Array("46-Step-3.2-60FH-hot", "47-Step-3.2-60FH-cold1", "48-Step-3.2-60FH-cold2")
 ' iterators = Array("1-Step-1.1", "2-Step-1.2", "3-Step-1.3", "4-Step-1.4", "5-Step-1.5", "6-Step-1.6", "7-Step-2.4")
 ' iterators = Array("8-Step-2.1-1.5Displ", "9-Step-2.1-NeutralPos")
 ' iterators = Array("SN002-1.3", "SN002-2.4", "SN0012-1.3", "SN0012-2.4")
