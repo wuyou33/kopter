@@ -1010,14 +1010,14 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		variableDict = {'y-label' : inputDataClass.get_variablesInfoDict()[forceHP1.get_mag()+'__'+forceHP1.get_description()]['y-label'], 'TO spec' : 'no', 'Fatigue load spec' : 'no'}
 		inputDataClass.updateVariablesInfoDict(forceHP1.get_mag()+'__'+self.__description, variableDict)
 
-	def addDataManual2(self, dataClasses):
+	def addDataManual2(self, dataClasses, forceName1, forceName2):
 		"""
 		Customized function to calculate the fighting force
 		"""
 		result = []
 
-		forceHP1 = [temp for temp in dataClasses if temp.get_description() == 'ForceEye1'][0]
-		forceHP2 = [temp for temp in dataClasses if temp.get_description() == 'ForceEye2'][0]
+		forceHP1 = [temp for temp in dataClasses if temp.get_description() == forceName1][0]
+		forceHP2 = [temp for temp in dataClasses if temp.get_description() == forceName2][0]
 
 		for f1, f2 in zip(forceHP1.get_rs(), forceHP2.get_rs()):
 
@@ -1259,7 +1259,7 @@ class dataFromGaugesSingleMagnitudeClass(object):
 						ax.plot([minPlot_x, maxPlot_x], 2*[limitLoad*limitLoadBoundary], linestyle = '-.', marker = '', c = plotSettings['colors'][6], scaley = False, scalex = False, **plotSettings['line'])
 
 		# x-label
-		if not CMDoptionsDict['axisArrangementOptionFlag'] or len(dataClasses)  == 1:
+		if not CMDoptionsDict['axisArrangementOption'] in ('1', '2') or len(dataClasses)  == 1:
 			ax.set_xlabel('Time elapsed [Seconds]', **plotSettings['axes_x'])
 		elif len(dataClasses) ==(plotSettings['currentAxis'][1]+1):
 			ax.set_xlabel('Time elapsed [Seconds]', **plotSettings['axes_x'])
@@ -2008,7 +2008,7 @@ def importPlottingOptions():
 	scatter = {'linewidths' : 1.0}
 	legend = {'fontsize' : 10, 'loc' : 'best', 'markerscale' : 1.5}
 	grid = {'alpha' : 0.7}
-	colors = ['k', 'b', 'r', 'm', 'y', 'c', 'g', 'k', 'b', 'y', 'm', 'r', 'c','k', 'b', 'y', 'm', 'r', 'c','k', 'b', 'y', 'm', 'r', 'c']
+	colors = ['m', 'b', 'r', 'k', 'y', 'c', 'g', 'k', 'b', 'y', 'm', 'r', 'c','k', 'b', 'y', 'm', 'r', 'c','k', 'b', 'y', 'm', 'r', 'c']
 	markers = ['o', 'v', '^', 's', '*', '+']
 	linestyles = ['-', '--', '-.', ':']
 	axes_ticks_n = {'x_axis' : 3} #Number of minor labels in between 

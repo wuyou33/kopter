@@ -205,19 +205,19 @@ if gaugesFlag:
 		# dataAdditional = dataFromGaugesSingleMagnitudeClass('forceFighting', testFactor, orderDeriv)
 		if CMDoptionsDict['additionalCalsOpt'] == 1:
 			dataAdditional = dataFromGaugesSingleMagnitudeClass('forceFightingEyes(HP1-HP2)', 'rs', testFactor, orderDeriv)
-			dataAdditional.addDataManual1(dataClasses, 'ForceEye1', 'ForceEye2', inputDataClass)
+			dataAdditional.addDataManual1(dataClasses, 'ForceEyeCal1', 'ForceEyeCal2', inputDataClass)
 			dataClasses += (dataAdditional, )
 			plottingLoop(dataClasses, inputDataClass, plotSettings, CMDoptionsDict)	
 		
 		elif CMDoptionsDict['additionalCalsOpt'] == 2:
 			dataAdditional = dataFromGaugesSingleMagnitudeClass('forceSumEyes(HP1+HP2)', 'rs', testFactor, orderDeriv)
-			dataAdditional.addDataManual2(dataClasses)
-			dataClasses += (dataAdditional, )
+			dataAdditional.addDataManual2(dataClasses, 'ForceEyeCal1', 'ForceEyeCal2')
+			dataClasses = (dataAdditional, ) + dataClasses
 			plottingLoop(dataClasses, inputDataClass, plotSettings, CMDoptionsDict)
 		
 		elif CMDoptionsDict['additionalCalsOpt'] == 3:
 			# dataAdditional = dataFromGaugesSingleMagnitudeClass('forceSumEyes(HP1+HP2)', 'rs', testFactor, orderDeriv)
-			# dataAdditional.addDataManual2(dataClasses)
+			# dataAdditional.addDataManual2(dataClasses, 'ForceEyeCal1', 'ForceEyeCal2')
 			dataClass.plotResampled(dataClasses, plotSettings, CMDoptionsDict, dataAdditional.get_mag(), (True, dataClasses, ('BoosterLinklong','BoosterLinklat','BoosterLinkcol')), inputDataClass)
 
 		elif CMDoptionsDict['additionalCalsOpt'] == 4:
@@ -334,6 +334,7 @@ if gaugesFlag:
 		elif CMDoptionsDict['additionalCalsOpt'] == 16:
 			"""
 			Show force fighting for flight test.
+			CMD: python main.py -f filesToLoad_general_P3_FTI.txt -v CNT_FRC_BST_TR_1,CNT_FRC_BST_TR_2,CNT_FRC_BST_TR_CALC -m rs -o t -s f,t -a 16 -c f -n 3 -r 100-FT01,101-FT02,102-FT03,103-FT03,104-FT04,105-FT04,106-FT05,107-FT05,108-FT05 -w f -l t
 			"""
 			dataAdditional = dataFromGaugesSingleMagnitudeClass('forceFighting_abs(1-2)', 'rs', testFactor, orderDeriv)
 			dataAdditional.addDataManual1(dataClasses, 'CNT_FRC_BST_TR_1', 'CNT_FRC_BST_TR_2', inputDataClass)
@@ -343,7 +344,7 @@ if gaugesFlag:
 		elif CMDoptionsDict['additionalCalsOpt'] == 17:
 			"""
 			Show exceedances on collective force for the actuator
-			CMD: python main.py -f filesToLoad_general_P3_FTI.txt -v CNT_FRC_BST_COL -m rs -o t -s f,t -a 17 -c f -n 2 -r 100-FT01,101-FT02 -w f -l t
+			CMD: python main.py -f filesToLoad_general_P3_FTI.txt -v CNT_FRC_BST_LAT,CNT_FRC_BST_LNG,CNT_FRC_BST_COL -m rs -o t -s f,t -a 17 -c f -n 2 -r 100-FT01,101-FT02,102-FT03,103-FT03,104-FT04,105-FT04,106-FT05,107-FT05,108-FT05 -w f -l t
 			"""
 
 			dataAdditional = dataFromGaugesSingleMagnitudeClass('TimeOutsideEnvelope_COL', 'rs', testFactor, orderDeriv)
@@ -357,10 +358,10 @@ if gaugesFlag:
 			CMD: python main.py -f filesToLoad_general_P3_FTI.txt -v CNT_FRC_BST_COL -m rs -o t -s f,t -a 17 -c f -n 2 -r 100-FT01,101-FT02 -w f -l t
 			"""
 			dataAdditional = dataFromGaugesSingleMagnitudeClass('forceFightingEyes(HP1-HP2)', 'rs', testFactor, orderDeriv)
-			dataAdditional.addDataManual1(dataClasses, 'ForceEye1', 'ForceEye2', inputDataClass)
+			dataAdditional.addDataManual1(dataClasses, 'ForceEyeCal1', 'ForceEyeCal2', inputDataClass)
 			tempClass = [temp for temp in dataClasses if temp.get_description() == 'Temp1'][0]
 			plottingLoop((tempClass, dataAdditional), inputDataClass, plotSettings, CMDoptionsDict)
-			forceClass = [temp for temp in dataClasses if temp.get_description() == 'ForceEye1'][0]
+			forceClass = [temp for temp in dataClasses if temp.get_description() == 'ForceEyeCal1'][0]
 			plottingLoop((forceClass, dataAdditional), inputDataClass, plotSettings, CMDoptionsDict)
 
 

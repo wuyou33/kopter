@@ -74,6 +74,18 @@ TO spec: no
 Fatigue load spec: no
 
 -> Variable info
+name: rs__ForceEyeCal1
+y-label: Force [N]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__ForceEyeCal2
+y-label: Force [N]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
 name: rs__forceFightingEyes(HP1-HP2)
 y-label: Force [N]
 TO spec: no

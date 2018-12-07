@@ -119,6 +119,11 @@ fileNamesBigArrayFolders = Array( _
     , Array(commonAddress&"P3-J17-0002\FTI\Run1\", "101-FT02", Array("fti_20181123131614_pp.tdms")) _
     , Array(commonAddress&"P3-J17-0003\FTI\Run1\", "102-FT03", Array("fti_20181128125529_pp.tdms")) _
     , Array(commonAddress&"P3-J17-0003\FTI\Run2\", "103-FT03", Array("fti_20181128143532_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0004\FTI\Run1\", "104-FT04", Array("fti_20181130101353_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0004\FTI\Run2\", "105-FT04", Array("fti_20181130130044_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0005\FTI\Run1\", "106-FT05", Array("fti_20181205083011_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0005\FTI\Run2\", "107-FT05", Array("fti_20181205100158_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0005\FTI\Run3\", "108-FT05", Array("fti_20181205122743_pp.tdms")) _
   )
 
 ' Identified errors - P3!!!
@@ -234,10 +239,16 @@ iterators_base = Array( _
           , "101-FT02" _
           , "102-FT03" _
           , "103-FT03" _
+          , "104-FT04" _
+          , "105-FT04" _
+          , "106-FT05" _
+          , "107-FT05" _
+          , "108-FT05" _
 )
 
 ' iterators = Array("100-FT01", "101-FT02")
-iterators = Array("102-FT03", "103-FT03")
+' iterators = Array("102-FT03", "103-FT03")
+iterators = Array("104-FT04", "105-FT04", "106-FT05", "107-FT05", "108-FT05")
 ' iterators = Array("08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28")
 ' iterators = Array("08")
 
@@ -291,7 +302,7 @@ FlagFTData = False
 ' FlagFTData = False
 
 ' newFreq = 0.1 'Hz'
-newFreq = 1000 'Hz'
+newFreq = 100 'Hz'
 
 loadScript_resampleFlag = True
 loadScript_saveFlagResampledDataCSV = True 'possible values: True or False
