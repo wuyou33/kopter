@@ -27,7 +27,7 @@ def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 	# if len(opts) != len(long_opts):
 		# raise ValueError('ERROR: Invalid number of inputs')
 	
-	# Initial values if nothing else specified, to be overwritten
+	# Default values if nothing else specified, to be overwritten.
 	CMDoptionsDict['correctionFilterNum'] = ''
 	CMDoptionsDict['correctionFilterFlag'] = False
 	CMDoptionsDict['axisArrangementOption'] = ''
@@ -36,6 +36,10 @@ def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 	CMDoptionsDict['writeStepResultsToFileFlag'] = False
 	CMDoptionsDict['divisionLineForPlotsFlag'] = True
 	CMDoptionsDict['dataPartitionFlag'] = False
+	CMDoptionsDict['additionalCalsFlag'] = False
+	CMDoptionsDict['additionalCalsOpt'] = 0
+	CMDoptionsDict['saveFigure'] = False
+	CMDoptionsDict['showFigures'] = True
 	
 	optsLoaded = []
 	for opt, arg in opts:
@@ -84,16 +88,16 @@ def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 			argShowFigure= arg.split(',')[1]
 
 			if argSaveFigure.lower() in ('true', 't'):
-				CMDoptionsDict['saveFigure'] = True
+				CMDoptionsDict.update({'saveFigure' : True})
 			elif argSaveFigure.lower() in ('false', 'f'):
-				CMDoptionsDict['saveFigure'] = False
+				CMDoptionsDict.update({'saveFigure' : False})
 			else:
 				raise ValueError('ERROR: Wrong input for parameter '+opt)
 
 			if argShowFigure.lower() in ('true', 't'):
-				CMDoptionsDict['showFigures'] = True
+				CMDoptionsDict.update({'showFigures' : True})
 			elif argShowFigure.lower() in ('false', 'f'):
-				CMDoptionsDict['showFigures'] = False
+				CMDoptionsDict.update({'showFigures' : False})
 			else:
 				raise ValueError('ERROR: Wrong input for parameter '+opt)
 
@@ -105,11 +109,11 @@ def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 		elif opt in ("-a", "--additionalCals"):
 
 			if arg.lower() in ('false', 'f'):
-				CMDoptionsDict['additionalCalsFlag'] = False
-				CMDoptionsDict['additionalCalsOpt'] = 0
+				CMDoptionsDict.update({'additionalCalsFlag' : False})
+				CMDoptionsDict.update({'additionalCalsOpt' : 0})
 			else:
-				CMDoptionsDict['additionalCalsFlag'] = True
-				CMDoptionsDict['additionalCalsOpt'] = int(arg)
+				CMDoptionsDict.update({'additionalCalsFlag' : True})
+				CMDoptionsDict.update({'additionalCalsOpt' : int(arg)})
 
 		elif opt in ("-c", "--correctionFilter"):
 
@@ -1215,25 +1219,6 @@ class dataFromGaugesSingleMagnitudeClass(object):
 						ax.plot( [t/dataClass.get_freqData()[0] for t in dataClass.get_timeRs()], dataClass.get_rs(), linestyle = plotSettings['linestyles'][int(plotsDone/7)], marker = '', c = plotSettings['colors'][plotsDone], label = dataClass.get_description(), **plotSettings['line'])
 
 						plotsDone += 1
-		
-		#Division line for runs
-		if CMDoptionsDict['divisionLineForPlotsFlag']:
-			valuesMaxRs = ax.get_ylim()[1]
-			valuesMinRs = ax.get_ylim()[0]
-			# maxPlot_y = valuesMaxRs*1.2 if valuesMaxRs < 0.0 else valuesMaxRs*0.8
-			minPlot_y = valuesMinRs + (abs(valuesMaxRs-valuesMinRs)*0.05)
-			previousDiv = 0.0
-			i = 0
-			ax.plot(2*[0.0], [valuesMinRs, valuesMaxRs], linestyle = '--', marker = '', c = 'r', scalex = False, scaley = False, **plotSettings['line'])
-			for div in [t/self.__freqData[0] for t in self.__timeSecNewRunRs]:
-				ax.plot(2*[div], [valuesMinRs, valuesMaxRs], linestyle = '--', marker = '', c = 'r', scalex = False, scaley = False, **plotSettings['line'])
-
-				#Add text with step number
-				ax.text(previousDiv + ((div - previousDiv)/2), minPlot_y, self.__stepID[i], bbox=dict(facecolor='black', alpha=0.2), horizontalalignment = 'center')
-				# ax.text(previousDiv + ((div - previousDiv)/2), minPlot_y, 'Step '+self.__stepID[i], bbox=dict(facecolor='black', alpha=0.2), horizontalalignment = 'center')
-				
-				previousDiv = div
-				i += 1
 
 		# Test Order plots 
 		if not additionalInput[0] and CMDoptionsDict['testOrderFlagFromCMD'] and ( (inputDataClass.get_variablesInfoDict()[magnitude+'__'+self.__description]['TO spec'].lower() in ('yes', 'y') and magnitude == 'rs') or (inputDataClass.get_variablesInfoDict()[magnitude+'__'+self.__description]['Fatigue load spec'].lower() in ('yes', 'y') and magnitude in ('lp', 'hp')) ):
@@ -1257,6 +1242,25 @@ class dataFromGaugesSingleMagnitudeClass(object):
 				if limitsLoadsBoundaries:
 					for limitLoadBoundary in limitsLoadsBoundaries:
 						ax.plot([minPlot_x, maxPlot_x], 2*[limitLoad*limitLoadBoundary], linestyle = '-.', marker = '', c = plotSettings['colors'][6], scaley = False, scalex = False, **plotSettings['line'])
+		
+		#Division line for runs
+		if CMDoptionsDict['divisionLineForPlotsFlag']:
+			valuesMaxRs = ax.get_ylim()[1]
+			valuesMinRs = ax.get_ylim()[0]
+			# maxPlot_y = valuesMaxRs*1.2 if valuesMaxRs < 0.0 else valuesMaxRs*0.8
+			minPlot_y = valuesMinRs + (abs(valuesMaxRs-valuesMinRs)*0.05)
+			previousDiv = 0.0
+			i = 0
+			ax.plot(2*[0.0], [valuesMinRs, valuesMaxRs], linestyle = '--', marker = '', c = 'r', scalex = False, scaley = False, **plotSettings['line'])
+			for div in [t/self.__freqData[0] for t in self.__timeSecNewRunRs]:
+				ax.plot(2*[div], [valuesMinRs, valuesMaxRs], linestyle = '--', marker = '', c = 'r', scalex = False, scaley = False, **plotSettings['line'])
+
+				#Add text with step number
+				ax.text(previousDiv + ((div - previousDiv)/2), minPlot_y, self.__stepID[i], bbox=dict(facecolor='black', alpha=0.2), horizontalalignment = 'center')
+				# ax.text(previousDiv + ((div - previousDiv)/2), minPlot_y, 'Step '+self.__stepID[i], bbox=dict(facecolor='black', alpha=0.2), horizontalalignment = 'center')
+				
+				previousDiv = div
+				i += 1
 
 		# x-label
 		if not CMDoptionsDict['axisArrangementOption'] in ('1', '2') or len(dataClasses)  == 1:
@@ -2008,7 +2012,7 @@ def importPlottingOptions():
 	scatter = {'linewidths' : 1.0}
 	legend = {'fontsize' : 10, 'loc' : 'best', 'markerscale' : 1.5}
 	grid = {'alpha' : 0.7}
-	colors = ['m', 'b', 'r', 'k', 'y', 'c', 'g', 'k', 'b', 'y', 'm', 'r', 'c','k', 'b', 'y', 'm', 'r', 'c','k', 'b', 'y', 'm', 'r', 'c']
+	colors = ['k', 'b', 'r', 'm', 'y', 'c', 'g', 'k', 'b', 'y', 'm', 'r', 'c','k', 'b', 'y', 'm', 'r', 'c','k', 'b', 'y', 'm', 'r', 'c']
 	markers = ['o', 'v', '^', 's', '*', '+']
 	linestyles = ['-', '--', '-.', ':']
 	axes_ticks_n = {'x_axis' : 3} #Number of minor labels in between 
@@ -2100,6 +2104,6 @@ def showInputOptions(CMDoptionsDict):
 					'-g': 'Enabled' if CMDoptionsDict['dataPartitionFlag'] else 'Disabled',
 					}
 	
-	for option in CMDoptionsDict['optsLoaded']:
+	for option in titlesDict.keys():
 		print('-> '+titlesDict[option])
 		print(valuesDict[option])

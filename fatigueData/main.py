@@ -19,6 +19,8 @@ import getopt
 import shutil
 from scipy import interpolate
 import numpy as np #pdb.set_trace()
+import matplotlib.animation as animation
+from matplotlib import gridspec
 
 from moduleFunctions import *
 from moduleAdditionalFunctions import *
@@ -294,20 +296,21 @@ if gaugesFlag:
 
 		elif CMDoptionsDict['additionalCalsOpt'] in (12, 13, 14):
 
-			# Get applicable segments per 
-			segsDict = {}
-			for stepID in CMDoptionsDict['rangeFileIDs']:
+			# # Get applicable segments per 
+			# segsDict = {}
+			# for stepID in CMDoptionsDict['rangeFileIDs']:
 
-				segsDict[stepID] = [[float(i) for i in t.split(',')] for t in inputDataClass.get_variablesInfoDict()['testData']['segment__'+stepID].split(';')]
+			# 	segsDict[stepID] = [[float(i) for i in t.split(',')] for t in inputDataClass.get_variablesInfoDict()['testData']['segment__'+stepID].split(';')]
 
 			if CMDoptionsDict['additionalCalsOpt'] == 12:
 				"""
 				Plot the relation between the internal leakage and the temperature, considering a segmented data set
 
 				python main.py -f filesToLoad_general_actuatorPerformance.txt -m rs -o f -m f -s f,t -a 12 -c f -w f -l t -r 15-Step-3.1-1,16-Step-3.1-2,17-Step-3.1-3,18-Step-3.1-4,33-Step-3.1-40FH-cold-1,34-Step-3.1-40FH-cold-2,35-Step-3.1-40FH-hot,39-Step-3.1-50FH-col,40-Step-3.1-50FH-hot -v Temp1,Temp2,VolFlow1,VolFlow2
-				python main.py -f filesToLoad_general_actuatorPerformance.txt -m rs -o f -m f -s t,t -a 12 -c f -w f -l t -r 27-Step-3.2-hot,28-Step-3.2-cold,36-Step-3.2-40FH-cold-1,37-Step-3.2-40FH-cold-2,38-Step-3.2-40FH-hot,41-Step-3.2-50FH-cold-1,42-Step-3.2-50FH-cold-2,43-Step-3.2-50FH-hot,46-Step-3.2-60FH-hot,47-Step-3.2-60FH-cold1,48-Step-3.2-60FH-cold2 -v Temp1,Temp2,VolFlow1,VolFlow2
+				python main.py -f filesToLoad_general_actuatorPerformance.txt -m rs -a 12 -g t -l t -r 27-Step-3.2-hot,28-Step-3.2-cold,36-Step-3.2-40FH-cold-1,37-Step-3.2-40FH-cold-2,38-Step-3.2-40FH-hot,41-Step-3.2-50FH-cold-1,42-Step-3.2-50FH-cold-2,43-Step-3.2-50FH-hot,46-Step-3.2-60FH-hot,47-Step-3.2-60FH-cold1,48-Step-3.2-60FH-cold2,53-Step-3.2-70FH-cold,54-Step-3.2-70FH-hot,57-Step-3.2-80FH-cold,58-Step-3.2-80FH-hot -v Temp1,Temp2,VolFlow1,VolFlow2
+				python main.py -f filesToLoad_general_actuatorPerformance.txt -m rs -a 12 -g t -l t -r 27-Step-3.2-hot,38-Step-3.2-40FH-hot,43-Step-3.2-50FH-hot,46-Step-3.2-60FH-hot,54-Step-3.2-70FH-hot,58-Step-3.2-80FH-hot -v Temp1,Temp2,VolFlow1,VolFlow2
 				"""
-				internalLeakageVSTemp_segments_V2(dataClasses, inputDataClass, plotSettings, CMDoptionsDict, segsDict)
+				internalLeakageVSTemp_segments_V2(dataClasses, inputDataClass, plotSettings, CMDoptionsDict)
 				
 
 			elif CMDoptionsDict['additionalCalsOpt'] == 13:
@@ -315,14 +318,14 @@ if gaugesFlag:
 				Plot the relation between the internal leakage and the pressure, considering a segmented data set
 				python main.py -f filesToLoad_general_actuatorPerformance.txt -m rs -o f -s t,t -a 13 -c f -w f -l t -r 27-Step-3.2-hot,28-Step-3.2-cold,36-Step-3.2-40FH-cold-1,37-Step-3.2-40FH-cold-2,38-Step-3.2-40FH-hot-1 -v Temp1,Temp2,Pres1,Pres2 -n f
 				"""
-				internalLeakageVSPres_segments(dataClasses, inputDataClass, plotSettings, CMDoptionsDict, segsDict)				
+				internalLeakageVSPres_segments(dataClasses, inputDataClass, plotSettings, CMDoptionsDict)				
 
 			elif CMDoptionsDict['additionalCalsOpt'] == 14:
 				"""
 				Plot the relation between the internal leakage and the piston displacement, considering a segmented data set
 				python main.py -f filesToLoad_general_actuatorPerformance.txt -m rs -o f -s t,t -a 14 -c f -w f -l t -r 27-Step-3.2-hot,28-Step-3.2-cold,36-Step-3.2-40FH-cold-1,37-Step-3.2-40FH-cold-2,38-Step-3.2-40FH-hot-1 -v Temp1,Temp2,PistonDispl -n f
 				"""
-				internalLeakageVSPistonDispl_segments(dataClasses, inputDataClass, plotSettings, CMDoptionsDict, segsDict)
+				internalLeakageVSPistonDispl_segments(dataClasses, inputDataClass, plotSettings, CMDoptionsDict)
 
 		elif CMDoptionsDict['additionalCalsOpt'] == 15:
 			"""
@@ -344,7 +347,7 @@ if gaugesFlag:
 		elif CMDoptionsDict['additionalCalsOpt'] == 17:
 			"""
 			Show exceedances on collective force for the actuator
-			CMD: python main.py -f filesToLoad_general_P3_FTI.txt -v CNT_FRC_BST_LAT,CNT_FRC_BST_LNG,CNT_FRC_BST_COL -m rs -o t -s f,t -a 17 -c f -n 2 -r 100-FT01,101-FT02,102-FT03,103-FT03,104-FT04,105-FT04,106-FT05,107-FT05,108-FT05 -w f -l t
+			CMD: python main.py -f filesToLoad_general_P3_FTI.txt -v CNT_FRC_BST_LAT,CNT_FRC_BST_LNG,CNT_FRC_BST_COL -m rs -o t -s f,t -a 17 -c f -n 2 -r 100-FT01,101-FT02,102-FT03,103-FT03,104-FT04,105-FT04,106-FT05,107-FT05,108-FT05,109-FT06,110-FT06 -w f -l t
 			"""
 
 			dataAdditional = dataFromGaugesSingleMagnitudeClass('TimeOutsideEnvelope_COL', 'rs', testFactor, orderDeriv)
@@ -371,7 +374,7 @@ if gaugesFlag:
 			CMD: python main.py -f filesToLoad_general_P3_FTI.txt -v CNT_FRC_BST_COL -m rs -o t -s f,t -a 17 -c f -n 2 -r 100-FT01,101-FT02 -w f -l t
 			"""
 			dataAdditional = dataFromGaugesSingleMagnitudeClass('forceFighting_abs(1-2)', 'rs', testFactor, orderDeriv)
-			dataAdditional.addDataManual1(dataClasses, 'CNT_FRC_BST_TR_1', 'CNT_FRC_BST_TR_2', inputDataClass)
+			dataAdditional.addDataManual1(dataClasses, 'CNT_FRC_BST_TR_1', 'CNT_FRC_BST_TR_2' , inputDataClass)
 			loadClass = [temp for temp in dataClasses if temp.get_description() == 'CNT_FRC_BST_TR_1'][0]
 			plottingLoop((loadClass, dataAdditional), inputDataClass, plotSettings, CMDoptionsDict)	
 
@@ -380,85 +383,159 @@ if gaugesFlag:
 			Flow gain curve
 			CMD: python main.py -f filesToLoad_general_actuatorPerformance.txt -m rs -o f -s f,t -a 20 -c f -w f -l t -r 3-SN002-1.3 -v ValveDispl,OutputForce -n 4 -g t
 			"""
+			getFlowGainCurve(dataClasses, inputDataClass, plotSettings, CMDoptionsDict)
 
-			# Range files
-			if len(CMDoptionsDict['rangeFileIDs']) < 8:
-				rangeIDstring = ','.join([str(i) for i in CMDoptionsDict['rangeFileIDs']])
-			else:
-				rangeIDstring = str(CMDoptionsDict['rangeFileIDs'][0])+'...'+str(CMDoptionsDict['rangeFileIDs'][-1])
-
+		elif CMDoptionsDict['additionalCalsOpt'] == 21:
+			"""
+			Use kinematic model to extract position of the input lever based on valve and piston displacements measurement 
+			"""
+			
 			# Data Classes
-			dataOutputForce = [temp for temp in dataClasses if temp.get_description() == 'OutputForce'][0]
+			dataPistonDispl = [temp for temp in dataClasses if temp.get_description() == 'PistonDispl'][0]
 			dataValveDispl = [temp for temp in dataClasses if temp.get_description() == 'ValveDispl'][0]
 
-			#Vector of steps
-			indexDictForSteps, stepStrs = get_indexDictForSteps(dataOutputForce)
+			from scipy.optimize import fsolve
 
+			l1 = float(inputDataClass.get_variablesInfoDict()['testData']['l1'])
+			l2 = float(inputDataClass.get_variablesInfoDict()['testData']['l2'])
+			l3 = float(inputDataClass.get_variablesInfoDict()['testData']['l3'])
+			phi = float(inputDataClass.get_variablesInfoDict()['testData']['phi'])
+			phi_rad = phi * (np.pi/180)
+			l4 = np.sqrt( (l1*np.sin(phi_rad))**2 + (l2 + (l1*np.cos(phi_rad)))**2 )
+
+			def func_xy2_x1x4(x, *input_parameters):
+				l2, l3, x1, x4 = input_parameters
+
+				eqn1 = (l3 + x1 - x[0])**2 + (l2 - x[1])**2 - l2**2
+				eqn2 = (x4 - x[0])**2 + x[1]**2 - l3**2
+				
+				out = [eqn1]
+				out.append(eqn2)
+				return out
+
+			def func_xy3_x1x2y2(x, *input_parameters):
+				l1, l2, l4, x1, x2, y2 = input_parameters
+
+				eqn1 = (x[0] - x2)**2 + (x[1] - y2)**2 - l1**2
+				eqn2 = (x[0] - (l3 +x1))**2 + (x[1] - l2)**2 - l4**2
+				
+				out = [eqn1]
+				out.append(eqn2)
+				return out
+
+			x2_list, y2_list, x3_list, y3_list = [], [], [], []
+			x0_nextIter_x2, x0_nextIter_y2, x0_nextIter_x3, x0_nextIter_y3 = l3, 0.0, l3 + l1*np.sin(phi_rad), -l1*np.cos(phi_rad)
+			
+			for x1, x4 in zip(dataPistonDispl.get_rs(), dataValveDispl.get_rs()):
+
+				# Get point (2) position
+				data_xy2_x1x4 = (l2, l3, x1, x4)
+				x_y_2 = fsolve(func_xy2_x1x4, [x0_nextIter_x2, x0_nextIter_y2], args = data_xy2_x1x4)
+
+				x2_list += [ x_y_2[0] ]
+				y2_list += [ x_y_2[1] ]
+
+				x0_nextIter_x2 = x_y_2[0]
+				x0_nextIter_y2 = x_y_2[1]
+
+				# Get point (3) position
+				data_xy3_x1x2y2 = (l1, l2, l4, x1, x_y_2[0], x_y_2[1])
+				x_y_3 = fsolve(func_xy3_x1x2y2, [x0_nextIter_x3, x0_nextIter_y3], args = data_xy3_x1x2y2)
+
+				x3_list += [ x_y_3[0] ]
+				y3_list += [ x_y_3[1] ]
+
+				x0_nextIter_x3 = x_y_3[0]
+				x0_nextIter_y3 = x_y_3[1]
+
+			results ={	'x_P4' : len(dataValveDispl.get_rs()) * [0.0], 'y_P4': [-1*t for t in dataValveDispl.get_rs()],
+						'x_P2' : y2_list, 'y_P2': [-1*t for t in x2_list],
+						'x_P3' : y3_list, 'y_P3': [-1*t for t in x3_list],
+						'x_P1' : len(dataPistonDispl.get_rs()) * [l2], 'y_P1': [-1*(l3+p) for p in dataPistonDispl.get_rs()]}
+
+			
 			# Figure initialization 
 			figure, ax = plt.subplots(1, 1, sharex='col', sharey='col')
-			figure2, ax2 = plt.subplots(2, 1, sharex='col')
 			figure.set_size_inches(16, 10, forward=True)
-			figure2.set_size_inches(16, 10, forward=True)
-			figure.suptitle('Flow gain - '+rangeIDstring, **plotSettings['figure_title'])
+			figure.suptitle('Kinematic model input lever actuator (Axes transformed)', **plotSettings['figure_title'])
 
-			forceVector = dataOutputForce.get_rs()
-			valveVector = dataValveDispl.get_rs()
-			timeForce = [t/dataOutputForce.get_freqData()[0] for t in dataOutputForce.get_timeRs()]
-			timeValve = [t/dataValveDispl.get_freqData()[0] for t in dataValveDispl.get_timeRs()]
+			ax.plot( results['x_P2'], results['y_P2'], linestyle = '', marker = 'o', c = plotSettings['colors'][0], label = 'Point 2', **plotSettings['line'])
+			ax.plot( results['x_P3'], results['y_P3'], linestyle = '', marker = 'o', c = plotSettings['colors'][1], label = 'Point 3', **plotSettings['line'])
+			ax.plot( results['x_P1'], results['y_P1'], linestyle = '', marker = 'o', c = plotSettings['colors'][2], label = 'Point 1', **plotSettings['line'])
+			ax.plot( results['x_P4'], results['y_P4'], linestyle = '', marker = 'o', c = plotSettings['colors'][3], label = 'Point 4', **plotSettings['line'])
+
+			ax.set_xlabel('X axis', **plotSettings['axes_x'])
+			ax.set_ylabel('Y axis', **plotSettings['axes_y'])
+			ax.legend(**plotSettings['legend'])
+			usualSettingsAX(ax, plotSettings)
+
+			nFrames = 50
+			data_samplingFreq = 100.0#np.power(float(CMDoptionsDict['flightTestInfo']['data_samplingFreq']), -1)
+			time_vector = get_timeVectorClass(dataPistonDispl, 0)
+			fps_outputVideo = int(np.power(nFrames*data_samplingFreq, -1))
+			indexFrames = range(0, len(time_vector), nFrames)
+			freqPlot = np.power(time_vector[indexFrames[1]] - time_vector[indexFrames[0]], -1)
 			
-			nPoints = 100
-			legendHandles, legendHandles2, plotsDone =  [], [], 0
-			for stepName in stepStrs:
-				i = nPoints+1
-				for force, valve in zip(forceVector[nPoints+1:-nPoints-1], valveVector[nPoints+1:-nPoints-1]):
+			# fig, ax = plt.subplots(1, 1, sharex='col', sharey='col')
+			# fig.set_size_inches(14, 10, forward=True)
+			# fig.suptitle('Data visualization replay FT106, screen feed freq.: %.3f Hz' % freqPlot, **plotSettings['figure_title'])
+			# ax.grid(which='both', **plotSettings['grid'])
+			# ax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])
+			# ax.minorticks_on()
+			# plot_P1, = ax.plot([], [], 'ko', animated=True)
+			# plot_P2, = ax.plot([], [], 'ro', animated=True)
+			# plot_P3, = ax.plot([], [], 'mo', animated=True)
+			# plot_P4, = ax.plot([], [], 'bo', animated=True)
+			# time_text = ax.text(0.6, 0.95, '', transform=ax.transAxes)
+			# x_P1, y_P1 = [], []
+			# x_P2, y_P2 = [], []
+			# x_P3, y_P3 = [], []
+			# x_P4, y_P4 = [], []
 
-					vector_valve = valveVector[i-int(nPoints/2):i+int(nPoints/10)+1]
-					vector_time = timeForce[i-int(nPoints/2):i+int(nPoints/10)+1]
+			# def initForces():
+			# 	global CMDoptionsDict
 
-					# regre = np.polyfit(np.linspace(0, nPoints, num = nPoints+1).tolist(), [j-np.mean(vector_forces) for j in vector_forces], 2)[0]
-					# mean_vector_valve = np.mean(vector_valve)
-					newX, newY = getNewVectorWithoutOutliers(vector_time,vector_valve)
-					regre = np.polyfit(newX, newY, 1)
-					# regre_fn = np.poly1d(regre)
-					# if (regre > 0.0 and force > 0.0) or (regre < 0.0 and force < 0.0): # Valve is opening
-					# if abs(vector_forces[-1]) - abs(vector_forces[0]) > 0.0: # Valve is opening
-					# if abs(np.mean(vector_valve[-3:])) - abs(np.mean(vector_valve[:3])) > 0.0: # Valve is opening
-					# if abs(valveVector[i]) - abs(vector_valve[0]) > 0.0: # Valve is opening
-					# pdb.set_trace()
-					if (regre[0] > 0.0 and valve > 0.0) or (regre[0] < 0.0 and valve < 0.0): # Valve is opening
-						ax.plot(valve,force, linestyle = '', marker = plotSettings['markers'][plotsDone], c = 'r', label = 'Valve opening', **plotSettings['line'])
-						ax2[0].plot(timeForce[i],force, linestyle = '', marker = plotSettings['markers'][plotsDone], c = 'r', label = 'Valve opening', **plotSettings['line'])
-						ax2[1].plot(timeForce[i],valve, linestyle = '', marker = plotSettings['markers'][plotsDone], c = 'r', label = 'Valve opening', **plotSettings['line'])
-						# ax2[2].plot(timeForce[i],regre, linestyle = '', marker = plotSettings['markers'][plotsDone], c = 'g', label = 'Valve opening', **plotSettings['line'])
-					else: # Valve is closing
-						ax.plot(valve,force, linestyle = '', marker = plotSettings['markers'][plotsDone], c = 'k', label = 'Valve closing', **plotSettings['line'])
-						ax2[0].plot(timeValve[i],force, linestyle = '', marker = plotSettings['markers'][plotsDone], c = 'k', label = 'Valve closing', **plotSettings['line'])
-						ax2[1].plot(timeValve[i],valve, linestyle = '', marker = plotSettings['markers'][plotsDone], c = 'k', label = 'Valve closing', **plotSettings['line'])
-						# ax2[2].plot(timeForce[i],regre, linestyle = '', marker = plotSettings['markers'][plotsDone], c = 'r', label = 'Valve closing', **plotSettings['line'])
-					
-					# ax2[1].plot(timeForce[i:i+2],regre_fn(valveVector[i:i+2])+mean_vector_valve, linestyle = '--', marker = '', c = 'k', **plotSettings['line'])
+			# 	#Cyclic
+			# 	ax.set_xlabel('X axis', **plotSettings['axes_x'])
+			# 	ax.set_ylabel('Y axis', **plotSettings['axes_y'])
+			# 	time_text.set_text('')
+				
+			# 	return plot_P1, plot_P2, plot_P3, plot_P4, time_text
 
-					i+=1
+			# def animateForce(frame):
+			# 	global results, time_vector
 
-				legendHandles += [plt.Line2D([],[], color='r', marker=plotSettings['markers'][plotsDone], linestyle='', label='Valve opening - '+stepName)]
-				legendHandles += [plt.Line2D([],[], color='k', marker=plotSettings['markers'][plotsDone], linestyle='', label='Valve closing - '+stepName)]
-				legendHandles2 += [plt.Line2D([],[], color='r', marker=plotSettings['markers'][plotsDone], linestyle='', label='Valve opening - '+stepName)]
-				legendHandles2 += [plt.Line2D([],[], color='k', marker=plotSettings['markers'][plotsDone], linestyle='', label='Valve closing - '+stepName)]
+			# 	currentTime = time_vector[frame]
+				
+			# 	# P1
+			# 	x_P1.append(results['x_P1'][frame])
+			# 	y_P1.append(results['y_P1'][frame])
+			# 	plot_P1.set_data(x_P1[-5:], y_P1[-5:])
 
-				plotsDone+=1
-			
-			ax.set_xlabel(inputDataClass.get_variablesInfoDict()[dataValveDispl.get_mag()+'__'+dataValveDispl.get_description()]['y-label'], **plotSettings['axes_x'])
-			ax.set_ylabel(inputDataClass.get_variablesInfoDict()[dataOutputForce.get_mag()+'__'+dataOutputForce.get_description()]['y-label'], **plotSettings['axes_y'])
-			ax.legend(handles = legendHandles, **plotSettings['legend'])
-			ax2[0].legend(handles = legendHandles2, **plotSettings['legend'])
-			ax2[1].legend(handles = legendHandles2, **plotSettings['legend'])
-			# for ax_c in [ax, ax2[0], ax2[1], ax2[2]]:
-			for ax_c in [ax, ax2[0], ax2[1]]:
-				usualSettingsAX(ax_c, plotSettings)
+			# 	# P2
+			# 	x_P2.append(results['x_P2'][frame])
+			# 	y_P2.append(results['y_P2'][frame])
+			# 	plot_P2.set_data(x_P2[-5:], y_P2[-5:])
 
-			if CMDoptionsDict['saveFigure']:
+			# 	# P3
+			# 	x_P3.append(results['x_P3'][frame])
+			# 	y_P3.append(results['y_P3'][frame])
+			# 	plot_P3.set_data(x_P3[-5:], y_P3[-5:])
 
-				figure.savefig(os.path.join(CMDoptionsDict['cwd'], 'Flow gain'+'__'+rangeIDstring+'.png'), dpi = plotSettings['figure_settings']['dpi'])
+			# 	# P4
+			# 	x_P4.append(results['x_P4'][frame])
+			# 	y_P4.append(results['y_P4'][frame])
+			# 	plot_P4.set_data(x_P4[-5:], y_P4[-5:])
+				
+			# 	time_text.set_text('current time = %.3f s' % currentTime)
+				
+			# 	return plot_P1, plot_P2, plot_P3, plot_P4, time_text
+
+			# print('\n' +'-> Recording video...')
+			# anim = animation.FuncAnimation(fig, animateForce, interval = 0.1,frames=indexFrames, init_func=initForces, repeat= False, blit=True)
+			# Writer = animation.writers['ffmpeg']
+			# writer = Writer(fps= fps_outputVideo, metadata=dict(artist='Alejandro Valverde', title='FT106'), bitrate=400)
+			# anim.save('P:\\11_J67\\23_Modelling\\Kinematic model\\kinematic_model_actuator.mpeg', writer=writer)
 
 	os.chdir(cwd)
 

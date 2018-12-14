@@ -1033,7 +1033,7 @@ def calculateRatioBetweenChangeInPilotInputAndIncrementInBoosterDisplacement(dat
 	ax.legend(**plotSettings['legend'])
 	usualSettingsAX(ax, plotSettings)
 
-def internalLeakageVSTemp_segments_V2(dataClasses, inputDataClass, plotSettings, CMDoptionsDict, segsDict):
+def internalLeakageVSTemp_segments_V2(dataClasses, inputDataClass, plotSettings, CMDoptionsDict):
 	
 	# Data Classes
 	dataTemp1 = [temp for temp in dataClasses if temp.get_description() == 'Temp1'][0]
@@ -1050,12 +1050,9 @@ def internalLeakageVSTemp_segments_V2(dataClasses, inputDataClass, plotSettings,
 	figure.suptitle('internalLeakageVSTemp ', **plotSettings['figure_title'])
 
 	plotsDone = 0
-	legendHandles = []
 	for stepName in stepStrs:
-		for divSegment in segsDict[stepName]:
-			axs[0].plot( createSegmentsOf_rs_FromVariableClass(dataTemp1, divSegment, indexDictForSteps[stepName])[0], createSegmentsOf_rs_FromVariableClass(dataVolFlow1, divSegment, indexDictForSteps[stepName])[0], linestyle = plotSettings['linestyles'][int(plotsDone/7)], marker = '', c = plotSettings['colors'][plotsDone], label = stepName, **plotSettings['line'])
-			axs[1].plot( createSegmentsOf_rs_FromVariableClass(dataTemp2, divSegment, indexDictForSteps[stepName])[0], createSegmentsOf_rs_FromVariableClass(dataVolFlow2, divSegment, indexDictForSteps[stepName])[0], linestyle = plotSettings['linestyles'][int(plotsDone/7)], marker = '', c = plotSettings['colors'][plotsDone], label = stepName, **plotSettings['line'])
-		legendHandles += [plt.Line2D([],[], color=plotSettings['colors'][plotsDone], marker='', linestyle=plotSettings['linestyles'][int(plotsDone/7)], label=stepName)]
+		axs[0].plot( dataTemp1.get_rs_split()[indexDictForSteps[stepName]], dataVolFlow1.get_rs_split()[indexDictForSteps[stepName]], linestyle = plotSettings['linestyles'][int(plotsDone/7)], marker = '', c = plotSettings['colors'][plotsDone], label = stepName, **plotSettings['line'])
+		axs[1].plot( dataTemp2.get_rs_split()[indexDictForSteps[stepName]], dataVolFlow2.get_rs_split()[indexDictForSteps[stepName]], linestyle = plotSettings['linestyles'][int(plotsDone/7)], marker = '', c = plotSettings['colors'][plotsDone], label = stepName, **plotSettings['line'])
 		plotsDone += 1
 
 	axs[0].set_title('SYS 1', **plotSettings['ax_title'])
@@ -1063,7 +1060,7 @@ def internalLeakageVSTemp_segments_V2(dataClasses, inputDataClass, plotSettings,
 	axs[-1].set_xlabel(inputDataClass.get_variablesInfoDict()[dataTemp1.get_mag()+'__'+dataTemp1.get_description()]['y-label'], **plotSettings['axes_x'])
 	for ax in axs:
 		ax.set_ylabel(inputDataClass.get_variablesInfoDict()[dataVolFlow1.get_mag()+'__'+dataVolFlow1.get_description()]['y-label'], **plotSettings['axes_y'])
-		ax.legend(handles = legendHandles, **plotSettings['legend'])
+		ax.legend(**plotSettings['legend'])
 		usualSettingsAX(ax, plotSettings)
 
 	if CMDoptionsDict['saveFigure']:
@@ -1093,12 +1090,9 @@ def internalLeakageVSPres_segments(dataClasses, inputDataClass, plotSettings, CM
 	figure.suptitle('internalLeakageVSPres ', **plotSettings['figure_title'])
 
 	plotsDone = 0
-	legendHandles = []
 	for stepName in stepStrs:
-		for divSegment in segsDict[stepName]:
-			axs[0].plot( createSegmentsOf_rs_FromVariableClass(dataTemp1, divSegment, indexDictForSteps[stepName])[0], createSegmentsOf_rs_FromVariableClass(dataPres1, divSegment, indexDictForSteps[stepName])[0], linestyle = plotSettings['linestyles'][int(plotsDone/7)], marker = '', c = plotSettings['colors'][plotsDone], label = stepName, **plotSettings['line'])
-			axs[1].plot( createSegmentsOf_rs_FromVariableClass(dataTemp2, divSegment, indexDictForSteps[stepName])[0], createSegmentsOf_rs_FromVariableClass(dataPres2, divSegment, indexDictForSteps[stepName])[0], linestyle = plotSettings['linestyles'][int(plotsDone/7)], marker = '', c = plotSettings['colors'][plotsDone], label = stepName, **plotSettings['line'])
-		legendHandles += [plt.Line2D([],[], color=plotSettings['colors'][plotsDone], marker='', linestyle=plotSettings['linestyles'][int(plotsDone/7)], label=stepName)]
+		axs[0].plot( dataTemp1.get_rs_split()[indexDictForSteps[stepName]], dataPres1.get_rs_split()[indexDictForSteps[stepName]], linestyle = plotSettings['linestyles'][int(plotsDone/7)], marker = '', c = plotSettings['colors'][plotsDone], label = stepName, **plotSettings['line'])
+		axs[1].plot( dataTemp2.get_rs_split()[indexDictForSteps[stepName]], dataPres2.get_rs_split()[indexDictForSteps[stepName]], linestyle = plotSettings['linestyles'][int(plotsDone/7)], marker = '', c = plotSettings['colors'][plotsDone], label = stepName, **plotSettings['line'])
 		plotsDone += 1
 
 	axs[0].set_title('SYS 1', **plotSettings['ax_title'])
@@ -1106,7 +1100,7 @@ def internalLeakageVSPres_segments(dataClasses, inputDataClass, plotSettings, CM
 	axs[-1].set_xlabel(inputDataClass.get_variablesInfoDict()[dataTemp1.get_mag()+'__'+dataTemp1.get_description()]['y-label'], **plotSettings['axes_x'])
 	for ax in axs:
 		ax.set_ylabel(inputDataClass.get_variablesInfoDict()[dataPres1.get_mag()+'__'+dataPres1.get_description()]['y-label'], **plotSettings['axes_y'])
-		ax.legend(handles = legendHandles, **plotSettings['legend'])
+		ax.legend(**plotSettings['legend'])
 		usualSettingsAX(ax, plotSettings)
 
 	if CMDoptionsDict['saveFigure']:
@@ -1136,12 +1130,9 @@ def internalLeakageVSPistonDispl_segments(dataClasses, inputDataClass, plotSetti
 	figure.suptitle('internalLeakageVSPistonDispl ', **plotSettings['figure_title'])
 
 	plotsDone = 0
-	legendHandles = []
 	for stepName in stepStrs:
-		for divSegment in segsDict[stepName]:
-			axs[0].plot( createSegmentsOf_rs_FromVariableClass(dataTemp1, divSegment, indexDictForSteps[stepName])[0], createSegmentsOf_rs_FromVariableClass(dataPistonDispl, divSegment, indexDictForSteps[stepName])[0], linestyle = plotSettings['linestyles'][int(plotsDone/7)], marker = '', c = plotSettings['colors'][plotsDone], label = stepName, **plotSettings['line'])
-			axs[1].plot( createSegmentsOf_rs_FromVariableClass(dataTemp2, divSegment, indexDictForSteps[stepName])[0], createSegmentsOf_rs_FromVariableClass(dataPistonDispl, divSegment, indexDictForSteps[stepName])[0], linestyle = plotSettings['linestyles'][int(plotsDone/7)], marker = '', c = plotSettings['colors'][plotsDone], label = stepName, **plotSettings['line'])
-		legendHandles += [plt.Line2D([],[], color=plotSettings['colors'][plotsDone], marker='', linestyle=plotSettings['linestyles'][int(plotsDone/7)], label=stepName)]
+		axs[0].plot( dataTemp1.get_rs_split()[indexDictForSteps[stepName]], dataPistonDispl.get_rs_split()[indexDictForSteps[stepName]], linestyle = plotSettings['linestyles'][int(plotsDone/7)], marker = '', c = plotSettings['colors'][plotsDone], label = stepName, **plotSettings['line'])
+		axs[1].plot( dataTemp2.get_rs_split()[indexDictForSteps[stepName]], dataPistonDispl.get_rs_split()[indexDictForSteps[stepName]], linestyle = plotSettings['linestyles'][int(plotsDone/7)], marker = '', c = plotSettings['colors'][plotsDone], label = stepName, **plotSettings['line'])
 		plotsDone += 1
 
 	axs[0].set_title('SYS 1', **plotSettings['ax_title'])
@@ -1149,7 +1140,7 @@ def internalLeakageVSPistonDispl_segments(dataClasses, inputDataClass, plotSetti
 	axs[-1].set_xlabel(inputDataClass.get_variablesInfoDict()[dataTemp1.get_mag()+'__'+dataTemp1.get_description()]['y-label'], **plotSettings['axes_x'])
 	for ax in axs:
 		ax.set_ylabel(inputDataClass.get_variablesInfoDict()[dataPistonDispl.get_mag()+'__'+dataPistonDispl.get_description()]['y-label'], **plotSettings['axes_y'])
-		ax.legend(handles = legendHandles, **plotSettings['legend'])
+		ax.legend(**plotSettings['legend'])
 		usualSettingsAX(ax, plotSettings)
 
 	if CMDoptionsDict['saveFigure']:
@@ -1259,3 +1250,82 @@ def performHYDanalysisFromFTdata(dataClasses, inputDataClass, plotSettings, CMDo
 
 				figure.savefig(os.path.join(CMDoptionsDict['cwd'], 'hyd_analysis__sys'+sysID+'__'+stepStr+'.png'), dpi = plotSettings['figure_settings']['dpi'])
 	file.close()
+
+def getFlowGainCurve(dataClasses, inputDataClass, plotSettings, CMDoptionsDict):
+
+	# Range files
+	if len(CMDoptionsDict['rangeFileIDs']) < 8:
+		rangeIDstring = ','.join([str(i) for i in CMDoptionsDict['rangeFileIDs']])
+	else:
+		rangeIDstring = str(CMDoptionsDict['rangeFileIDs'][0])+'...'+str(CMDoptionsDict['rangeFileIDs'][-1])
+
+	# Data Classes
+	dataOutputForce = [temp for temp in dataClasses if temp.get_description() == 'OutputForce'][0]
+	dataValveDispl = [temp for temp in dataClasses if temp.get_description() == 'ValveDispl'][0]
+
+	#Vector of steps
+	indexDictForSteps, stepStrs = get_indexDictForSteps(dataOutputForce)
+
+	# Figure initialization 
+	figure, ax = plt.subplots(1, 1, sharex='col', sharey='col')
+	figure2, ax2 = plt.subplots(2, 1, sharex='col')
+	figure.set_size_inches(16, 10, forward=True)
+	figure2.set_size_inches(16, 10, forward=True)
+	figure.suptitle('Flow gain - '+rangeIDstring, **plotSettings['figure_title'])
+
+	forceVector = dataOutputForce.get_rs()
+	valveVector = dataValveDispl.get_rs()
+	timeForce = [t/dataOutputForce.get_freqData()[0] for t in dataOutputForce.get_timeRs()]
+	timeValve = [t/dataValveDispl.get_freqData()[0] for t in dataValveDispl.get_timeRs()]
+	
+	nPoints = 100
+	legendHandles, legendHandles2, plotsDone =  [], [], 0
+	for stepName in stepStrs:
+		i = nPoints+1
+		for force, valve in zip(forceVector[nPoints+1:-nPoints-1], valveVector[nPoints+1:-nPoints-1]):
+
+			vector_valve = valveVector[i-int(nPoints/2):i+int(nPoints/10)+1]
+			vector_time = timeForce[i-int(nPoints/2):i+int(nPoints/10)+1]
+
+			# regre = np.polyfit(np.linspace(0, nPoints, num = nPoints+1).tolist(), [j-np.mean(vector_forces) for j in vector_forces], 2)[0]
+			# mean_vector_valve = np.mean(vector_valve)
+			newX, newY = getNewVectorWithoutOutliers(vector_time,vector_valve)
+			regre = np.polyfit(newX, newY, 1)
+			# regre_fn = np.poly1d(regre)
+			# if (regre > 0.0 and force > 0.0) or (regre < 0.0 and force < 0.0): # Valve is opening
+			# if abs(vector_forces[-1]) - abs(vector_forces[0]) > 0.0: # Valve is opening
+			# if abs(np.mean(vector_valve[-3:])) - abs(np.mean(vector_valve[:3])) > 0.0: # Valve is opening
+			# if abs(valveVector[i]) - abs(vector_valve[0]) > 0.0: # Valve is opening
+			# pdb.set_trace()
+			if (regre[0] > 0.0 and valve > 0.0) or (regre[0] < 0.0 and valve < 0.0): # Valve is opening
+				ax.plot(valve,force, linestyle = '', marker = plotSettings['markers'][plotsDone], c = 'r', label = 'Valve opening', **plotSettings['line'])
+				ax2[0].plot(timeForce[i],force, linestyle = '', marker = plotSettings['markers'][plotsDone], c = 'r', label = 'Valve opening', **plotSettings['line'])
+				ax2[1].plot(timeForce[i],valve, linestyle = '', marker = plotSettings['markers'][plotsDone], c = 'r', label = 'Valve opening', **plotSettings['line'])
+			else: # Valve is closing
+				ax.plot(valve,force, linestyle = '', marker = plotSettings['markers'][plotsDone], c = 'k', label = 'Valve closing', **plotSettings['line'])
+				ax2[0].plot(timeValve[i],force, linestyle = '', marker = plotSettings['markers'][plotsDone], c = 'k', label = 'Valve closing', **plotSettings['line'])
+				ax2[1].plot(timeValve[i],valve, linestyle = '', marker = plotSettings['markers'][plotsDone], c = 'k', label = 'Valve closing', **plotSettings['line'])
+			
+			# ax2[1].plot(timeForce[i:i+2],regre_fn(valveVector[i:i+2])+mean_vector_valve, linestyle = '--', marker = '', c = 'k', **plotSettings['line'])
+
+			i+=1
+
+		legendHandles += [plt.Line2D([],[], color='r', marker=plotSettings['markers'][plotsDone], linestyle='', label='Valve opening - '+stepName)]
+		legendHandles += [plt.Line2D([],[], color='k', marker=plotSettings['markers'][plotsDone], linestyle='', label='Valve closing - '+stepName)]
+		legendHandles2 += [plt.Line2D([],[], color='r', marker=plotSettings['markers'][plotsDone], linestyle='', label='Valve opening - '+stepName)]
+		legendHandles2 += [plt.Line2D([],[], color='k', marker=plotSettings['markers'][plotsDone], linestyle='', label='Valve closing - '+stepName)]
+
+		plotsDone+=1
+	
+	ax.set_xlabel(inputDataClass.get_variablesInfoDict()[dataValveDispl.get_mag()+'__'+dataValveDispl.get_description()]['y-label'], **plotSettings['axes_x'])
+	ax.set_ylabel(inputDataClass.get_variablesInfoDict()[dataOutputForce.get_mag()+'__'+dataOutputForce.get_description()]['y-label'], **plotSettings['axes_y'])
+	ax.legend(handles = legendHandles, **plotSettings['legend'])
+	ax2[0].legend(handles = legendHandles2, **plotSettings['legend'])
+	ax2[1].legend(handles = legendHandles2, **plotSettings['legend'])
+	# for ax_c in [ax, ax2[0], ax2[1], ax2[2]]:
+	for ax_c in [ax, ax2[0], ax2[1]]:
+		usualSettingsAX(ax_c, plotSettings)
+
+	if CMDoptionsDict['saveFigure']:
+
+		figure.savefig(os.path.join(CMDoptionsDict['cwd'], 'Flow gain'+'__'+rangeIDstring+'.png'), dpi = plotSettings['figure_settings']['dpi'])

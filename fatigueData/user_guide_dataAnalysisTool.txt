@@ -85,7 +85,7 @@ The [-options] are written one after each other, separated by spaces. They can b
 
         -> -c, -correctionFilter:
         Offset correction to be applied to the filtered data. Sums the indicated quantity to the filter data. Examples:
-            -> -c f : Do not to apply correction
+            -> -c f : Do not to apply correction. This is the default value if the option is omitted in the program execution.
             -> -c 81.15 : Adds 81.15 to all the data points of the low-pass data and -81.15 to the high-pass data imported
             -> -c -81.15 : Adds -81.15 to all the data points of the low-pass data and 81.15 to the high-pass data imported
 
@@ -97,10 +97,10 @@ The [-options] are written one after each other, separated by spaces. They can b
         This parameter defines what to do with the plots created. The first position of this parameter indicates whether to 
         save the plots in the working folder and the second position indicates whether the plots should be shown in the screen 
         or not. Possible values:
-            -> -s f,f : Plots are not saved nor shown
-            -> -s f,t : Plots are not saved but shown
-            -> -s t,f : Plots are saved but not shown
-            -> -s t,t : Plots are saved and shown
+            -> -s f,f : Plots are not saved nor shown.
+            -> -s f,t : Plots are not saved but shown. This is the default value if the option is omitted in the program execution.
+            -> -s t,f : Plots are saved but not shown.
+            -> -s t,t : Plots are saved and shown.
 
         -> -n, -axisArrangementOption:
         Enables the possibility to split the figures into multiple plots with a shared y-axis. Possible values:
@@ -113,36 +113,37 @@ The [-options] are written one after each other, separated by spaces. They can b
         -> -o, -testOrder:
         This parameter defines whether a reference of the loads prescribed in the Test Order shall be included in the resulting plots.
         The value of the order values shall have been defined in the input file. Possible values:
-            -> -o t : Plot reference of the Test Order prescribed loads
-            -> -o f : Do not plot reference of the Test Order prescribed loads
+            -> -o t : Plot reference of the Test Order prescribed loads.
+            -> -o f : Do not plot reference of the Test Order prescribed loads. This is the default value if the parameter is omitted 
+            in the program execution.
 
         -> -a, -additionalCals:
         This parameter allows the program to execute specific code lines which have been created to give an answer to particular  data 
         analysis tasks. During normal operation, this option has to be disabled. Possible values:
             -> -n [1,2,4,5,...] : Each number executes one particular portion of the code. For example:
                 --> 16: Show force fighting for flight test.
-                --> 17: Show exceedances from FTI in collective force for the actuator.
-            -> -n f : Normal operation
+                --> 17: Show exceedance from FTI in collective force for the actuator.
+            -> -n f : Normal operation. This is the default value if the parameter is omitted in the program execution.
 
         -> -w, -writeStepResultsToFileFlag:
         When this option is enabled, the program will create one file per variable with the maximum, mean and minimum values recorded 
         during each of the computed steps. Possible values:
-            -> -w t : Enable the output of a summary file per variable
-            -> -w f : Disable the output of a summary file per variable
+            -> -w t : Enable the output of a summary file per variable.
+            -> -w f : Disable the output of a summary file per variable. This is the default value if the parameter is omitted in the program execution.
 
         -> -l, -divisionLineForPlotsFlag:
         When this option is enabled, the program will draw red dashed lines to define the division between consecutive test steps in
         the main figure. Possible values:
-            -> -l t : Draw division line between test steps
-            -> -l f : Do not draw division line between test steps
+            -> -l t : Draw division line between test steps.
+            -> -l f : Do not draw division line between test steps. This is the default value if the parameter is omitted in the program execution.
 
         -> -g, -dataPartitionFlag:
         When this option is enabled, the program perform a data partition operation on the loaded data. Only the data corresponding to 
         the specified time slots will be plotted. In the file containing the information for the test, the time slots need to be defined.
-        This is done for each step with the sintax : 'segment__[step name] : [time slots]'. The input [time slots] is divided with ';' for 
+        This is done for each step with the syntax : 'segment__[step name] : [time slots]'. The input [time slots] is divided with ';' for 
         each time slot and this are in turn divided by ',' between the first and the second time defining each of the slots. 
         For example: 'segment__10-SN0012-1.3 : 10, 100; 200, 650; 775, 875'. Possible values:
-            -> -l t : Perform data partition according to what it has been defined in the input file for each step
-            -> -l f : Leave data as it is
+            -> -l t : Perform data partition according to what it has been defined in the input file for each step.
+            -> -l f : Leave data as it is. This is the default value if the parameter is omitted in the program execution.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

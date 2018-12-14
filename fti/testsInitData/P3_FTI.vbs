@@ -124,6 +124,9 @@ fileNamesBigArrayFolders = Array( _
     , Array(commonAddress&"P3-J17-0005\FTI\Run1\", "106-FT05", Array("fti_20181205083011_pp.tdms")) _
     , Array(commonAddress&"P3-J17-0005\FTI\Run2\", "107-FT05", Array("fti_20181205100158_pp.tdms")) _
     , Array(commonAddress&"P3-J17-0005\FTI\Run3\", "108-FT05", Array("fti_20181205122743_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0006\FTI\Run1\", "109-FT06", Array("fti_20181213084048_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0006\FTI\Run2\", "110-FT06", Array("fti_20181213140143_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0007\FTI\Run1\", "111-FT07", Array("fti_20181214092659_pp.tdms")) _
   )
 
 ' Identified errors - P3!!!
@@ -248,7 +251,8 @@ iterators_base = Array( _
 
 ' iterators = Array("100-FT01", "101-FT02")
 ' iterators = Array("102-FT03", "103-FT03")
-iterators = Array("104-FT04", "105-FT04", "106-FT05", "107-FT05", "108-FT05")
+' iterators = Array("104-FT04", "105-FT04", "106-FT05", "107-FT05", "108-FT05")
+iterators = Array("111-FT07")
 ' iterators = Array("08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28")
 ' iterators = Array("08")
 
@@ -276,6 +280,8 @@ dictVaDiadem.Add "HYD_PRS_2", "HYD_PRS_2"
 ' dictVaDiadem.Add "HYD_TMP_2", "HYD_TMP_2"
 dictVaDiadem.Add "HYD_TMP_TANK_1", "HYD_TMP_TANK_1"
 dictVaDiadem.Add "HYD_TMP_TANK_2", "HYD_TMP_TANK_2"
+' dictVaDiadem.Add "VRU_DST_GPS_ALT", "VRU_DST_GPS_ALT"
+
 ' dictVaDiadem.Add "DIU_ARI_IND_HYD_PRS_1_C", "DIU_ARI_IND_HYD_PRS_1_C"
 ' dictVaDiadem.Add "DIU_ARI_IND_HYD_PRS_2_C", "DIU_ARI_IND_HYD_PRS_2_C"
 ' dictVaDiadem.Add "PFD_ARI_TMP_OAT", "PFD_ARI_TMP_OAT"
@@ -294,7 +300,6 @@ dictVaDiadem.Add "HYD_TMP_TANK_2", "HYD_TMP_TANK_2"
 ' dictVaDiadem.Add "ECS_TMP_LEDE_FRW", "ECS_TMP_LEDE_FRW" 'Kurt'
 ' dictVaDiadem.Add "ECS_TMP_LEDE_HYD", "ECS_TMP_LEDE_HYD" 'Kurt'
 ' dictVaDiadem.Add "ENG_TMP_CPT_AIR", "ENG_TMP_CPT_AIR" 'Kurt'
-
 
 signalsToDif = Array("CNT_DST_BST_COL", "CNT_DST_BST_LNG", "CNT_DST_BST_LAT","CNT_DST_COL", "CNT_DST_LNG", "CNT_DST_LAT")
 
