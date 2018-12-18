@@ -40,6 +40,8 @@ def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 	CMDoptionsDict['additionalCalsOpt'] = 0
 	CMDoptionsDict['saveFigure'] = False
 	CMDoptionsDict['showFigures'] = True
+	CMDoptionsDict['variables'] = ['','']
+	CMDoptionsDict['magnitudes'] = ['','']
 	
 	optsLoaded = []
 	for opt, arg in opts:
@@ -67,11 +69,11 @@ def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 
 		elif opt in ("-v", "--variables"):
 
-			CMDoptionsDict['variables'] = arg.split(',')
+			CMDoptionsDict.update({CMDoptionsDict['variables'] : arg.split(',')})
 
 		elif opt in ("-m", "--magnitudes"):
 
-			CMDoptionsDict['magnitudes'] = arg.split(',')
+			CMDoptionsDict.update({CMDoptionsDict['magnitudes'] : arg.split(',')})
 
 		elif opt in ("-o", "--testOrder"):
 
@@ -119,11 +121,9 @@ def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 
 			if arg.lower() in ('false', 'f'):
 				CMDoptionsDict.update({'correctionFilterFlag' : False})
-			elif arg.lower() in ('true', 't'):
+			else:
 				CMDoptionsDict.update({'correctionFilterFlag' : True})
 				CMDoptionsDict['correctionFilterNum'] = float(arg)
-			else:
-				raise ValueError('ERROR: Wrong input for parameter '+opt)
 
 		elif opt in ("-n", "--axisArrangementOption"):
 
@@ -443,11 +443,11 @@ def importDataActuator(fileName, iFile, CMDoptionsDict, inputDataClass):
 		high_pass_displ_data = filter(weg, float(inputDataClass.get_actuatorDataInfoDict()['sampling_freq']), 'high-pass', float(inputDataClass.get_actuatorDataInfoDict()['cut-off_freq'])) #0.1 Hz of cut-off freq
 
 		if CMDoptionsDict['correctionFilterFlag']:
-				low_pass_force_data = [t + CMDoptionsDict['correctionFilterNum'] for t in low_pass_force_data]
-				high_pass_force_data = [t - CMDoptionsDict['correctionFilterNum'] for t in high_pass_force_data]
+			print('\t\t'+'-> Filter correction applied, factor '+str(CMDoptionsDict['correctionFilterNum']))
+			low_pass_force_data = [t + CMDoptionsDict['correctionFilterNum'] for t in low_pass_force_data]
+			high_pass_force_data = [t - CMDoptionsDict['correctionFilterNum'] for t in high_pass_force_data]
 		
 		dataFromRun.add_filteredData(lowpass_displ_in = low_pass_displ_data, highpass_displ_in = high_pass_displ_data, lowpass_force_in = low_pass_force_data, highpass_force_in = high_pass_force_data)
-
 
 	return dataFromRun
 
@@ -1483,7 +1483,7 @@ def plotAllRuns_force_Messwerte(dataFromRuns, plotSettings, CMDoptionsDict, inpu
 	counterPlots = 0
 	for data in dataFromRuns:
 
-		ax.plot(data.get_weg(), data.get_kraft(), linestyle = '-', marker = '', c = plotSettings['colors'][counterPlots], label = data.get_name(), **plotSettings['line'])
+		ax.plot(data.get_weg(), data.get_kraft(), linestyle = '', marker = 'o', c = plotSettings['colors'][counterPlots], label = data.get_name(), **plotSettings['line'])
 
 		counterPlots += 1
 
@@ -1502,7 +1502,7 @@ def plotAllRuns_force_Messwerte(dataFromRuns, plotSettings, CMDoptionsDict, inpu
 	#Save figure
 	if CMDoptionsDict['saveFigure']:
 
-		figure.savefig(os.path.join(CMDoptionsDict['cwd'], ','.join([str(i) for i in CMDoptionsDict['rangeFileIDs']])+'ActuatorForceDisplacementTotalStaticAlternate.png'), dpi = plotSettings['figure_settings']['dpi'])
+		figure.savefig(os.path.join(CMDoptionsDict['cwd'], ','.join([str(i) for i in CMDoptionsDict['rangeFileIDs']])+'ActuatorForceDisplacement.png'), dpi = plotSettings['figure_settings']['dpi'])
 
 	#Central differences plot
 	figure, ax = plt.subplots(1, 1)
@@ -1545,7 +1545,7 @@ def plotAllRuns_force_Messwerte(dataFromRuns, plotSettings, CMDoptionsDict, inpu
 	#Save figure
 	if CMDoptionsDict['saveFigure']:
 
-		figure.savefig(os.path.join(CMDoptionsDict['cwd'], ','.join([str(i) for i in CMDoptionsDict['rangeFileIDs']])+'ActuatorForceDisplacement.png'), dpi = plotSettings['figure_settings']['dpi'])
+		figure.savefig(os.path.join(CMDoptionsDict['cwd'], ','.join([str(i) for i in CMDoptionsDict['rangeFileIDs']])+'ActuatorStiffness.png'), dpi = plotSettings['figure_settings']['dpi'])
 
 def plotAllRuns_displacement(dataFromRuns, plotSettings, CMDoptionsDict, inputDataClass):
 
@@ -1669,16 +1669,19 @@ def getNewVectorWithoutOutliers(x_list, y_list):
 def plotAllRuns_filtered_Messwerte(dataFromRuns, timesDict, plotSettings, CMDoptionsDict, inputDataClass):
 	
 	attrs_to_plot_list = [['kraft', 'lowpass_force', 'highpass_force'], ['weg', 'lowpass_displ', 'highpass_displ']]
-	# attrs_to_plot_list = [['kraft']]
-	titles = {'kraft': 'Force measured by the actuator, total, static and alternate',
-				'weg' : 'Displacement imposed by the actuator, total, static and alternate',
+	
+	titles = {'kraft': 'Total force measured by the actuator',
+				'weg' : 'Total displacement imposed by the actuator',
 				'lowpass_force': 'Force low-pass filtered with '+inputDataClass.get_actuatorDataInfoDict()['cut-off_freq']+' Hz cut-off freq.', 
 				'highpass_force': 'Force high-pass filtered with '+inputDataClass.get_actuatorDataInfoDict()['cut-off_freq']+' Hz cut-off freq.',
 				'lowpass_displ': 'Displacement low-pass filtered with '+inputDataClass.get_actuatorDataInfoDict()['cut-off_freq']+' Hz cut-off freq.', 
 				'highpass_displ': 'Displacement high-pass filtered with '+inputDataClass.get_actuatorDataInfoDict()['cut-off_freq']+' Hz cut-off freq.'}
-
+	figure_titles = ['Force measured by the actuator, total, static and alternate', 'Displacement imposed by the actuator, total, static and alternate']
+	
+	figures_plot = 0
 	for attrs_to_plot in attrs_to_plot_list:
 		figure, axesList = plt.subplots(len(attrs_to_plot), 1, sharex='col')
+		figure.suptitle(figure_titles[figures_plot], **plotSettings['figure_title'])
 		figure.set_size_inches(16, 10, forward=True)
 
 		for ax, attr in zip(axesList, attrs_to_plot):
@@ -1710,7 +1713,7 @@ def plotAllRuns_filtered_Messwerte(dataFromRuns, timesDict, plotSettings, CMDopt
 			i = 0
 			ax.plot(2*[0.0], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
 			for div in timesDict['lastTimeList']:
-				ax.plot(2*[div], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
+				ax.plot(2*[div], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = 'r', scaley = False, scalex = False, **plotSettings['line'])
 
 				#Add text with step number
 				ax.text(previousDiv + ((div - previousDiv)/2), minPlot_y, 'Run '+str(CMDoptionsDict['rangeFileIDs'][i]), bbox=dict(facecolor='black', alpha=0.2), horizontalalignment = 'center')
@@ -1734,10 +1737,10 @@ def plotAllRuns_filtered_Messwerte(dataFromRuns, timesDict, plotSettings, CMDopt
 					limitsLoadsBoundaries = [1 + (margin/100), 1 - (margin/100)]
 
 				for limitLoad in limitLoads:
-					ax.plot([minPlot_x, maxPlot_x], 2*[limitLoad], linestyle = '--', marker = '', c = plotSettings['colors'][5], **plotSettings['line'])
+					ax.plot([minPlot_x, maxPlot_x], 2*[limitLoad], linestyle = '--', marker = '', c = plotSettings['colors'][5], scaley = False, scalex = False, **plotSettings['line'])
 					if limitsLoadsBoundaries:
 						for limitLoadBoundary in limitsLoadsBoundaries:
-							ax.plot([minPlot_x, maxPlot_x], 2*[limitLoad*limitLoadBoundary], linestyle = '-.', marker = '', c = plotSettings['colors'][6], **plotSettings['line'])
+							ax.plot([minPlot_x, maxPlot_x], 2*[limitLoad*limitLoadBoundary], linestyle = '-.', marker = '', c = plotSettings['colors'][6], scaley = False, scalex = False, **plotSettings['line'])
 
 			if 'force' in attr or 'kraft' in attr:
 				ax.set_ylabel('Force [KN]', **plotSettings['axes_y'])
@@ -1758,6 +1761,8 @@ def plotAllRuns_filtered_Messwerte(dataFromRuns, timesDict, plotSettings, CMDopt
 
 		#Only last ax
 		ax.set_xlabel('Time [s]', **plotSettings['axes_x'])
+
+		figures_plot += 1
 
 		#Save figure
 		if CMDoptionsDict['saveFigure']:

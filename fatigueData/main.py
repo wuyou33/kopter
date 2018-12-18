@@ -388,6 +388,7 @@ if gaugesFlag:
 		elif CMDoptionsDict['additionalCalsOpt'] == 21:
 			"""
 			Use kinematic model to extract position of the input lever based on valve and piston displacements measurement 
+			CMD: python main.py -f filesToLoad_general_actuatorPerformance.txt -m rs -a 21 -g t -r 59-Step-3.1-90FH-cold -v PistonDispl,ValveDispl
 			"""
 			
 			# Data Classes
@@ -584,6 +585,7 @@ elif actuatorFlag:
 	plotAllRuns_displacement(dataFromRuns, plotSettings, CMDoptionsDict, inputDataClass)
 
 elif actuatorMesswerteFlag:
+	# CMD example: python main.py -f filesToLoad_actuatorMesswerte_MRAretainerV2.txt -r 2,3,5 -o t -c -0.15 -s f,t
 
 	# Import plot settings
 	plotSettings = importPlottingOptions()
@@ -615,9 +617,15 @@ elif actuatorMesswerteFlag:
 
 	timesDict = {'lastTimeList': lastTimeList}
 
-	# plotAllRuns_force_Messwerte(dataFromRuns, plotSettings, CMDoptionsDict, inputDataClass)
-	# plotAllRuns_filtered_Messwerte(dataFromRuns, timesDict, plotSettings, CMDoptionsDict, inputDataClass)
-	plotStiffnessForChoosenSteps_Messwerte(dataFromRuns, timesDict, plotSettings, CMDoptionsDict, inputDataClass)
+	plotAllRuns_force_Messwerte(dataFromRuns, plotSettings, CMDoptionsDict, inputDataClass)
+	plotAllRuns_filtered_Messwerte(dataFromRuns, timesDict, plotSettings, CMDoptionsDict, inputDataClass)
+
+	if CMDoptionsDict['additionalCalsFlag']:
+
+		print('\n\n'+'-> Additional calculations in progress...')
+
+		if CMDoptionsDict['additionalCalsOpt'] == 1:
+			plotStiffnessForChoosenSteps_Messwerte(dataFromRuns, timesDict, plotSettings, CMDoptionsDict, inputDataClass)
 
 
 plt.show(block = CMDoptionsDict['showFigures'])

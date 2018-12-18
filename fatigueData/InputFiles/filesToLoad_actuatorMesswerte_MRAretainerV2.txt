@@ -1,0 +1,19 @@
+-> Files to load
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0197\01_TDMS_data_Set-complete\01_RAW\Run_2_Messwerte.csv
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0197\01_TDMS_data_Set-complete\01_RAW\Run_3_Messwerte.csv
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0197\01_TDMS_data_Set-complete\01_RAW\Run_5_Messwerte.csv
+
+-> Signal characteristics actuator
+excel_row_weg: 2
+excel_row_kraft: 3
+sampling_freq: 20
+time_offset: 2
+cut-off_freq: 0.005
+TO spec: yes
+max load: -3.550
+min load: 0.55
+Fatigue load spec: yes
+static load: -1.500
+margin static load (%): 5
+alternate load: 2.05
+margin alternate load (%): 3
