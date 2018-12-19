@@ -6,7 +6,9 @@ L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\
 -> Signal characteristics actuator
 excel_row_weg: 2
 excel_row_kraft: 3
-sampling_freq: 20
+sampling_freq: 50
+test_freq: 12
+convert_to_cycl: true
 time_offset: 2
 cut-off_freq: 0.005
 TO spec: yes

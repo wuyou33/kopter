@@ -40,6 +40,7 @@ segment__57-Step-3.2-80FH-cold : 1000, 24000
 segment__58-Step-3.2-80FH-hot : 50, 700
 segment__59-Step-3.1-90FH-cold : 8779.29, 8801.79
 segment__62-Step-3.2-90FH-hot : 50, 1000
+segment__68-Step-3.2-100FH_hot : 50, 1000
 
 -> Variable info
 name: rs__Pres1

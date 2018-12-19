@@ -308,7 +308,7 @@ if gaugesFlag:
 
 				python main.py -f filesToLoad_general_actuatorPerformance.txt -m rs -o f -m f -s f,t -a 12 -c f -w f -l t -r 15-Step-3.1-1,16-Step-3.1-2,17-Step-3.1-3,18-Step-3.1-4,33-Step-3.1-40FH-cold-1,34-Step-3.1-40FH-cold-2,35-Step-3.1-40FH-hot,39-Step-3.1-50FH-col,40-Step-3.1-50FH-hot -v Temp1,Temp2,VolFlow1,VolFlow2
 				python main.py -f filesToLoad_general_actuatorPerformance.txt -m rs -a 12 -g t -l t -r 27-Step-3.2-hot,28-Step-3.2-cold,36-Step-3.2-40FH-cold-1,37-Step-3.2-40FH-cold-2,38-Step-3.2-40FH-hot,41-Step-3.2-50FH-cold-1,42-Step-3.2-50FH-cold-2,43-Step-3.2-50FH-hot,46-Step-3.2-60FH-hot,47-Step-3.2-60FH-cold1,48-Step-3.2-60FH-cold2,53-Step-3.2-70FH-cold,54-Step-3.2-70FH-hot,57-Step-3.2-80FH-cold,58-Step-3.2-80FH-hot -v Temp1,Temp2,VolFlow1,VolFlow2
-				python main.py -f filesToLoad_general_actuatorPerformance.txt -m rs -a 12 -g t -l t -r 27-Step-3.2-hot,38-Step-3.2-40FH-hot,43-Step-3.2-50FH-hot,46-Step-3.2-60FH-hot,54-Step-3.2-70FH-hot,58-Step-3.2-80FH-hot -v Temp1,Temp2,VolFlow1,VolFlow2
+				python main.py -f filesToLoad_general_actuatorPerformance.txt -m rs -a 12 -g t -l t -r 27-Step-3.2-hot,38-Step-3.2-40FH-hot,43-Step-3.2-50FH-hot,46-Step-3.2-60FH-hot,54-Step-3.2-70FH-hot,58-Step-3.2-80FH-hot,60-Step-3.1-90FH-hot,68-Step-3.2-100FH_hot -v Temp1,Temp2,VolFlow1,VolFlow2
 				"""
 				internalLeakageVSTemp_segments_V2(dataClasses, inputDataClass, plotSettings, CMDoptionsDict)
 				
