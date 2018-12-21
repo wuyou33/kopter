@@ -4,244 +4,108 @@
 		"selected_items":
 		[
 			[
-				"vec",
-				"vector_forces"
-			],
-			[
-				"mark",
-				"markers"
-			],
-			[
-				"valve",
-				"valveVector"
-			],
-			[
-				"dataVa",
-				"dataValveDispl"
-			],
-			[
-				"__ma",
-				"__mag"
-			],
-			[
-				"xC",
-				"xCountLastStep"
-			],
-			[
-				"__Va",
-				"__xValuesNewRun"
-			],
-			[
-				"re",
-				"result"
-			],
-			[
-				"dataP",
-				"dataPartitionFlag"
-			],
-			[
-				"ste",
-				"stepStrs"
-			],
-			[
-				"def",
-				"defs\tMethod"
-			],
-			[
-				"data",
-				"dataClasses"
-			],
-			[
-				"cu",
-				"currentClass"
-			],
-			[
-				"acc",
-				"accumulatedTime"
-			],
-			[
-				"el",
-				"else"
-			],
-			[
-				"lowe",
-				"lowerLim"
-			],
-			[
-				"vector",
-				"vectorNewRS_split"
-			],
-			[
-				"add",
-				"addDataManual1"
-			],
-			[
-				"new",
-				"newData"
-			],
-			[
-				"get",
-				"get_description"
-			],
-			[
-				"force",
-				"forceName1"
-			],
-			[
-				"magn",
-				"magnitudes"
-			],
-			[
-				"opt",
-				"option"
-			],
-			[
-				"tit",
-				"titlesDict"
-			],
-			[
-				"var",
-				"variableClass"
-			],
-			[
-				"all",
-				"allTime"
-			],
-			[
-				"singl",
-				"singleTime_index"
-			],
-			[
-				"stepS",
-				"stepStr"
-			],
-			[
-				"steps",
-				"stepStrs"
-			],
-			[
-				"dat",
-				"dataClasses"
-			],
-			[
-				"additi",
-				"additionalCalsOpt"
-			],
-			[
-				"CMD",
-				"CMDoptionsDict"
-			],
-			[
-				"CM",
-				"CMDoptionsDict"
-			],
-			[
-				"exam",
-				"exampleClasse"
-			],
-			[
-				"color",
-				"colors"
+				"Add",
+				"Additional"
 			],
 			[
 				"e",
-				"enabled"
+				"example"
 			],
 			[
-				"reas",
-				"re-sampling"
+				"timeC",
+				"timeCurrent_index"
 			],
 			[
-				"da",
-				"dataClasses"
+				"tempRa",
+				"tempRangeFlag"
 			],
 			[
-				"ra",
-				"raise"
+				"q_to",
+				"q_total_tempRange_dofsDict"
 			],
 			[
-				"input",
-				"inputDataClass"
+				"q_total_tem",
+				"q_total_tempRange_sysList"
 			],
 			[
-				"exampl",
-				"exampleLabel"
-			],
-			[
-				"increm",
-				"incrementVector"
-			],
-			[
-				"cur",
-				"currentFreq"
-			],
-			[
-				"seg",
-				"segmentsDict"
-			],
-			[
-				"segmen",
-				"segmentsDict"
-			],
-			[
-				"va",
-				"variables"
-			],
-			[
-				"ForceEye",
-				"ForceEye1"
-			],
-			[
-				"10",
-				"100bar"
-			],
-			[
-				"Fa",
-				"False"
-			],
-			[
-				"cut",
-				"cut_off_freq"
-			],
-			[
-				"high",
-				"high_pass_data"
-			],
-			[
-				"displ",
-				"displ_unload"
-			],
-			[
-				"file",
-				"filesNames"
-			],
-			[
-				"ax",
-				"axs"
-			],
-			[
-				"import",
-				"importData"
-			],
-			[
-				"for",
-				"format_chosen"
-			],
-			[
-				"inter",
-				"internalLeakageVSTemp_segments"
-			],
-			[
-				"y",
-				"y_to_plot"
-			],
-			[
-				"dst",
-				"dst_di"
+				"qtot",
+				"q_total_vect_temp_range"
 			],
 			[
 				"q",
-				"q_F"
+				"q_TP_current"
+			],
+			[
+				"q_t",
+				"q_total_vect_temp_range"
+			],
+			[
+				"Temp",
+				"tempRangeFlag"
+			],
+			[
+				"q_Tp",
+				"q_TP_range"
+			],
+			[
+				"lab",
+				"labelsDict_var"
+			],
+			[
+				"colo",
+				"colorsDict_var"
+			],
+			[
+				"mar",
+				"markerDict_var"
+			],
+			[
+				"ha",
+				"handlesList"
+			],
+			[
+				"segm",
+				"segment_index"
+			],
+			[
+				"seg",
+				"segmentsOfTime"
+			],
+			[
+				"timeD",
+				"time_dofsDict"
+			],
+			[
+				"time",
+				"time_sysList"
+			],
+			[
+				"index",
+				"indexPair"
+			],
+			[
+				"data",
+				"dataClassesDict"
+			],
+			[
+				"dataCla",
+				"dataClass_dst_di"
+			],
+			[
+				"def",
+				"def\tFunction"
+			],
+			[
+				"const",
+				"ConstantsDict"
+			],
+			[
+				"sys",
+				"sysID"
+			],
+			[
+				"color",
+				"colorsDict"
 			],
 			[
 				"q_",
@@ -252,16 +116,20 @@
 				"time_vector_master"
 			],
 			[
+				"ax",
+				"axsDict"
+			],
+			[
 				"temp",
 				"data_temp"
 			],
 			[
-				"sys",
-				"sysID"
-			],
-			[
 				"inde",
 				"index_slave"
+			],
+			[
+				"el",
+				"elif"
 			],
 			[
 				"do",
@@ -312,6 +180,10 @@
 				"stepStr"
 			],
 			[
+				"force",
+				"force_vector"
+			],
+			[
 				"dataVol",
 				"dataVolFlowToPlot2"
 			],
@@ -328,20 +200,8 @@
 				"results_1"
 			],
 			[
-				"segm",
-				"correctedSegmentsAdded_Temp1"
-			],
-			[
 				"max",
 				"max_temp1"
-			],
-			[
-				"mar",
-				"markerDict"
-			],
-			[
-				"colo",
-				"colorsDict"
 			],
 			[
 				"resu",
@@ -352,6 +212,10 @@
 				"PistonDispl"
 			],
 			[
+				"get",
+				"get_rs"
+			],
+			[
 				"Q",
 				"Q_COL"
 			],
@@ -360,8 +224,16 @@
 				"annotateDictP2"
 			],
 			[
+				"ste",
+				"stepStr"
+			],
+			[
 				"out",
 				"output"
+			],
+			[
+				"var",
+				"variableClasses"
 			],
 			[
 				"id",
@@ -376,8 +248,16 @@
 				"folderName"
 			],
 			[
+				"new",
+				"newChannel"
+			],
+			[
 				"key",
 				"key2"
+			],
+			[
+				"Fa",
+				"Fatigue"
 			],
 			[
 				"SN",
@@ -436,6 +316,14 @@
 				"VolFlow2"
 			],
 			[
+				"file",
+				"fileName"
+			],
+			[
+				"for",
+				"For"
+			],
+			[
 				"Ne",
 				"Next"
 			],
@@ -476,6 +364,14 @@
 				"self"
 			],
 			[
+				"va",
+				"var"
+			],
+			[
+				"da",
+				"dataClass"
+			],
+			[
 				"num",
 				"numRef"
 			],
@@ -500,6 +396,10 @@
 				"ERROR"
 			],
 			[
+				"dat",
+				"dataVar"
+			],
+			[
 				"ac",
 				"actualPoint"
 			],
@@ -514,6 +414,106 @@
 			[
 				"pi",
 				"picksMax"
+			],
+			[
+				"iP",
+				"iPickMax"
+			],
+			[
+				"d",
+				"diff"
+			],
+			[
+				"iPic",
+				"iPickMax"
+			],
+			[
+				"resul",
+				"resultID"
+			],
+			[
+				"orde",
+				"orderDeriv"
+			],
+			[
+				"tic",
+				"ticksMinorInBetween"
+			],
+			[
+				"ma",
+				"majorTicks"
+			],
+			[
+				"whi",
+				"which"
+			],
+			[
+				"list",
+				"listOfFilesSortedInFolder"
+			],
+			[
+				"gettim",
+				"get_timeSecNewRunMean"
+			],
+			[
+				"p",
+				"plotSettings"
+			],
+			[
+				"se",
+				"set_magData"
+			],
+			[
+				"lis",
+				"listOfFilesSortedInFolder"
+			],
+			[
+				"li",
+				"listOfFilesSorted"
+			],
+			[
+				"__",
+				"__cycleN"
+			],
+			[
+				"ge",
+				"get_previousNCycles"
+			],
+			[
+				"han2",
+				"handle2"
+			],
+			[
+				"han",
+				"handle1"
+			],
+			[
+				"leg",
+				"legendHandles"
+			],
+			[
+				"plot",
+				"plotSettings"
+			],
+			[
+				"re",
+				"return"
+			],
+			[
+				"por",
+				"previousNCycles_in"
+			],
+			[
+				"pr",
+				"PreviousNCycles_in"
+			],
+			[
+				"fil",
+				"fileName"
+			],
+			[
+				"fi",
+				"fileAddress"
 			]
 		]
 	},
@@ -524,6 +524,15 @@
 			"settings":
 			{
 				"buffer_size": 27798,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "fatigueData/user_guide_dataAnalysisTool.txt",
+			"settings":
+			{
+				"buffer_size": 8876,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -548,33 +557,6 @@
 			}
 		},
 		{
-			"file": "fatigueData/user_guide_dataAnalysisTool.txt",
-			"settings":
-			{
-				"buffer_size": 8876,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "fti/testsInitData/actuatorPerformanceV3.vbs",
-			"settings":
-			{
-				"buffer_size": 13497,
-				"encoding": "Western (Windows 1252)",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "fti/testToImport.vbs",
-			"settings":
-			{
-				"buffer_size": 753,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
 			"file": "fti/testsInitData/P3_FTI.vbs",
 			"settings":
 			{
@@ -584,28 +566,20 @@
 			}
 		},
 		{
-			"file": "codingKnowledge/python.py",
+			"file": "fti/testsInitData/template_VBS.vbs",
 			"settings":
 			{
-				"buffer_size": 1401,
+				"buffer_size": 7997,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "fatigueData/InputFiles/filesToLoad_general_actuatorPerformance.txt",
+			"file": "fti/testToImport.vbs",
 			"settings":
 			{
-				"buffer_size": 3464,
+				"buffer_size": 753,
 				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "fatigueData/InputFiles/filesToLoad_general_P3_FTI.txt",
-			"settings":
-			{
-				"buffer_size": 5324,
 				"line_ending": "Windows"
 			}
 		}
@@ -626,31 +600,15 @@
 				"Text Pastry: From 1 To X"
 			],
 			[
-				"pastr",
-				"Text Pastry: From 1 To X"
-			],
-			[
-				"PASTt",
-				"Text Pastry: From 1 To X"
-			],
-			[
-				"pastrt",
-				"Text Pastry: From 1 To X"
-			],
-			[
-				"pat",
-				"Text Pastry: From 1 To X"
-			],
-			[
-				"pas",
-				"Text Pastry: From 0 To X"
-			],
-			[
 				"pastt",
 				"Text Pastry: From 1 To X"
 			],
 			[
 				"1",
+				"Text Pastry: From 1 To X"
+			],
+			[
+				"pas",
 				"Text Pastry: From 1 To X"
 			],
 			[
@@ -682,56 +640,43 @@
 	},
 	"expanded_folders":
 	[
-		"/P/kopter",
-		"/P/kopter/fatigueData",
-		"/P/kopter/fatigueData/InputFiles",
-		"/P/kopter/fti",
-		"/P/kopter/s_id"
+		"/D/kopter",
+		"/D/kopter/fatigueData",
+		"/D/kopter/fti",
+		"/D/ETH/code"
 	],
 	"file_history":
 	[
-		"/P/kopter/fti/testsInitData/actuatorPerformanceV2.vbs",
-		"/P/kopter/knowledge/main.tex",
-		"/P/kopter/knowledge/main.pdf",
-		"/P/kopter/fatigueData/InputFiles/filesToLoad_general_P3_FTI.txt",
-		"/L/MSH/02_Development/SKYe S09/05_Flight Systems/50_Engineering/J29/J29-00 General/40_Testing/Python_Analysis_Scripts/PYTHON/moduleAdditionalFunctions.py",
-		"/P/kopter/fatigueData/InputFiles/filesToLoad_general_actuatorPerformance.txt",
-		"/P/kopter/fti/testsInitData/template_VBS.vbs",
-		"/P/kopter/fatigueData/user_guide_dataAnalysisTool.txt",
-		"/P/kopter/fti/testsInitData/actuatorPerformanceV3.vbs",
-		"/L/MSH/02_Development/SKYe S09/05_Flight Systems/50_Engineering/J67/J67-30 Servo-Control System/3rd Generation/90_Analysis/python/diadem/testsInitData/actuatorPerformanceV3.vbs",
-		"/C/Users/valverdea/Downloads/Chat de WhatsApp con Desbloqueos 😔.txt",
-		"/P/kopter/fti/testsInitData/P3_FTI.vbs",
-		"/P/kopter/codingKnowledge/python.py",
-		"/P/kopter/fatigueData/InputFiles/filesToLoad_general_TEMPLATE.txt",
-		"/P/kopter/fti/main_DIAdem_extractData.vbs",
-		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_gauges_P3_FTI.txt",
-		"/P/kopter/fti/testsInitData/newHousingP3.vbs",
-		"/P/kopter/fti/testsInitData/oldHousingP3.vbs",
-		"/P/kopter/fti/loadMultipleVariablesFromFoldersAndDeleteGroups.vbs",
-		"/P/kopter/other/temp_flange_fatigue.py",
-		"/L/TEMP/AlejandroValverde/DIADEM/testsInitData/P3_FTI.vbs",
-		"/P/kopter/fti/testsInitData/P2_FTI.vbs",
-		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_gauges_P2_FTI_100Hz_1SYS_130bar.txt",
-		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_gauges_P2_FTI_100Hz.txt",
-		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_gauges_actuatorPerformance.txt",
-		"/L/MSH/02_Development/SKYe S09/05_Flight Systems/50_Engineering/J29/J29-00 General/40_Testing/44_Flight Testing/Script Data Analysis.VBS",
+		"/D/kopter/fti/testsInitData/oldHousingP3.vbs",
+		"/D/kopter/fti/testsInitData/P2_FTI.vbs",
+		"/D/kopter/fti/testsInitData/actuatorPerformanceV2.vbs",
+		"/D/kopter/fatigueData/fatigueInputFiles/filesToLoad_gauges_P2_FTI_100Hz.txt",
+		"/D/kopter/fatigueData/fatigueInputFiles/filesToLoad_gauges_P2_FTI_100Hz_1SYS_130bar.txt",
+		"/D/kopter/fatigueData/fatigueInputFiles/filesToLoad_gauges_actuatorPerformance.txt",
 		"/P/kopter/fatigueData/main.py",
-		"/L/MSH-Project Management Files/Functional Engineering/Test Division/Test_Daten/J17-03-Bench Tests/P3-J17-03-BT0228/01_Data_set/01_RAW/Run 4 - First run - Failure at 122000 cycles/Run_4_Measured values.csv",
-		"/P/kopter/fatigueData/moduleAdditionalFunctions.py",
 		"/P/kopter/fatigueData/moduleFunctions.py",
+		"/P/kopter/fti/loadMultipleVariablesFromFoldersAndDeleteGroups.vbs",
+		"/P/kopter/fti/testsInitData/actuatorPerformanceV3.vbs",
+		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_gauges_P2_FTI_100Hz.txt",
 		"/P/kopter/codingKnowledge/visualBasicScript.VBS",
+		"/P/kopter/fti/testsInitData/newHousingP3.vbs",
+		"/P/kopter/fti/testsInitData/actuatorPerformanceV2.vbs",
+		"/P/kopter/fti/testsInitData/oldHousingP3.vbs",
 		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_gauges_actuatorPerformanceV2.txt",
 		"/P/kopter/versionsBackup/main_versionsBackup.py",
+		"/P/kopter/fti/testsInitData/P2_FTI.vbs",
 		"/P/kopter/fti/testToImport.vbs",
 		"/P/kopter/versionsBackup/inputDirectoriesActuator.txt",
 		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_gauges_actuatorPerformanceV3.txt",
 		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_gauges_enduranceActuatorNewBearing.txt",
+		"/P/kopter/fti/testsInitData/P3_FTI.vbs",
 		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_gauges_P2_FTI.txt",
+		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_gauges_P3_FTI.txt",
 		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_gauges_P2_FTI_50Hz_smooth.txt",
 		"/P/kopter/versionsBackup/inputDirectoriesP3.txt",
 		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_actuatorMesswerte_actuatorBolts.txt",
 		"/P/kopter/fatigueData/fatigueInputFiles/filesToLoad_gauges_mixingUnit.txt",
+		"/P/kopter/codingKnowledge/python.py",
 		"/P/kopter/fti/getFlightTestData.vbs",
 		"/P/kopter/fti/PostProc_CompTesting_Alejandro.VBS",
 		"/P/kopter/fti/testsInitData/HousingP2.vbs",
@@ -817,7 +762,19 @@
 		"/P/10_code/kopter/SH09_s_id/knowledge/settings/doc_settings.tex",
 		"/P/10_code/kopter/SH09_s_id/knowledge/sections/0.Nomenclature.tex",
 		"/P/10_code/kopter/SH09_s_id/knowledge/sections/Model_description.tex",
-		"/P/10_code/latex/chapters/0.Nomenclature.tex"
+		"/P/10_code/latex/chapters/0.Nomenclature.tex",
+		"/P/10_code/kopter/s_id/docs/latex/main.pdf",
+		"/P/10_code/kopter/versionsBackup/inputDirectories.txt",
+		"/P/10_code/kopter/SH09_s_id/fromFlightPhysics/A_mat_from_FL_v1.txt",
+		"//mshzhstg/mshdata/MSH/02_Development/SKYe S09/06_Avionic/J00 Testing and FTI/SKYe test Benches/0c - Various Information/Simulator/Flight Physics/Flightlab_controller_design/yaw_manouver/FL_LTI_models/read_LTI_matrix_from_FL_3.m",
+		"/P/10_code/kopter/SH09_s_id/configClassModule.py",
+		"//mshzhstg/mshdata/MSH/02_Development/SKYe S09/06_Avionic/J00 Testing and FTI/SKYe test Benches/0c - Various Information/Simulator/Flight Physics/Flightlab_controller_design/read_LTI_matrix_from_FL.m",
+		"//mshzhstg/mshdata/MSH/02_Development/SKYe S09/06_Avionic/J00 Testing and FTI/SKYe test Benches/0c - Various Information/Simulator/Flight Physics/Flightlab_controller_design/read_LTI_matrix_from_FL_2.m",
+		"/P/10_code/kopter/SH09_s_id/C_mat_from_FL_v1.txt",
+		"/P/10_code/kopter/SH09_s_id/A_mat_from_FL_v1.txt",
+		"//mshzhstg/mshdata/MSH/02_Development/SKYe S09/06_Avionic/J00 Testing and FTI/SKYe test Benches/0c - Various Information/Simulator/Flight Physics/Flightlab_controller_design/FCS_tuning.m",
+		"/L/TEMP/michal/flap_stop/configClassModule.py",
+		"/P/10_code/kopter/SH09_s_id/main_versionsBackup.py"
 	],
 	"find":
 	{
@@ -825,9 +782,10 @@
 	},
 	"find_in_files":
 	{
-		"height": 104.0,
+		"height": 142.0,
 		"where_history":
 		[
+			"D:\\ETH\\code",
 			"P:\\kopter\\fatigueData\\fatigueInputFiles"
 		]
 	},
@@ -836,134 +794,134 @@
 		"case_sensitive": true,
 		"find_history":
 		[
-			"_cal",
-			"FH",
+			"-g",
+			"%%%%%%%%%%%%%%%%%%",
 			"-Step-",
-			"60FH",
+			"Step",
 			"-Step-",
-			"-cold2",
-			"Run1",
-			"FT05",
-			"addDataManual2",
-			"'ForceEye",
-			"ForceEye",
-			"'ForceEye2'",
-			"'ForceEye1'",
-			"Piston eye 1 w\\o offset",
-			"Step3",
-			"/",
-			"csv100",
-			"-Step-",
-			"-Step",
-			",",
-			"-Step-",
-			"\"1-Step-1.1\"",
-			"\n\t\t\tax.set_xlabel('Time elapsed [Seconds]', **plotSettings['axes_x'])",
-			"CMDoptionsDict['axisArrangementOptionFlag']",
-			"02",
-			"FT",
+			"-",
+			"-FT",
+			"-",
+			"filesNames",
 			"3",
-			"/4",
-			"range_spacing",
-			"regre",
-			"force",
-			"vector_forces",
-			"vector_valve",
-			"forces",
-			"vector_forces",
-			"and",
-			">",
-			"5",
-			"ax2",
-			"[]",
-			"self",
-			"Vector",
-			"stepName",
-			"label",
-			"dataPistonDispl",
-			"dataTemp1",
-			"int(plotsDone/7)",
-			"plotSettings['colors'][plotsDone]",
-			"__timeRs",
-			"True",
-			"axisArrangementOption",
-			"axisArrangementOptionFlag",
-			"= ",
-			"divisionLineForPlotsFlag",
+			"plotSettings['colors'][colorsDict_dof[dof]]",
+			"3",
+			"temp_range",
+			"_vect",
+			"dof",
+			"colorsDict",
+			"markerDict",
+			"handles",
+			"q_total_dofsDict[dof]",
+			"resultsPerSegment",
+			"data_temp",
+			"[sysIDsDict[sysID],",
+			"linestyle",
+			"[sysIDsDict[",
+			"sysIDsDict[",
+			"[sysIDsDict[",
+			"[sysIDsDict",
+			"_dof",
+			"time_vector_master",
+			"data_temp",
+			"time_sys",
+			"q_total_sys",
+			"q_v_sys",
+			"q_F_sys",
+			"q_TP_sys",
+			"_dof",
+			"q_total_dof",
+			"q_v_dof",
+			"q_F_dof",
+			"q_TP_dof",
+			"q_",
 			"=",
-			"update",
+			"data_frc_rs_Dict[dof].get_rs()",
+			"data_temp.get_rs()",
+			"data_dst_di_Dict[dof].get_rs()",
+			"getSegmentDataFn",
+			"Dict['dst']",
+			"dst",
+			"data_dst_di_Dict[dof]",
+			"data_tempDict[sysID]",
+			"#",
+			"timeDict[var]",
+			"allTime",
+			"dataClass_dst_di",
+			"dst_di",
+			"frc_di",
+			"dst_di",
+			"dst_si",
+			"data_dst_di_Dict[dof]",
+			"_Dict[dof]",
+			"data_dst_di_Dict[dof].get_rs()",
+			"segment ",
+			"segment",
+			"segmentOfTime",
+			"index",
+			"constantsDict",
+			"'",
+			"constantsDict[",
+			"'",
+			"constantsDict",
+			"coefsListDict_force",
+			"ConstantsDict",
 			"=",
 			"CMDoptionsDict",
-			",",
-			"axisArrangementOption",
-			"multipleYaxisInSameFigure",
-			"correctionFilterFlag",
-			"update",
-			"__xValuesNewRun",
-			"__xValuesNewRun]",
-			"__timeRs",
-			"timeRs()",
-			"dataForVariable",
-			"importDataActuator",
-			"02",
-			"temp",
-			"get_rs()",
-			"[temp for",
-			"_highSamplingRate",
-			"exampleLabel",
-			":'",
-			"P3-highSamplRate",
-			"P3-all",
-			"plotResampled(plotSettings",
-			"CMDoptionsDict['numberMultipleYaxisInSameFigure']",
+			"plotSettings",
 			"inputDataClass",
-			"CMDoptionsDict['additionalCalsOpt']",
-			"variableClass",
-			"magnitude",
-			"rs_split",
-			"data_lng",
-			"forceHP1",
-			"suptitle('Temp '",
-			"os.path.join(CMDoptionsDict['cwd']",
-			"stepStr+'.png'",
-			"fileOutComeSummaryForVarAndMag",
-			"','.join",
-			", CMDoptionsDict)",
-			"CMDoptionsDict)",
+			"orderDeriv",
+			"testFactor",
+			"dataClasses",
+			"Vol. flow [L/min]",
+			"label",
+			"['colors']",
+			"[0]",
+			"0",
+			"data_temp1",
+			"data_temp",
+			"1",
+			"set_trace",
+			"mean",
+			"10",
+			"Dict",
+			"q_TP_vect",
+			"dof",
+			"[[], []]",
+			"dof",
+			"usualSettingsAXNoDoubleAxis",
+			"sysIDsDict[sysID]].",
+			"sysIDsDict[sysID]",
+			"axsDict[dof]",
+			"data_",
+			"get_mag",
+			"mag",
+			"0.0",
 			"+=",
-			"CMDoptionsDict['correctionFilterNum']",
-			"-o f",
-			"Step",
-			"-Step",
-			"46-Step-3.2-60FH-hot",
-			"-Step-3.2",
-			"Step-3.2",
-			"Step",
-			"maxPlot_y",
-			"- (abs",
-			"0.2",
-			">",
-			"maxPlot_y",
-			"minPlot_y",
-			"\"\ndictVaDiadem.Add \"CNT_FRC_BST_LNG\", \"CNT_FRC_BST_LNG\"\ndictVaDiadem.Add \"CNT_FRC_BST_LAT\", \"CNT_FRC_BST_LAT\"\ndictVaDiadem.Add \"CNT_FRC_BST_TR_1\", \"CNT_FRC_BST_TR_1\"\ndictVaDiadem.Add \"CNT_FRC_BST_TR_2\", \"CNT_FRC_BST_TR_2\"\ndictVaDiadem.Add \"CNT_FRC_BST_TR_CALC\", \"CNT_FRC_BST_TR_CALC\"\ndictVaDiadem.Add \"CNT_DST_BST_COL\", \"CNT_DST_BST_COL\"\ndictVaDiadem.Add \"CNT_DST_BST_LAT\", \"CNT_DST_BST_LAT\"\ndictVaDiadem.Add \"CNT_DST_BST_LNG\", \"CNT_DST_BST_LNG\"\ndictVaDiadem.Add \"CNT_DST_BST_TR\", \"CNT_DST_BST_TR\"\ndictVaDiadem.Add \"CNT_DST_COL\", \"CNT_DST_COL\"\ndictVaDiadem.Add \"CNT_DST_LAT\", \"CNT_DST_LAT\"\ndictVaDiadem.Add \"CNT_DST_LNG\", \"CNT_DST_LNG\"\ndictVaDiadem.Add \"CNT_DST_PED\", \"CNT_DST_PED\"",
-			"LNG",
-			"segsDict[stepName]",
-			"legendHandles",
-			"segsDict[stepName]",
-			"singleTempInterpolFlag",
-			"CMDoptionsDict['multipleYaxisInSameFigure']",
-			"valueLine",
-			"variableStringKey",
-			":",
-			" ",
-			":",
-			"-Step-",
-			"-Step",
-			"-Step-",
-			"Step",
-			"Step-",
-			"15-Step-3.1-1",
-			":"
+			"q",
+			"coefsListDict_temp_press",
+			"usualSettingsAXNoDoubleAxis",
+			"colorsDict[stepStr]",
+			"v",
+			"q_TP_vect",
+			"linestyle",
+			"data_frc_rs_Dict",
+			"][1",
+			"[0,",
+			"[0",
+			"[",
+			"data_temp",
+			"data_dst_di_Dict[dof]",
+			"time_vector_temp",
+			"index_temp",
+			"time_vector_temp",
+			"data_temp",
+			"data_dst_di_Dict[dof]",
+			"time",
+			"F",
+			"TP",
+			"col",
+			"COL"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -971,8 +929,6 @@
 		"regex": false,
 		"replace_history":
 		[
-			"plotResampled(dataClasses, plotSettings",
-			"_general_",
 			"[l/min]",
 			"'ax_title'",
 			"self.__"
@@ -985,258 +941,6 @@
 	},
 	"groups":
 	[
-		{
-			"selected": 0,
-			"sheets":
-			[
-				{
-					"buffer": 0,
-					"file": "fatigueData/main.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 27798,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								8909,
-								8909
-							]
-						],
-						"settings":
-						{
-							"history_list_is_closing": true,
-							"spell_check": true,
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 2322.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "fatigueData/moduleFunctions.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 79838,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								22172,
-								22172
-							]
-						],
-						"settings":
-						{
-							"spell_check": true,
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 8746.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 13,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "fatigueData/moduleAdditionalFunctions.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 67235,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								6675,
-								6669
-							]
-						],
-						"settings":
-						{
-							"auto_name": "#",
-							"spell_check": true,
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1222.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 12,
-					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 4,
-			"sheets":
-			[
-				{
-					"buffer": 1,
-					"file": "fatigueData/moduleFunctions.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 79838,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								15194,
-								15234
-							]
-						],
-						"settings":
-						{
-							"spell_check": true,
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 5539.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 10,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "fatigueData/user_guide_dataAnalysisTool.txt",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 8876,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3446,
-								3446
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 884.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 9,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "fti/testsInitData/actuatorPerformanceV3.vbs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 13497,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1180,
-								1180
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/VBScript/VBScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "fti/testToImport.vbs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 753,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								609,
-								609
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/VBScript/VBScript.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "fti/testsInitData/P3_FTI.vbs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 19888,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								11046,
-								11046
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/VBScript/VBScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1113.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				}
-			]
-		},
 		{
 			"selected": 1,
 			"sheets":
@@ -1254,81 +958,56 @@
 						"selection":
 						[
 							[
-								27575,
-								27575
+								0,
+								0
 							]
 						],
 						"settings":
 						{
+							"history_list_is_closing": true,
 							"syntax": "Packages/Python/Python.sublime-syntax",
 							"translate_tabs_to_spaces": false
 						},
-						"translation.x": 0.0,
-						"translation.y": 6943.0,
+						"translation.x": 70.0,
+						"translation.y": 4750.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 11,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "fatigueData/moduleAdditionalFunctions.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 67235,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								217,
-								217
-							]
-						],
-						"settings":
-						{
-							"auto_name": "#",
-							"syntax": "Packages/Python/Python.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "codingKnowledge/python.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1401,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1146,
-								1146
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 234.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 14,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
+					"file": "fatigueData/user_guide_dataAnalysisTool.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8876,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								8371,
+								8371
+							]
+						],
+						"settings":
+						{
+							"spell_check": true,
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2209.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
 					"file": "fatigueData/moduleFunctions.py",
 					"semi_transient": false,
 					"settings":
@@ -1340,8 +1019,8 @@
 						"selection":
 						[
 							[
-								5042,
-								5042
+								0,
+								0
 							]
 						],
 						"settings":
@@ -1351,7 +1030,198 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1620.0,
+						"translation.y": 12919.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "fatigueData/moduleAdditionalFunctions.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 67235,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"auto_name": "#",
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 3876.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 4,
+					"file": "fti/testsInitData/P3_FTI.vbs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 19888,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								202,
+								203
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/VBScript/VBScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 1.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "fti/testsInitData/template_VBS.vbs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7997,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7997,
+								7997
+							]
+						],
+						"settings":
+						{
+							"spell_check": true,
+							"syntax": "Packages/VBScript/VBScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1275.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "fti/testToImport.vbs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 753,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								753,
+								681
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/VBScript/VBScript.tmLanguage"
+						},
+						"translation.x": 172.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 2,
+					"file": "fatigueData/moduleFunctions.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 79838,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"spell_check": true,
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 67.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "fatigueData/moduleAdditionalFunctions.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 67235,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"auto_name": "#",
+							"spell_check": true,
+							"syntax": "Packages/Python/Python.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 4597.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 8,
@@ -1364,7 +1234,7 @@
 			"sheets":
 			[
 				{
-					"buffer": 1,
+					"buffer": 2,
 					"file": "fatigueData/moduleFunctions.py",
 					"semi_transient": false,
 					"settings":
@@ -1376,8 +1246,8 @@
 						"selection":
 						[
 							[
-								75843,
-								75843
+								0,
+								0
 							]
 						],
 						"settings":
@@ -1387,66 +1257,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 25998.0,
+						"translation.y": 21710.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "fatigueData/InputFiles/filesToLoad_general_actuatorPerformance.txt",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3464,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2363,
-								2363
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 77.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "fatigueData/InputFiles/filesToLoad_general_P3_FTI.txt",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 5324,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								256,
-								256
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 117.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
+					"stack_index": 6,
 					"type": "text"
 				}
 			]
@@ -1454,11 +1268,11 @@
 	],
 	"incremental_find":
 	{
-		"height": 33.0
+		"height": 50.0
 	},
 	"input":
 	{
-		"height": 35.0
+		"height": 50.0
 	},
 	"layout":
 	{
@@ -1492,13 +1306,13 @@
 		"cols":
 		[
 			0.0,
-			0.5,
+			0.557245080501,
 			1.0
 		],
 		"rows":
 		[
 			0.0,
-			0.725570776257,
+			0.581700328889,
 			1.0
 		]
 	},
@@ -1511,7 +1325,7 @@
 	"project": "kopterDevelopment.sublime-project",
 	"replace":
 	{
-		"height": 72.0
+		"height": 96.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -1531,7 +1345,7 @@
 		[
 			[
 				"",
-				"P:\\kopter\\SH09_s_id\\knowledge\\knowledge.sublime-workspace"
+				"D:\\kopter\\SH09_s_id\\knowledge\\knowledge.sublime-workspace"
 			]
 		],
 		"width": 380.0
@@ -1545,7 +1359,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 1,
+	"selected_group": 0,
 	"settings":
 	{
 	},
@@ -1553,7 +1367,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 335.0,
+	"side_bar_width": 392.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
