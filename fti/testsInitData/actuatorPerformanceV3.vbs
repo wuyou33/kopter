@@ -21,35 +21,35 @@ filesNames = Array("Druck_HP_1_[bar].tdms", "Druck_HP_2_[bar].tdms"_
 commonAddress = "L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0223\01_Data_set\01_RAW\"
 fileNamesBigArrayFolders = Array( _
     Array(commonAddress & "Step 1.1\2018-10-10_144346\", "1-Step-1.1", filesNames) _
-  , Array(commonAddress & "Step 1.1 Repeat\2018-10-30_174628\", "2-Step-1.1-Repeat", filesNames) _
-  , Array(commonAddress & "Step 1.2\2018-10-11_101715\", "3-Step-1.2", filesNames) _
-  , Array(commonAddress & "Step 1.3\2018-10-10_154135\", "4-Step-1.3", filesNames) _
-  , Array(commonAddress & "Step 1.3 Repeat\2018-10-30_184444\", "5-Step-1.3-Repeat", filesNames) _
-  , Array(commonAddress & "Step 1.4\2018-10-10_144646\", "6-Step-1.4", filesNames) _
-  , Array(commonAddress & "Step 1.5\2018-10-11_095700\", "7-Step-1.5", filesNames) _
-  , Array(commonAddress & "Step 1.6\2018-10-10_150951\", "8-Step-1.6", filesNames) _
-  , Array(commonAddress & "Step 2.4\2018-10-11_102720\", "9-Step-2.4", filesNames) _
-  , Array(commonAddress & "Step 2.4 Repeat\2018-10-16_173210\", "10-Step-2.4-Repeat", filesNames) _
-  , Array(commonAddress & "Step 2.4 Repeat 2\2018-10-30_175157\", "11-Step-2.4-Repeat2", filesNames) _
-  , Array(commonAddress & "Step 2.1\1.5 mm Displacement\2018-10-19_145010\", "12-Step-2.1-1.5Displ", filesNames) _
-  , Array(commonAddress & "Step 2.1\Neutral position\2018-10-19_103728\", "13-Step-2.1-NeutralPos", filesNames) _
-  , Array(commonAddress & "Step 2.2\2018-10-18_140722\", "14-Step-2.2", filesNames) _
-  , Array(commonAddress & "Step 2.5\2018-10-18_151703\", "15-Step-2.5", filesNames) _
-  , Array(commonAddress & "Step 2.6 - P1 = 231 bar\2018-10-18_144102\", "16-Step-2.6-1", filesNames) _
-  , Array(commonAddress & "Step 2.6 - P2 =231 bar\2018-10-18_142929\", "17-Step-2.6-2", filesNames) _
-  , Array(commonAddress & "Step 3.1-1\2018-10-25_090553\", "18-Step-3.1-1", filesNames) _
-  , Array(commonAddress & "Step 3.1-1\2018-10-25_165152\", "19-Step-3.1-2", filesNames) _
-  , Array(commonAddress & "Step 3.1-2\2018-10-27_105320\", "20-Step-3.1-3", filesNames) _
-  , Array(commonAddress & "Step 3.1-2\2018-10-27_180436\", "21-Step-3.1-4", filesNames) _
-  , Array(commonAddress & "Step 3.2-1\2018-10-25_191435\", "22-Step-3.2-1", filesNames) _
-  , Array(commonAddress & "Step 3.2-1\2018-10-26_064832\", "23-Step-3.2-2", filesNames) _
-  , Array(commonAddress & "Step 3.2-2 hot\2018-10-29_181826\", "24-Step-3.2-hot", filesNames) _
-  , Array(commonAddress & "Step 3.2-2 cold\2018-10-29_065426\", "25-Step-3.2-cold", filesNames) _
-  , Array(commonAddress & "Step 3.3-1\2018-10-26_083917\", "26-Step-3.3-1", filesNames) _
-  , Array(commonAddress & "Step 3.3-1\2018-10-26_161229\", "27-Step-3.3-2", filesNames) _
-  , Array(commonAddress & "Step 3.4-1\2018-10-26_183222\", "28-Step-3.4-1", filesNames) _
-  , Array(commonAddress & "Step 3.4-1\2018-10-27_054821\", "29-Step-3.4-2", filesNames) _
-  , Array(commonAddress & "Step 3.4-1\2018-10-27_062515\", "30-Step-3.4-3", filesNames) _
+  , Array(commonAddress & "Step 1.1 Repeat\2018-10-30_174628\", "29-Step-1.1-Repeat", filesNames) _
+  , Array(commonAddress & "Step 1.2\2018-10-11_101715\", "2-Step-1.2", filesNames) _
+  , Array(commonAddress & "Step 1.3\2018-10-10_154135\", "3-Step-1.3", filesNames) _
+  , Array(commonAddress & "Step 1.3 Repeat\2018-10-30_184444\", "30-Step-1.3-Repeat", filesNames) _
+  , Array(commonAddress & "Step 1.4\2018-10-10_144646\", "4-Step-1.4", filesNames) _
+  , Array(commonAddress & "Step 1.5\2018-10-11_095700\", "5-Step-1.5", filesNames) _
+  , Array(commonAddress & "Step 1.6\2018-10-10_150951\", "6-Step-1.6", filesNames) _
+  , Array(commonAddress & "Step 2.4\2018-10-11_102720\", "7-Step-2.4", filesNames) _
+  , Array(commonAddress & "Step 2.4 Repeat\2018-10-16_173210\", "11-Step-2.4-Repeat", filesNames) _
+  , Array(commonAddress & "Step 2.4 Repeat 2\2018-10-30_175157\", "26-Step-2.4-Repeat2", filesNames) _
+  , Array(commonAddress & "Step 2.1\1.5 mm Displacement\2018-10-19_145010\", "8-Step-2.1-1.5Displ", filesNames) _
+  , Array(commonAddress & "Step 2.1\Neutral position\2018-10-19_103728\", "9-Step-2.1-NeutralPos", filesNames) _
+  , Array(commonAddress & "Step 2.2\2018-10-18_140722\", "10-Step-2.2", filesNames) _
+  , Array(commonAddress & "Step 2.5\2018-10-18_151703\", "12-Step-2.5", filesNames) _
+  , Array(commonAddress & "Step 2.6 - P1 = 231 bar\2018-10-18_144102\", "13-Step-2.6-1", filesNames) _
+  , Array(commonAddress & "Step 2.6 - P2 =231 bar\2018-10-18_142929\", "14-Step-2.6-2", filesNames) _
+  , Array(commonAddress & "Step 3.1-1\2018-10-25_090553\", "15-Step-3.1-1", filesNames) _
+  , Array(commonAddress & "Step 3.1-1\2018-10-25_165152\", "16-Step-3.1-2", filesNames) _
+  , Array(commonAddress & "Step 3.1-2\2018-10-27_105320\", "17-Step-3.1-3", filesNames) _
+  , Array(commonAddress & "Step 3.1-2\2018-10-27_180436\", "18-Step-3.1-4", filesNames) _
+  , Array(commonAddress & "Step 3.2-1\2018-10-25_191435\", "19-Step-3.2-1", filesNames) _
+  , Array(commonAddress & "Step 3.2-1\2018-10-26_064832\", "20-Step-3.2-2", filesNames) _
+  , Array(commonAddress & "Step 3.2-2 hot\2018-10-29_181826\", "27-Step-3.2-hot", filesNames) _
+  , Array(commonAddress & "Step 3.2-2 cold\2018-10-29_065426\", "28-Step-3.2-cold", filesNames) _
+  , Array(commonAddress & "Step 3.3-1\2018-10-26_083917\", "21-Step-3.3-1", filesNames) _
+  , Array(commonAddress & "Step 3.3-1\2018-10-26_161229\", "22-Step-3.3-2", filesNames) _
+  , Array(commonAddress & "Step 3.4-1\2018-10-26_183222\", "23-Step-3.4-1", filesNames) _
+  , Array(commonAddress & "Step 3.4-1\2018-10-27_054821\", "24-Step-3.4-2", filesNames) _
+  , Array(commonAddress & "Step 3.4-1\2018-10-27_062515\", "25-Step-3.4-3", filesNames) _
   , Array(commonAddress & "Step 3.7 Part 1\2018-10-30_063221\", "31-Step-3.7-1", filesNames) _
   , Array(commonAddress & "Step 3.7 Part 2\2018-10-30_124303\", "32-Step-3.7-2", filesNames) _
   , Array(commonAddress & "Step 3.1 40 FH\Cold\2018-11-13_143336\", "33-Step-3.1-40FH-cold-1", filesNames) _
@@ -73,9 +73,21 @@ fileNamesBigArrayFolders = Array( _
   , Array(commonAddress & "Step 3.1 70 FH\Cold\2018-12-04_095356", "51-Step-3.1-70FH-cold", filesNames) _
   , Array(commonAddress & "Step 3.1 70 FH\Hot - 100 C\2018-12-04_170225", "52-Step-3.1-70FH-hot", filesNames) _
   , Array(commonAddress & "Step 3.2 70 FH\Cold\2018-12-05_103102", "53-Step-3.2-70FH-cold", filesNames) _
-  , Array(commonAddress & "Step 3.2 70 FH\Hot - 100 C\2018-12-05_1651582", "54-Step-3.2-70FH-hot", filesNames) _
+  , Array(commonAddress & "Step 3.2 70 FH\Hot - 100 C\2018-12-05_165158", "54-Step-3.2-70FH-hot", filesNames) _
   , Array(commonAddress & "Step 3.1 80 FH\Cold\2018-12-06_090011", "55-Step-3.1-80FH-cold", filesNames) _
   , Array(commonAddress & "Step 3.1 80 FH\Hot - 100 C\2018-12-06_160724", "56-Step-3.1-80FH-hot", filesNames) _
+  , Array(commonAddress & "Step 3.2 80 FH\Cold\2018-12-07_090438", "57-Step-3.2-80FH-cold", filesNames) _
+  , Array(commonAddress & "Step 3.2 80 FH\Hot - 100 C\Last 560 cycles\2018-12-07_165612", "58-Step-3.2-80FH-hot", filesNames) _
+  , Array(commonAddress & "Step 3.1 90 FH\Cold\2018-12-10_082712", "59-Step-3.1-90FH-cold", filesNames) _
+  , Array(commonAddress & "Step 3.1 90 FH\Hot - 100 C\2018-12-10_153438", "60-Step-3.1-90FH-hot", filesNames) _
+  , Array(commonAddress & "Step 3.2 FH 90\Cold\2018-12-11_090635", "61-Step-3.2-90FH-cold", filesNames) _
+  , Array(commonAddress & "Step 3.2 FH 90\Hot - 100 C\2018-12-11_144937", "62-Step-3.2-90FH-hot", filesNames) _
+  , Array(commonAddress & "Step 3.7 FH 90\2018-12-12_081451", "63-Step-3.7-90FH", filesNames) _
+  , Array(commonAddress & "Step 3.7 FH 90\2018-12-13_081650", "64-Step-3.7-90FH", filesNames) _
+  , Array(commonAddress & "Step 3.1 FH 100\Cold\2018-12-18_094228", "65-Step-3.1-100FH_cold", filesNames) _
+  , Array(commonAddress & "Step 3.1 FH 100\Hot - 100 C\2018-12-18_165324", "66-Step-3.1-100FH_hot", filesNames) _
+  , Array(commonAddress & "Step 3.2 100 FH\Cold\2018-12-19_090913", "67-Step-3.2-100FH_cold", filesNames) _
+  , Array(commonAddress & "Step 3.2 100 FH\Hot - 100 C\2018-12-19_145750", "68-Step-3.2-100FH_hot", filesNames) _
   )
 
 ' All steps
@@ -148,9 +160,27 @@ iterators2 = Array(_
             , "54-Step-3.2-70FH-hot" _
             , "55-Step-3.1-80FH-cold" _
             , "56-Step-3.1-80FH-hot" _
+            , "57-Step-3.2-80FH-cold" _
+            , "58-Step-3.2-80FH-hot" _
+            , "59-Step-3.1-90FH-cold" _
+            , "60-Step-3.1-90FH-hot" _
+            , "63-Step-3.7-90FH" _
+            , "64-Step-3.7-90FH" _
+            , "65-Step-3.1-100FH_cold" _
+            , "66-Step-3.1-100FH_hot" _
+            , "67-Step-3.2-100FH_cold" _
+            , "68-Step-3.2-100FH_hot" _
             )
 
-iterators = Array("49-Step-3.7-60FH","50-Step-3.7-60FH","51-Step-3.1-70FH-cold","52-Step-3.1-70FH-hot","53-Step-3.2-70FH-cold","54-Step-3.2-70FH-hot","55-Step-3.1-80FH-cold","56-Step-3.1-80FH-hot")
+' iterators = Array("57-Step-3.2-80FH-cold", "58-Step-3.2-80FH-hot", "59-Step-3.1-90FH-cold", "60-Step-3.1-90FH-hot")
+iterators = Array(_
+               "63-Step-3.7-90FH" _
+             , "64-Step-3.7-90FH" _
+             , "65-Step-3.1-100FH_cold" _
+             , "66-Step-3.1-100FH_hot" _
+             , "67-Step-3.2-100FH_cold" _
+             , "68-Step-3.2-100FH_hot" _
+            )
 
 ' variable names inside DIAdem -> variable names for the files to be saved
 ' This dictionary contains the original variable names as keys. For each key, a corresponding simplified name is assign and this will be used

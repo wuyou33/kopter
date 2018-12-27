@@ -27,7 +27,7 @@ def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 	# if len(opts) != len(long_opts):
 		# raise ValueError('ERROR: Invalid number of inputs')
 	
-	# Initial values if nothing else specified, to be overwritten
+	# Default values if nothing else specified, to be overwritten.
 	CMDoptionsDict['correctionFilterNum'] = ''
 	CMDoptionsDict['correctionFilterFlag'] = False
 	CMDoptionsDict['axisArrangementOption'] = ''
@@ -36,6 +36,12 @@ def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 	CMDoptionsDict['writeStepResultsToFileFlag'] = False
 	CMDoptionsDict['divisionLineForPlotsFlag'] = True
 	CMDoptionsDict['dataPartitionFlag'] = False
+	CMDoptionsDict['additionalCalsFlag'] = False
+	CMDoptionsDict['additionalCalsOpt'] = 0
+	CMDoptionsDict['saveFigure'] = False
+	CMDoptionsDict['showFigures'] = True
+	CMDoptionsDict['variables'] = ['','']
+	CMDoptionsDict['magnitudes'] = ['','']
 	
 	optsLoaded = []
 	for opt, arg in opts:
@@ -63,11 +69,11 @@ def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 
 		elif opt in ("-v", "--variables"):
 
-			CMDoptionsDict['variables'] = arg.split(',')
+			CMDoptionsDict.update({'variables' : arg.split(',')})
 
 		elif opt in ("-m", "--magnitudes"):
 
-			CMDoptionsDict['magnitudes'] = arg.split(',')
+			CMDoptionsDict.update({'magnitudes' : arg.split(',')})
 
 		elif opt in ("-o", "--testOrder"):
 
@@ -84,16 +90,16 @@ def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 			argShowFigure= arg.split(',')[1]
 
 			if argSaveFigure.lower() in ('true', 't'):
-				CMDoptionsDict['saveFigure'] = True
+				CMDoptionsDict.update({'saveFigure' : True})
 			elif argSaveFigure.lower() in ('false', 'f'):
-				CMDoptionsDict['saveFigure'] = False
+				CMDoptionsDict.update({'saveFigure' : False})
 			else:
 				raise ValueError('ERROR: Wrong input for parameter '+opt)
 
 			if argShowFigure.lower() in ('true', 't'):
-				CMDoptionsDict['showFigures'] = True
+				CMDoptionsDict.update({'showFigures' : True})
 			elif argShowFigure.lower() in ('false', 'f'):
-				CMDoptionsDict['showFigures'] = False
+				CMDoptionsDict.update({'showFigures' : False})
 			else:
 				raise ValueError('ERROR: Wrong input for parameter '+opt)
 
@@ -105,21 +111,19 @@ def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 		elif opt in ("-a", "--additionalCals"):
 
 			if arg.lower() in ('false', 'f'):
-				CMDoptionsDict['additionalCalsFlag'] = False
-				CMDoptionsDict['additionalCalsOpt'] = 0
+				CMDoptionsDict.update({'additionalCalsFlag' : False})
+				CMDoptionsDict.update({'additionalCalsOpt' : 0})
 			else:
-				CMDoptionsDict['additionalCalsFlag'] = True
-				CMDoptionsDict['additionalCalsOpt'] = int(arg)
+				CMDoptionsDict.update({'additionalCalsFlag' : True})
+				CMDoptionsDict.update({'additionalCalsOpt' : int(arg)})
 
 		elif opt in ("-c", "--correctionFilter"):
 
 			if arg.lower() in ('false', 'f'):
 				CMDoptionsDict.update({'correctionFilterFlag' : False})
-			elif arg.lower() in ('true', 't'):
+			else:
 				CMDoptionsDict.update({'correctionFilterFlag' : True})
 				CMDoptionsDict['correctionFilterNum'] = float(arg)
-			else:
-				raise ValueError('ERROR: Wrong input for parameter '+opt)
 
 		elif opt in ("-n", "--axisArrangementOption"):
 
@@ -424,6 +428,9 @@ def importDataActuator(fileName, iFile, CMDoptionsDict, inputDataClass):
 		# Artificially create time vector
 		step_from_freq = 1 / float(inputDataClass.get_actuatorDataInfoDict()['sampling_freq'])
 		time_from_freq = np.arange(0.0, step_from_freq*(lineN - int(inputDataClass.get_actuatorDataInfoDict()['time_offset'])), step = step_from_freq)
+
+		if inputDataClass.get_actuatorDataInfoDict()['convert_to_cycl'] in ('true', 't'):
+			time_from_freq = np.asarray([t*float(inputDataClass.get_actuatorDataInfoDict()['test_freq']) for t in time_from_freq])
 		if not len(time_from_freq) == len(kraft):
 			dif = len(time_from_freq) - len(kraft)
 			print('WARNING: Vector length mismatch. The length of the force vector is '+ str(len(kraft))+' and the length of the time vector is '+str(len(time_from_freq)), ' time vector reduced by '+str(dif))
@@ -439,11 +446,11 @@ def importDataActuator(fileName, iFile, CMDoptionsDict, inputDataClass):
 		high_pass_displ_data = filter(weg, float(inputDataClass.get_actuatorDataInfoDict()['sampling_freq']), 'high-pass', float(inputDataClass.get_actuatorDataInfoDict()['cut-off_freq'])) #0.1 Hz of cut-off freq
 
 		if CMDoptionsDict['correctionFilterFlag']:
-				low_pass_force_data = [t + CMDoptionsDict['correctionFilterNum'] for t in low_pass_force_data]
-				high_pass_force_data = [t - CMDoptionsDict['correctionFilterNum'] for t in high_pass_force_data]
+			print('\t\t'+'-> Filter correction applied, factor '+str(CMDoptionsDict['correctionFilterNum']))
+			low_pass_force_data = [t + CMDoptionsDict['correctionFilterNum'] for t in low_pass_force_data]
+			high_pass_force_data = [t - CMDoptionsDict['correctionFilterNum'] for t in high_pass_force_data]
 		
 		dataFromRun.add_filteredData(lowpass_displ_in = low_pass_displ_data, highpass_displ_in = high_pass_displ_data, lowpass_force_in = low_pass_force_data, highpass_force_in = high_pass_force_data)
-
 
 	return dataFromRun
 
@@ -1141,9 +1148,9 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		#Division line for runs
 		maxPlot = self.__max[-1]*1.2
 		minPlot = self.__min[-1]*1.2
-		ax.plot(2*[0.0], [minPlot, maxPlot], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
+		ax.plot(2*[0.0], [minPlot, maxPlot], linestyle = '--', marker = '', c = 'r', **plotSettings['line'])
 		for div in self.__timeSecNewRunMean:
-			ax.plot(2*[div], [minPlot, maxPlot], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
+			ax.plot(2*[div], [minPlot, maxPlot], linestyle = '--', marker = '', c = 'r', **plotSettings['line'])
 
 		ax.set_xlabel('Number of cycles [Millions]', **plotSettings['axes_x'])
 		ax.set_ylabel('Force [N]', **plotSettings['axes_y'])
@@ -1215,25 +1222,6 @@ class dataFromGaugesSingleMagnitudeClass(object):
 						ax.plot( [t/dataClass.get_freqData()[0] for t in dataClass.get_timeRs()], dataClass.get_rs(), linestyle = plotSettings['linestyles'][int(plotsDone/7)], marker = '', c = plotSettings['colors'][plotsDone], label = dataClass.get_description(), **plotSettings['line'])
 
 						plotsDone += 1
-		
-		#Division line for runs
-		if CMDoptionsDict['divisionLineForPlotsFlag']:
-			valuesMaxRs = ax.get_ylim()[1]
-			valuesMinRs = ax.get_ylim()[0]
-			# maxPlot_y = valuesMaxRs*1.2 if valuesMaxRs < 0.0 else valuesMaxRs*0.8
-			minPlot_y = valuesMinRs + (abs(valuesMaxRs-valuesMinRs)*0.05)
-			previousDiv = 0.0
-			i = 0
-			ax.plot(2*[0.0], [valuesMinRs, valuesMaxRs], linestyle = '--', marker = '', c = 'r', scalex = False, scaley = False, **plotSettings['line'])
-			for div in [t/self.__freqData[0] for t in self.__timeSecNewRunRs]:
-				ax.plot(2*[div], [valuesMinRs, valuesMaxRs], linestyle = '--', marker = '', c = 'r', scalex = False, scaley = False, **plotSettings['line'])
-
-				#Add text with step number
-				ax.text(previousDiv + ((div - previousDiv)/2), minPlot_y, self.__stepID[i], bbox=dict(facecolor='black', alpha=0.2), horizontalalignment = 'center')
-				# ax.text(previousDiv + ((div - previousDiv)/2), minPlot_y, 'Step '+self.__stepID[i], bbox=dict(facecolor='black', alpha=0.2), horizontalalignment = 'center')
-				
-				previousDiv = div
-				i += 1
 
 		# Test Order plots 
 		if not additionalInput[0] and CMDoptionsDict['testOrderFlagFromCMD'] and ( (inputDataClass.get_variablesInfoDict()[magnitude+'__'+self.__description]['TO spec'].lower() in ('yes', 'y') and magnitude == 'rs') or (inputDataClass.get_variablesInfoDict()[magnitude+'__'+self.__description]['Fatigue load spec'].lower() in ('yes', 'y') and magnitude in ('lp', 'hp')) ):
@@ -1257,6 +1245,25 @@ class dataFromGaugesSingleMagnitudeClass(object):
 				if limitsLoadsBoundaries:
 					for limitLoadBoundary in limitsLoadsBoundaries:
 						ax.plot([minPlot_x, maxPlot_x], 2*[limitLoad*limitLoadBoundary], linestyle = '-.', marker = '', c = plotSettings['colors'][6], scaley = False, scalex = False, **plotSettings['line'])
+		
+		#Division line for runs
+		if CMDoptionsDict['divisionLineForPlotsFlag']:
+			valuesMaxRs = ax.get_ylim()[1]
+			valuesMinRs = ax.get_ylim()[0]
+			# maxPlot_y = valuesMaxRs*1.2 if valuesMaxRs < 0.0 else valuesMaxRs*0.8
+			minPlot_y = valuesMinRs + (abs(valuesMaxRs-valuesMinRs)*0.05)
+			previousDiv = 0.0
+			i = 0
+			ax.plot(2*[0.0], [valuesMinRs, valuesMaxRs], linestyle = '--', marker = '', c = 'r', scalex = False, scaley = False, **plotSettings['line'])
+			for div in [t/self.__freqData[0] for t in self.__timeSecNewRunRs]:
+				ax.plot(2*[div], [valuesMinRs, valuesMaxRs], linestyle = '--', marker = '', c = 'r', scalex = False, scaley = False, **plotSettings['line'])
+
+				#Add text with step number
+				ax.text(previousDiv + ((div - previousDiv)/2), minPlot_y, self.__stepID[i], bbox=dict(facecolor='black', alpha=0.2), horizontalalignment = 'center')
+				# ax.text(previousDiv + ((div - previousDiv)/2), minPlot_y, 'Step '+self.__stepID[i], bbox=dict(facecolor='black', alpha=0.2), horizontalalignment = 'center')
+				
+				previousDiv = div
+				i += 1
 
 		# x-label
 		if not CMDoptionsDict['axisArrangementOption'] in ('1', '2') or len(dataClasses)  == 1:
@@ -1347,9 +1354,9 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		#Division line for runs
 		maxPlot = max(self.__maxPicks)*1.2
 		minPlot = min(self.__minPicks)*1.2
-		ax.plot(2*[0.0], [minPlot, maxPlot], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
+		ax.plot(2*[0.0], [minPlot, maxPlot], linestyle = '--', marker = '', c = 'r', **plotSettings['line'])
 		for div in self.__timeSecNewRunPicks:
-			ax.plot(2*[div], [minPlot, maxPlot], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
+			ax.plot(2*[div], [minPlot, maxPlot], linestyle = '--', marker = '', c = 'r', **plotSettings['line'])
 
 		ax.set_xlabel('Number of cycles [Millions]', **plotSettings['axes_x'])
 		ax.set_ylabel('Force [N]', **plotSettings['axes_y'])
@@ -1395,12 +1402,12 @@ def plotAllRuns_force(dataFromRuns, plotSettings, CMDoptionsDict, inputDataClass
 	maxPlot_y = valuesMaxRs*1.2 if valuesMaxRs > 0.0 else valuesMaxRs*0.8
 	minPlot_y = valuesMinRs*0.8 if valuesMinRs > 0.0 else valuesMinRs*1.2
 	previousDiv = 0.0
-	ax.plot(2*[0.0], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
+	ax.plot(2*[0.0], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = 'r', **plotSettings['line'])
 	for data in dataFromRuns:
 		
 		div = data.get_absoluteNCycles_mill()[-1]
 		#Plot division lines
-		ax.plot(2*[div], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
+		ax.plot(2*[div], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = 'r', **plotSettings['line'])
 
 		# Plot text with step index
 		ax.text(previousDiv + ((div - previousDiv)/2), minPlot_y, 'Run '+str(data.get_stepID()), bbox=dict(facecolor='black', alpha=0.2), horizontalalignment = 'center')
@@ -1479,7 +1486,7 @@ def plotAllRuns_force_Messwerte(dataFromRuns, plotSettings, CMDoptionsDict, inpu
 	counterPlots = 0
 	for data in dataFromRuns:
 
-		ax.plot(data.get_weg(), data.get_kraft(), linestyle = '-', marker = '', c = plotSettings['colors'][counterPlots], label = data.get_name(), **plotSettings['line'])
+		ax.plot(data.get_weg(), data.get_kraft(), linestyle = '', marker = 'o', c = plotSettings['colors'][counterPlots], label = data.get_name(), **plotSettings['line'])
 
 		counterPlots += 1
 
@@ -1498,14 +1505,14 @@ def plotAllRuns_force_Messwerte(dataFromRuns, plotSettings, CMDoptionsDict, inpu
 	#Save figure
 	if CMDoptionsDict['saveFigure']:
 
-		figure.savefig(os.path.join(CMDoptionsDict['cwd'], ','.join([str(i) for i in CMDoptionsDict['rangeFileIDs']])+'ActuatorForceDisplacementTotalStaticAlternate.png'), dpi = plotSettings['figure_settings']['dpi'])
+		figure.savefig(os.path.join(CMDoptionsDict['cwd'], ','.join([str(i) for i in CMDoptionsDict['rangeFileIDs']])+'ActuatorForceDisplacement.png'), dpi = plotSettings['figure_settings']['dpi'])
 
 	#Central differences plot
 	figure, ax = plt.subplots(1, 1)
 	figure.set_size_inches(16, 10, forward=True)
 
 	counter, dataIdAbs, diffAbs = 0, [], []
-	ax.plot(2*[0.0], [-500000, 500000], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
+	ax.plot(2*[0.0], [-500000, 500000], linestyle = '--', marker = '', c = 'r', **plotSettings['line'])
 	for data in dataFromRuns:
 
 		diff_temp, pointsID_temp = cumputeDiffFnNotContinous(data.get_weg(), data.get_kraft())
@@ -1516,7 +1523,7 @@ def plotAllRuns_force_Messwerte(dataFromRuns, plotSettings, CMDoptionsDict, inpu
 			dataIdAbs += [dataIdAbs[-1]+t for t in pointsID_temp]
 		
 		# Plot division line
-		ax.plot(2*[dataIdAbs[-1]/1000000.0], [-500000, 500000], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
+		ax.plot(2*[dataIdAbs[-1]/1000000.0], [-500000, 500000], linestyle = '--', marker = '', c = 'r', **plotSettings['line'])
 		
 		diffAbs += diff_temp
 		counter += 1
@@ -1541,7 +1548,7 @@ def plotAllRuns_force_Messwerte(dataFromRuns, plotSettings, CMDoptionsDict, inpu
 	#Save figure
 	if CMDoptionsDict['saveFigure']:
 
-		figure.savefig(os.path.join(CMDoptionsDict['cwd'], ','.join([str(i) for i in CMDoptionsDict['rangeFileIDs']])+'ActuatorForceDisplacement.png'), dpi = plotSettings['figure_settings']['dpi'])
+		figure.savefig(os.path.join(CMDoptionsDict['cwd'], ','.join([str(i) for i in CMDoptionsDict['rangeFileIDs']])+'ActuatorStiffness.png'), dpi = plotSettings['figure_settings']['dpi'])
 
 def plotAllRuns_displacement(dataFromRuns, plotSettings, CMDoptionsDict, inputDataClass):
 
@@ -1565,14 +1572,14 @@ def plotAllRuns_displacement(dataFromRuns, plotSettings, CMDoptionsDict, inputDa
 	maxPlot_y = valuesMaxRs*1.2 if valuesMaxRs > 0.0 else valuesMaxRs*0.8
 	minPlot_y = valuesMinRs*0.8 if valuesMinRs > 0.0 else valuesMinRs*1.2
 	previousDiv = 0.0
-	ax.plot(2*[0.0], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
+	ax.plot(2*[0.0], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = 'r', **plotSettings['line'])
 	for data in dataFromRuns:
 
 		# threePlotForRun(data, plotSettings, ax)
 		
 		div = data.get_absoluteNCycles_mill()[-1]
 		#Plot division lines
-		ax.plot(2*[div], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
+		ax.plot(2*[div], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = 'r', **plotSettings['line'])
 
 		# Plot text with step index
 		ax.text(previousDiv + ((div - previousDiv)/2), minPlot_y, 'Run '+str(data.get_stepID()), bbox=dict(facecolor='black', alpha=0.2), horizontalalignment = 'center')
@@ -1665,16 +1672,19 @@ def getNewVectorWithoutOutliers(x_list, y_list):
 def plotAllRuns_filtered_Messwerte(dataFromRuns, timesDict, plotSettings, CMDoptionsDict, inputDataClass):
 	
 	attrs_to_plot_list = [['kraft', 'lowpass_force', 'highpass_force'], ['weg', 'lowpass_displ', 'highpass_displ']]
-	# attrs_to_plot_list = [['kraft']]
-	titles = {'kraft': 'Force measured by the actuator, total, static and alternate',
-				'weg' : 'Displacement imposed by the actuator, total, static and alternate',
+	
+	titles = {'kraft': 'Total force measured by the actuator',
+				'weg' : 'Total displacement imposed by the actuator',
 				'lowpass_force': 'Force low-pass filtered with '+inputDataClass.get_actuatorDataInfoDict()['cut-off_freq']+' Hz cut-off freq.', 
 				'highpass_force': 'Force high-pass filtered with '+inputDataClass.get_actuatorDataInfoDict()['cut-off_freq']+' Hz cut-off freq.',
 				'lowpass_displ': 'Displacement low-pass filtered with '+inputDataClass.get_actuatorDataInfoDict()['cut-off_freq']+' Hz cut-off freq.', 
 				'highpass_displ': 'Displacement high-pass filtered with '+inputDataClass.get_actuatorDataInfoDict()['cut-off_freq']+' Hz cut-off freq.'}
-
+	figure_titles = ['Force measured by the actuator, total, static and alternate', 'Displacement imposed by the actuator, total, static and alternate']
+	
+	figures_plot = 0
 	for attrs_to_plot in attrs_to_plot_list:
 		figure, axesList = plt.subplots(len(attrs_to_plot), 1, sharex='col')
+		figure.suptitle(figure_titles[figures_plot], **plotSettings['figure_title'])
 		figure.set_size_inches(16, 10, forward=True)
 
 		for ax, attr in zip(axesList, attrs_to_plot):
@@ -1704,9 +1714,9 @@ def plotAllRuns_filtered_Messwerte(dataFromRuns, timesDict, plotSettings, CMDopt
 			minPlot_y = valuesMinRs*0.8 if valuesMinRs > 0.0 else valuesMinRs*1.2
 			previousDiv = 0.0
 			i = 0
-			ax.plot(2*[0.0], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
+			ax.plot(2*[0.0], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = 'r', **plotSettings['line'])
 			for div in timesDict['lastTimeList']:
-				ax.plot(2*[div], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = plotSettings['colors'][4], **plotSettings['line'])
+				ax.plot(2*[div], [minPlot_y, maxPlot_y], linestyle = '--', marker = '', c = 'r', scaley = False, scalex = False, **plotSettings['line'])
 
 				#Add text with step number
 				ax.text(previousDiv + ((div - previousDiv)/2), minPlot_y, 'Run '+str(CMDoptionsDict['rangeFileIDs'][i]), bbox=dict(facecolor='black', alpha=0.2), horizontalalignment = 'center')
@@ -1730,10 +1740,10 @@ def plotAllRuns_filtered_Messwerte(dataFromRuns, timesDict, plotSettings, CMDopt
 					limitsLoadsBoundaries = [1 + (margin/100), 1 - (margin/100)]
 
 				for limitLoad in limitLoads:
-					ax.plot([minPlot_x, maxPlot_x], 2*[limitLoad], linestyle = '--', marker = '', c = plotSettings['colors'][5], **plotSettings['line'])
+					ax.plot([minPlot_x, maxPlot_x], 2*[limitLoad], linestyle = '--', marker = '', c = plotSettings['colors'][5], scaley = False, scalex = False, **plotSettings['line'])
 					if limitsLoadsBoundaries:
 						for limitLoadBoundary in limitsLoadsBoundaries:
-							ax.plot([minPlot_x, maxPlot_x], 2*[limitLoad*limitLoadBoundary], linestyle = '-.', marker = '', c = plotSettings['colors'][6], **plotSettings['line'])
+							ax.plot([minPlot_x, maxPlot_x], 2*[limitLoad*limitLoadBoundary], linestyle = '-.', marker = '', c = plotSettings['colors'][6], scaley = False, scalex = False, **plotSettings['line'])
 
 			if 'force' in attr or 'kraft' in attr:
 				ax.set_ylabel('Force [KN]', **plotSettings['axes_y'])
@@ -1753,7 +1763,12 @@ def plotAllRuns_filtered_Messwerte(dataFromRuns, timesDict, plotSettings, CMDopt
 			axdouble_in_y.set_ylim(ax.get_ylim())
 
 		#Only last ax
-		ax.set_xlabel('Time [s]', **plotSettings['axes_x'])
+		if inputDataClass.get_actuatorDataInfoDict()['convert_to_cycl'] in ('true', 't'):
+			ax.set_xlabel('Number of cycles', **plotSettings['axes_x'])
+		else:
+			ax.set_xlabel('Time [s]', **plotSettings['axes_x'])
+
+		figures_plot += 1
 
 		#Save figure
 		if CMDoptionsDict['saveFigure']:
@@ -2008,7 +2023,7 @@ def importPlottingOptions():
 	scatter = {'linewidths' : 1.0}
 	legend = {'fontsize' : 10, 'loc' : 'best', 'markerscale' : 1.5}
 	grid = {'alpha' : 0.7}
-	colors = ['m', 'b', 'r', 'k', 'y', 'c', 'g', 'k', 'b', 'y', 'm', 'r', 'c','k', 'b', 'y', 'm', 'r', 'c','k', 'b', 'y', 'm', 'r', 'c']
+	colors = ['k', 'b', 'r', 'm', 'y', 'c', 'g', 'k', 'b', 'y', 'm', 'r', 'c','k', 'b', 'y', 'm', 'r', 'c','k', 'b', 'y', 'm', 'r', 'c']
 	markers = ['o', 'v', '^', 's', '*', '+']
 	linestyles = ['-', '--', '-.', ':']
 	axes_ticks_n = {'x_axis' : 3} #Number of minor labels in between 
@@ -2100,6 +2115,6 @@ def showInputOptions(CMDoptionsDict):
 					'-g': 'Enabled' if CMDoptionsDict['dataPartitionFlag'] else 'Disabled',
 					}
 	
-	for option in CMDoptionsDict['optsLoaded']:
+	for option in titlesDict.keys():
 		print('-> '+titlesDict[option])
 		print(valuesDict[option])

@@ -152,25 +152,33 @@ Fatigue load spec: no
 -> Variable info
 name: rs__HYD_TMP_1
 y-label: Temperature [degC]
-TO spec: no
+TO spec: yes
+max load: 80
+min load: 20
 Fatigue load spec: no
 
 -> Variable info
 name: rs__HYD_TMP_2
 y-label: Temperature [degC]
-TO spec: no
+TO spec: yes
+max load: 80
+min load: 20
 Fatigue load spec: no
 
 -> Variable info
 name: rs__HYD_TMP_TANK_1
 y-label: Temperature [degC]
-TO spec: no
+TO spec: yes
+max load: 80
+min load: 20
 Fatigue load spec: no
 
 -> Variable info
 name: rs__HYD_TMP_TANK_2
 y-label: Temperature [degC]
-TO spec: no
+TO spec: yes
+max load: 80
+min load: 20
 Fatigue load spec: no
 
 -> Variable info
@@ -309,5 +317,11 @@ Fatigue load spec: no
 -> Variable info
 name: rs__DIU_ARI_IND_HYD_PRS_2_C
 y-label: [None]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__VRU_DST_GPS_ALT
+y-label: Altitude [m]
 TO spec: no
 Fatigue load spec: no
