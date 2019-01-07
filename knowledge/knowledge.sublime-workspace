@@ -111,13 +111,10 @@
 			}
 		},
 		{
-			"contents": "\\section{Hydraulic actuator}\n\n\\subsection{Introduction}\n\n  The hydraulic actuators are used to the amplification of the pilot forces. They consist on an actuator body, a input lever, a lever arm and a ram. \n  % -> Components\n  % -> Mechanical feedback\n  % -> Picture\n  % The actuators have different degrees of freedom.\n\n  \\begin{figure}[!htpb]\n    \\centering\n    \\includegraphics[width=0.7 \\textwidth]{figures/diagramActuator}\n    \\caption[Actuator schematic view]{Actuator schematic view.}\n    \\label{fig:diagramActuator}\n  \\end{figure}\n\n\\subsection{Dynamic characteristics}\n\n  \\subsubsection{Flow gain}",
 			"file": "sections/Actuators.tex",
-			"file_size": 553,
-			"file_write_time": 131879722658110710,
 			"settings":
 			{
-				"buffer_size": 605,
+				"buffer_size": 4629,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -159,13 +156,12 @@
 	},
 	"expanded_folders":
 	[
-		"/P/kopter/knowledge",
-		"/P/kopter/knowledge/figures",
-		"/P/kopter/knowledge/sections",
-		"/P/kopter/knowledge/settings"
+		"/D/kopter/knowledge",
+		"/D/kopter/knowledge/figures"
 	],
 	"file_history":
 	[
+		"/D/ETH/code/latex/chapters/Results-model.tex",
 		"/D/kopter/SH09_s_id/knowledge/sections/TeoryOfHelicopters.tex",
 		"/D/kopter/SH09_s_id/knowledge/MyBib.bib",
 		"/C/Users/aleja/Downloads/My Collection.bib",
@@ -212,7 +208,7 @@
 	],
 	"find":
 	{
-		"height": 23.0
+		"height": 40.0
 	},
 	"find_in_files":
 	{
@@ -355,8 +351,8 @@
 						"selection":
 						[
 							[
-								448,
-								448
+								265,
+								265
 							]
 						],
 						"settings":
@@ -367,7 +363,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
@@ -383,8 +379,8 @@
 						"selection":
 						[
 							[
-								270,
-								270
+								8474,
+								8474
 							]
 						],
 						"settings":
@@ -394,10 +390,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1929.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -422,10 +418,10 @@
 							"syntax": "Packages/LaTeXing/support/LaTeX.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 78.0,
+						"translation.y": 375.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 3,
 					"type": "text"
 				}
 			]
@@ -440,15 +436,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 605,
+						"buffer_size": 4629,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								604,
-								604
+								4098,
+								4098
 							]
 						],
 						"settings":
@@ -459,10 +455,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 916.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -534,7 +530,7 @@
 		[
 			[
 				"",
-				"P:\\kopter\\SH09_s_id\\s_id.sublime-project"
+				"D:\\code\\cpp\\cpp.sublime-project"
 			]
 		],
 		"width": 380.0
@@ -548,7 +544,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 1,
+	"selected_group": 0,
 	"settings":
 	{
 	},
