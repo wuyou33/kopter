@@ -523,7 +523,7 @@
 			"file": "fatigueData/main.py",
 			"settings":
 			{
-				"buffer_size": 29732,
+				"buffer_size": 29740,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -557,10 +557,10 @@
 			}
 		},
 		{
-			"file": "fti/testsInitData/actuatorPerformanceV3.vbs",
+			"file": "fti/testsInitData/actuatorLowTemp.vbs",
 			"settings":
 			{
-				"buffer_size": 15384,
+				"buffer_size": 5355,
 				"encoding": "Western (Windows 1252)",
 				"line_ending": "Windows"
 			}
@@ -569,7 +569,7 @@
 			"file": "fti/testToImport.vbs",
 			"settings":
 			{
-				"buffer_size": 753,
+				"buffer_size": 747,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -578,16 +578,7 @@
 			"file": "fti/testsInitData/P3_FTI.vbs",
 			"settings":
 			{
-				"buffer_size": 20282,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "fatigueData/InputFiles/filesToLoad_general_actuatorPerformance.txt",
-			"settings":
-			{
-				"buffer_size": 3810,
+				"buffer_size": 20384,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -622,6 +613,18 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"upda",
+				"Package Control: Upgrade Package"
+			],
+			[
+				"latx settig",
+				"Preferences: LaTeXing Settings - User"
+			],
+			[
+				"latx",
+				"LaTeXing: Jump To PDF"
+			],
 			[
 				"pastr",
 				"Text Pastry: From 1 To X"
@@ -687,30 +690,29 @@
 	},
 	"expanded_folders":
 	[
-<<<<<<< HEAD
 		"/P/kopter",
 		"/P/kopter/codingKnowledge",
+		"/P/kopter/fatigueData",
+		"/P/kopter/fti",
+		"/P/kopter/fti/testsInitData",
 		"/P/kopter/other",
 		"/P/kopter/s_id",
 		"/P/kopter/SH09_s_id"
-=======
-		"/D/kopter",
-		"/D/ETH/code"
->>>>>>> 4e10d9259b90ea3d0d02757a767ea11088d440da
 	],
 	"file_history":
 	[
+		"/P/kopter/fatigueData/InputFiles/filesToLoad_general_actuatorPerformance.txt",
+		"/P/kopter/knowledge/main.tex",
+		"/C/Users/valverdea/AppData/Roaming/Sublime Text 3/Packages/User/LaTeXing.sublime-settings",
 		"/P/kopter/SH09_s_id/displayFlightTest.py",
 		"/P/kopter/SH09_s_id/input_files_flightTestAnalysis/displayFTI.txt",
 		"/P/kopter/codingKnowledge/python.py",
 		"/P/kopter/SH09_s_id/input_files_flightTestAnalysis/fti_variables_info-delay-0.05.txt",
 		"/P/kopter/SH09_s_id/moduleFunctions.py",
 		"/P/kopter/fti/testsInitData/actuatorPerformanceV2.vbs",
-		"/P/kopter/knowledge/main.tex",
 		"/P/kopter/knowledge/main.pdf",
 		"/P/kopter/fatigueData/InputFiles/filesToLoad_general_P3_FTI.txt",
 		"/L/MSH/02_Development/SKYe S09/05_Flight Systems/50_Engineering/J29/J29-00 General/40_Testing/Python_Analysis_Scripts/PYTHON/moduleAdditionalFunctions.py",
-		"/P/kopter/fatigueData/InputFiles/filesToLoad_general_actuatorPerformance.txt",
 		"/P/kopter/fti/testsInitData/template_VBS.vbs",
 		"/P/kopter/fatigueData/user_guide_dataAnalysisTool.txt",
 		"/P/kopter/fti/testsInitData/actuatorPerformanceV3.vbs",
@@ -826,8 +828,7 @@
 		"/P/10_code/versionsBackup/cleanDirs.py",
 		"/P/10_code/latex/settings/settingsProject_Personal.tex",
 		"/P/10_code/latex/settings/settingsProject_Cranfield.tex",
-		"/P/10_code/kopter/SH09_s_id/knowledge/sections/Introduction.tex",
-		"/P/10_code/kopter/SH09_s_id/knowledge/main.tex"
+		"/P/10_code/kopter/SH09_s_id/knowledge/sections/Introduction.tex"
 	],
 	"find":
 	{
@@ -846,6 +847,14 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"_LOWTEMP",
+			"OWTEMP",
+			"L",
+			"2_LOWTEMP_Step_1.1",
+			"1_LOWTEMP_Step_1.2",
+			"[°C]",
+			"-",
+			"rm",
 			"-Step-",
 			"-Step",
 			"FH-",
@@ -965,15 +974,7 @@
 			"-Step-",
 			"\"1-Step-1.1\"",
 			"\n\t\t\tax.set_xlabel('Time elapsed [Seconds]', **plotSettings['axes_x'])",
-			"CMDoptionsDict['axisArrangementOptionFlag']",
-			"02",
-			"FT",
-			"3",
-			"/4",
-			"range_spacing",
-			"regre",
-			"force",
-			"vector_forces"
+			"CMDoptionsDict['axisArrangementOptionFlag']"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1005,20 +1006,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 29732,
+						"buffer_size": 29740,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-<<<<<<< HEAD
-								27972,
-								28067
-=======
-								20448,
-								20448
->>>>>>> 4e10d9259b90ea3d0d02757a767ea11088d440da
+								17684,
+								17684
 							]
 						],
 						"settings":
@@ -1028,19 +1024,11 @@
 							"syntax": "Packages/Python/Python.sublime-syntax",
 							"translate_tabs_to_spaces": false
 						},
-<<<<<<< HEAD
-						"translation.x": 6.0,
-						"translation.y": 7252.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-=======
 						"translation.x": 0.0,
-						"translation.y": 4834.0,
+						"translation.y": 4219.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
->>>>>>> 4e10d9259b90ea3d0d02757a767ea11088d440da
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
@@ -1137,7 +1125,7 @@
 						"translation.y": 22631.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 10,
 					"type": "text"
 				},
 				{
@@ -1165,32 +1153,27 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 78.0,
+						"translation.y": 1248.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 14,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
 					"buffer": 4,
-					"file": "fti/testsInitData/actuatorPerformanceV3.vbs",
+					"file": "fti/testsInitData/actuatorLowTemp.vbs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 15384,
+						"buffer_size": 5355,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-<<<<<<< HEAD
-								5863,
-								5863
-=======
-								6535,
-								6536
->>>>>>> 4e10d9259b90ea3d0d02757a767ea11088d440da
+								3190,
+								3172
 							]
 						],
 						"settings":
@@ -1201,17 +1184,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-<<<<<<< HEAD
-						"translation.y": 780.0,
+						"translation.y": 234.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
-=======
-						"translation.y": 1053.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
->>>>>>> 4e10d9259b90ea3d0d02757a767ea11088d440da
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -1220,15 +1196,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 753,
+						"buffer_size": 747,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								753,
-								753
+								747,
+								747
 							]
 						],
 						"settings":
@@ -1239,7 +1215,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -1248,15 +1224,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 20282,
+						"buffer_size": 20384,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								13230,
-								13231
+								18271,
+								18271
 							]
 						],
 						"settings":
@@ -1266,10 +1242,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2945.0,
+						"translation.y": 2948.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 11,
+					"stack_index": 2,
 					"type": "text"
 				}
 			]
@@ -1284,7 +1260,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 29732,
+						"buffer_size": 29740,
 						"regions":
 						{
 						},
@@ -1304,7 +1280,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
+					"stack_index": 11,
 					"type": "text"
 				},
 				{
@@ -1320,8 +1296,8 @@
 						"selection":
 						[
 							[
-								3566,
-								3566
+								3810,
+								3810
 							]
 						],
 						"settings":
@@ -1334,7 +1310,7 @@
 						"translation.y": 1178.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
@@ -1363,13 +1339,13 @@
 						"translation.y": 16813.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 9,
 					"type": "text"
 				}
 			]
 		},
 		{
-			"selected": 3,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -1399,43 +1375,11 @@
 						"translation.y": 713.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
 					"buffer": 7,
-					"file": "fatigueData/InputFiles/filesToLoad_general_actuatorPerformance.txt",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3810,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1344,
-								1344
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 247.0,
-						"zoom_level": 1.0
-					},
-<<<<<<< HEAD
-					"stack_index": 2,
-=======
-					"stack_index": 3,
->>>>>>> 4e10d9259b90ea3d0d02757a767ea11088d440da
-					"type": "text"
-				},
-				{
-					"buffer": 8,
 					"file": "fatigueData/InputFiles/filesToLoad_general_P3_FTI.txt",
 					"semi_transient": false,
 					"settings":
@@ -1447,12 +1391,8 @@
 						"selection":
 						[
 							[
-								2802,
-								2802
-							],
-							[
-								2934,
-								2934
+								2957,
+								2957
 							]
 						],
 						"settings":
@@ -1460,18 +1400,14 @@
 							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 373.0,
+						"translation.y": 1977.0,
 						"zoom_level": 1.0
 					},
-<<<<<<< HEAD
-					"stack_index": 3,
-=======
 					"stack_index": 4,
->>>>>>> 4e10d9259b90ea3d0d02757a767ea11088d440da
 					"type": "text"
 				},
 				{
-					"buffer": 9,
+					"buffer": 8,
 					"file": "fatigueData/InputFiles/filesToLoad_actuatorMesswerte_MRAretainerV2.txt",
 					"semi_transient": false,
 					"settings":
@@ -1483,8 +1419,8 @@
 						"selection":
 						[
 							[
-								717,
-								717
+								851,
+								851
 							]
 						],
 						"settings":
@@ -1495,11 +1431,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-<<<<<<< HEAD
-					"stack_index": 0,
-=======
-					"stack_index": 1,
->>>>>>> 4e10d9259b90ea3d0d02757a767ea11088d440da
+					"stack_index": 7,
 					"type": "text"
 				}
 			]
@@ -1545,21 +1477,13 @@
 		"cols":
 		[
 			0.0,
-<<<<<<< HEAD
-			0.486119873817,
-=======
-			0.589230984928,
->>>>>>> 4e10d9259b90ea3d0d02757a767ea11088d440da
+			0.345948175446,
 			1.0
 		],
 		"rows":
 		[
 			0.0,
-<<<<<<< HEAD
-			0.463981042654,
-=======
-			0.727932777194,
->>>>>>> 4e10d9259b90ea3d0d02757a767ea11088d440da
+			0.702337207038,
 			1.0
 		]
 	},
@@ -1592,7 +1516,7 @@
 		[
 			[
 				"",
-				"P:\\kopter\\SH09_s_id\\knowledge\\knowledge.sublime-workspace"
+				"P:\\kopter\\knowledge\\knowledge.sublime-project"
 			]
 		],
 		"width": 380.0
@@ -1614,7 +1538,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 241.0,
+	"side_bar_width": 398.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

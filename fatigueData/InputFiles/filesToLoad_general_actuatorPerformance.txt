@@ -155,3 +155,9 @@ name: rs__Temp2
 y-label: Temp. [degC]
 TO spec: no
 Fatigue load spec: no
+
+-> Variable info
+name: rs__Temp2_RTD
+y-label: Temp. [degC]
+TO spec: no
+Fatigue load spec: no

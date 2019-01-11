@@ -347,7 +347,7 @@ if gaugesFlag:
 		elif CMDoptionsDict['additionalCalsOpt'] == 17:
 			"""
 			Show exceedances on collective force for the actuator
-			CMD: python main.py -f filesToLoad_general_P3_FTI.txt -v CNT_FRC_BST_LAT,CNT_FRC_BST_LNG,CNT_FRC_BST_COL -m rs -o t -s f,t -a 17 -c f -n 2 -r 100-FT01,101-FT02,102-FT03,103-FT03,104-FT04,105-FT04,106-FT05,107-FT05,108-FT05,109-FT06,110-FT06 -w f -l t
+			CMD: python main.py -f filesToLoad_general_P3_FTI.txt -v CNT_FRC_BST_LAT,CNT_FRC_BST_LNG,CNT_FRC_BST_COL -m rs -o t -s f,t -a 17 -n 2 -r 100-FT01,101-FT02,102-FT03,103-FT03,104-FT04,105-FT04,106-FT05,107-FT05,108-FT05,109-FT06,110-FT06,111-FT07,112-FT08 -l t
 			"""
 
 			dataAdditional = dataFromGaugesSingleMagnitudeClass('TimeOutsideEnvelope_COL', 'rs', testFactor, orderDeriv)

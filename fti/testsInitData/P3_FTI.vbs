@@ -127,6 +127,7 @@ fileNamesBigArrayFolders = Array( _
     , Array(commonAddress&"P3-J17-0006\FTI\Run1\", "109-FT06", Array("fti_20181213084048_pp.tdms")) _
     , Array(commonAddress&"P3-J17-0006\FTI\Run2\", "110-FT06", Array("fti_20181213140143_pp.tdms")) _
     , Array(commonAddress&"P3-J17-0007\FTI\Run1\", "111-FT07", Array("fti_20181214092659_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0008\FTI\Run1\", "112-FT08", Array("fti_20190111084533_pp.tdms")) _
   )
 
 ' Identified errors - P3!!!
@@ -252,7 +253,7 @@ iterators_base = Array( _
 ' iterators = Array("100-FT01", "101-FT02")
 ' iterators = Array("102-FT03", "103-FT03")
 ' iterators = Array("104-FT04", "105-FT04", "106-FT05", "107-FT05", "108-FT05")
-iterators = Array("111-FT07")
+iterators = Array("112-FT08")
 ' iterators = Array("08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28")
 ' iterators = Array("08")
 
