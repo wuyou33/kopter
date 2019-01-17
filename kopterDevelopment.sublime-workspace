@@ -523,7 +523,7 @@
 			"file": "fatigueData/main.py",
 			"settings":
 			{
-				"buffer_size": 29740,
+				"buffer_size": 29830,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -532,7 +532,7 @@
 			"file": "fatigueData/moduleFunctions.py",
 			"settings":
 			{
-				"buffer_size": 80513,
+				"buffer_size": 80971,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -557,10 +557,10 @@
 			}
 		},
 		{
-			"file": "fti/testsInitData/actuatorLowTemp.vbs",
+			"file": "fti/testsInitData/actuatorPerformanceV3.vbs",
 			"settings":
 			{
-				"buffer_size": 5355,
+				"buffer_size": 15530,
 				"encoding": "Western (Windows 1252)",
 				"line_ending": "Windows"
 			}
@@ -569,7 +569,7 @@
 			"file": "fti/testToImport.vbs",
 			"settings":
 			{
-				"buffer_size": 747,
+				"buffer_size": 854,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -578,7 +578,7 @@
 			"file": "fti/testsInitData/P3_FTI.vbs",
 			"settings":
 			{
-				"buffer_size": 20384,
+				"buffer_size": 20727,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -600,6 +600,16 @@
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
+		},
+		{
+			"file": "fatigueData/InputFiles/filesToLoad_general_pistonEyeCal.txt",
+			"settings":
+			{
+				"buffer_size": 252,
+				"encoding": "UTF-8",
+				"line_ending": "Windows",
+				"name": "-> Folders to load"
+			}
 		}
 	],
 	"build_system": "",
@@ -614,6 +624,10 @@
 		"selected_items":
 		[
 			[
+				"pastr",
+				"Text Pastry: From 1 To X"
+			],
+			[
 				"upda",
 				"Package Control: Upgrade Package"
 			],
@@ -624,10 +638,6 @@
 			[
 				"latx",
 				"LaTeXing: Jump To PDF"
-			],
-			[
-				"pastr",
-				"Text Pastry: From 1 To X"
 			],
 			[
 				"PAST",
@@ -701,6 +711,7 @@
 	],
 	"file_history":
 	[
+		"/P/kopter/fti/testsInitData/pistonEyeCal.vbs",
 		"/P/kopter/fatigueData/InputFiles/filesToLoad_general_actuatorPerformance.txt",
 		"/P/kopter/knowledge/main.tex",
 		"/C/Users/valverdea/AppData/Roaming/Sublime Text 3/Packages/User/LaTeXing.sublime-settings",
@@ -827,8 +838,7 @@
 		"/P/10_code/kopter/tolerances/dampingUncer.py",
 		"/P/10_code/versionsBackup/cleanDirs.py",
 		"/P/10_code/latex/settings/settingsProject_Personal.tex",
-		"/P/10_code/latex/settings/settingsProject_Cranfield.tex",
-		"/P/10_code/kopter/SH09_s_id/knowledge/sections/Introduction.tex"
+		"/P/10_code/latex/settings/settingsProject_Cranfield.tex"
 	],
 	"find":
 	{
@@ -847,6 +857,24 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			",",
+			"-Compression",
+			"Compression",
+			"-Tension",
+			"L:\\MSH-Project Management Files\\Functional Engineering\\Test Division\\Test_Daten\\J17-03-Bench Tests\\P3-J17-03-BT0223\\01_Data_set\\02_STEPS\\csv100",
+			"Load Cell",
+			"-",
+			"Array(\"TR",
+			"Array(",
+			"\\\", \"",
+			"Tension",
+			"Tension1",
+			"Force_0",
+			"Tension1_0",
+			"_0",
+			"Force_0",
+			"-Step",
+			"-Step-",
 			"_LOWTEMP",
 			"OWTEMP",
 			"L",
@@ -956,25 +984,7 @@
 			"-Step-",
 			"60FH",
 			"-Step-",
-			"-cold2",
-			"Run1",
-			"FT05",
-			"addDataManual2",
-			"'ForceEye",
-			"ForceEye",
-			"'ForceEye2'",
-			"'ForceEye1'",
-			"Piston eye 1 w\\o offset",
-			"Step3",
-			"/",
-			"csv100",
-			"-Step-",
-			"-Step",
-			",",
-			"-Step-",
-			"\"1-Step-1.1\"",
-			"\n\t\t\tax.set_xlabel('Time elapsed [Seconds]', **plotSettings['axes_x'])",
-			"CMDoptionsDict['axisArrangementOptionFlag']"
+			"-cold2"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1006,15 +1016,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 29740,
+						"buffer_size": 29830,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								17684,
-								17684
+								546,
+								531
 							]
 						],
 						"settings":
@@ -1025,10 +1035,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 4219.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -1037,7 +1047,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 80513,
+						"buffer_size": 80971,
 						"regions":
 						{
 						},
@@ -1058,7 +1068,7 @@
 						"translation.y": 8589.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 13,
+					"stack_index": 14,
 					"type": "text"
 				},
 				{
@@ -1089,13 +1099,13 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 12,
+					"stack_index": 13,
 					"type": "text"
 				}
 			]
 		},
 		{
-			"selected": 2,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -1104,15 +1114,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 80513,
+						"buffer_size": 80971,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								65332,
-								65332
+								48678,
+								48678
 							]
 						],
 						"settings":
@@ -1122,10 +1132,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 22631.0,
+						"translation.y": 17012.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -1141,8 +1151,8 @@
 						"selection":
 						[
 							[
-								1911,
-								1911
+								4257,
+								4257
 							]
 						],
 						"settings":
@@ -1153,41 +1163,40 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1248.0,
+						"translation.y": 819.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 9,
 					"type": "text"
 				},
 				{
 					"buffer": 4,
-					"file": "fti/testsInitData/actuatorLowTemp.vbs",
+					"file": "fti/testsInitData/actuatorPerformanceV3.vbs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5355,
+						"buffer_size": 15530,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3190,
-								3172
+								8655,
+								8676
 							]
 						],
 						"settings":
 						{
-							"history_list_is_closing": true,
 							"syntax": "Packages/VBScript/VBScript.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 234.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
@@ -1196,15 +1205,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 747,
+						"buffer_size": 854,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								747,
-								747
+								854,
+								854
 							]
 						],
 						"settings":
@@ -1215,7 +1224,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
@@ -1224,15 +1233,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 20384,
+						"buffer_size": 20727,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								18271,
-								18271
+								18380,
+								18369
 							]
 						],
 						"settings":
@@ -1242,10 +1251,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2948.0,
+						"translation.y": 2291.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 8,
 					"type": "text"
 				}
 			]
@@ -1260,7 +1269,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 29740,
+						"buffer_size": 29830,
 						"regions":
 						{
 						},
@@ -1280,7 +1289,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 11,
+					"stack_index": 12,
 					"type": "text"
 				},
 				{
@@ -1289,7 +1298,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 80513,
+						"buffer_size": 80971,
 						"regions":
 						{
 						},
@@ -1310,7 +1319,7 @@
 						"translation.y": 1178.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
@@ -1339,13 +1348,13 @@
 						"translation.y": 16813.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 11,
 					"type": "text"
 				}
 			]
 		},
 		{
-			"selected": 1,
+			"selected": 3,
 			"sheets":
 			[
 				{
@@ -1354,15 +1363,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 80513,
+						"buffer_size": 80971,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2498,
-								2498
+								77154,
+								77154
 							]
 						],
 						"settings":
@@ -1371,11 +1380,11 @@
 							"syntax": "Packages/Python/Python.sublime-syntax",
 							"translate_tabs_to_spaces": false
 						},
-						"translation.x": 0.0,
-						"translation.y": 713.0,
+						"translation.x": 665.0,
+						"translation.y": 26222.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -1391,8 +1400,8 @@
 						"selection":
 						[
 							[
-								2957,
-								2957
+								421,
+								0
 							]
 						],
 						"settings":
@@ -1400,10 +1409,10 @@
 							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 1977.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
@@ -1431,7 +1440,36 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "fatigueData/InputFiles/filesToLoad_general_pistonEyeCal.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 252,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								216,
+								216
+							]
+						],
+						"settings":
+						{
+							"auto_name": "-> Folders to load",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
 					"type": "text"
 				}
 			]
@@ -1477,13 +1515,13 @@
 		"cols":
 		[
 			0.0,
-			0.345948175446,
+			0.334428383706,
 			1.0
 		],
 		"rows":
 		[
 			0.0,
-			0.702337207038,
+			0.73156095133,
 			1.0
 		]
 	},
@@ -1530,7 +1568,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 0,
+	"selected_group": 1,
 	"settings":
 	{
 	},

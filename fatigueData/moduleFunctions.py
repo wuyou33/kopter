@@ -1329,13 +1329,14 @@ class dataFromGaugesSingleMagnitudeClass(object):
 
 			plotsDone = 0
 			for stepName in stepStrs:
-				ax.plot( data1.get_rs_split()[indexDictForSteps[stepName]], data2.get_rs_split()[indexDictForSteps[stepName]], linestyle = '', marker = plotSettings['markers'][int(plotsDone/7)], c = plotSettings['colors'][plotsDone], label = stepName, **plotSettings['line'])
+				# ax.plot( data1.get_rs_split()[indexDictForSteps[stepName]], data2.get_rs_split()[indexDictForSteps[stepName]], linestyle = '', marker = plotSettings['markers'][int(plotsDone/7)], c = plotSettings['colors'][plotsDone], label = stepName, **plotSettings['line'])
+				ax.plot( data1.get_rs_split()[indexDictForSteps[stepName]], data2.get_rs_split()[indexDictForSteps[stepName]], linestyle = '', marker = 'o', c = 'k', label = stepName, **plotSettings['line'])
 				plotsDone += 1
 
 			ax.set_xlabel(inputDataClass.get_variablesInfoDict()[data1.get_mag()+'__'+data1.get_description()]['y-label'], **plotSettings['axes_x'])
 			ax.set_ylabel(inputDataClass.get_variablesInfoDict()[data2.get_mag()+'__'+data2.get_description()]['y-label'], **plotSettings['axes_y'])
 
-			ax.legend(**plotSettings['legend'])
+			# ax.legend(**plotSettings['legend'])
 			usualSettingsAX(ax, plotSettings)
 			# Save figure
 			if CMDoptionsDict['saveFigure']:
@@ -2023,8 +2024,8 @@ def importPlottingOptions():
 	scatter = {'linewidths' : 1.0}
 	legend = {'fontsize' : 10, 'loc' : 'best', 'markerscale' : 1.5}
 	grid = {'alpha' : 0.7}
-	colors = ['k', 'b', 'r', 'm', 'y', 'c', 'g', 'k', 'b', 'y', 'm', 'r', 'c','k', 'b', 'y', 'm', 'r', 'c','k', 'b', 'y', 'm', 'r', 'c']
-	markers = ['o', 'v', '^', 's', '*', '+']
+	colors = ['k', 'b', 'r', 'm', 'y', 'c', 'g', 'k', 'b', 'y', 'm', 'r', 'c','k', 'b', 'y', 'm', 'r', 'c','k', 'b', 'y', 'm', 'r', 'c','k', 'b', 'y', 'm', 'r', 'c','k', 'b', 'y', 'm', 'r', 'c','k', 'b', 'y', 'm', 'r', 'c','k', 'b', 'y', 'm', 'r', 'c','k', 'b', 'y', 'm', 'r', 'c','k', 'b', 'y', 'm', 'r', 'c','k', 'b', 'y', 'm', 'r', 'c']
+	markers = ['o', 'v', '^', 's', '*', '+', 'x', '<', '>', 'D', 'd', '|', 'H', '1', '2', '3', '4']
 	linestyles = ['-', '--', '-.', ':']
 	axes_ticks_n = {'x_axis' : 3} #Number of minor labels in between 
 	figure_settings = {'dpi' : 200}

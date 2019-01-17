@@ -1,0 +1,17 @@
+-> Folders to load
+P:\11_J67\16_FTI\pistonEyeCal
+
+-> Test info
+test_freq: 2
+
+-> Variable info
+name: rs__Force
+y-label: Force [N]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__STG
+y-label: Voltage [mV/V]
+TO spec: no
+Fatigue load spec: no
