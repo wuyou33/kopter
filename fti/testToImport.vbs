@@ -9,5 +9,7 @@
 ' filesNamesDataInput = Array("testsInitData\oldHousingP3.vbs")
 ' filesNamesDataInput = Array("testsInitData\actuatorPerformanceV3.vbs")
 ' filesNamesDataInput = Array("testsInitData\actuatorLowTemp.vbs")
-filesNamesDataInput = Array("testsInitData\pistonEyeCal.vbs")
+' filesNamesDataInput = Array("testsInitData\pistonEyeCal.vbs")
+' filesNamesDataInput = Array("testsInitData\pistonEyeCal_18012019.vbs")
+filesNamesDataInput = Array("testsInitData\pistonEyeCal_09102018.vbs")
 ' filesNamesDataInput = Array("testsInitData\P3_FTI.vbs", "testsInitData\actuatorPerformanceV3.vbs")

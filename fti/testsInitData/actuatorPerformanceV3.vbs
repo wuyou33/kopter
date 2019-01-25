@@ -88,8 +88,15 @@ fileNamesBigArrayFolders = Array( _
   , Array(commonAddress & "Step 3.1 FH 100\Hot - 100 C\2018-12-18_165324", "66-Step-3.1-100FH_hot", filesNames) _
   , Array(commonAddress & "Step 3.2 100 FH\Cold\2018-12-19_090913", "67-Step-3.2-100FH_cold", filesNames) _
   , Array(commonAddress & "Step 3.2 100 FH\Hot - 100 C\2018-12-19_145750", "68-Step-3.2-100FH_hot", filesNames) _
-  , Array(commonAddress & "Step 3.1 FH 110\Cold\2019-01-16_071341", "69-Step-3.1-110FH_cold", filesNames) _
-  , Array(commonAddress & "Step 3.1 FH 110\Hot - 100 C\2019-01-16_141425", "70-Step-3.1-110FH_hot", filesNames) _
+  , Array(commonAddress & "Step 3.1 110 FH\Cold\2019-01-16_071341", "69-Step-3.1-110FH_cold", filesNames) _
+  , Array(commonAddress & "Step 3.1 110 FH\Hot - 100 C\2019-01-16_141425", "70-Step-3.1-110FH_hot", filesNames) _
+  , Array(commonAddress & "Step 3.2 110 FH\Cold\2019-01-17_104409", "71-Step-3.2-110FH_cold", filesNames) _
+  , Array(commonAddress & "Step 3.2 110 FH\Hot - 100 C\2019-01-17_161807", "72-Step-3.2-110FH_hot", filesNames) _
+  , Array(commonAddress & "Step 3.1. 120 FH\Cold\2019-01-18_072043", "73-Step-3.1-120FH_cold", filesNames) _
+  , Array(commonAddress & "Step 3.1. 120 FH\Hot - 100 C\2019-01-18_142012", "74-Step-3.1-120FH_hot", filesNames) _
+  , Array(commonAddress & "Step 3.2 120 FH\Cold\2019-01-22_104802", "75-Step-3.2-120FH_cold_1", filesNames) _
+  , Array(commonAddress & "Step 3.2 120 FH\Cold\2019-01-21_145533", "76-Step-3.2-120FH_cold_2", filesNames) _
+  , Array(commonAddress & "Step 3.2 120 FH\Hot - 100 C\2019-01-22_141200", "77-Step-3.2-120FH_hot", filesNames) _
   )
 
 ' All steps
@@ -174,12 +181,24 @@ iterators2 = Array(_
             , "68-Step-3.2-100FH_hot" _
             , "69-Step-3.1-110FH_cold" _
             , "70-Step-3.1-110FH_hot" _
+            , "71-Step-3.2-110FH_cold"_
+            , "72-Step-3.2-110FH_hot"_
+            , "73-Step-3.1-120FH_cold"_
+            , "74-Step-3.1-120FH_hot"_
+            , "75-Step-3.2-120FH_cold_1"_
+            , "76-Step-3.2-120FH_cold_2"_
+            , "77-Step-3.2-120FH_hot"_
             )
 
 ' iterators = Array("57-Step-3.2-80FH-cold", "58-Step-3.2-80FH-hot", "59-Step-3.1-90FH-cold", "60-Step-3.1-90FH-hot")
 iterators = Array(_
-              "69-Step-3.1-110FH_cold" _
-            , "70-Step-3.1-110FH_hot" _
+              "71-Step-3.2-110FH_cold"_
+            , "72-Step-3.2-110FH_hot"_
+            , "73-Step-3.1-120FH_cold"_
+            , "74-Step-3.1-120FH_hot"_
+            , "75-Step-3.2-120FH_cold_1"_
+            , "76-Step-3.2-120FH_cold_2"_
+            , "77-Step-3.2-120FH_hot"_
             )
 
 ' variable names inside DIAdem -> variable names for the files to be saved

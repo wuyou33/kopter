@@ -1,5 +1,7 @@
 -> Folders to load
 P:\11_J67\16_FTI\pistonEyeCal
+P:\11_J67\16_FTI\pistonEyeCal_18012019
+P:\11_J67\16_FTI\pistonEyeCal_09102018
 
 -> Test info
 test_freq: 2
