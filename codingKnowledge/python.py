@@ -54,3 +54,7 @@ file.close()
 # Check variable type
 isinstance(numbers, list)
 isinstance(s, str)
+
+# Sort vectors
+mean_force_sorted = sorted(mean_force)
+mean_STG_sorted = [x for _,x in sorted(zip(mean_force,mean_STG), key=lambda pair: pair[0])]

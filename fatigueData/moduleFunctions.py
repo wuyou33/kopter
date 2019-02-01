@@ -41,7 +41,7 @@ def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 	CMDoptionsDict['saveFigure'] = False
 	CMDoptionsDict['showFigures'] = True
 	CMDoptionsDict['variables'] = ['','']
-	CMDoptionsDict['magnitudes'] = ['','']
+	CMDoptionsDict['magnitudes'] = ['rs',]
 	
 	optsLoaded = []
 	for opt, arg in opts:
@@ -56,14 +56,22 @@ def readCMDoptionsMainAbaqusParametric(argv, CMDoptionsDict):
 				CMDoptionsDict['actuatorMesswerte'] = True
 				CMDoptionsDict['actuatorFlag'] = False
 				CMDoptionsDict['dmsFlag'] = False
+				CMDoptionsDict['tmdsFlag'] = False
 			elif 'general' in arg.lower():
 				CMDoptionsDict['actuatorMesswerte'] = False
 				CMDoptionsDict['actuatorFlag'] = False
 				CMDoptionsDict['dmsFlag'] = True
+				CMDoptionsDict['tmdsFlag'] = False
 			elif 'actuator' in arg.lower():
 				CMDoptionsDict['actuatorMesswerte'] = False
 				CMDoptionsDict['actuatorFlag'] = True
 				CMDoptionsDict['dmsFlag'] = False
+				CMDoptionsDict['tmdsFlag'] = False
+			elif 'tmds' in arg.lower():
+				CMDoptionsDict['actuatorMesswerte'] = False
+				CMDoptionsDict['actuatorFlag'] = False
+				CMDoptionsDict['dmsFlag'] = False
+				CMDoptionsDict['tmdsFlag'] = True
 			else:
 				raise ValueError('ERROR: Wrong input for parameter '+opt)
 
@@ -1329,14 +1337,14 @@ class dataFromGaugesSingleMagnitudeClass(object):
 
 			plotsDone = 0
 			for stepName in stepStrs:
-				# ax.plot( data1.get_rs_split()[indexDictForSteps[stepName]], data2.get_rs_split()[indexDictForSteps[stepName]], linestyle = '', marker = plotSettings['markers'][int(plotsDone/7)], c = plotSettings['colors'][plotsDone], label = stepName, **plotSettings['line'])
-				ax.plot( data1.get_rs_split()[indexDictForSteps[stepName]], data2.get_rs_split()[indexDictForSteps[stepName]], linestyle = '', marker = 'o', c = 'k', label = stepName, **plotSettings['line'])
+				ax.plot( data1.get_rs_split()[indexDictForSteps[stepName]], data2.get_rs_split()[indexDictForSteps[stepName]], linestyle = '', marker = plotSettings['markers'][int(plotsDone/7)], c = plotSettings['colors'][plotsDone], label = stepName, **plotSettings['line'])
+				# ax.plot( data1.get_rs_split()[indexDictForSteps[stepName]], data2.get_rs_split()[indexDictForSteps[stepName]], linestyle = '', marker = 'o', c = 'k', label = stepName, **plotSettings['line'])
 				plotsDone += 1
 
 			ax.set_xlabel(inputDataClass.get_variablesInfoDict()[data1.get_mag()+'__'+data1.get_description()]['y-label'], **plotSettings['axes_x'])
 			ax.set_ylabel(inputDataClass.get_variablesInfoDict()[data2.get_mag()+'__'+data2.get_description()]['y-label'], **plotSettings['axes_y'])
 
-			# ax.legend(**plotSettings['legend'])
+			ax.legend(**plotSettings['legend'])
 			usualSettingsAX(ax, plotSettings)
 			# Save figure
 			if CMDoptionsDict['saveFigure']:
@@ -1878,7 +1886,7 @@ def checkErrors(dataClasses, CMDoptionsDict, inputDataClass):
 
 	if '-n' in CMDoptionsDict['optsLoaded']:
 		if CMDoptionsDict['oneVariableInEachAxis'] and len(CMDoptionsDict['variables']) != 2 and CMDoptionsDict['additionalCalsOpt'] != 18:
-			raise AssertionError('EXCEPTION CAUGHT: One two variables can be plotted one against each other. The current number of variables is '+str(len(CMDoptionsDict['variables'])))
+			raise AssertionError('EXCEPTION CAUGHT: Only two variables can be plotted one against each other. The current number of variables is '+str(len(CMDoptionsDict['variables'])))
 		elif CMDoptionsDict['oneVariableInEachAxis']:
 			# Data Classes
 			data1 = [temp for temp in dataClasses if temp.get_description() == CMDoptionsDict['variables'][0]][0]

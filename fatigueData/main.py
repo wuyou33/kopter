@@ -93,11 +93,12 @@ if CMDoptionsDict['writeStepResultsToFileFlag'] or CMDoptionsDict['additionalCal
 
 # What to do?
 gaugesFlag = CMDoptionsDict['dmsFlag']
+tmdsFlag = CMDoptionsDict['tmdsFlag']
 actuatorFlag = CMDoptionsDict['actuatorFlag']
 actuatorMesswerteFlag = CMDoptionsDict['actuatorMesswerte']
 
 # Gauges data analysis
-if gaugesFlag:
+if gaugesFlag or tmdsFlag:
 	print('\n'+'**** Running general data script')
 	print()
 
@@ -114,75 +115,92 @@ if gaugesFlag:
 			additionalMag = magComplex[2:]
 		inputDataClass = loadFileAddressesAndData(CMDoptionsDict['fileNameOfFileToLoadFiles'], 'gauges')
 
-		listOfFilesSortedInFolder = []
-		for folderName in inputDataClass.getTupleFiles(): #For each folder with min, max or mean values
-			listOfFilesInFolderMathingVar = []
+		if gaugesFlag: #Code to standard general data upload
 
-			for fileName2 in os.listdir(folderName):
-				if fileName2.endswith('.csv'): #Take only .csv files
-					if magComplex[2:]:
-						if fileName2.startswith(mag) and fileName2.split('.csv')[0].split('__')[-1] in CMDoptionsDict['rangeFileIDs'] and fileName2.split('__')[-2][:-2] == additionalMag:
-							listOfFilesInFolderMathingVar += [fileName2]
+			listOfFilesSortedInFolder = []
+			for folderName in inputDataClass.getTupleFiles(): #For each folder with min, max or mean values
+				listOfFilesInFolderMathingVar = []
+
+				for fileName2 in os.listdir(folderName):
+					if fileName2.endswith('.csv'): #Take only .csv files
+						if magComplex[2:]:
+							if fileName2.startswith(mag) and fileName2.split('.csv')[0].split('__')[-1] in CMDoptionsDict['rangeFileIDs'] and fileName2.split('__')[-2][:-2] == additionalMag:
+								listOfFilesInFolderMathingVar += [fileName2]
+						else:
+							if fileName2.startswith(mag) and fileName2.split('.csv')[0].split('__')[-1] in CMDoptionsDict['rangeFileIDs']:
+								listOfFilesInFolderMathingVar += [fileName2]
+
+				listOfFilesSortedInFolder += sortFilesInFolderByLastNumberInName(listOfFilesInFolderMathingVar, folderName, CMDoptionsDict)
+
+			# Create dataClasses
+			listOfFilesMatchingMag = [t[1] for t in listOfFilesSortedInFolder]
+			listOfMagVarPairs = [t.split('__')[0]+'__'+t.split('__')[1] for t in listOfFilesMatchingMag]
+			for var in CMDoptionsDict['variables']:
+				if mag+'__'+var in listOfMagVarPairs:
+					dataVar = dataFromGaugesSingleMagnitudeClass(var, mag, testFactor, orderDeriv)
+					dataClasses += (dataVar, )
+			
+			for dataClass in dataClasses: #For each class variable
+
+				if dataClass.get_mag() == mag: #Only to dataClass with the current mag
+
+					#Create summmary file
+					if CMDoptionsDict['writeStepResultsToFileFlag']:
+						# pdb.set_trace()
+						fileOutComeSummaryForVarAndMag = open(os.path.join(CMDoptionsDict['stepsSummaryResultsFolder'], dataClass.get_mag()+'__'+dataClass.get_description()+'.csv'), 'w')
+						fileOutComeSummaryForVarAndMag.write(';'.join(['step ID', 'max', 'min', 'mean']) + '\n') 
 					else:
-						if fileName2.startswith(mag) and fileName2.split('.csv')[0].split('__')[-1] in CMDoptionsDict['rangeFileIDs']:
-							listOfFilesInFolderMathingVar += [fileName2]
+						fileOutComeSummaryForVarAndMag = []
 
-			listOfFilesSortedInFolder += sortFilesInFolderByLastNumberInName(listOfFilesInFolderMathingVar, folderName, CMDoptionsDict)
+					#Main inner loop
+					print('\n'+'---> Importing data for variable: ' + dataClass.get_description() + ', '+dataClass.get_mag()+ ' values')
+						
+					for fileNameList in listOfFilesSortedInFolder: #For each file matching the criteria
 
-		# Create dataClasses
-		listOfFilesMatchingMag = [t[1] for t in listOfFilesSortedInFolder]
-		listOfMagVarPairs = [t.split('__')[0]+'__'+t.split('__')[1] for t in listOfFilesMatchingMag]
-		for var in CMDoptionsDict['variables']:
-			if mag+'__'+var in listOfMagVarPairs:
+						shortFileName = fileNameList[1]
+						longFileName = os.path.join(fileNameList[0], fileNameList[1])
+						if dataClass.get_description() in shortFileName.split('__')[1] and shortFileName.split('__')[1] in dataClass.get_description(): #Restring to only file matching type of variable of class
+							print('\n'+'-> Reading: ' + shortFileName)
+							dataClass.importDataForClass(shortFileName, longFileName, dataClass.get_mag(), CMDoptionsDict, fileOutComeSummaryForVarAndMag)
+
+					#Here dataClass has collected the full data for a variable and magnitude
+
+					#Close data summary to file
+					if CMDoptionsDict['writeStepResultsToFileFlag']:
+						fileOutComeSummaryForVarAndMag.close()
+					
+					#Time operations				
+					if dataClass.get_mag() in ('hp', 'lp', 'di'):
+						dataClass.getTimeList('rs')
+					else:
+						dataClass.getTimeList(dataClass.get_mag())
+					
+					dataClass.reStartXvaluesAndLastID()
+
+					if dataClass.get_mag() == 'rs' and False:
+
+						newPicksMax, newPicksMean, newPicksMin, timePicks = dataClass.computePicks() ###STRANGE ERROR, PYTHON BUG?
+						dataClass.updatePicksData(newPicksMax, newPicksMean, newPicksMin, timePicks)
+		
+			# Up to here all the data for a single variable has bee imported
+
+		elif tmdsFlag:
+
+			from nptdms import TdmsFile
+
+			for var in CMDoptionsDict['variables']:
 				dataVar = dataFromGaugesSingleMagnitudeClass(var, mag, testFactor, orderDeriv)
 				dataClasses += (dataVar, )
-		
-		for dataClass in dataClasses: #For each class variable
 
-			if dataClass.get_mag() == mag: #Only to dataClass with the current mag
+			for tmdsFileName in inputDataClass.getTupleFiles():
 
-
-				# mag = dataClass.get_mag()
-
-				#Create summmary file
-				if CMDoptionsDict['writeStepResultsToFileFlag']:
-					# pdb.set_trace()
-					fileOutComeSummaryForVarAndMag = open(os.path.join(CMDoptionsDict['stepsSummaryResultsFolder'], dataClass.get_mag()+'__'+dataClass.get_description()+'.csv'), 'w')
-					fileOutComeSummaryForVarAndMag.write(';'.join(['step ID', 'max', 'min', 'mean']) + '\n') 
-				else:
-					fileOutComeSummaryForVarAndMag = []
-
-				#Main inner loop
-				print('\n'+'---> Importing data for variable: ' + dataClass.get_description() + ', '+dataClass.get_mag()+ ' values')
-					
-				for fileNameList in listOfFilesSortedInFolder: #For each file matching the criteria
-
-					shortFileName = fileNameList[1]
-					longFileName = os.path.join(fileNameList[0], fileNameList[1])
-					if dataClass.get_description() in shortFileName.split('__')[1] and shortFileName.split('__')[1] in dataClass.get_description(): #Restring to only file matching type of variable of class
-						print('\n'+'-> Reading: ' + shortFileName)
-						dataClass.importDataForClass(shortFileName, longFileName, dataClass.get_mag(), CMDoptionsDict, fileOutComeSummaryForVarAndMag)
-
-				#Here dataClass has collected the full data for a variable and magnitude
-
-				#Close data summary to file
-				if CMDoptionsDict['writeStepResultsToFileFlag']:
-					fileOutComeSummaryForVarAndMag.close()
+				tdms_file = TdmsFile(tmdsFileName)
 				
-				#Time operations				
-				if dataClass.get_mag() in ('hp', 'lp', 'di'):
-					dataClass.getTimeList('rs')
-				else:
-					dataClass.getTimeList(dataClass.get_mag())
-				
-				dataClass.reStartXvaluesAndLastID()
+				for groupName in tdms_file.groups():
 
-				if dataClass.get_mag() == 'rs' and False:
+					for channelObj in tdms_file.group_channels(groupName):
 
-					newPicksMax, newPicksMean, newPicksMin, timePicks = dataClass.computePicks() ###STRANGE ERROR, PYTHON BUG?
-					dataClass.updatePicksData(newPicksMax, newPicksMean, newPicksMin, timePicks)
-		
-		# Up to here all the data for a single variable has bee imported 
+						pass
 
 	# Errors check
 	# Analyse results until here and raise exceptions, if any
@@ -537,6 +555,66 @@ if gaugesFlag:
 			# Writer = animation.writers['ffmpeg']
 			# writer = Writer(fps= fps_outputVideo, metadata=dict(artist='Alejandro Valverde', title='FT106'), bitrate=400)
 			# anim.save('P:\\11_J67\\23_Modelling\\Kinematic model\\kinematic_model_actuator.mpeg', writer=writer)
+
+		elif CMDoptionsDict['additionalCalsOpt'] == 22:
+			"""
+			Calibration, show interpolation error and fit to linear regresion
+			"""
+
+			if len(CMDoptionsDict['rangeFileIDs']) < 8:
+				rangeIDstring = ','.join([str(i) for i in CMDoptionsDict['rangeFileIDs']])
+			else:
+				rangeIDstring = str(CMDoptionsDict['rangeFileIDs'][0])+'...'+str(CMDoptionsDict['rangeFileIDs'][-1])
+			
+			# Data Classes
+			STG_data = [temp for temp in dataClasses if temp.get_description() == 'STG'][0]
+			force_data = [temp for temp in dataClasses if temp.get_description() == 'Force'][0]
+
+			#Vector of steps
+			indexDictForSteps, stepStrs = get_indexDictForSteps(STG_data)
+
+			mean_force, mean_STG = [], []
+			for stepName in stepStrs:
+
+				mean_STG += [np.mean(STG_data.get_rs_split()[indexDictForSteps[stepName]])]
+				mean_force += [np.mean(force_data.get_rs_split()[indexDictForSteps[stepName]])]
+
+			mean_force_sorted = sorted(mean_force)
+			mean_STG_sorted = [x for _,x in sorted(zip(mean_force,mean_STG), key=lambda pair: pair[0])]
+
+			regre = np.polyfit(mean_STG_sorted, mean_force_sorted, 1)
+			regre_TP = np.poly1d(regre)
+			est_force = [regre_TP(t) for t in mean_STG_sorted]
+
+			fullScaleForce = max(abs(min(mean_force_sorted)), max(mean_force_sorted))
+
+			print('\t-> Full scale value %5.4f' % fullScaleForce )
+			print('\t-> Regre results: slope %5.4E / Intercept %5.4E' % (regre[0], regre[1]) )
+
+			# Calculated %FS
+			error_fs = []
+			for i in range(len(mean_force_sorted)):
+
+				error_fs += [100 * (est_force[i] - mean_force_sorted[i])/fullScaleForce]
+
+			# Figure initialization 
+			figure, axs = plt.subplots(2, 1)
+			figure.set_size_inches(16, 10, forward=True)
+			figure.suptitle('Calibration results - '+rangeIDstring, **plotSettings['figure_title'])
+
+			axs[0].plot( force_data.get_rs(), STG_data.get_rs(), linestyle = '', marker = 'o', c = plotSettings['colors'][0], label = 'Real data', **plotSettings['line'])
+			axs[0].plot( mean_force_sorted, mean_STG_sorted, linestyle = '', marker = '+', c = plotSettings['colors'][1], label = 'Mean value', **plotSettings['line'])
+			axs[0].plot( est_force, mean_STG_sorted, linestyle = '-.', marker = '', c = plotSettings['colors'][2], label = 'Linear regression', **plotSettings['line'])
+			axs[0].set_ylabel(inputDataClass.get_variablesInfoDict()[STG_data.get_mag()+'__'+STG_data.get_description()]['y-label'], **plotSettings['axes_y'])
+			axs[0].set_xlabel(inputDataClass.get_variablesInfoDict()[force_data.get_mag()+'__'+force_data.get_description()]['y-label'], **plotSettings['axes_x'])
+			axs[0].legend(**plotSettings['legend'])
+
+			axs[1].plot( mean_force_sorted, error_fs, linestyle = '-', marker = '', c = plotSettings['colors'][0], label = 'Full scale error', **plotSettings['line'])
+			axs[1].set_ylabel('FS error [%]', **plotSettings['axes_y'])
+			axs[1].set_xlabel(inputDataClass.get_variablesInfoDict()[force_data.get_mag()+'__'+force_data.get_description()]['y-label'], **plotSettings['axes_x'])
+			
+			for ax in axs:
+				usualSettingsAX(ax, plotSettings)
 
 	os.chdir(cwd)
 
