@@ -105,7 +105,7 @@
 			"file": "settings/doc_settings.tex",
 			"settings":
 			{
-				"buffer_size": 1003,
+				"buffer_size": 1032,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -114,7 +114,7 @@
 			"file": "sections/Actuators.tex",
 			"settings":
 			{
-				"buffer_size": 4629,
+				"buffer_size": 7359,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -156,8 +156,8 @@
 	},
 	"expanded_folders":
 	[
-		"/P/kopter/knowledge",
-		"/P/kopter/knowledge/settings"
+		"/D/kopter/knowledge",
+		"/D/kopter/knowledge/sections"
 	],
 	"file_history":
 	[
@@ -224,6 +224,7 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"$l",
 			"aircraftNotation",
 			"theta",
 			"=",
@@ -335,7 +336,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -360,10 +361,10 @@
 							"syntax": "Packages/LaTeXing/support/LaTeX.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 156.0,
+						"translation.y": 331.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -390,10 +391,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1929.0,
+						"translation.y": 1305.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -402,15 +403,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1003,
+						"buffer_size": 1032,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								689,
-								689
+								337,
+								337
 							]
 						],
 						"settings":
@@ -418,7 +419,7 @@
 							"syntax": "Packages/LaTeXing/support/LaTeX.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 154.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
@@ -436,29 +437,28 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4629,
+						"buffer_size": 7359,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1901,
-								1901
+								3287,
+								3287
 							]
 						],
 						"settings":
 						{
-							"spell_check": true,
 							"syntax": "Packages/LaTeXing/support/LaTeX.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 175.0,
+						"translation.y": 618.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 0,
 					"type": "text"
 				}
 			]
@@ -466,7 +466,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 22.0
+		"height": 28.0
 	},
 	"input":
 	{
@@ -510,7 +510,7 @@
 	"project": "knowledge.sublime-project",
 	"replace":
 	{
-		"height": 42.0
+		"height": 52.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -544,7 +544,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 0,
+	"selected_group": 1,
 	"settings":
 	{
 	},

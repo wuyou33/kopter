@@ -2,12 +2,12 @@
 
 \subsection{Introduction}
 
-  The hydraulic actuators are used to the amplification of the pilot forces. They consist on an actuator body, a input lever, a lever arm and a ram. 
+  The hydraulic actuators are used to the amplification of the pilot forces. They consist on an actuator body, a input lever, a lever arm, a piston and a piston rod. 
   % -> Components
   % -> Mechanical feedback
   % -> Picture
   % The actuators have different degrees of freedom.
-
+  %
   \begin{figure}[!htpb]
     \centering
     \includegraphics[width=0.7 \textwidth]{figures/diagramActuator}
@@ -41,36 +41,76 @@
       \label{fig:flow_gain_example}
     \end{figure}
 
+  \clearpage
   \subsubsection{Kinematic lever model}
 
-    The kinematic relationship between the is governed by the . 
     % Intro, importance of the kinematic model
-
-    These four points and its positioning variables are identified as shown in Figure XX.
-
+    The kinematic relationship between the is governed by the input lever which is constituted by two components that are able to rotate around four points. These four points and its positioning variables are identified as shown in Figure XX.
+    %
     \begin{itemize}
       \item 1: End of the piston rod, center of the piston lug $P_1$
       \item 2: Center of middle circular hole of the input lever $P_2$
       \item 3: Center of circular hole of the input lever at its connection to the pilot input rod $P_3$
       \item 4: Center of circular hole of the input lever at its connection to the piston rod lug $P_4$
     \end{itemize}
-
+    %
     Additionally, these parameters are constant for a considered geometry of the involved components:
-
+    %
     \begin{itemize}
-      \item Distance between $P_2$ and $P_4$ -> $l_3$
-      \item Distance between $P_2$ and $P_3$ -> $l_1$
-      \item Distance between $P_2$ and $P_1$ -> $l_2$
-      \item Distance between $P_1$ and $P_4$ -> $l_4$
-      \item Angle between the line that connects $P_2$ and $P_3$, and the line that connects $P_2$ and $P_1$ -> $\psi_1$
+      \item $l_3$: Distance between $P_2$ and $P_4$
+      \item $l_1$: Distance between $P_2$ and $P_3$
+      \item $l_2$: Distance between $P_2$ and $P_1$
+      \item $l_4$: Distance between $P_1$ and $P_4$
+      \item $\psi_1$: Angle between the line that connects $P_2$ and $P_3$, and the line that connects $P_2$ and $P_1$
     \end{itemize}
 
-    The value of $l_1$, $l_2$, $l_3$ and $\psi_1$ are obtained from the geometry of the input lever and the pivoting small lever. Finally, the value of $l_4$ can be obtained as a function of the previously introduced parameters as shown in Equation \ref{eq:l4}.
-
+    The value of $l_1$, $l_2$, $l_3$ and $\psi_1$ are obtained from the geometry of the input lever and the pivoting small lever. Finally, the value of $l_4$ can be obtained as a function of the previously introduced parameters as shown in Equation \ref{eq:l4}:
+    %
     \begin{equation}\label{eq:l4}
-      l_4 = \sqrt{ (l_1 \sin\psi_1)^2 + (l_2 + l_1 \cos\psi_1)^2 }
+      l_4 = \sqrt{ (l_1 \sin\psi_1)^2 + (l_2 + l_1 \cos\psi_1)^2 }.
     \end{equation}
 
     %Figure with the labelled points.
 
-    The points movements could be assumed to be in-plane motion, so two coordinates 
+    The points movements could be assumed to be in-plane motion, so two coordinates are needed to define the location of each of the previously defined points. However, $P_4$ and $P_1$ are constrained to an unidirectional movement. Finally, for each of the points, its location is defined as follows a function of the unitary vectors $\vec{i}$ and $\vec{j}$ along the $x$ and $y$ axes, respectively:
+    %
+    \begin{eqnarray}
+      \vec{p}_1 &=& x_1 \vec{i} \nonumber \\
+      \vec{p}_2 &=& x_2 \vec{i} + y_2 \vec{j} \nonumber \\
+      \vec{p}_3 &=& x_3 \vec{i} + y_3 \vec{j} \nonumber \\
+      \vec{p}_4 &=& x_4 \vec{i}
+    \end{eqnarray}
+    %
+    \noindent
+    where $x_{1,2,3,4}$ and $y_{3,4}$ are expressed in the absolute reference system located in the initial position of $P_4$. The initial conditions of these parameters are the following:
+    %
+    \begin{eqnarray}
+      x_1 &=& l_3 \nonumber \\
+      x_2 &=& l_3 \nonumber \\
+      x_3 &=& l_3 + l_1 \sin \psi_1 \nonumber \\
+      x_4 &=& 0 \nonumber \\
+      y_2 &=& 0 \nonumber \\
+      y_3 &=& - l_1 \cos \psi_1
+    \end{eqnarray}
+
+    The target is now to obtain the position of those points that are unknown. To begin with, the position $\vec{p}_2$ of $P_2$ is known when $\vec{p}_1$ and $\vec{p}_4$ are known. The equations which allow the calculation of $\vec{p}_2$ are the following pair of implicit equations:
+    %
+    \begin{eqnarray}
+      0 &=& (x_1 - x_2)^2 + (l_2 - y_2)^2 - l_2^2 \nonumber \\
+      0 &=& (x_4 - x_2)^2 + y_2^2 - l_3^2,
+      \label{eq:link_4_2_1}
+    \end{eqnarray}
+    %
+    \noindent
+    where $x_2$ and $y_2$ are the unknowns. Once $\vec{p}_4$ is calculated, the position $\vec{p}_3$ of the point $P_3$ can be calculated using $\vec{p}_1$ and $\vec{p}_4$ as follows:
+    %
+    \begin{eqnarray}
+      0 &=& (x_3 - x_2)^2 + (y_3 - y_2)^2 - l_1^2 \nonumber \\
+      0 &=& (x_3 - (l_3 +x_1))^2 + (y_3 - l_2)^2 - l_4^2,
+      \label{eq:link_3_2_1}
+    \end{eqnarray}
+    %
+    \noindent
+    where $x_3$ and $y_3$ are the unknowns. The Equations \ref{eq:link_3_2_1} and \ref{eq:link_4_2_1} allow the calculation of the points.
+
+    Now, considering the problem of a known input, then the position $\vec{p}_3$ of the point $P_3$ is known. Considering the position $\vec{p}_1$ from the previous operation, it is possible to obtain $\vec{p}_2$ using Equation \ref{eq:link_3_2_1}. With this information, it is possible to obtain $\vec{p}_4$ using \ref{eq:link_4_2_1}. This defines the opening of the valve which is the input to the pneumatic model of the actuator. The outcome of the model is the piston rod displacement expressed as $\Delta \vec{p}_1$ which is then used in the next iteration.
