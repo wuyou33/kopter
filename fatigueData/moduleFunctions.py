@@ -1301,6 +1301,7 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		
 		#Save figure
 		if CMDoptionsDict['saveFigure'] and not CMDoptionsDict['axisArrangementOptionFlag']:
+		# if CMDoptionsDict['saveFigure']:
 
 			if additionalInput[0]:
 				figure.savefig(os.path.join(CMDoptionsDict['cwd'], magnitude+'_'+rangeIDstring+'_'+self.__description+'&'+'&'.join(additionalInput[2])+'.png'), dpi = plotSettings['figure_settings']['dpi'])
