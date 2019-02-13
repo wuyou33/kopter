@@ -14,7 +14,7 @@
     \caption[Actuator schematic view]{Actuator schematic view.}
     \label{fig:diagramActuator}
   \end{figure}
-
+  %
 \subsection{Modeling}
 
   The model of a hydraulic actuator is as shown in Figure \ref{fig:modelActuator}. In this model, the internal dynamics of the actuator are represented in terms of force-producer system plus which is mixed with the inertial forces due to the upper controls displacement and the external forces introduced to the aerodynamic surfaces.
@@ -32,7 +32,7 @@
 
     The name pressure gain is assigned to the relationship between spool position and pressure in each of the four chambers of the hydraulic actuator. This is a nonlinear relationship and it may be different for each system.
 
-    Once the pressure gain curve is obtained, it can be convinient to multiply the obtained pressure by the effective piston area $A_{\mathrm{piston}}$ to arrive to the force gain curve, which is shown in 
+    Once the pressure gain curve is obtained, it can be convenient to multiply the obtained pressure by the effective piston area $A_{\mathrm{piston}}$ to obtain the to the force gain curve, which is shown in 
 
     \begin{figure}[!htpb]
       \centering
@@ -45,13 +45,14 @@
   \subsubsection{Kinematic lever model}
 
     % Intro, importance of the kinematic model
+    The kinematic linkage between the input lever and the actuator piston acts as a feedback loop and ensures the stability of the system. Following a given a input displacement, the piston position will follow this demand thanks to the existance of the mentioned kinematic 
     The kinematic relationship between the is governed by the input lever which is constituted by two components that are able to rotate around four points. These four points and its positioning variables are identified as shown in Figure XX.
     %
     \begin{itemize}
-      \item 1: End of the piston rod, center of the piston lug $P_1$
-      \item 2: Center of middle circular hole of the input lever $P_2$
-      \item 3: Center of circular hole of the input lever at its connection to the pilot input rod $P_3$
-      \item 4: Center of circular hole of the input lever at its connection to the piston rod lug $P_4$
+      \item 1: End of the piston rod, centre of the piston lug $P_1$
+      \item 2: Centre of middle circular hole of the input lever $P_2$
+      \item 3: Centre of circular hole of the input lever at its connection to the pilot input rod $P_3$
+      \item 4: Centre of circular hole of the input lever at its connection to the piston rod lug $P_4$
     \end{itemize}
     %
     Additionally, these parameters are constant for a considered geometry of the involved components:
@@ -113,4 +114,4 @@
     \noindent
     where $x_3$ and $y_3$ are the unknowns. The Equations \ref{eq:link_3_2_1} and \ref{eq:link_4_2_1} allow the calculation of the points.
 
-    Now, considering the problem of a known input, then the position $\vec{p}_3$ of the point $P_3$ is known. Considering the position $\vec{p}_1$ from the previous operation, it is possible to obtain $\vec{p}_2$ using Equation \ref{eq:link_3_2_1}. With this information, it is possible to obtain $\vec{p}_4$ using \ref{eq:link_4_2_1}. This defines the opening of the valve which is the input to the pneumatic model of the actuator. The outcome of the model is the piston rod displacement expressed as $\Delta \vec{p}_1$ which is then used in the next iteration.
+    Now, considering the problem of a known input, then the position $\vec{p}_3$ of the point $P_3$ is known. Considering the position $\vec{p}_1$ from the previous operation, it is possible to obtain $\vec{p}_2$ using Equation \ref{eq:link_3_2_1}. With this information, it is possible to obtain $\vec{p}_4$ using Equation \ref{eq:link_4_2_1}. This defines the opening of the valve which is the input to the pneumatic model of the actuator. The outcome of the model is the piston rod displacement expressed as $\Delta \vec{p}_1$ which is then used in the next iteration.
