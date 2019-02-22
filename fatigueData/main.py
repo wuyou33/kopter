@@ -366,6 +366,7 @@ if gaugesFlag or tmdsFlag:
 			"""
 			Show exceedances on collective force for the actuator
 			CMD: python main.py -f filesToLoad_general_P3_FTI.txt -v CNT_FRC_BST_LAT,CNT_FRC_BST_LNG,CNT_FRC_BST_COL -m rs -o t -s f,t -a 17 -n 2 -r 100-FT01,101-FT02,102-FT03,103-FT03,104-FT04,105-FT04,106-FT05,107-FT05,108-FT05,109-FT06,110-FT06,111-FT07,112-FT08,113-FT08,114-FT09,115-FT10 -l t
+			130 bar python main.py -f filesToLoad_general_P3_FTI_130bar.txt -v CNT_FRC_BST_LAT,CNT_FRC_BST_LNG,CNT_FRC_BST_COL -m rs -o t -a 17 -n 2 -r 115-FT10,116-FT11,117-FT12,118-FT12,119-FT13
 			"""
 
 			dataAdditional = dataFromGaugesSingleMagnitudeClass('TimeOutsideEnvelope_COL', 'rs', testFactor, orderDeriv)
@@ -561,60 +562,9 @@ if gaugesFlag or tmdsFlag:
 			Calibration, show interpolation error and fit to linear regresion
 			"""
 
-			if len(CMDoptionsDict['rangeFileIDs']) < 8:
-				rangeIDstring = ','.join([str(i) for i in CMDoptionsDict['rangeFileIDs']])
-			else:
-				rangeIDstring = str(CMDoptionsDict['rangeFileIDs'][0])+'...'+str(CMDoptionsDict['rangeFileIDs'][-1])
-			
-			# Data Classes
-			STG_data = [temp for temp in dataClasses if temp.get_description() == 'STG'][0]
-			force_data = [temp for temp in dataClasses if temp.get_description() == 'Force'][0]
+			optionCal = 'twoSlopes' #'oneSlope' or 'twoSlopes'
 
-			#Vector of steps
-			indexDictForSteps, stepStrs = get_indexDictForSteps(STG_data)
-
-			mean_force, mean_STG = [], []
-			for stepName in stepStrs:
-
-				mean_STG += [np.mean(STG_data.get_rs_split()[indexDictForSteps[stepName]])]
-				mean_force += [np.mean(force_data.get_rs_split()[indexDictForSteps[stepName]])]
-
-			mean_force_sorted = sorted(mean_force)
-			mean_STG_sorted = [x for _,x in sorted(zip(mean_force,mean_STG), key=lambda pair: pair[0])]
-
-			regre = np.polyfit(mean_STG_sorted, mean_force_sorted, 1)
-			regre_TP = np.poly1d(regre)
-			est_force = [regre_TP(t) for t in mean_STG_sorted]
-
-			fullScaleForce = max(abs(min(mean_force_sorted)), max(mean_force_sorted))
-
-			print('\t-> Full scale value %5.4f' % fullScaleForce )
-			print('\t-> Regre results: slope %5.4E / Intercept %5.4E' % (regre[0], regre[1]) )
-
-			# Calculated %FS
-			error_fs = []
-			for i in range(len(mean_force_sorted)):
-
-				error_fs += [100 * (est_force[i] - mean_force_sorted[i])/fullScaleForce]
-
-			# Figure initialization 
-			figure, axs = plt.subplots(2, 1)
-			figure.set_size_inches(16, 10, forward=True)
-			figure.suptitle('Calibration results - '+rangeIDstring, **plotSettings['figure_title'])
-
-			axs[0].plot( force_data.get_rs(), STG_data.get_rs(), linestyle = '', marker = 'o', c = plotSettings['colors'][0], label = 'Real data', **plotSettings['line'])
-			axs[0].plot( mean_force_sorted, mean_STG_sorted, linestyle = '', marker = '+', c = plotSettings['colors'][1], label = 'Mean value', **plotSettings['line'])
-			axs[0].plot( est_force, mean_STG_sorted, linestyle = '-.', marker = '', c = plotSettings['colors'][2], label = 'Linear regression', **plotSettings['line'])
-			axs[0].set_ylabel(inputDataClass.get_variablesInfoDict()[STG_data.get_mag()+'__'+STG_data.get_description()]['y-label'], **plotSettings['axes_y'])
-			axs[0].set_xlabel(inputDataClass.get_variablesInfoDict()[force_data.get_mag()+'__'+force_data.get_description()]['y-label'], **plotSettings['axes_x'])
-			axs[0].legend(**plotSettings['legend'])
-
-			axs[1].plot( mean_force_sorted, error_fs, linestyle = '-', marker = '', c = plotSettings['colors'][0], label = 'Full scale error', **plotSettings['line'])
-			axs[1].set_ylabel('FS error [%]', **plotSettings['axes_y'])
-			axs[1].set_xlabel(inputDataClass.get_variablesInfoDict()[force_data.get_mag()+'__'+force_data.get_description()]['y-label'], **plotSettings['axes_x'])
-			
-			for ax in axs:
-				usualSettingsAX(ax, plotSettings)
+			calibrationFullScaleError(optionCal, dataClasses, inputDataClass, plotSettings, CMDoptionsDict)
 
 	os.chdir(cwd)
 

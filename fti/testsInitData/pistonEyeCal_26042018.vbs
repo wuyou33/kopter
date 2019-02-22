@@ -12,21 +12,20 @@ csvFolder = "P:\11_J67\16_FTI\pistonEyeCal_26042018\"
 ' filesNames = Array("Force_Piston_Eye_HP1_[N].tdms", "Force_Piston_Eye_HP2_[N].tdms")
 
 ' These are the folders where the data that wants to be imported is contained. Each folder correspond to a differt time step
-commonAddress = "L:\MSH\13_Testing+Instrumentation\FTI\18_Calibration\AB_P3\2018_04_26_Yaw actuator force\"
+commonAddress = "L:\MSH\13_Testing+Instrumentation\FTI\18_Calibration\AD_Bench Tests\2018_10_11_Piston Eye_Recab\20181009_Calibration 1st Method 2 x ramp up&down\"
 fileNamesBigArrayFolders = Array( _
-     Array(commonAddress & "1200-1033063-AA SN5 (blue wire)\Compression\Run 1\", "1-PE05_Compression1_0", Array("TR Actuator Force_0.tdms")) _
-  ,  Array(commonAddress & "1200-1033063-AA SN5 (blue wire)\Compression\Run 1\", "2-PE05_Compression1_1", Array("TR Actuator Force_1.tdms")) _
-  ,  Array(commonAddress & "1200-1033063-AA SN5 (blue wire)\Compression\Run 1\", "3-PE05_Compression1_2", Array("TR Actuator Force_2.tdms")) _
-  ,  Array(commonAddress & "1200-1033063-AA SN5 (blue wire)\Compression\Run 1\", "4-PE05_Compression1_3", Array("TR Actuator Force_3.tdms")) _
-  ,  Array(commonAddress & "1200-1033063-AA SN5 (blue wire)\Compression\Run 1\", "5-PE05_Compression1_4", Array("TR Actuator Force_4.tdms")) _
-  ,  Array(commonAddress & "1200-1033063-AA SN5 (blue wire)\Compression\Run 1\", "6-PE05_Compression1_5", Array("TR Actuator Force_5.tdms")) _
-  ,  Array(commonAddress & "1200-1033063-AA SN5 (blue wire)\Compression\Run 1\", "7-PE05_Compression1_6", Array("TR Actuator Force_6.tdms")) _
-  ,  Array(commonAddress & "1200-1033063-AA SN5 (blue wire)\Compression\Run 1\", "8-PE05_Compression1_7", Array("TR Actuator Force_7.tdms")) _
-  ,  Array(commonAddress & "1200-1033063-AA SN5 (blue wire)\Compression\Run 1\", "9-PE05_Compression1_8", Array("TR Actuator Force_8.tdms")) _
-  ,  Array(commonAddress & "1200-1033063-AA SN5 (blue wire)\Compression\Run 1\", "10-PE05_Compression1_9", Array("TR Actuator Force_9.tdms")) _
-  ,  Array(commonAddress & "1200-1033063-AA SN5 (blue wire)\Compression\Run 1\", "11-PE05_Compression1_10", Array("TR Actuator Force_10.tdms")) _
-  ,  Array(commonAddress & "1200-1033063-AA SN5 (blue wire)\Compression\Run 1\", "12-PE05_Compression1_11", Array("TR Actuator Force_11.tdms")) _
-  ,  Array(commonAddress & "1200-1033063-AA SN5 (blue wire)\Compression\Run 1\", "13-PE05_Compression1_12", Array("TR Actuator Force_12.tdms")) _
+     Array(commonAddress & "Piston eye 1\Tension\Run 1\", "1-PE09_Tension1_0", Array("Piston - Actuator_0.tdms")) _
+  ,  Array(commonAddress & "Piston eye 1\Tension\Run 1\", "2-PE09_Tension1_1", Array("Piston - Actuator_1.tdms")) _
+  ,  Array(commonAddress & "Piston eye 1\Tension\Run 1\", "3-PE09_Tension1_2", Array("Piston - Actuator_2.tdms")) _
+  ,  Array(commonAddress & "Piston eye 1\Tension\Run 1\", "4-PE09_Tension1_3", Array("Piston - Actuator_3.tdms")) _
+  ,  Array(commonAddress & "Piston eye 1\Tension\Run 1\", "5-PE09_Tension1_4", Array("Piston - Actuator_4.tdms")) _
+  ,  Array(commonAddress & "Piston eye 1\Tension\Run 1\", "6-PE09_Tension1_5", Array("Piston - Actuator_5.tdms")) _
+  ,  Array(commonAddress & "Piston eye 1\Tension\Run 1\", "7-PE09_Tension1_6", Array("Piston - Actuator_6.tdms")) _
+  ,  Array(commonAddress & "Piston eye 1\Tension\Run 1\", "8-PE09_Tension1_7", Array("Piston - Actuator_7.tdms")) _
+  ,  Array(commonAddress & "Piston eye 1\Tension\Run 1\", "9-PE09_Tension1_8", Array("Piston - Actuator_8.tdms")) _
+  ,  Array(commonAddress & "Piston eye 1\Tension\Run 1\", "10-PE09_Tension1_9", Array("Piston - Actuator_9.tdms")) _
+  ,  Array(commonAddress & "Piston eye 1\Tension\Run 1\", "11-PE09_Tension1_10", Array("Piston - Actuator_10.tdms")) _
+  
   ,  Array(commonAddress & "1200-1033063-AA SN5 (blue wire)\Compression\Run 2\", "14-PE05_Compression2_0", Array("TR Actuator Force_0.tdms")) _
   ,  Array(commonAddress & "1200-1033063-AA SN5 (blue wire)\Compression\Run 2\", "15-PE05_Compression2_1", Array("TR Actuator Force_1.tdms")) _
   ,  Array(commonAddress & "1200-1033063-AA SN5 (blue wire)\Compression\Run 2\", "16-PE05_Compression2_2", Array("TR Actuator Force_2.tdms")) _

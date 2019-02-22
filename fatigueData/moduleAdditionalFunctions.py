@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import scipy.stats as st
 import scipy.linalg as lalg
 from scipy import interpolate
+from scipy import stats
 import statistics as stat
 import math
 import getopt
@@ -1329,3 +1330,127 @@ def getFlowGainCurve(dataClasses, inputDataClass, plotSettings, CMDoptionsDict):
 	if CMDoptionsDict['saveFigure']:
 
 		figure.savefig(os.path.join(CMDoptionsDict['cwd'], 'Flow gain'+'__'+rangeIDstring+'.png'), dpi = plotSettings['figure_settings']['dpi'])
+
+def calibrationFullScaleError(optionCal, dataClasses, inputDataClass, plotSettings, CMDoptionsDict):
+
+	def calibrationErrorDataset(mean_force, mean_STG, total_STG, total_force):
+
+		mean_force_sorted = sorted(mean_force)
+		mean_STG_sorted = [x for _,x in sorted(zip(mean_force,mean_STG), key=lambda pair: pair[0])]
+
+		regre = np.polyfit(mean_STG_sorted, mean_force_sorted, 1)
+		# _, _, r_value, _, _ = stats.linregress(mean_STG_sorted, mean_force_sorted)
+		_, _, r_value, _, _ = stats.linregress(total_STG, total_force)
+		regre_TP = np.poly1d(regre)
+		est_force = [regre_TP(t) for t in mean_STG_sorted]
+
+		fullScaleForce = max(abs(min(mean_force_sorted)), max(mean_force_sorted))
+
+		print('\t-> Full scale value %5.4f' % fullScaleForce )
+		print('\t-> Regre results: slope %5.4E / Intercept %5.4E' % (regre[0], regre[1]) )
+
+		# Calculated %FS
+		error_fs = []
+		for i in range(len(mean_force_sorted)):
+
+			error_fs += [100 * (est_force[i] - mean_force_sorted[i])/fullScaleForce]
+
+		# %FS error for all the points
+		est_force_total = [regre_TP(t) for t in total_STG]
+		error_fs_total_points =[]
+		for i in range(len(total_STG)):
+
+			error_fs_total_points += [100 * (est_force_total[i] - total_force[i])/fullScaleForce]
+
+		return mean_force_sorted, mean_STG_sorted, est_force, error_fs, error_fs_total_points, regre, r_value
+
+	# For figure title
+	if len(CMDoptionsDict['rangeFileIDs']) < 8:
+		rangeIDstring = ','.join([str(i) for i in CMDoptionsDict['rangeFileIDs']])
+	else:
+		rangeIDstring = str(CMDoptionsDict['rangeFileIDs'][0])+'...'+str(CMDoptionsDict['rangeFileIDs'][-1])
+
+	# Figure initialization 
+	figure, axs = plt.subplots(2, 1, sharex='col')
+	figure.set_size_inches(16, 10, forward=True)
+	figure.suptitle('Calibration results - '+rangeIDstring, **plotSettings['figure_title'])
+	
+	# Data Classes
+	STG_data = [temp for temp in dataClasses if temp.get_description() == 'STG'][0]
+	force_data = [temp for temp in dataClasses if temp.get_description() == 'Force'][0]
+
+	#Vector of steps
+	indexDictForSteps, stepStrs = get_indexDictForSteps(STG_data)
+
+	axs[0].plot( force_data.get_rs(), STG_data.get_rs(), linestyle = '', marker = 'o', c = plotSettings['colors'][0], label = 'Measured data', **plotSettings['line'])
+	
+	if optionCal == 'oneSlope':
+
+		mean_force, mean_STG = [], []
+		for stepName in stepStrs:
+
+			mean_STG += [np.mean(STG_data.get_rs_split()[indexDictForSteps[stepName]])]
+			mean_force += [np.mean(force_data.get_rs_split()[indexDictForSteps[stepName]])]
+		mean_force_sorted, mean_STG_sorted, est_force, error_fs, regre, r_value = calibrationErrorDataset(mean_force, mean_STG, STG_data.get_rs(), force_data.get_rs())
+
+		axs[0].plot( mean_force_sorted, mean_STG_sorted, linestyle = '', marker = '+', c = plotSettings['colors'][1], label = 'Mean value per run', **plotSettings['line'])
+		axs[0].plot( est_force, mean_STG_sorted, linestyle = '-.', marker = '', c = plotSettings['colors'][2], label = 'Linear regression', **plotSettings['line'])
+
+		axs[1].plot( mean_force_sorted, error_fs, linestyle = '-', marker = '', c = plotSettings['colors'][0], label = 'Full scale error', **plotSettings['line'])
+
+		axs[0].text(0.0, axs[0].get_ylim()[0] + ((axs[0].get_ylim()[1]-axs[0].get_ylim()[0])*0.05), 'Tension: F[N] = %5.4E $\\bullet$ V[mV/V] + (%5.4E) / $R^2$=%1.4f' % (regre[0], regre[1], r_value**2), bbox=dict(facecolor='black', alpha=0.2), horizontalalignment = 'center')
+	
+	elif optionCal == 'twoSlopes':
+
+		mean_force_tension, mean_STG_tension, mean_force_compression, mean_STG_compression, total_STG_tension,total_force_tension,total_STG_compression, total_force_compression = [], [], [], [], [], [], [], []
+		
+		for stepName in stepStrs:
+			STGCurrent = STG_data.get_rs_split()[indexDictForSteps[stepName]]
+			forceCurrent = force_data.get_rs_split()[indexDictForSteps[stepName]]
+			
+			if 'Tension' in stepName:
+
+				total_STG_tension += STGCurrent
+				total_force_tension += forceCurrent
+				mean_STG_tension += [np.mean(STGCurrent)]
+				mean_force_tension += [np.mean(forceCurrent)]
+		
+			elif 'Compression' in stepName:
+
+				total_STG_compression += STGCurrent
+				total_force_compression += forceCurrent
+				mean_STG_compression += [np.mean(STG_data.get_rs_split()[indexDictForSteps[stepName]])]
+				mean_force_compression += [np.mean(force_data.get_rs_split()[indexDictForSteps[stepName]])]
+
+		# Tension
+		mean_force_sorted_tension, mean_STG_sorted, est_force, error_fs_tension, error_fs_total_points, regre_tension, r_value_tension = calibrationErrorDataset(mean_force_tension, mean_STG_tension, total_STG_tension, total_force_tension)
+		axs[0].plot( mean_force_sorted_tension, mean_STG_sorted, linestyle = '', marker = '+', c = plotSettings['colors'][1], label = 'Mean value', **plotSettings['line'])
+		axs[0].plot( est_force, mean_STG_sorted, linestyle = '-.', marker = '', c = plotSettings['colors'][2], label = 'Linear regression, tension', **plotSettings['line'])
+		axs[1].plot( total_force_tension, error_fs_total_points, linestyle = '', marker = 'o', c = plotSettings['colors'][1], label = 'Full scale error - all points', **plotSettings['line'])
+
+		# Compression
+		mean_force_sorted_compression, mean_STG_sorted, est_force, error_fs_compression, error_fs_total_points, regre_compression, r_value_compression = calibrationErrorDataset(mean_force_compression, mean_STG_compression, total_STG_compression, total_force_compression)
+		axs[0].plot( mean_force_sorted_compression, mean_STG_sorted, linestyle = '', marker = '+', c = plotSettings['colors'][1], **plotSettings['line'])
+		axs[0].plot( est_force, mean_STG_sorted, linestyle = '-.', marker = '', c = plotSettings['colors'][3], label = 'Linear regression, compression', **plotSettings['line'])
+		axs[1].plot( total_force_compression, error_fs_total_points, linestyle = '', marker = 'o', c = plotSettings['colors'][1], **plotSettings['line'])
+		
+		axs[1].plot( mean_force_sorted_tension, error_fs_tension, linestyle = '-', marker = '', c = plotSettings['colors'][0], label = 'Full scale error - mean per run', **plotSettings['line'])
+		axs[1].plot( mean_force_sorted_compression, error_fs_compression, linestyle = '-', marker = '', c = plotSettings['colors'][0], **plotSettings['line'])
+		
+		# Output text
+		axs[0].text(0.0, axs[0].get_ylim()[0] + ((axs[0].get_ylim()[1]-axs[0].get_ylim()[0])*0.05), 'Tension: F[N] = %5.4E $\\bullet$ V[mV/V] + (%5.4E) / $R^2$=%1.4f' % (regre_tension[0], regre_tension[1], r_value_tension**2)+'\n'+'Compression: F[N] = %5.4E $\\bullet$ V[mV/V] + (%5.4E) / $R^2$=%1.4f' % (regre_compression[0], regre_compression[1], r_value_compression**2), bbox=dict(facecolor='black', alpha=0.2), horizontalalignment = 'center')
+
+	axs[0].set_ylabel(inputDataClass.get_variablesInfoDict()[STG_data.get_mag()+'__'+STG_data.get_description()]['y-label'], **plotSettings['axes_y'])
+	axs[0].legend(**plotSettings['legend'])
+	axs[1].legend(**plotSettings['legend'])
+
+	axs[1].set_ylabel('FS error [%]', **plotSettings['axes_y'])
+	axs[-1].set_xlabel(inputDataClass.get_variablesInfoDict()[force_data.get_mag()+'__'+force_data.get_description()]['y-label'], **plotSettings['axes_x'])
+	
+	for ax in axs:
+		usualSettingsAX(ax, plotSettings)
+
+	#Save figure
+	if CMDoptionsDict['saveFigure']:
+
+		figure.savefig(os.path.join(CMDoptionsDict['cwd'], 'CalibrationResults_'+stepName.split('-')[1].split('_')[0]), dpi = plotSettings['figure_settings']['dpi'])

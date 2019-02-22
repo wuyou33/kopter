@@ -1,0 +1,327 @@
+-> Folders to load
+P:\12_flightTestData\P3-all
+
+-> Test info
+test_freq: 2
+corr_COL: 2.54
+corr_LNG: 9.76
+corr_LAT: 1.54
+threshold_press_up: 85
+threshold_press_down: 5
+
+-> Variable info
+name: rs__CNT_FRC_BST_COL
+y-label: Force [N]
+TO spec: yes
+max load: 2001
+min load: -1608
+Fatigue load spec: no
+
+-> Variable info
+name: rs__CNT_FRC_BST_LAT
+y-label: Force [N]
+TO spec: yes
+max load: 910
+min load: -910
+Fatigue load spec: no
+
+-> Variable info
+name: rs__CNT_FRC_BST_LNG
+y-label: Force [N]
+TO spec: yes
+max load: 910
+min load: -910
+Fatigue load spec: no
+
+-> Variable info
+name: rs__CNT_FRC_BST_TR_1
+y-label: Force [N]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__CNT_FRC_BST_TR_2
+y-label: Force [N]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__CNT_FRC_BST_TR_CALC
+y-label: Force [N]
+TO spec: yes
+max load: 910
+min load: -910
+Fatigue load spec: no
+
+-> Variable info
+name: rs__CNT_DST_COL
+y-label: Displ. [%]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__CNT_DST_LAT
+y-label: Displ. [%]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__CNT_DST_LNG
+y-label: Displ. [%]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__CNT_DST_PED
+y-label: Displ. [%]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: di__CNT_DST_COL
+y-label: Vel. [%/s]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: di__CNT_DST_LAT
+y-label: Vel. [%/s]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: di__CNT_DST_LNG
+y-label: Vel. [%/s]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__CNT_DST_BST_COL
+y-label: Displ. [mm]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__CNT_DST_BST_LAT
+y-label: Displ. [mm]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__CNT_DST_BST_LNG
+y-label: Displ. [mm]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__CNT_DST_BST_TR
+y-label: Displ. [mm]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: di__CNT_DST_BST_COL
+y-label: Displ. vel. [mm/s]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: di__CNT_DST_BST_LAT
+y-label: Displ. vel. [mm/s]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: di__CNT_DST_BST_LNG
+y-label: Displ. vel. [mm/s]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__HYD_PRS_1
+y-label: Pressure [bar]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__HYD_PRS_2
+y-label: Pressure [bar]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__HYD_TMP_1
+y-label: Temperature [degC]
+TO spec: yes
+max load: 80
+min load: 20
+Fatigue load spec: no
+
+-> Variable info
+name: rs__HYD_TMP_2
+y-label: Temperature [degC]
+TO spec: yes
+max load: 80
+min load: 20
+Fatigue load spec: no
+
+-> Variable info
+name: rs__HYD_TMP_TANK_1
+y-label: Temperature [degC]
+TO spec: yes
+max load: 80
+min load: 20
+Fatigue load spec: no
+
+-> Variable info
+name: rs__HYD_TMP_TANK_2
+y-label: Temperature [degC]
+TO spec: yes
+max load: 80
+min load: 20
+Fatigue load spec: no
+
+-> Variable info
+name: rs__ECS_TMP_BLEDA_VERI
+y-label: Temperature [degC]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__ECS_TMP_BLEDA_PRT
+y-label: Temperature [degC]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__ECS_TMP_BLEDA_TFIT
+y-label: Temperature [degC]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__ECS_TMP_BLEDA_FEEDT
+y-label: Temperature [degC]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__ECS_TMP_BLEDA_CTR
+y-label: Temperature [degC]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__ECS_TMP_BLEDA_NOZ_LH
+y-label: Temperature [degC]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__ECS_TMP_BLEDA_NOZ_RH
+y-label: Temperature [degC]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__RECO_TMP_INS_CTR
+y-label: Temperature [degC]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__FRW_TMP_FWD_MID
+y-label: Temperature [degC]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__FRW_TMP_FWD_RH
+y-label: Temperature [degC]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__FRW_TMP_AFT_LH
+y-label: Temperature [degC]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__FRW_TMP_AFT_RH
+y-label: Temperature [degC]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__MGB_TMP_SUS_FWD
+y-label: Temperature [degC]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__ENG_TMP_EDUCT
+y-label: Temperature [degC]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__ECS_TMP_LEDE_SUS_FWD_INN
+y-label: Temperature [degC]
+TO spec: no
+Fatigue load spec: no
+
+
+-> Variable info
+name: rs__ECS_TMP_LEDE_SUS_FWD_OUT
+y-label: Temperature [degC]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__ECS_TMP_LEDE_SUS_AFT
+y-label: Temperature [degC]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__ECS_TMP_LEDE_FRW
+y-label: Temperature [degC]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__ECS_TMP_LEDE_HYD
+y-label: Temperature [degC]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__ENG_TMP_CPT_AIR
+y-label: Temperature [degC]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__PFD_ARI_TMP_OAT
+y-label: Temperature [degC]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__DIU_ARI_IND_HYD_PRS_1_C
+y-label: [None]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__DIU_ARI_IND_HYD_PRS_2_C
+y-label: [None]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__VRU_DST_GPS_ALT
+y-label: Altitude [m]
+TO spec: no
+Fatigue load spec: no

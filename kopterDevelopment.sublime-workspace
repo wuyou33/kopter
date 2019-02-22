@@ -4,6 +4,26 @@
 		"selected_items":
 		[
 			[
+				"r_",
+				"r_value_compression"
+			],
+			[
+				"mean",
+				"mean_STG"
+			],
+			[
+				"me",
+				"mean_STG"
+			],
+			[
+				"calibr",
+				"calibrationErrorDataSet"
+			],
+			[
+				"def",
+				"def\tFunction"
+			],
+			[
 				"ful",
 				"fullScaleForce"
 			],
@@ -18,10 +38,6 @@
 			[
 				"est",
 				"est_force"
-			],
-			[
-				"mean",
-				"mean_force"
 			],
 			[
 				"ste",
@@ -106,10 +122,6 @@
 			[
 				"dataP",
 				"dataPartitionFlag"
-			],
-			[
-				"def",
-				"defs\tMethod"
 			],
 			[
 				"data",
@@ -502,18 +514,6 @@
 			[
 				"dataI",
 				"dataIdAbs"
-			],
-			[
-				"co",
-				"counter"
-			],
-			[
-				"dif",
-				"diff"
-			],
-			[
-				"coun",
-				"counterPlots"
 			]
 		]
 	},
@@ -523,7 +523,7 @@
 			"file": "fatigueData/main.py",
 			"settings":
 			{
-				"buffer_size": 33437,
+				"buffer_size": 30710,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -541,7 +541,7 @@
 			"file": "fatigueData/moduleAdditionalFunctions.py",
 			"settings":
 			{
-				"buffer_size": 70815,
+				"buffer_size": 78182,
 				"encoding": "UTF-8",
 				"line_ending": "Windows",
 				"name": "#"
@@ -557,11 +557,10 @@
 			}
 		},
 		{
-			"file": "fti/testsInitData/pistonEyeCal_26042018.vbs",
+			"file": "fti/testsInitData/pistonEyeCal_09102018.vbs",
 			"settings":
 			{
-				"buffer_size": 21429,
-				"encoding": "UTF-8",
+				"buffer_size": 24420,
 				"line_ending": "Windows"
 			}
 		},
@@ -605,7 +604,7 @@
 			"file": "fti/testsInitData/P3_FTI.vbs",
 			"settings":
 			{
-				"buffer_size": 20727,
+				"buffer_size": 18171,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -756,6 +755,8 @@
 	],
 	"file_history":
 	[
+		"/P/kopter/fti/testsInitData/pistonEyeCal_26042018.vbs",
+		"/P/kopter/fti/testsInitData/pistonEyeCal_18012019.vbs",
 		"/P/kopter/codingKnowledge/python.py",
 		"/P/kopter/fti/testsInitData/pistonEyeCal_09102018.vbs",
 		"/P/kopter/fti/testsInitData/pistonEyeCal.vbs",
@@ -881,9 +882,7 @@
 		"/P/10_code/abaqus-master/abaqus-master/mainParametricStudy.py",
 		"/P/10_code/latex/Cranfield_project.tex",
 		"/P/10_code/abaqus-master/abaqus-master/moduleCommon.py",
-		"/P/10_code/kopter/tolerances/dampingUncer.py",
-		"/P/10_code/versionsBackup/cleanDirs.py",
-		"/P/10_code/latex/settings/settingsProject_Personal.tex"
+		"/P/10_code/kopter/tolerances/dampingUncer.py"
 	],
 	"find":
 	{
@@ -902,6 +901,42 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"r_value",
+			"calibrationErrorDataset",
+			"_tension",
+			"regre_calibration",
+			"regre_tension",
+			"calibrationErrorDataset",
+			"np.mean(",
+			"[mean",
+			"mean",
+			"total",
+			"error_fs =",
+			"tension",
+			"PE",
+			"PE9",
+			"Piston Gauge 2_",
+			"Piston - Actuator G2_",
+			"Tension",
+			"Piston actuator G1_",
+			"Piston - Actuator_",
+			"Piston eye 1",
+			"Piston actuator G1_",
+			"Piston - Actuator_",
+			"Tension",
+			"Piston - Actuator_",
+			"Run 1",
+			"1200-1033063-AA SN5 (blue wire)\\Compression\\Run 1",
+			"_Compression",
+			"Compression",
+			"05",
+			"TR Actuator Force_",
+			"est_force =",
+			"mean",
+			"mean_STG_tension",
+			"+=",
+			"tension",
+			"calibrationErrorDataSet",
 			"PE26",
 			"pistonEyeCal_29012019",
 			"-PE",
@@ -993,43 +1028,7 @@
 			"pistonEyeCal_18012019",
 			"-PE",
 			"PE",
-			"pistonEyeCal",
-			"-PE",
-			"-PE17",
-			"-PE",
-			"17",
-			"PE16",
-			"Tension",
-			"0",
-			", Array",
-			"Array",
-			".tdms\",",
-			" _",
-			"eye",
-			"Piston eye",
-			"Tension",
-			"Piston Eye _",
-			"\"Piston Eye _",
-			"\"Piston Eye",
-			"Piston Eye",
-			" Eye",
-			"Tension1_0",
-			"Tension 2",
-			"Tension 1",
-			"Eye_0",
-			"_0",
-			"Array(commonAddress",
-			"Array",
-			" _0",
-			"_0",
-			"-Step-",
-			"FH 110",
-			"110",
-			",",
-			"-Compression",
-			"Compression",
-			"-Tension",
-			"L:\\MSH-Project Management Files\\Functional Engineering\\Test Division\\Test_Daten\\J17-03-Bench Tests\\P3-J17-03-BT0223\\01_Data_set\\02_STEPS\\csv100"
+			"pistonEyeCal"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1052,7 +1051,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -1061,26 +1060,27 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 33437,
+						"buffer_size": 30710,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								27858,
-								27858
+								23502,
+								23507
 							]
 						],
 						"settings":
 						{
 							"history_list_is_closing": true,
+							"save_is_dirty": true,
 							"spell_check": true,
 							"syntax": "Packages/Python/Python.sublime-syntax",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 7114.0,
+						"translation.y": 6247.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 11,
@@ -1122,15 +1122,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 70815,
+						"buffer_size": 78182,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								245,
-								245
+								2233,
+								2233
 							]
 						],
 						"settings":
@@ -1141,16 +1141,16 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 429.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 18,
+					"stack_index": 0,
 					"type": "text"
 				}
 			]
 		},
 		{
-			"selected": 7,
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -1180,7 +1180,7 @@
 						"translation.y": 16563.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
+					"stack_index": 16,
 					"type": "text"
 				},
 				{
@@ -1208,40 +1208,40 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 208.0,
+						"translation.y": 91.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 15,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
 					"buffer": 4,
-					"file": "fti/testsInitData/pistonEyeCal_26042018.vbs",
-					"semi_transient": false,
+					"file": "fti/testsInitData/pistonEyeCal_09102018.vbs",
+					"semi_transient": true,
 					"settings":
 					{
-						"buffer_size": 21429,
+						"buffer_size": 24420,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1994,
-								1994
+								23314,
+								23314
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/VBScript/VBScript.tmLanguage",
-							"tab_size": 2,
+							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 2133.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
@@ -1268,10 +1268,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2614.0,
+						"translation.y": 17.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
@@ -1301,7 +1301,7 @@
 						"translation.y": 585.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
@@ -1331,7 +1331,7 @@
 						"translation.y": 3.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 15,
 					"type": "text"
 				},
 				{
@@ -1359,7 +1359,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 14,
 					"type": "text"
 				},
 				{
@@ -1368,7 +1368,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 20727,
+						"buffer_size": 18171,
 						"regions":
 						{
 						},
@@ -1386,10 +1386,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 3186.0,
+						"translation.y": 2991.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 12,
 					"type": "text"
 				}
 			]
@@ -1404,15 +1404,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 33437,
+						"buffer_size": 30710,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								7968,
-								7968
+								546,
+								531
 							]
 						],
 						"settings":
@@ -1424,7 +1424,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 16,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
@@ -1440,8 +1440,8 @@
 						"selection":
 						[
 							[
-								2300,
-								2300
+								6217,
+								6217
 							]
 						],
 						"settings":
@@ -1451,10 +1451,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 60.0,
-						"translation.y": 775.0,
+						"translation.y": 2099.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 17,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -1463,15 +1463,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 70815,
+						"buffer_size": 78182,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								31710,
-								31657
+								71358,
+								71358
 							]
 						],
 						"settings":
@@ -1480,16 +1480,16 @@
 							"syntax": "Packages/Python/Python.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 7713.0,
+						"translation.y": 17303.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 12,
+					"stack_index": 1,
 					"type": "text"
 				}
 			]
 		},
 		{
-			"selected": 3,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -1505,8 +1505,8 @@
 						"selection":
 						[
 							[
-								46182,
-								46182
+								54032,
+								54269
 							]
 						],
 						"settings":
@@ -1516,10 +1516,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 16869.0,
+						"translation.y": 18779.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -1547,7 +1547,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 13,
+					"stack_index": 17,
 					"type": "text"
 				},
 				{
@@ -1563,8 +1563,8 @@
 						"selection":
 						[
 							[
-								18,
-								18
+								545,
+								545
 							]
 						],
 						"settings":
@@ -1575,7 +1575,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 10,
 					"type": "text"
 				},
 				{
@@ -1603,7 +1603,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 13,
 					"type": "text"
 				},
 				{
@@ -1631,7 +1631,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 14,
+					"stack_index": 18,
 					"type": "text"
 				},
 				{
@@ -1660,7 +1660,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 9,
 					"type": "text"
 				}
 			]
@@ -1706,13 +1706,13 @@
 		"cols":
 		[
 			0.0,
-			0.201994939498,
+			0.757346621455,
 			1.0
 		],
 		"rows":
 		[
 			0.0,
-			0.696347031963,
+			0.492694063926,
 			1.0
 		]
 	},
@@ -1763,7 +1763,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 1,
+	"selected_group": 0,
 	"settings":
 	{
 	},

@@ -131,6 +131,10 @@ fileNamesBigArrayFolders = Array( _
     , Array(commonAddress&"P3-J17-0008\FTI\Run2\", "113-FT08", Array("fti_20190111124045_pp.tdms")) _
     , Array(commonAddress&"P3-J17-0009\FTI\Run1\", "114-FT09", Array("fti_20190115085153_pp.tdms")) _
     , Array(commonAddress&"P3-J17-0010\FTI\Run1\", "115-FT10", Array("fti_20190116085245_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0011\FTI\Run1\", "116-FT11", Array("fti_20190214122848_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0012\FTI\Run1\", "117-FT12", Array("fti_20190214144648_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0012\FTI\Run2\", "118-FT12", Array("fti_20190215092237_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0013\FTI\Run1\", "119-FT13", Array("fti_20190215130546_pp.tdms")) _
   )
 
 ' Identified errors - P3!!!
@@ -138,126 +142,13 @@ fileNamesBigArrayFolders = Array( _
 ' -> 78-FT17 contains NOVALUE for CNT_DST_BST_LNG and CNT_DST_BST_COL
 
 ' The variable iterators is used to load and operate only selected steps from above
-' iterators = Array("1312")
-' iterators = Array("1-SN002-1.1","2-SN002-1.2","3-SN002-1.3","4-SN002-1.6","5-SN002-2.3.1","6-SN002-2.3.2","7-SN002-2.3.3","8-SN002-2.4"_
-'                 , "9-SN0012-1.1", "10-SN0012-1.3", "11-SN0012-1.6", "12-SN0012-2.3", "13-SN0012-2.4" _
-'                 )
-iterators_base = Array( _ 
-            "1-RC" _
-          , "2-RC" _
-          , "3-RC" _
-          , "4-RC" _
-          , "5-RC" _
-          , "6-RC" _
-          , "7-GR01" _
-          , "8-GR02" _
-          , "9-GR02" _
-          , "10-GR03" _
-          , "11-GR03" _
-          , "12-GR03" _
-          , "13-GR04" _
-          , "14-GR05" _
-          , "15-GR05" _
-          , "16-GR05" _
-          , "17-GR05" _
-          , "18-GR05" _
-          , "19-GR05" _
-          , "20-GR05" _
-          , "21-GR05" _
-          , "22-GR05" _
-          , "23-GR06" _
-          , "24-GR06" _
-          , "25-GR06" _
-          , "26-GR06" _
-          , "27-GR06" _
-          , "28-GR06" _
-          , "29-GR07" _
-          , "30-GR07" _
-          , "31-GR07" _
-          , "32-GR07" _
-          , "33-GR07" _
-          , "34-GR08" _
-          , "35-GR09" _
-          , "36-GR09" _
-          , "37-GR09" _
-          , "38-GR09" _
-          , "39-GR09" _
-          , "40-GR09" _
-          , "41-GR09" _
-          , "42-GR09" _
-          , "43-GR09" _
-          , "44-GR09" _
-          , "45-GR09" _
-          , "46-GR09" _
-          , "47-GR09" _
-          , "48-GR09" _
-          , "49-GR10" _
-          , "50-GR10" _
-          , "51-GR10" _
-          , "52-GR10" _
-          , "53-GR10" _
-          , "54-GR10" _
-          , "55-GR10" _
-          , "56-GR10" _
-          , "57-GR11" _
-          , "58-GR11" _
-          , "59-GR11" _
-          , "60-GR11" _
-          , "61-GR11" _
-          , "62-GR12" _
-          , "63-GR12" _
-          , "64-GR12" _
-          , "65-GR12" _
-          , "66-GR12" _
-          , "67-GR13" _
-          , "68-GR13" _
-          , "69-GR13" _
-          , "70-GR14" _
-          , "71-GR14" _
-          , "72-GR14" _
-          , "73-GR14" _
-          , "74-GR15" _
-          , "75-GR15" _
-          , "76-GR16" _
-          , "77-GR17" _
-          , "78-GR17" _
-          , "79-GR18" _
-          , "80-GR18" _
-          , "81-GR18" _
-          , "82-GR19" _
-          , "83-GR19" _
-          , "84-GR20" _
-          , "85-GR20" _
-          , "86-GR21" _
-          , "87-GR22" _
-          , "88-GR22" _
-          , "89-GR22" _
-          , "90-GR22" _
-          , "91-GR22" _
-          , "92-GR22" _
-          , "93-GR23" _
-          , "94-GR23" _
-          , "95-GR23" _
-          , "96-GR24" _
-          , "97-GR24" _
-          , "98-GR25" _
-          , "99-GR25" _
-          , "100-FT01" _
-          , "101-FT02" _
-          , "102-FT03" _
-          , "103-FT03" _
-          , "104-FT04" _
-          , "105-FT04" _
-          , "106-FT05" _
-          , "107-FT05" _
-          , "108-FT05" _
-          , "108-FT05" _
-)
 
-' iterators = Array("100-FT01", "101-FT02")
-' iterators = Array("102-FT03", "103-FT03")
-' iterators = Array("104-FT04", "105-FT04", "106-FT05", "107-FT05", "108-FT05")
-iterators = Array("114-FT09", "115-FT10")
+iterators = Array(_
+                    "116-FT11" _
+                  , "117-FT12" _
+                  , "118-FT12" _
+                  , "119-FT13" _
+                  )
 ' iterators = Array("08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28")
 ' iterators = Array("08")
 
