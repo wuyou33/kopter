@@ -1,2 +1,7 @@
 Modify path
 setx /M PATH "C:\Program Files\ffmpeg\bin;%PATH%"
+
+Sublime Text
+[
+	{ "keys": ["ctrl+e"], "command": "toggle_comment", "args": { "block": false } }
+]

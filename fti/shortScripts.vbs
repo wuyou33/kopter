@@ -11,11 +11,22 @@ Next
 ' --------------------------------------------------
 
 ' Delete all the previous groups
-' Call Data.Root.Clear()
+Call Data.Root.Clear()
 
 
-' For Each fileNameDataInput in filesNamesDataInput
+For Each fileNameDataInput in filesNamesDataInput
 
-'   Include(CurrentScriptPath&fileNameDataInput) 'Old housing P3
+  Include(CurrentScriptPath&fileNameDataInput) 'Old housing P3
 
-' Next
+Next
+
+' Get fragments of variables from DIAdem3
+
+startIndex = 1192 * (1/0.00195312)
+length = 2*1/0.00195312
+Call ChnFlagSet("[19]/CNT_FRC_CNRD_BLU", startIndex, length, True)
+Call ChnFlagSet("[19]/CNT_FRC_CNRD_BLK", startIndex, length, True)
+Call ChnFlagSet("[19]/CNT_FRC_CNRD_GLD", startIndex, length, True)
+Call ChnFlagSet("[19]/CNT_FRC_BST_COL", startIndex, length, True)
+Call ChnFlagSet("[19]/CNT_FRC_BST_LAT", startIndex, length, True)
+Call ChnFlagSet("[19]/CNT_FRC_BST_LNG", startIndex, length, True)

@@ -2,10 +2,10 @@ Set oFSO = CreateObject("Scripting.FileSystemObject")
 Set dictVaDiadem = CreateObject("Scripting.Dictionary")
 
 ' Where the raw data will be saved in "TMD" format
-workingFolder = "L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0223\01_Data_set\02_STEPS\csv100\"
+workingFolder = "L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0223 - Vers.3 Rev.D\01_Data_set\02_STEPS\csv100\"
 
 ' Where the data will be saved in csv format
-csvFolder = "L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0223\01_Data_set\02_STEPS\csv100\"
+csvFolder = "L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0223 - Vers.3 Rev.D\01_Data_set\02_STEPS\csv100\"
 
 filesNames = Array("Druck_HP_1_[bar].tdms", "Druck_HP_2_[bar].tdms"_
                   , "Durchfluss_HP_1_[l_min].tdms", "Durchfluss_HP_2_[l_min]_.tdms"_
@@ -18,7 +18,7 @@ filesNames = Array("Druck_HP_1_[bar].tdms", "Druck_HP_2_[bar].tdms"_
 ' filesNames = Array("Force_Piston_Eye_HP1_[N].tdms", "Force_Piston_Eye_HP2_[N].tdms")
 
 ' These are the folders where the data that wants to be imported is contained. Each folder correspond to a differt time step
-commonAddress = "L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0223\01_Data_set\01_RAW\"
+commonAddress = "L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0223 - Vers.3 Rev.D\01_Data_set\01_RAW\"
 fileNamesBigArrayFolders = Array( _
     Array(commonAddress & "Step 1.1\2018-10-10_144346\", "1-Step-1.1", filesNames) _
   , Array(commonAddress & "Step 1.1 Repeat\2018-10-30_174628\", "29-Step-1.1-Repeat", filesNames) _

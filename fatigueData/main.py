@@ -367,6 +367,7 @@ if gaugesFlag or tmdsFlag:
 			Show exceedances on collective force for the actuator
 			CMD: python main.py -f filesToLoad_general_P3_FTI.txt -v CNT_FRC_BST_LAT,CNT_FRC_BST_LNG,CNT_FRC_BST_COL -m rs -o t -s f,t -a 17 -n 2 -r 100-FT01,101-FT02,102-FT03,103-FT03,104-FT04,105-FT04,106-FT05,107-FT05,108-FT05,109-FT06,110-FT06,111-FT07,112-FT08,113-FT08,114-FT09,115-FT10 -l t
 			130 bar python main.py -f filesToLoad_general_P3_FTI_130bar.txt -v CNT_FRC_BST_LAT,CNT_FRC_BST_LNG,CNT_FRC_BST_COL -m rs -o t -a 17 -n 2 -r 115-FT10,116-FT11,117-FT12,118-FT12,119-FT13
+			120 bar python main.py -f filesToLoad_general_P3_FTI_120bar.txt -v CNT_FRC_BST_LAT,CNT_FRC_BST_LNG,CNT_FRC_BST_COL -m rs -o t -a 17 -n 2 -r 100-FT01,101-FT02,102-FT03,103-FT03,104-FT04,105-FT04,106-FT05,107-FT05,108-FT05,109-FT06,110-FT06,111-FT07,112-FT08,113-FT08,114-FT09,115-FT10,116-FT11,117-FT12,118-FT12,119-FT13
 			"""
 
 			dataAdditional = dataFromGaugesSingleMagnitudeClass('TimeOutsideEnvelope_COL', 'rs', testFactor, orderDeriv)
@@ -409,153 +410,8 @@ if gaugesFlag or tmdsFlag:
 			Use kinematic model to extract position of the input lever based on valve and piston displacements measurement 
 			CMD: python main.py -f filesToLoad_general_actuatorPerformance.txt -m rs -a 21 -g t -r 59-Step-3.1-90FH-cold -v PistonDispl,ValveDispl
 			"""
-			
-			# Data Classes
-			dataPistonDispl = [temp for temp in dataClasses if temp.get_description() == 'PistonDispl'][0]
-			dataValveDispl = [temp for temp in dataClasses if temp.get_description() == 'ValveDispl'][0]
 
-			from scipy.optimize import fsolve
-
-			l1 = float(inputDataClass.get_variablesInfoDict()['testData']['l1'])
-			l2 = float(inputDataClass.get_variablesInfoDict()['testData']['l2'])
-			l3 = float(inputDataClass.get_variablesInfoDict()['testData']['l3'])
-			phi = float(inputDataClass.get_variablesInfoDict()['testData']['phi'])
-			phi_rad = phi * (np.pi/180)
-			l4 = np.sqrt( (l1*np.sin(phi_rad))**2 + (l2 + (l1*np.cos(phi_rad)))**2 )
-
-			def func_xy2_x1x4(x, *input_parameters):
-				l2, l3, x1, x4 = input_parameters
-
-				eqn1 = (l3 + x1 - x[0])**2 + (l2 - x[1])**2 - l2**2
-				eqn2 = (x4 - x[0])**2 + x[1]**2 - l3**2
-				
-				out = [eqn1]
-				out.append(eqn2)
-				return out
-
-			def func_xy3_x1x2y2(x, *input_parameters):
-				l1, l2, l4, x1, x2, y2 = input_parameters
-
-				eqn1 = (x[0] - x2)**2 + (x[1] - y2)**2 - l1**2
-				eqn2 = (x[0] - (l3 +x1))**2 + (x[1] - l2)**2 - l4**2
-				
-				out = [eqn1]
-				out.append(eqn2)
-				return out
-
-			x2_list, y2_list, x3_list, y3_list = [], [], [], []
-			x0_nextIter_x2, x0_nextIter_y2, x0_nextIter_x3, x0_nextIter_y3 = l3, 0.0, l3 + l1*np.sin(phi_rad), -l1*np.cos(phi_rad)
-			
-			for x1, x4 in zip(dataPistonDispl.get_rs(), dataValveDispl.get_rs()):
-
-				# Get point (2) position
-				data_xy2_x1x4 = (l2, l3, x1, x4)
-				x_y_2 = fsolve(func_xy2_x1x4, [x0_nextIter_x2, x0_nextIter_y2], args = data_xy2_x1x4)
-
-				x2_list += [ x_y_2[0] ]
-				y2_list += [ x_y_2[1] ]
-
-				x0_nextIter_x2 = x_y_2[0]
-				x0_nextIter_y2 = x_y_2[1]
-
-				# Get point (3) position
-				data_xy3_x1x2y2 = (l1, l2, l4, x1, x_y_2[0], x_y_2[1])
-				x_y_3 = fsolve(func_xy3_x1x2y2, [x0_nextIter_x3, x0_nextIter_y3], args = data_xy3_x1x2y2)
-
-				x3_list += [ x_y_3[0] ]
-				y3_list += [ x_y_3[1] ]
-
-				x0_nextIter_x3 = x_y_3[0]
-				x0_nextIter_y3 = x_y_3[1]
-
-			results ={	'x_P4' : len(dataValveDispl.get_rs()) * [0.0], 'y_P4': [-1*t for t in dataValveDispl.get_rs()],
-						'x_P2' : y2_list, 'y_P2': [-1*t for t in x2_list],
-						'x_P3' : y3_list, 'y_P3': [-1*t for t in x3_list],
-						'x_P1' : len(dataPistonDispl.get_rs()) * [l2], 'y_P1': [-1*(l3+p) for p in dataPistonDispl.get_rs()]}
-
-			
-			# Figure initialization 
-			figure, ax = plt.subplots(1, 1, sharex='col', sharey='col')
-			figure.set_size_inches(16, 10, forward=True)
-			figure.suptitle('Kinematic model input lever actuator (Axes transformed)', **plotSettings['figure_title'])
-
-			ax.plot( results['x_P2'], results['y_P2'], linestyle = '', marker = 'o', c = plotSettings['colors'][0], label = 'Point 2', **plotSettings['line'])
-			ax.plot( results['x_P3'], results['y_P3'], linestyle = '', marker = 'o', c = plotSettings['colors'][1], label = 'Point 3', **plotSettings['line'])
-			ax.plot( results['x_P1'], results['y_P1'], linestyle = '', marker = 'o', c = plotSettings['colors'][2], label = 'Point 1', **plotSettings['line'])
-			ax.plot( results['x_P4'], results['y_P4'], linestyle = '', marker = 'o', c = plotSettings['colors'][3], label = 'Point 4', **plotSettings['line'])
-
-			ax.set_xlabel('X axis', **plotSettings['axes_x'])
-			ax.set_ylabel('Y axis', **plotSettings['axes_y'])
-			ax.legend(**plotSettings['legend'])
-			usualSettingsAX(ax, plotSettings)
-
-			nFrames = 50
-			data_samplingFreq = 100.0#np.power(float(CMDoptionsDict['flightTestInfo']['data_samplingFreq']), -1)
-			time_vector = get_timeVectorClass(dataPistonDispl, 0)
-			fps_outputVideo = int(np.power(nFrames*data_samplingFreq, -1))
-			indexFrames = range(0, len(time_vector), nFrames)
-			freqPlot = np.power(time_vector[indexFrames[1]] - time_vector[indexFrames[0]], -1)
-			
-			# fig, ax = plt.subplots(1, 1, sharex='col', sharey='col')
-			# fig.set_size_inches(14, 10, forward=True)
-			# fig.suptitle('Data visualization replay FT106, screen feed freq.: %.3f Hz' % freqPlot, **plotSettings['figure_title'])
-			# ax.grid(which='both', **plotSettings['grid'])
-			# ax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])
-			# ax.minorticks_on()
-			# plot_P1, = ax.plot([], [], 'ko', animated=True)
-			# plot_P2, = ax.plot([], [], 'ro', animated=True)
-			# plot_P3, = ax.plot([], [], 'mo', animated=True)
-			# plot_P4, = ax.plot([], [], 'bo', animated=True)
-			# time_text = ax.text(0.6, 0.95, '', transform=ax.transAxes)
-			# x_P1, y_P1 = [], []
-			# x_P2, y_P2 = [], []
-			# x_P3, y_P3 = [], []
-			# x_P4, y_P4 = [], []
-
-			# def initForces():
-			# 	global CMDoptionsDict
-
-			# 	#Cyclic
-			# 	ax.set_xlabel('X axis', **plotSettings['axes_x'])
-			# 	ax.set_ylabel('Y axis', **plotSettings['axes_y'])
-			# 	time_text.set_text('')
-				
-			# 	return plot_P1, plot_P2, plot_P3, plot_P4, time_text
-
-			# def animateForce(frame):
-			# 	global results, time_vector
-
-			# 	currentTime = time_vector[frame]
-				
-			# 	# P1
-			# 	x_P1.append(results['x_P1'][frame])
-			# 	y_P1.append(results['y_P1'][frame])
-			# 	plot_P1.set_data(x_P1[-5:], y_P1[-5:])
-
-			# 	# P2
-			# 	x_P2.append(results['x_P2'][frame])
-			# 	y_P2.append(results['y_P2'][frame])
-			# 	plot_P2.set_data(x_P2[-5:], y_P2[-5:])
-
-			# 	# P3
-			# 	x_P3.append(results['x_P3'][frame])
-			# 	y_P3.append(results['y_P3'][frame])
-			# 	plot_P3.set_data(x_P3[-5:], y_P3[-5:])
-
-			# 	# P4
-			# 	x_P4.append(results['x_P4'][frame])
-			# 	y_P4.append(results['y_P4'][frame])
-			# 	plot_P4.set_data(x_P4[-5:], y_P4[-5:])
-				
-			# 	time_text.set_text('current time = %.3f s' % currentTime)
-				
-			# 	return plot_P1, plot_P2, plot_P3, plot_P4, time_text
-
-			# print('\n' +'-> Recording video...')
-			# anim = animation.FuncAnimation(fig, animateForce, interval = 0.1,frames=indexFrames, init_func=initForces, repeat= False, blit=True)
-			# Writer = animation.writers['ffmpeg']
-			# writer = Writer(fps= fps_outputVideo, metadata=dict(artist='Alejandro Valverde', title='FT106'), bitrate=400)
-			# anim.save('P:\\11_J67\\23_Modelling\\Kinematic model\\kinematic_model_actuator.mpeg', writer=writer)
+			kinematicModelInputLever(dataClasses, inputDataClass, plotSettings, CMDoptionsDict)
 
 		elif CMDoptionsDict['additionalCalsOpt'] == 22:
 			"""
@@ -565,6 +421,22 @@ if gaugesFlag or tmdsFlag:
 			optionCal = 'twoSlopes' #'oneSlope' or 'twoSlopes'
 
 			calibrationFullScaleError(optionCal, dataClasses, inputDataClass, plotSettings, CMDoptionsDict)
+
+		elif CMDoptionsDict['additionalCalsOpt'] == 23:
+
+			"""
+			CMD: python main.py -f filesToLoad_general_P3_FTI.txt -m rs -g t -a 23 -n 2 -v CNT_FRC_BST_COL,CNT_FRC_BST_LNG,CNT_FRC_BST_LAT,CNT_FRC_BST_TR_CALC -r 113-FT08
+			python main.py -f filesToLoad_general_P3_FTI.txt -m rs -g t -a 23 -n 2 -v CNT_FRC_BST_COL,CNT_FRC_BST_LNG,CNT_FRC_BST_LAT,CNT_FRC_BST_TR_CALC -r 113-FT08
+			"""
+
+			FRC_dofs = [temp.get_description() for temp in dataClasses if 'CNT_FRC_BST_' in temp.get_description()]
+			for dof in FRC_dofs:
+				data_current_dof = [temp for temp in dataClasses if temp.get_description() == dof][0]
+				dataAdditional = dataFromGaugesSingleMagnitudeClass('SpoolDispl_'+dof.replace('CNT_FRC_BST_',''), 'rs', testFactor, orderDeriv)
+				dataAdditional.addDataManual9(dataClasses, inputDataClass, data_current_dof)
+				dataClasses += (dataAdditional, )
+			
+			plottingLoop(dataClasses, inputDataClass, plotSettings, CMDoptionsDict)
 
 	os.chdir(cwd)
 

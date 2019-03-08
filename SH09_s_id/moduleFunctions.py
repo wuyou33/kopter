@@ -187,7 +187,8 @@ class testClassDef(object):
 				std_regre2, sjj_regre2 = standRegressor(regre2)
 				std_z, szz_z = standRegressor(z)
 
-				std_X = np.hstack((np.ones_like(regre1), std_regre1, -std_regre2))
+				# std_X = np.hstack((np.ones_like(regre1), std_regre1, -std_regre2)) #Seems to be incorrect 08.03.2019
+				std_X = np.hstack((std_regre1, -std_regre2)) #Correction 08.03.2019
 
 				N = std_z.shape[0]
 				n_p = std_X.shape[1] #Shall be equal to 2
@@ -196,7 +197,9 @@ class testClassDef(object):
 				std_theta_est = np.matmul(np.matmul(std_D, std_X.T), std_z)
 
 				# Get estimation not standard
-				theta_est = np.array([[float(std_theta_est[0]) * np.sqrt(szz_z)], [float(std_theta_est[1]) * np.sqrt(szz_z/sjj_regre1)], [float(std_theta_est[2]) * np.sqrt(szz_z/sjj_regre2)]])				
+				theta_est_0 = np.mean(z) - ( (float(std_theta_est[0]) * np.sqrt(szz_z/sjj_regre1) * np.mean(regre1)) + (float(std_theta_est[1])  * np.sqrt(szz_z/sjj_regre2) * np.mean(regre2)) ) #Correction 08.03.2019
+				# theta_est = np.array([[float(std_theta_est[0]) * np.sqrt(szz_z)], [float(std_theta_est[1]) * np.sqrt(szz_z/sjj_regre1)], [float(std_theta_est[2]) * np.sqrt(szz_z/sjj_regre2)]]) #Seems to be incorrect 08.03.2019		
+				theta_est = np.array([[theta_est_0], [float(std_theta_est[0]) * np.sqrt(szz_z/sjj_regre1)], [float(std_theta_est[1]) * np.sqrt(szz_z/sjj_regre2)]]) #Correction 08.03.2019	
 
 				# Get residuals and y_est
 				X = np.hstack((np.ones_like(regre1), regre1, -regre2))

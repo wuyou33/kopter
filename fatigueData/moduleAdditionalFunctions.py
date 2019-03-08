@@ -1290,6 +1290,8 @@ def getFlowGainCurve(dataClasses, inputDataClass, plotSettings, CMDoptionsDict):
 
 			# regre = np.polyfit(np.linspace(0, nPoints, num = nPoints+1).tolist(), [j-np.mean(vector_forces) for j in vector_forces], 2)[0]
 			# mean_vector_valve = np.mean(vector_valve)
+
+			# Calculate slope of points around current point
 			newX, newY = getNewVectorWithoutOutliers(vector_time,vector_valve)
 			regre = np.polyfit(newX, newY, 1)
 			# regre_fn = np.poly1d(regre)
@@ -1454,3 +1456,152 @@ def calibrationFullScaleError(optionCal, dataClasses, inputDataClass, plotSettin
 	if CMDoptionsDict['saveFigure']:
 
 		figure.savefig(os.path.join(CMDoptionsDict['cwd'], 'CalibrationResults_'+stepName.split('-')[1].split('_')[0]), dpi = plotSettings['figure_settings']['dpi'])
+
+def kinematicModelInputLever(dataClasses, inputDataClass, plotSettings, CMDoptionsDict):
+	
+	# Data Classes
+	dataPistonDispl = [temp for temp in dataClasses if temp.get_description() == 'PistonDispl'][0]
+	dataValveDispl = [temp for temp in dataClasses if temp.get_description() == 'ValveDispl'][0]
+
+	from scipy.optimize import fsolve
+
+	l1 = float(inputDataClass.get_variablesInfoDict()['testData']['l1'])
+	l2 = float(inputDataClass.get_variablesInfoDict()['testData']['l2'])
+	l3 = float(inputDataClass.get_variablesInfoDict()['testData']['l3'])
+	phi = float(inputDataClass.get_variablesInfoDict()['testData']['phi'])
+	phi_rad = phi * (np.pi/180)
+	l4 = np.sqrt( (l1*np.sin(phi_rad))**2 + (l2 + (l1*np.cos(phi_rad)))**2 )
+
+	def func_xy2_x1x4(x, *input_parameters):
+		l2, l3, x1, x4 = input_parameters
+
+		eqn1 = (l3 + x1 - x[0])**2 + (l2 - x[1])**2 - l2**2
+		eqn2 = (x4 - x[0])**2 + x[1]**2 - l3**2
+		
+		out = [eqn1]
+		out.append(eqn2)
+		return out
+
+	def func_xy3_x1x2y2(x, *input_parameters):
+		l1, l2, l4, x1, x2, y2 = input_parameters
+
+		eqn1 = (x[0] - x2)**2 + (x[1] - y2)**2 - l1**2
+		eqn2 = (x[0] - (l3 +x1))**2 + (x[1] - l2)**2 - l4**2
+		
+		out = [eqn1]
+		out.append(eqn2)
+		return out
+
+	x2_list, y2_list, x3_list, y3_list = [], [], [], []
+	x0_nextIter_x2, x0_nextIter_y2, x0_nextIter_x3, x0_nextIter_y3 = l3, 0.0, l3 + l1*np.sin(phi_rad), -l1*np.cos(phi_rad)
+	
+	for x1, x4 in zip(dataPistonDispl.get_rs(), dataValveDispl.get_rs()):
+
+		# Get point (2) position
+		data_xy2_x1x4 = (l2, l3, x1, x4)
+		x_y_2 = fsolve(func_xy2_x1x4, [x0_nextIter_x2, x0_nextIter_y2], args = data_xy2_x1x4)
+
+		x2_list += [ x_y_2[0] ]
+		y2_list += [ x_y_2[1] ]
+
+		x0_nextIter_x2 = x_y_2[0]
+		x0_nextIter_y2 = x_y_2[1]
+
+		# Get point (3) position
+		data_xy3_x1x2y2 = (l1, l2, l4, x1, x_y_2[0], x_y_2[1])
+		x_y_3 = fsolve(func_xy3_x1x2y2, [x0_nextIter_x3, x0_nextIter_y3], args = data_xy3_x1x2y2)
+
+		x3_list += [ x_y_3[0] ]
+		y3_list += [ x_y_3[1] ]
+
+		x0_nextIter_x3 = x_y_3[0]
+		x0_nextIter_y3 = x_y_3[1]
+
+	results ={	'x_P4' : len(dataValveDispl.get_rs()) * [0.0], 'y_P4': [-1*t for t in dataValveDispl.get_rs()],
+				'x_P2' : y2_list, 'y_P2': [-1*t for t in x2_list],
+				'x_P3' : y3_list, 'y_P3': [-1*t for t in x3_list],
+				'x_P1' : len(dataPistonDispl.get_rs()) * [l2], 'y_P1': [-1*(l3+p) for p in dataPistonDispl.get_rs()]}
+
+	
+	# Figure initialization 
+	figure, ax = plt.subplots(1, 1, sharex='col', sharey='col')
+	figure.set_size_inches(16, 10, forward=True)
+	figure.suptitle('Kinematic model input lever actuator (Axes transformed)', **plotSettings['figure_title'])
+
+	ax.plot( results['x_P2'], results['y_P2'], linestyle = '', marker = 'o', c = plotSettings['colors'][0], label = 'Point 2', **plotSettings['line'])
+	ax.plot( results['x_P3'], results['y_P3'], linestyle = '', marker = 'o', c = plotSettings['colors'][1], label = 'Point 3', **plotSettings['line'])
+	ax.plot( results['x_P1'], results['y_P1'], linestyle = '', marker = 'o', c = plotSettings['colors'][2], label = 'Point 1', **plotSettings['line'])
+	ax.plot( results['x_P4'], results['y_P4'], linestyle = '', marker = 'o', c = plotSettings['colors'][3], label = 'Point 4', **plotSettings['line'])
+
+	ax.set_xlabel('X axis', **plotSettings['axes_x'])
+	ax.set_ylabel('Y axis', **plotSettings['axes_y'])
+	ax.legend(**plotSettings['legend'])
+	usualSettingsAX(ax, plotSettings)
+
+	nFrames = 50
+	data_samplingFreq = 100.0#np.power(float(CMDoptionsDict['flightTestInfo']['data_samplingFreq']), -1)
+	time_vector = get_timeVectorClass(dataPistonDispl, 0)
+	fps_outputVideo = int(np.power(nFrames*data_samplingFreq, -1))
+	indexFrames = range(0, len(time_vector), nFrames)
+	freqPlot = np.power(time_vector[indexFrames[1]] - time_vector[indexFrames[0]], -1)
+	
+	# fig, ax = plt.subplots(1, 1, sharex='col', sharey='col')
+	# fig.set_size_inches(14, 10, forward=True)
+	# fig.suptitle('Data visualization replay FT106, screen feed freq.: %.3f Hz' % freqPlot, **plotSettings['figure_title'])
+	# ax.grid(which='both', **plotSettings['grid'])
+	# ax.tick_params(axis='both', which = 'both', **plotSettings['axesTicks'])
+	# ax.minorticks_on()
+	# plot_P1, = ax.plot([], [], 'ko', animated=True)
+	# plot_P2, = ax.plot([], [], 'ro', animated=True)
+	# plot_P3, = ax.plot([], [], 'mo', animated=True)
+	# plot_P4, = ax.plot([], [], 'bo', animated=True)
+	# time_text = ax.text(0.6, 0.95, '', transform=ax.transAxes)
+	# x_P1, y_P1 = [], []
+	# x_P2, y_P2 = [], []
+	# x_P3, y_P3 = [], []
+	# x_P4, y_P4 = [], []
+
+	# def initForces():
+	# 	global CMDoptionsDict
+
+	# 	#Cyclic
+	# 	ax.set_xlabel('X axis', **plotSettings['axes_x'])
+	# 	ax.set_ylabel('Y axis', **plotSettings['axes_y'])
+	# 	time_text.set_text('')
+		
+	# 	return plot_P1, plot_P2, plot_P3, plot_P4, time_text
+
+	# def animateForce(frame):
+	# 	global results, time_vector
+
+	# 	currentTime = time_vector[frame]
+		
+	# 	# P1
+	# 	x_P1.append(results['x_P1'][frame])
+	# 	y_P1.append(results['y_P1'][frame])
+	# 	plot_P1.set_data(x_P1[-5:], y_P1[-5:])
+
+	# 	# P2
+	# 	x_P2.append(results['x_P2'][frame])
+	# 	y_P2.append(results['y_P2'][frame])
+	# 	plot_P2.set_data(x_P2[-5:], y_P2[-5:])
+
+	# 	# P3
+	# 	x_P3.append(results['x_P3'][frame])
+	# 	y_P3.append(results['y_P3'][frame])
+	# 	plot_P3.set_data(x_P3[-5:], y_P3[-5:])
+
+	# 	# P4
+	# 	x_P4.append(results['x_P4'][frame])
+	# 	y_P4.append(results['y_P4'][frame])
+	# 	plot_P4.set_data(x_P4[-5:], y_P4[-5:])
+		
+	# 	time_text.set_text('current time = %.3f s' % currentTime)
+		
+	# 	return plot_P1, plot_P2, plot_P3, plot_P4, time_text
+
+	# print('\n' +'-> Recording video...')
+	# anim = animation.FuncAnimation(fig, animateForce, interval = 0.1,frames=indexFrames, init_func=initForces, repeat= False, blit=True)
+	# Writer = animation.writers['ffmpeg']
+	# writer = Writer(fps= fps_outputVideo, metadata=dict(artist='Alejandro Valverde', title='FT106'), bitrate=400)
+	# anim.save('P:\\11_J67\\23_Modelling\\Kinematic model\\kinematic_model_actuator.mpeg', writer=writer)

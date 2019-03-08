@@ -115,7 +115,7 @@ fileNamesBigArrayFolders = Array( _
     , Array(commonAddress&"P3-J17-0000-024\FTI\Run2\", "97-GR24", Array("fti_20181106162305_pp.tdms")) _
     , Array(commonAddress&"P3-J17-0000-025\FTI\Run1\", "98-GR25", Array("fti_20181110121623_pp.tdms")) _
     , Array(commonAddress&"P3-J17-0000-025\FTI\Run2\", "99-GR25", Array("fti_20181110125653_pp.tdms")) _
-    , Array(commonAddress&"P3-J17-0001-000\FTI\Run1\", "100-FT01", Array("fti_20181122132613_pp.tdms")) _
+    , Array(commonAddress&"P3-J17-0001\FTI\Run1\", "100-FT01", Array("fti_20181122132613_pp.tdms")) _
     , Array(commonAddress&"P3-J17-0002\FTI\Run1\", "101-FT02", Array("fti_20181123131614_pp.tdms")) _
     , Array(commonAddress&"P3-J17-0003\FTI\Run1\", "102-FT03", Array("fti_20181128125529_pp.tdms")) _
     , Array(commonAddress&"P3-J17-0003\FTI\Run2\", "103-FT03", Array("fti_20181128143532_pp.tdms")) _
@@ -143,45 +143,74 @@ fileNamesBigArrayFolders = Array( _
 
 ' The variable iterators is used to load and operate only selected steps from above
 
-iterators = Array(_
-                    "116-FT11" _
+iterators2 = Array(_
+                    "115-FT10" _
+                  , "116-FT11" _
                   , "117-FT12" _
                   , "118-FT12" _
                   , "119-FT13" _
                   )
+
+iterators = Array(_
+                      "100-FT01" _
+                    , "101-FT02" _
+                    , "102-FT03" _
+                    , "103-FT03" _
+                    , "104-FT04" _
+                    , "105-FT04" _
+                    , "106-FT05" _
+                    , "107-FT05" _
+                    , "108-FT05" _
+                    , "109-FT06" _
+                    , "110-FT06" _
+                    , "111-FT07" _
+                    , "112-FT08" _
+                    , "113-FT08" _
+                    , "114-FT09" _
+                    , "115-FT10" _
+                    , "116-FT11" _
+                    , "117-FT12" _
+                    , "118-FT12" _
+                    , "119-FT13" _
+                  )
 ' iterators = Array("08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28")
-' iterators = Array("08")
+' iterators = Array("113-FT08_HSR")
 
 ' variable names inside DIAdem -> variable names for the files to be saved
 ' This dictionary contains the original variable names as keys. For each key, a corresponding simplified name is assign and this will be used
 ' in the "csv" file name.
 ' The variable name has to be written without: spaces , . _ -
-dictVaDiadem.Add "CNT_FRC_BST_COL", "CNT_FRC_BST_COL"
-dictVaDiadem.Add "CNT_FRC_BST_LNG", "CNT_FRC_BST_LNG"
-dictVaDiadem.Add "CNT_FRC_BST_LAT", "CNT_FRC_BST_LAT"
-dictVaDiadem.Add "CNT_FRC_BST_TR_1", "CNT_FRC_BST_TR_1"
-dictVaDiadem.Add "CNT_FRC_BST_TR_2", "CNT_FRC_BST_TR_2"
-dictVaDiadem.Add "CNT_FRC_BST_TR_CALC", "CNT_FRC_BST_TR_CALC"
-dictVaDiadem.Add "CNT_DST_BST_COL", "CNT_DST_BST_COL"
-dictVaDiadem.Add "CNT_DST_BST_LAT", "CNT_DST_BST_LAT"
-dictVaDiadem.Add "CNT_DST_BST_LNG", "CNT_DST_BST_LNG"
-dictVaDiadem.Add "CNT_DST_BST_TR", "CNT_DST_BST_TR"
-dictVaDiadem.Add "CNT_DST_COL", "CNT_DST_COL"
-dictVaDiadem.Add "CNT_DST_LAT", "CNT_DST_LAT"
-dictVaDiadem.Add "CNT_DST_LNG", "CNT_DST_LNG"
-dictVaDiadem.Add "CNT_DST_PED", "CNT_DST_PED"
-dictVaDiadem.Add "HYD_PRS_1", "HYD_PRS_1"
-dictVaDiadem.Add "HYD_PRS_2", "HYD_PRS_2"
+' dictVaDiadem.Add "CNT_FRC_BST_COL", "CNT_FRC_BST_COL"
+' dictVaDiadem.Add "CNT_FRC_BST_LNG", "CNT_FRC_BST_LNG"
+' dictVaDiadem.Add "CNT_FRC_BST_LAT", "CNT_FRC_BST_LAT"
+' dictVaDiadem.Add "CNT_FRC_BST_TR_1", "CNT_FRC_BST_TR_1"
+' dictVaDiadem.Add "CNT_FRC_BST_TR_2", "CNT_FRC_BST_TR_2"
+' dictVaDiadem.Add "CNT_FRC_BST_TR_CALC", "CNT_FRC_BST_TR_CALC"
+' dictVaDiadem.Add "CNT_DST_BST_COL", "CNT_DST_BST_COL"
+' dictVaDiadem.Add "CNT_DST_BST_LAT", "CNT_DST_BST_LAT"
+' dictVaDiadem.Add "CNT_DST_BST_LNG", "CNT_DST_BST_LNG"
+' dictVaDiadem.Add "CNT_DST_BST_TR", "CNT_DST_BST_TR"
+' dictVaDiadem.Add "CNT_DST_COL", "CNT_DST_COL"
+' dictVaDiadem.Add "CNT_DST_LAT", "CNT_DST_LAT"
+' dictVaDiadem.Add "CNT_DST_LNG", "CNT_DST_LNG"
+' dictVaDiadem.Add "CNT_DST_PED", "CNT_DST_PED"
+' dictVaDiadem.Add "HYD_PRS_1", "HYD_PRS_1"
+' dictVaDiadem.Add "HYD_PRS_2", "HYD_PRS_2"
+' dictVaDiadem.Add "HYD_TMP_TANK_1", "HYD_TMP_TANK_1"
+' dictVaDiadem.Add "HYD_TMP_TANK_2", "HYD_TMP_TANK_2"
+
+' Old measurements HYD temperature
 ' dictVaDiadem.Add "HYD_TMP_1", "HYD_TMP_1"
 ' dictVaDiadem.Add "HYD_TMP_2", "HYD_TMP_2"
-dictVaDiadem.Add "HYD_TMP_TANK_1", "HYD_TMP_TANK_1"
-dictVaDiadem.Add "HYD_TMP_TANK_2", "HYD_TMP_TANK_2"
+
+' Altitute
 ' dictVaDiadem.Add "VRU_DST_GPS_ALT", "VRU_DST_GPS_ALT"
 
-' dictVaDiadem.Add "DIU_ARI_IND_HYD_PRS_1_C", "DIU_ARI_IND_HYD_PRS_1_C"
-' dictVaDiadem.Add "DIU_ARI_IND_HYD_PRS_2_C", "DIU_ARI_IND_HYD_PRS_2_C"
+' OAT
 ' dictVaDiadem.Add "PFD_ARI_TMP_OAT", "PFD_ARI_TMP_OAT"
 
+' Engine
+' dictVaDiadem.Add "MRSH_ARR_RPM_CALC", "MRSH_ARR_RPM_CALC"
 
 ' Temperature investigation upper deck
 ' dictVaDiadem.Add "FRW_TMP_FWD_MID", "FRW_TMP_FWD_MID" 'Kurt'
@@ -197,12 +226,16 @@ dictVaDiadem.Add "HYD_TMP_TANK_2", "HYD_TMP_TANK_2"
 ' dictVaDiadem.Add "ECS_TMP_LEDE_HYD", "ECS_TMP_LEDE_HYD" 'Kurt'
 ' dictVaDiadem.Add "ENG_TMP_CPT_AIR", "ENG_TMP_CPT_AIR" 'Kurt'
 
+' Pitot investigation
+dictVaDiadem.Add "ESIS_ARI_ANG_PITCH", "ESIS_ARI_ANG_PITCH"
+
 signalsToDif = Array("CNT_DST_BST_COL", "CNT_DST_BST_LNG", "CNT_DST_BST_LAT","CNT_DST_COL", "CNT_DST_LNG", "CNT_DST_LAT")
 
 FlagFTData = False
 ' FlagFTData = False
 
 ' newFreq = 0.1 'Hz'
+' newFreq = 2.5 'Hz'
 newFreq = 100 'Hz'
 
 loadScript_resampleFlag = True

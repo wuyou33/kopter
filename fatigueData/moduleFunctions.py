@@ -834,6 +834,8 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		Split data for variable in segments
 		"""
 
+		print('\n'+'-----> Data is going to be partitioned for variable '+self.__description)
+
 		indexDictForSteps, stepStrs = get_indexDictForSteps(self)
 
 		# Get applicable segments per 
@@ -845,10 +847,17 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		vectorNewRS, vectorNewRS_split,xCount,xCountLastStep, initialX = [], [], [], [], 0
 		for stepStr in self.__stepID:
 
+			print('\t-> For step ' + stepStr + ':')
+			
 			result = []
 			for divSegment in segsDict[stepStr]:
 
 				result += createSegmentsOf_rs_FromVariableClass(self, divSegment, indexDictForSteps[stepStr])[0]
+
+				# Summary of segment
+				max_rs_temp = max(result)
+				min_rs_temp = min(result)
+				print('\t-> Data summary for %5.2fs to %5.2fs (%5.2fs): max = %4.4f / min = %4.4f / delta = %4.4f' % (divSegment[0], divSegment[1], divSegment[1]-divSegment[0], max_rs_temp, min_rs_temp, max_rs_temp - min_rs_temp) )
 
 			temp = np.linspace(initialX+1, len(result)+initialX, num = len(result))
 			xCount += temp.tolist()
@@ -863,8 +872,6 @@ class dataFromGaugesSingleMagnitudeClass(object):
 
 		self.__xValues = xCount 
 		self.__xValuesNewRun = xCountLastStep
-
-		print('\n'+'-----> Data has been partitioned')
 
 		self.getTimeList(self.__mag)
 
@@ -1144,6 +1151,66 @@ class dataFromGaugesSingleMagnitudeClass(object):
 		variableDict = {'y-label' : 'Time [seconds]', 'TO spec' : 'no', 'Fatigue load spec' : 'no'}
 		inputDataClass.updateVariablesInfoDict(self.__mag+'__'+self.__description, variableDict)
 
+	def addDataManual9(self, dataClasses, inputDataClass, data_current_dof):
+
+		# Input variables
+		indexDictForSteps, stepStrs = get_indexDictForSteps(data_current_dof)
+		
+		# Lines of force gain curve
+		# 1
+		leverFactor = 1 / 1.5
+		cyclicFactorMaxForce = 700 / 1539 
+		cyclicFactorMinForce = -700 / -1237 
+
+		if '_COL' in data_current_dof.get_description():
+			FactorMaxForce = 1.0
+			FactorMinForce = 1.0
+		else:
+			FactorMaxForce = cyclicFactorMaxForce
+			FactorMinForce = cyclicFactorMinForce
+
+		# Collective limits
+		limitsDict = {  '1' : [ [-2475.22 	* FactorMinForce, -2.91		], [-2339.2 	* FactorMinForce, -1.0192]],
+						'2' : [ [-2339.2 	* FactorMinForce, -1.0192	], [-394.82  	* FactorMinForce, -0.661]],
+						'3' : [ [-394.82  	* FactorMinForce, -0.661	], [357.33 		* FactorMaxForce, 0.5382]],
+						'4' : [ [357.33 	* FactorMaxForce, 0.5382	], [3085.86 	* FactorMaxForce, 0.8355]],
+						'5' : [ [3085.86 	* FactorMaxForce, 0.8355	], [3165.88 	* FactorMaxForce, 2.4586]]
+						}
+		linesDict = {}
+		for key in limitsDict.keys():
+
+			regre = np.polyfit([limitsDict[key][0][0], limitsDict[key][1][0]], [limitsDict[key][0][1], limitsDict[key][1][1]], 1)
+			linesDict[key] = np.poly1d(regre)
+
+
+		vectorNewRS, vectorNewRS_split = [], []
+		for stepStr in stepStrs:
+
+			temp = []
+			for force in data_current_dof.get_rs_split()[indexDictForSteps[stepStr]]:
+				# Check force position
+				if not (force < limitsDict['1'][0][0] or force > limitsDict['5'][1][0]):
+					for key in linesDict.keys():
+						if force > limitsDict[key][0][0] and force < limitsDict[key][1][0]:
+							temp += [leverFactor * linesDict[key](force)]
+
+				else:
+					print('Points outside the envelope detected !!!')
+					temp += [leverFactor * limitsDict['5'][1][1] if force > limitsDict['5'][1][0] else leverFactor * limitsDict['1'][0][1]]
+
+			vectorNewRS_split += [temp]
+			vectorNewRS += temp
+
+		self.__rs = vectorNewRS
+		self.__rs_split = vectorNewRS_split
+		self.__freqData = data_current_dof.get_freqData()
+		self.__timeRs = data_current_dof.get_timeRs()
+		self.__timeSecNewRunRs = data_current_dof.get_timeSecNewRunRs()
+		self.__stepID = data_current_dof.get_stepID()
+
+		variableDict = {'y-label' : 'Displ. [mm]', 'TO spec' : 'no', 'Fatigue load spec' : 'no'}
+		inputDataClass.updateVariablesInfoDict(self.__mag+'__'+self.__description, variableDict)
+
 	def plotMaxMinMean_fromDIAdem(self, plotSettings):
 
 		figure, ax = plt.subplots(1, 1)
@@ -1213,6 +1280,9 @@ class dataFromGaugesSingleMagnitudeClass(object):
 
 		if not additionalInput[0]:
 			ax.plot( [t/self.__freqData[0] for t in self.__timeRs], self.__rs, linestyle = '-', marker = '', c = plotSettings['colors'][plotsDone], label = self.__description, **plotSettings['line'])
+			max_rs_temp = max(self.__rs)
+			min_rs_temp = min(self.__rs)
+			print('\t-> Data summary for '+self.__description+' : max = %4.4f / min = %4.4f / delta = %4.4f' % (max_rs_temp, min_rs_temp, max_rs_temp - min_rs_temp) )
 			plotsDone += 1
 		# Mean based on max and min
 		if not additionalInput[0] and self.__MinMax:
@@ -1229,6 +1299,7 @@ class dataFromGaugesSingleMagnitudeClass(object):
 					if dataClass.get_description() == additionalInputString:
 						ax.plot( [t/dataClass.get_freqData()[0] for t in dataClass.get_timeRs()], dataClass.get_rs(), linestyle = plotSettings['linestyles'][int(plotsDone/7)], marker = '', c = plotSettings['colors'][plotsDone], label = dataClass.get_description(), **plotSettings['line'])
 
+						print('\t-> Data summary for '+dataClass.get_description()+' : max = %3.4f / min = %3.4f' % (max(dataClass.get_rs()), min(dataClass.get_rs())) )
 						plotsDone += 1
 
 		# Test Order plots 

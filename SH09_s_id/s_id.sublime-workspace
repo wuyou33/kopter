@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"thet",
+				"theta_est_0"
+			],
+			[
+				"the",
+				"theta_est_0"
+			],
+			[
 				"wind",
 				"windowFunctionsDict"
 			],
@@ -280,16 +288,8 @@
 				"timeSegmentList"
 			],
 			[
-				"thet",
-				"theta_est"
-			],
-			[
 				"theta_2_",
 				"theta_2_min"
-			],
-			[
-				"the",
-				"theta_2_max"
 			],
 			[
 				"std",
@@ -533,7 +533,7 @@
 			"file": "moduleFunctions.py",
 			"settings":
 			{
-				"buffer_size": 69200,
+				"buffer_size": 69723,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -544,14 +544,6 @@
 			{
 				"buffer_size": 4416,
 				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "input_files_flightTestAnalysis/analysisActuatorCavitation_freq.txt",
-			"settings":
-			{
-				"buffer_size": 236,
 				"line_ending": "Windows"
 			}
 		},
@@ -577,8 +569,12 @@
 		"selected_items":
 		[
 			[
+				"pas",
+				"Text Pastry: From 0 To X"
+			],
+			[
 				"past",
-				"Text Pastry: From 1 To X"
+				"Text Pastry: From 0 To X"
 			],
 			[
 				"from",
@@ -766,6 +762,9 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"std_theta_est",
+			"theta_est_0",
+			"std_theta_est",
 			"n",
 			"settingsDict_FRF ={'x_frac' : 0.5, 'K' : 111, 'window' : 'bartlett','correlationPlotsFlag' : False}",
 			"np.bartlett",
@@ -890,10 +889,7 @@
 			"max",
 			"freq",
 			"freq ",
-			"freq",
-			"max",
-			"travel",
-			"(times_max[i] + times_min[i-1])/2"
+			"freq"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -917,7 +913,7 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -933,8 +929,8 @@
 						"selection":
 						[
 							[
-								188,
-								171
+								1746,
+								1746
 							]
 						],
 						"settings":
@@ -944,10 +940,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 780.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -956,15 +952,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 69200,
+						"buffer_size": 69723,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								7729,
-								7729
+								8252,
+								8252
 							]
 						],
 						"settings":
@@ -973,10 +969,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 2548.0,
+						"translation.y": 2561.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -1003,38 +999,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 351.0,
+						"translation.y": 663.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "input_files_flightTestAnalysis/analysisActuatorCavitation_freq.txt",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 236,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								122,
-								122
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
+					"stack_index": 4,
 					"type": "text"
 				}
 			]
@@ -1049,15 +1017,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 69200,
+						"buffer_size": 69723,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								69147,
-								69112
+								69670,
+								69635
 							]
 						],
 						"settings":
@@ -1066,14 +1034,14 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 19306.0,
+						"translation.y": 19345.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 3,
 					"file": "/P/kopter/fti/getFlightTestData.vbs",
 					"semi_transient": false,
 					"settings":
@@ -1099,41 +1067,6 @@
 						"translation.y": 1443.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
-					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 0,
-			"sheets":
-			[
-				{
-					"buffer": 1,
-					"file": "moduleFunctions.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 69200,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								30634,
-								30634
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 7516.0,
-						"zoom_level": 1.0
-					},
 					"stack_index": 5,
 					"type": "text"
 				}
@@ -1149,15 +1082,50 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 69200,
+						"buffer_size": 69723,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								53623,
-								53623
+								7753,
+								7753
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2340.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 1,
+					"file": "moduleFunctions.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 69723,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								10525,
+								10277
 							]
 						],
 						"settings":
@@ -1167,10 +1135,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 13616.0,
+						"translation.y": 3218.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -1216,13 +1184,13 @@
 		"cols":
 		[
 			0.0,
-			0.631363087572,
+			0.796988087572,
 			1.0
 		],
 		"rows":
 		[
 			0.0,
-			0.599543378992,
+			0.279940465865,
 			1.0
 		]
 	},
@@ -1269,7 +1237,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 0,
+	"selected_group": 2,
 	"settings":
 	{
 	},

@@ -9,34 +9,28 @@ corr_LAT: 1.54
 threshold_press_up: 85
 threshold_press_down: 5
 
-segment__118-FT12 : 2045, 2065; 2740, 2750; 3265, 3275; 2090, 2100; 2370, 2390; 2680, 2690
-segment__115-FT10 : 2234, 2242; 3220, 3230
-segment__113-FT08 : 2025, 2275; 2460, 2580; 2860, 3000
-segment__101-FT02 : 2290, 2300; 2334, 2341; 2504, 2510; 2625, 2629; 2802, 2808
-
-
 -> Variable info
 name: rs__CNT_FRC_BST_COL
 y-label: Force [N]
 TO spec: yes
-max load: 1539
-min load: -1237
+max load: 1846.8
+min load: -1484.4
 Fatigue load spec: no
 
 -> Variable info
 name: rs__CNT_FRC_BST_LAT
 y-label: Force [N]
 TO spec: yes
-max load: 700
-min load: -700
+max load: 840
+min load: -840
 Fatigue load spec: no
 
 -> Variable info
 name: rs__CNT_FRC_BST_LNG
 y-label: Force [N]
 TO spec: yes
-max load: 700
-min load: -700
+max load: 840
+min load: -840
 Fatigue load spec: no
 
 -> Variable info
@@ -55,8 +49,8 @@ Fatigue load spec: no
 name: rs__CNT_FRC_BST_TR_CALC
 y-label: Force [N]
 TO spec: yes
-max load: 700
-min load: -700
+max load: 840
+min load: -840
 Fatigue load spec: no
 
 -> Variable info

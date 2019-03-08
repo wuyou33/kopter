@@ -58,3 +58,6 @@ isinstance(s, str)
 # Sort vectors
 mean_force_sorted = sorted(mean_force)
 mean_STG_sorted = [x for _,x in sorted(zip(mean_force,mean_STG), key=lambda pair: pair[0])]
+
+# Print out old school
+print('\t-> Regre results: slope %5.4E / Intercept %5.4E' % (regre[0], regre[1]) )

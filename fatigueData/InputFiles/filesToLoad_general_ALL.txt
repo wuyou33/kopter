@@ -1,8 +1,49 @@
 -> Folders to load
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0223 - Vers.3 Rev.D\01_Data_set\02_STEPS\csv100
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0214 - Version 2 Rev.C\01_Data_set-complete\02_STEPS\csv100
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0115 Booster P3 Rev.A & B\1200-1031112-AE SN2\AE_csv_data
+L:\MSH-Project Management Files\Functional Engineering\Test Division\Test_Daten\J17-03-Bench Tests\P3-J17-03-BT0263 - PS4 Actuator\01_Data\02_STEPS\csv100
 P:\12_flightTestData\P3-all
 
 -> Test info
-test_freq: 2
+test freq: 5
+l1 : 83.3
+l2 : 83.0
+l3 : 106.0
+phi : 13.9
+segment__3-SN002-1.3 : 3339.2, 3341.8; 3342.5, 3351; 3354, 3360; 3366, 3371 ;3374, 3382; 3388.5, 3392 ;3392.5, 3394.75;3400, 3405; 3406, 3411.5; 3412.5, 3417
+segment__10-SN0012-1.3 : 10, 100; 200, 650; 775, 875
+segment__8-SN002-2.4 : 100, 4400
+segment__13-SN0012-2.4 : 100, 3000
+
+segment__15-Step-3.1-1 : 1, 25000
+segment__16-Step-3.1-2 : 20, 1300 
+segment__17-Step-3.1-3 : 2000, 23000 
+segment__18-Step-3.1-4 : 50, 1500 
+segment__27-Step-3.2-hot : 100, 2000 
+segment__28-Step-3.2-cold : 4000, 38000 
+segment__33-Step-3.1-40FH-cold-1 : 2000, 10000 
+segment__34-Step-3.1-40FH-cold-2 : 2000, 13000 
+segment__35-Step-3.1-40FH-hot : 50, 1300
+segment__36-Step-3.2-40FH-cold-1 : 500, 9500 
+segment__37-Step-3.2-40FH-cold-2 : 2000, 28000 
+segment__38-Step-3.2-40FH-hot : 100, 2000
+segment__39-Step-3.1-50FH-cold : 2000, 23000
+segment__40-Step-3.1-50FH-hot : 50, 1300
+segment__41-Step-3.2-50FH-cold-1 : 1000, 22000 
+segment__42-Step-3.2-50FH-cold-2 : 500, 18000 
+segment__43-Step-3.2-50FH-hot : 100, 2000
+segment__46-Step-3.2-60FH-hot : 100, 2100
+segment__47-Step-3.2-60FH-cold1 : 1000, 23000
+segment__48-Step-3.2-60FH-cold2 : 2000, 15000
+segment__53-Step-3.2-70FH-cold : 1000, 20000
+segment__54-Step-3.2-70FH-hot : 50, 1050
+segment__57-Step-3.2-80FH-cold : 1000, 24000
+segment__58-Step-3.2-80FH-hot : 50, 700
+segment__59-Step-3.1-90FH-cold : 8779.29, 8801.79
+segment__62-Step-3.2-90FH-hot : 50, 1000
+segment__68-Step-3.2-100FH_hot : 50, 1000
+
 corr_COL: 2.54
 corr_LNG: 9.76
 corr_LAT: 1.54
@@ -12,8 +53,128 @@ threshold_press_down: 5
 segment__118-FT12 : 2045, 2065; 2740, 2750; 3265, 3275; 2090, 2100; 2370, 2390; 2680, 2690
 segment__115-FT10 : 2234, 2242; 3220, 3230
 segment__113-FT08 : 2025, 2275; 2460, 2580; 2860, 3000
-segment__101-FT02 : 2290, 2300; 2334, 2341; 2504, 2510; 2625, 2629; 2802, 2808
+segment__101-FT02_dssdd : 2290, 2300; 2334, 2341; 2504, 2510; 2625, 2629; 2802, 2808
+segment__101-FT02 : 2802, 2808
 
+-> Variable info
+name: rs__Pres1
+y-label: Pressure [bar]
+TO spec: no
+max load: 1250
+min load: -1250
+Fatigue load spec: no
+static load: 0.0
+margin static load (%): 5
+alternate load: 1250
+margin alternate load (%): 3
+
+-> Variable info
+name: rs__Pres2
+y-label: Pressure [bar]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__VolFlow1
+y-label: Volume flow [l/min]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__VolFlow2
+y-label: Volume flow [l/min]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__ForceEye1
+y-label: Force [N]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__ForceEye2
+y-label: Force [N]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__ForceEyeCal1
+y-label: Force [N]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__ForceEyeCal2
+y-label: Force [N]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__forceFightingEyes(HP1-HP2)
+y-label: Force [N]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__forceSumEyes(HP1+HP2)
+y-label: Force [N]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__InputForce
+y-label: Force [N]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__PistonDispl
+y-label: Displ. [mm]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: di__PistonDispl
+y-label: Vel. [mm/s]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__ValveDispl
+y-label: Displ. [mm]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: di__ValveDispl
+y-label: Vel. [mm/s]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__OutputForce
+y-label: Force [N]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__Temp1
+y-label: Temp. [degC]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__Temp2
+y-label: Temp. [degC]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__Temp2_RTD
+y-label: Temp. [degC]
+TO spec: no
+Fatigue load spec: no
 
 -> Variable info
 name: rs__CNT_FRC_BST_COL
@@ -329,5 +490,17 @@ Fatigue load spec: no
 -> Variable info
 name: rs__VRU_DST_GPS_ALT
 y-label: Altitude [m]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__MRSH_ARR_RPM_CALC
+y-label: Angular velocity [rpm]
+TO spec: no
+Fatigue load spec: no
+
+-> Variable info
+name: rs__ESIS_ARI_ANG_PITCH
+y-label: Angle [deg]
 TO spec: no
 Fatigue load spec: no
