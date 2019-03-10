@@ -156,14 +156,11 @@
 	},
 	"expanded_folders":
 	[
-		"/P/kopter/knowledge",
-		"/P/kopter/knowledge/settings"
+		"/D/kopter/knowledge",
+		"/D/kopter/knowledge/sections"
 	],
 	"file_history":
 	[
-		"/C/Users/valverdea/Downloads/main.tex",
-		"/C/Users/valverdea/Downloads/doc_settings.tex",
-		"/P/kopter/knowledge/main.pdf",
 		"/D/ETH/code/latex/chapters/Results-model.tex",
 		"/D/kopter/SH09_s_id/knowledge/sections/TeoryOfHelicopters.tex",
 		"/D/kopter/SH09_s_id/knowledge/MyBib.bib",
@@ -364,10 +361,10 @@
 							"syntax": "Packages/LaTeXing/support/LaTeX.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 214.0,
+						"translation.y": 331.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -397,7 +394,7 @@
 						"translation.y": 1305.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -413,8 +410,8 @@
 						"selection":
 						[
 							[
-								459,
-								459
+								0,
+								0
 							]
 						],
 						"settings":
@@ -447,19 +444,18 @@
 						"selection":
 						[
 							[
-								2771,
-								2771
+								0,
+								0
 							]
 						],
 						"settings":
 						{
-							"spell_check": true,
 							"syntax": "Packages/LaTeXing/support/LaTeX.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 468.0,
+						"translation.y": 618.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -534,7 +530,7 @@
 		[
 			[
 				"",
-				"P:\\kopter\\kopterDevelopment.sublime-project"
+				"D:\\kopter\\kopterDevelopment.sublime-project"
 			]
 		],
 		"width": 380.0

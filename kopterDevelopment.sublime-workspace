@@ -690,13 +690,6 @@
 	},
 	"expanded_folders":
 	[
-		"/P/kopter",
-		"/P/kopter/codingKnowledge",
-		"/P/kopter/fatigueData",
-		"/P/kopter/fti",
-		"/P/kopter/other",
-		"/P/kopter/s_id",
-		"/P/kopter/SH09_s_id"
 	],
 	"file_history":
 	[
@@ -1215,7 +1208,7 @@
 						"translation.y": 1795.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
@@ -1432,7 +1425,7 @@
 						"translation.y": 6323.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				}
 			]
